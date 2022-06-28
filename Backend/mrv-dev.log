@@ -1,0 +1,3 @@
+{"message":"Profile found dev","level":"info"}
+{"message":"Connection string mongodb+srv://cluster0.f9vif.mongodb.net/mrv-test","level":"info"}
+{"message":"we are connected !","level":"info"}

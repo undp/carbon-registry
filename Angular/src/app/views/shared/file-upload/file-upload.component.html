@@ -1,0 +1,8 @@
+<div  class="pull-right d-inline file-upload-section" >
+    <input  #file name="file-input" type="file" (change)="handleFileInput($event.target.files)"/>
+    <button type="button"  class="btn btn-success" (click)="uploadFile($event.target.files)">Upload</button>
+    <button type="button " *ngIf="fileModel.filePath" class="btn btn-success" >
+        <a class="download"  [href]="getDownloadLink()" target="blank">Download</a>
+        </button>
+    <!-- <a class="btn btn-success" [ngClass]="{'download': fileModel._id}" [href]="getDownloadLink()" target="blank">Download</a> -->
+    </div>

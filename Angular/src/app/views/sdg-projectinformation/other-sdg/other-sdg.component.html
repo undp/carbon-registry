@@ -1,0 +1,108 @@
+<div class="card" >
+    <div class="card-header">
+        <strong> {{otherSdg.otherSdgType}}</strong>
+    </div>
+    
+    <div class="card-body" *ngIf="
+                                    otherSdg.otherSdgType =='Infrastructure, Innovation, Industry' ||
+                                    otherSdg.otherSdgType =='Environment' 
+
+                            ">
+        <mat-accordion class="example-headers-align" *ngIf="!isMonitoring"  multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Qualitative Impact
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <hr>
+                <mat-accordion class="example-headers-align" multi>
+                    <app-question [approvalScreen]="approvalScreen" *ngFor="let qualitative of otherSdg.qualitativeImpact;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'likelihood'"  [question]="qualitative"></app-question>
+                </mat-accordion>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Quantitative Impact
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-accordion class="example-headers-align" multi>
+
+                    <mat-expansion-panel *ngFor="let quantitative of otherSdg.quantitativeImpact2;">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{quantitative.label}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <hr>
+                        <app-question [approvalScreen]="approvalScreen" *ngFor="let question of quantitative.questions;"  [type]="'data'" [question]="question"></app-question>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <mat-accordion class="example-headers-align" *ngIf="isMonitoring"  multi>
+            
+            <mat-accordion class="example-headers-align" multi>
+
+                <mat-expansion-panel *ngFor="let quantitative of otherSdg.quantitativeImpact2;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{quantitative.label}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <hr>
+                    <app-question [approvalScreen]="approvalScreen" *ngFor="let question of quantitative.questions;"  [type]="'data'" [question]="question"></app-question>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </mat-accordion>
+    </div>
+
+    <!-- -->
+    <div class="card-body" *ngIf="
+                                    otherSdg.otherSdgType =='Employment' ||
+                                    otherSdg.otherSdgType =='Education and Learning' ||
+                                    otherSdg.otherSdgType =='Food Security and Hunger' ||
+                                    otherSdg.otherSdgType =='Water and Sanitation' ||
+                                    otherSdg.otherSdgType =='Health and Well Being' 
+
+                            ">
+        <mat-accordion class="example-headers-align" *ngIf="!isMonitoring" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Qualitative Impact
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <hr>
+                <mat-accordion class="example-headers-align" multi>
+                    <app-question [approvalScreen]="approvalScreen" *ngFor="let qualitative of otherSdg.qualitativeImpact;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'likelihood'"  [question]="qualitative"></app-question>
+                </mat-accordion>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Quantitative Impact
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-accordion class="example-headers-align" multi>
+                    <app-question [approvalScreen]="approvalScreen" *ngFor="let quantitative of otherSdg.quantitativeImpact;"  [type]="'data'"  [question]="quantitative"></app-question>
+                </mat-accordion>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <mat-accordion class="example-headers-align" *ngIf="isMonitoring" multi>
+            
+
+            <mat-accordion class="example-headers-align" multi>
+                <app-question [approvalScreen]="approvalScreen" *ngFor="let quantitative of otherSdg.quantitativeImpact;"  [type]="'data'"  [question]="quantitative"></app-question>
+            </mat-accordion>
+
+        </mat-accordion>
+    </div>
+</div>

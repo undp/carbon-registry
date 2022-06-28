@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.database-afolu-populations"}],"uuid":"b429869e2ce945cdaf211e5dbddbabf7"}

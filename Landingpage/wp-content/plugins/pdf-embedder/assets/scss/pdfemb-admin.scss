@@ -1,0 +1,239 @@
+.settings_page_pdfemb_list_options {
+	#wpcontent {
+		padding-left: 0 !important;
+	}
+	.nav-tab-wrapper {
+		border: none;
+		margin-top: -56px;
+		.nav-tab {
+			font-size: 16px;
+			border: none;
+			background: transparent;
+			padding: 10px 24px;
+			font-weight: 400;
+			margin-left: 20px;
+		}
+		.nav-tab-active {
+			background-color: #f0f0f1;
+			font-weight: 600;
+			border-top-left-radius: 6px;
+			border-top-right-radius: 6px;
+		}
+	}
+}
+
+#pdfemb-top-notification {
+	position: relative;
+	background-color: rgb(40, 40, 40);
+	text-align: center;
+	color: #fff;
+	height: 40px;
+	vertical-align: middle;
+	p {
+		margin: 0;
+		padding: 0;
+		line-height: 40px;
+		font-size: 16px;
+	}
+	.pdfemb-dismiss {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+	a {
+		color: rgb(4, 125, 255);
+		text-decoration: none;
+	}
+}
+
+#pdfemb-header {
+	background-color: rgb(230, 230, 230);
+	background-repeat: repeat;
+	height: 160px;
+	.pdfemb-logo {
+		display: flex;
+		margin-left: 20px;
+		align-items: center;
+		line-height: 120px;
+	}
+	h1 {
+		margin: 0;
+		margin-left: 10px;
+	}
+}
+
+.pdfembtab.active {
+	display: block;
+}
+
+.pdfembtab {
+	display: none;
+}
+#pdfemb_toolbar {
+	min-width: 85px;
+}
+label {
+	float: left;
+	margin-left: 6px;
+}
+
+input.textinput,
+textarea.textinput,
+select.select,
+input.checkbox {
+	float: left;
+	margin: 12px 3px 0 0;
+	padding: 5px;
+}
+
+textarea#pdfemb_wm_text {
+	width: 350px;
+	height: 150px;
+	border: 1px solid;
+}
+
+label.radio {
+	float: none;
+	margin-left: 6px;
+}
+
+select.select {
+	padding: 0 24px 0 8px; // match forms.css in WP core.
+}
+
+input.checkbox.double {
+	margin-top: 2px;
+}
+
+label.textinput,
+label.select,
+label.checkbox {
+	background-color: rgba(0, 0, 0, 0);
+	margin: 10px 0 5px;
+	width: 180px;
+	font-weight: bold;
+}
+
+label[for='input_pdfemb_height'],
+label[for='input_pdfemb_width'] {
+	margin-top: 20px;
+}
+
+label.checkbox.plain {
+	font-weight: normal;
+	width: 400px;
+}
+
+label.big {
+	font-size: 1.3em;
+	padding-top: 8px;
+}
+
+p.desc {
+	font-style: italic;
+	margin: 6px 0 10px;
+	padding: 0 0 8px 22px;
+}
+
+p.desc.big {
+	padding-left: 180px;
+}
+
+a#pdfemb-personalinstrlink {
+	color: #0074a2;
+	text-decoration: underline;
+}
+
+#pdfemb-tablewrapper {
+	display: table;
+	width: 100%;
+	padding: 30px;
+	box-sizing: border-box;
+}
+
+#pdfemb-tableleft {
+}
+
+#pdfemb-tableright {
+	padding: 0 0 0 40px;
+	width: 281px;
+}
+
+#pdfemb-tableright div {
+	width: 235px;
+	padding: 5px;
+	background-color: #e4e4e4;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#pdfemb-tableright div span {
+	padding: 5px;
+}
+
+#pdfemb-tableright div ul li {
+	font-weight: bold;
+}
+
+.pdfemb-tablecell {
+	display: table-cell;
+	height: 500px;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+
+.lionsher-partners-wrap {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 30px;
+	padding-top: 30px;
+}
+.lionsher-partners {
+	background-color: #f5f5f5;
+	margin-bottom: 30px;
+	border-radius: 6px;
+}
+.lionsher-partners-main {
+	display: flex;
+	flex-direction: row;
+	padding: 30px 30px 20px;
+	flex-grow: 1;
+	text-align: left;
+	height: 120px;
+	h3 {
+		padding-top: 0;
+		margin-top: 0;
+	}
+	img {
+		padding-right: 15px;
+	}
+}
+.lionsher-partners-footer {
+	display: flex;
+	text-align: left;
+	align-items: center;
+	vertical-align: middle;
+	padding: 20px;
+	border-top: 1px solid rgb(230, 230, 230);
+
+	.lionsher-partners-install-wrap {
+		margin-left: auto;
+	}
+	.spinner {
+		display: none;
+	}
+	.lionsher-partners-button {
+		font-size: 16px !important;
+		height: 40px !important;
+		line-height: 38px !important;
+		border-radius: 6px !important;
+	}
+}
+
+.lionsher-partner-status {
+	font-weight: bold;
+	span {
+		font-weight: normal;
+	}
+}

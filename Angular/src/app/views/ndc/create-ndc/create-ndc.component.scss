@@ -1,0 +1,66 @@
+.error-text {
+    color: red;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+table {
+    width: 100%;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
+
+.m-b-3 {
+    margin-bottom: 3% !important;
+}
+
+.add-place {
+    .mat-card-title {
+        display: inline-block;
+    }
+    .icons {
+        display: inline-block !important;
+        float: right;
+        margin-top: 0.5rem !important;
+    }
+}
+
+.place-list {
+    margin-top: 1rem;
+    .mat-form-field {
+        width: 100%;
+        .mat-hint {
+            width: 100%;
+            text-align: right;
+        }
+        .d-block {
+            display: inline-block !important;
+        }
+    }
+    .mat-hint {
+        width: 100%;
+        text-align: right;
+    }
+    .place-entry {
+        margin-bottom: 4%;
+    }
+}
+
+.error-text {
+    color: red;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.areaInfo {
+    display: contents;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.database-energy-emission-factors"}],"uuid":"024cee3b9a834c41920eca43042360f7"}

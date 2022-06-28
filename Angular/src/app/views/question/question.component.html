@@ -1,0 +1,84 @@
+    <!-- used for stackholder -->
+    <mat-expansion-panel *ngIf="question && question.label && question.label!='' && type=='strengths'"> 
+        <mat-expansion-panel-header >
+            <mat-panel-title>
+                {{question.label}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row" >
+            <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" disabled="true">
+                <mat-label>Strengths</mat-label>
+                <textarea [disabled]="approvalScreen" matInput placeholder="Strengths" [(ngModel)]="question.strengths"></textarea>
+            </mat-form-field>
+            <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" disabled="true">
+                <mat-label>Opportunities</mat-label>
+                <textarea [disabled]="approvalScreen" matInput placeholder="Opportunities" [(ngModel)]="question.opportunities"></textarea>
+            </mat-form-field>
+            <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" disabled="true">
+                <mat-label>Weakness</mat-label>
+                <textarea [disabled]="approvalScreen" matInput placeholder="Weakness" [(ngModel)]="question.weakness" ></textarea>
+            </mat-form-field>
+            <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" disabled="true">
+                <mat-label>Threats</mat-label>
+                <textarea [disabled]="approvalScreen" matInput placeholder="Threats" [(ngModel)]="question.threats" ></textarea>
+            </mat-form-field>
+        </div>
+
+    </mat-expansion-panel>
+
+
+    <div class="row" *ngIf="question.isQualitative && type=='likelihood'">
+        <div class="col-xs-12 col-md-12">{{question.question}} </div>
+        <div class="col-xs-6">
+            <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline">
+                <mat-label>Likelihood</mat-label>
+                <mat-select [disabled]="approvalScreen" [(ngModel)]="question.likelihood" (selectionChange)="likelihoodSelect($event.value)">
+                    <mat-option *ngFor="let likelihood of likelihoodArr;" [value]="likelihood">
+                        {{likelihood}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-6">
+            <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline">
+                <mat-label>Impact</mat-label>
+                <mat-select [disabled]="approvalScreen" [(ngModel)]="question.impact" (selectionChange)="impactSelect($event.value)">
+                    <mat-option *ngFor="let impact of impactArr;" [value]="impact">
+                        {{impact}}
+                    </mat-option>
+                    
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    
+
+    <div class="row" *ngIf="question.isQuantitative && type=='data'">
+        <div class="col-xs-12 col-md-12">{{question.question}} </div>
+        <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline" disabled="true">
+            <mat-label>Data</mat-label>
+            <input type="text" numbersOnly [disabled]="approvalScreen" matInput placeholder="Data" [(ngModel)]="question.data" />
+        </mat-form-field>
+        <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline" disabled="true">
+            <mat-label>DataSource</mat-label>
+            <input type="text"  [disabled]="approvalScreen" matInput placeholder="DataSource" [(ngModel)]="question.dataSource" />
+        </mat-form-field>
+    </div>
+    <div class="row" *ngIf="question.isQualitative && type=='YN'">
+        <div class="col-xs-8 col-md-8">{{question.question}} </div>
+        <div class="col-xs-3 col-md-3">
+            <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline">
+                <mat-label>Select</mat-label>
+                <mat-select   [disabled]="approvalScreen" [(ngModel)]="question.dataSource">
+                    <mat-option *ngFor="let yn of ynArr;" [value]="yn">
+                        {{yn}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <select class="yn" [disabled]="approvalScreen" [(ngModel)]="question.dataSource" >
+                <option *ngFor="let yn of ynArr;" [value]="yn">{{yn}}</option>
+            </select> -->
+        </div>
+    </div>
+

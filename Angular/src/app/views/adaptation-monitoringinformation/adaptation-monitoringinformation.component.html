@@ -1,0 +1,283 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <form class="row" [formGroup]="adaptationMIForm" style="width: 100%">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <!-- card header start -->
+                    <div class="card-header">
+                        <strong>ADAPTATION - MONITORING INFORMATION</strong>
+                    </div>
+                    <!-- card header end -->
+
+                    <!-- card body start -->
+                    <div class="card-body">
+                        <!-- form start -->
+                        <div class="row" *ngIf="!approvalScreen">
+
+
+                            <mat-form-field class="col-xs-12 col-md-6 col-sm-6" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                <mat-label>Project Id</mat-label>
+                                <mat-select [(ngModel)]="selectedProject" name="parentProject" [disabled]="approvalScreen" formControlName="parentProject" (selectionChange)="loadProject(true)">
+                                    <mat-option disabled>Select a Project</mat-option>
+                                    <mat-option *ngFor="let project of projects;" [value]="project">
+                                        {{project.projectId}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="adaptationMIForm.controls.parentProject.errors && adaptationMIForm.controls.parentProject.errors.required">ProjectId is Required</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-xs-12 col-md-6 col-sm-6" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                <mat-label>Year</mat-label>
+                                <mat-select [disabled]="approvalScreen" formControlName="monitoringYear" name="monitoringYear" (selectionChange)="loadProject()">
+                                    <mat-option [value]="">Select Year</mat-option>
+                                    <mat-option *ngFor="let monitoring of monitoringYearArr" [value]="monitoring">
+                                        {{monitoring}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="adaptationMIForm.controls.monitoringYear.errors && adaptationMIForm.controls.monitoringYear.errors.required">Year is Required</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row" *ngIf="approvalScreen">
+
+
+                            <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline"  [ngClass]="{'disabled' : approvalScreen}">
+                                <mat-label>Project Id</mat-label>
+                                <input matInput formControlName="parentProject">
+                            </mat-form-field>
+                            <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline"  [ngClass]="{'disabled' : approvalScreen}">
+                                <mat-label>Monitoring Year</mat-label>
+                                <input matInput formControlName="monitoringYear">
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-tab-group mat-stretch-tabs>
+
+                                <mat-tab label="Agriculture">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>AGRICULTURE</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+
+                                                <div class="card-body">
+                                                    <mat-accordion class="example-headers-align" multi>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Quantitative Impact
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <hr>
+                                                            <app-question [ynArr]="ynArr" [approvalScreen]="approvalScreen" *ngFor="let agriculture of agricultureArr;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'data'" [question]="agriculture" [ngClass]="{'disabled' : approvalScreen}" [isExistingData]="isExistingData"></app-question>
+                                                            <!-- <app-question [approvalScreen]="approvalScreen" *ngFor="let poverty of povertyReductionArr;" [type]="'data'" [question]="poverty"></app-question> -->
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                                <!-- --------------------------------------------------------------------------------------------------------------------------------------->
+
+
+                                <mat-tab label="Forestry">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>FORESTRY</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+
+                                                <div class="card-body">
+                                                    <mat-accordion class="example-headers-align" multi>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Quantitative Impact
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <hr>
+                                                            <app-question [ngClass]="{'disabled' : approvalScreen}" [ynArr]="ynArr" [approvalScreen]="approvalScreen" *ngFor="let forestry of forestryArr;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'data'" [question]="forestry" [isExistingData]="isExistingData"></app-question>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- ------------------------------------------------------------------------------------------------------------------------ -->
+                                <mat-tab label="Water">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>WATER</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+
+                                                <div class="card-body">
+                                                    <mat-accordion class="example-headers-align" multi>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Quantitative Impact
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <hr>
+                                                            <app-question [ngClass]="{'disabled' : approvalScreen}" [ynArr]="ynArr" [approvalScreen]="approvalScreen" *ngFor="let water of waterArr;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'data'" [question]="water" [isExistingData]="isExistingData"></app-question>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+
+                                <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                <mat-tab label="Energy">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>ENERGY</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+
+                                                <div class="card-body">
+                                                    <mat-accordion class="example-headers-align" multi>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Quantitative Impact
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <hr>
+                                                            <app-question [ngClass]="{'disabled' : approvalScreen}" [ynArr]="ynArr" [approvalScreen]="approvalScreen" *ngFor="let energy of energyArr;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'data'" [question]="energy" [isExistingData]="isExistingData"></app-question>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                                <mat-tab label="Health">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>HEALTH</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+
+                                                <div class="card-body">
+                                                    <mat-accordion class="example-headers-align" multi>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Quantitative Impact
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <hr>
+                                                            <app-question [ngClass]="{'disabled' : approvalScreen}" [ynArr]="ynArr" [approvalScreen]="approvalScreen" *ngFor="let health of healthArr;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'data'" [question]="health" [isExistingData]="isExistingData"></app-question>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                                <mat-tab label="Risk Management">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>RISK MANAGEMENT</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+
+                                                <div class="card-body">
+                                                    <mat-accordion class="example-headers-align" multi>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Quantitative Impact
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <hr>
+                                                            <app-question [ngClass]="{'disabled' : approvalScreen}" [ynArr]="ynArr" [approvalScreen]="approvalScreen" *ngFor="let risk of riskArr;" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr" [type]="'data'" [question]="risk" [isExistingData]="isExistingData"></app-question>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                    <!-- card body  end -->
+                </div>
+                <div class="card-footer">
+                    <div class="row" style="display: block;width: 100%;">
+                        <div class="col-xs-12">
+                            <mat-form-field style="width:100%" appearance="outline">
+                                <mat-label>Remarks*</mat-label>
+                                <textarea matInput placeholder="Remarks" name="remarks" [formControl]="remarksCtrl"  [readonly]='approvalScreen'></textarea>
+                                <mat-error *ngIf="adaptationMIForm.controls.remarks.errors && adaptationMIForm.controls.remarks.errors.required">Remarks is Required</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-xs-6" *ngIf="approvalScreen">
+                            <mat-form-field style="width:100%" appearance="outline">
+                                <mat-label>Approvers Comment*</mat-label>
+                                <textarea name="approverComment" formControlName="approverComment" matInput placeholder="Approvers Comment" class="filter-input"> </textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <button type="button" *ngIf="!approvalScreen" class="btn btn-success" (click)="submit()">Submit</button>
+                            <button type="button" *ngIf="approvalScreen" class="btn btn-success" (click)="updateDataStatus( 'approved')">Approve</button>
+                            <button type="button" *ngIf="approvalScreen" class="btn btn-danger" (click)="updateDataStatus( 'rejected')">Reject</button>
+                        </div>
+                        <!-- footer-> row -->
+                    </div>
+                    <!-- card-footer -->
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<button mat-button [matMenuTriggerFor]="menu" class="btn btn-info" (click)="onMenuShow()" style="color: white;"
+(menuClosed)="onMenuClosed()">View
+    access</button>
+<mat-menu #menu="matMenu">
+    <div class="screen-access-popup" (click)="$event.stopPropagation();">
+        <div style="padding: 10px;">
+            {{ params.data.firstName + ' ' + (params.data.lastName ? params.data.lastName : '') }}
+        </div>
+        <br>
+        <app-screen-access #screenAccess></app-screen-access>
+    </div>
+</mat-menu>

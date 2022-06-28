@@ -1,0 +1,16 @@
+.table-bordered th, .table-bordered td{
+    border: none;
+
+}
+.table-bordered thead tr{
+    color: rgba(0,0,0,.54);
+    background: #f1f1f1;
+    font-weight: 400;
+}
+.table-bordered tr{
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+.row-title{
+    font-weight: 600;
+    background: rgb(93 92 187 / 12%);
+}

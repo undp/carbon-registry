@@ -1,0 +1,20 @@
+.mat-tab-body-content{
+    overflow: hidden;
+}
+.mat-header-cell{
+    margin-right: 10px;
+}
+.project-details{
+    mat-cell:first-of-type, mat-footer-cell:first-of-type, mat-header-cell:first-of-type{
+        padding-right: 20px;
+        max-width: 90px;
+    }
+}
+.adaptation-details{
+    mat-cell:first-of-type, mat-footer-cell:first-of-type, mat-header-cell:first-of-type{
+        padding-right: 20px;
+    }
+}
+.mat-cell, .mat-footer-cell{
+    font-size: smaller;
+}

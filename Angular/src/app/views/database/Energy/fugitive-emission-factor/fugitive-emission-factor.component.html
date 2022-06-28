@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Emission Factor Fugitive Emissions</strong>
+        </div>
+        <div class="card-body">
+          <mat-tab-group mat-stretch-tabs>
+            <mat-tab label="Fugitive Emission Factors-Oil" *ngIf="fugitiveOilList.length">
+                <app-fugitive-emission-table [tableData]="fugitiveOilList"></app-fugitive-emission-table>
+            </mat-tab>
+            <mat-tab label="Fugitive Emission Factors-Natural Gas" *ngIf="fugitiveGasList.length"> 
+                <app-fugitive-emission-table [tableData]="fugitiveGasList"></app-fugitive-emission-table>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+        <div class="col-xs-6 ml-3 mb-3">
+          <button type="button" class="btn btn-success" (click)="save()">Submit</button>
+          <!-- <button type="button" *ngIf="approvalScreen" class="btn btn-success" (click)="updateDataStaus('approved')">Approve</button>
+          <button type="button" *ngIf="approvalScreen" class="btn btn-danger" (click)="updateDataStaus('rejected')">Reject</button> -->
+      </div>
+      </div>
+    </div>
+  </div>
+  

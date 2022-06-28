@@ -1,0 +1,34 @@
+
+<!-- <div class="row">
+    <strong>Fugitive Emissions-Oil</strong>
+</div> -->
+<div class="row">
+    
+    <mat-table table-border #table [dataSource]="tableRows" matSort>
+        <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+            <mat-header-cell class="row" *matHeaderCellDef>
+                <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                </mat-label>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-form-field appearance="outline" *ngIf="column.type=='input'">
+                    <mat-label>{{column.value}}</mat-label>
+                    <input matInput  [(value)]="element[column.id]"  [(ngModel)]="element[column.id]">
+                </mat-form-field>
+                <mat-label *ngIf="column.type == 'label'">{{element[column.id]}}</mat-label>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <div class="row" w-100>
+        <div class="col-xs-12 col-md-6">
+
+        </div>
+        <div class="col-xs-12 col-md-6 " style="text-align: right; ">
+            <mat-paginator [pageSizeOptions]="[5, 10, 15] "></mat-paginator>
+        </div>
+    </div>
+</div>
+
+

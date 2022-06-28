@@ -1,0 +1,8 @@
+mat-table.mat-table {
+    width: 100%;
+}
+mat-cell, .mat-header-cell {
+    mat-form-field {
+        max-width: 100px !important;
+    }
+}

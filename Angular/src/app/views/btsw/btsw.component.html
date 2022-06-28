@@ -1,0 +1,114 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>GHG INVENTORY - BIOLOGICAL TREATMENT OF SOLID WASTE</strong>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="formGroup">
+              <div class="row m-b-3">
+                <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline">
+                  <mat-label>Inventory Year</mat-label>
+                  <mat-select formControlName="inventoryYear" [disabled]="approvalScreen" (selectionChange)="loadActivityData('inventoryYear',formGroup.controls['inventoryYear'].value)">
+                    <mat-option>Select year</mat-option>
+                    <mat-option *ngFor="let x of yearList" [value]="x">
+                      {{x}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="formGroup.controls.inventoryYear.errors && formGroup.controls.inventoryYear.errors.required">Inventory Year is required</mat-error>
+                </mat-form-field>
+                
+               
+                <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline">
+                  <mat-label>Sector</mat-label>
+                  <mat-select formControlName="sector" [disabled]="approvalScreen">
+                    <mat-option>Select sector</mat-option>
+                    <mat-option *ngFor="let sector of sectorArr" [value]="sector">
+                      {{sector}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formGroup.controls.sector.errors && formGroup.controls.sector.errors.required">Sector is required</mat-error>
+                  
+                </mat-form-field>
+                <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline">
+                  <mat-label>Sub Sector</mat-label>
+                  <mat-select formControlName="subSector" [disabled]="approvalScreen">
+                    <mat-option>Select Sub Sector</mat-option>
+                    <mat-option *ngFor="let subSector of subSectorArr" [value]="subSector">
+                      {{subSector}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formGroup.controls.subSector.errors && formGroup.controls.subSector.errors.required">Sub Sector is required</mat-error>
+                  
+                </mat-form-field>
+  
+                <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category" [disabled]="approvalScreen">
+                      <mat-option>Select Category</mat-option>
+                      <mat-option *ngFor="let category of categoryArr" [value]="category">
+                        {{category}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formGroup.controls.category.errors && formGroup.controls.category.errors.required">Category is required</mat-error>
+                   
+                  </mat-form-field>
+                 
+  
+                <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline" disabled="true">
+                  <mat-label>Calculation Approach</mat-label>
+                  <mat-select formControlName="calculationApproach" [disabled]="approvalScreen" [disabled]="approvalScreen">
+                    <mat-option>Select calculationApproach</mat-option>
+                    <mat-option value="Tier I">
+                        Tier I
+                    </mat-option>
+                    <mat-option value="Tier II">
+                        Tier II
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formGroup.controls.calculationApproach.errors && formGroup.controls.calculationApproach.errors.required">Calculation Approach is required</mat-error>
+                  
+                </mat-form-field>
+                
+              </div>
+              
+            </form>
+            <div class="container m-b-3">
+              <app-data-table [dataTableTitle]="dataTableTitle" [approvalScreen]="approvalScreen" [columnNameConfig]="columnNameConfig" [dataList]="wasteData" [newRec]="newRec"></app-data-table>
+          </div>
+            <div class="row" style="display: block;width: 100%;">
+              <div class="col-xs-12">
+                  <mat-form-field style="width:100%" appearance="outline">
+                      <mat-label>Remarks*</mat-label>
+                      <textarea matInput placeholder="Remarks" [formControl]="remarksCtrl"  [readonly]='approvalScreen'></textarea>
+                      <mat-error *ngIf="formGroup.controls.remark.errors && formGroup.controls.remark.errors.required">Remark is required</mat-error>
+                  </mat-form-field>
+              </div>
+          </div>
+            
+          </div>
+          <div class="card-footer">
+            <div class="row" style="display: block;width: 100%;">
+  
+                <div class="col-xs-6" *ngIf="approvalScreen">
+                    <mat-form-field style="width:100%" appearance="outline">
+                        <mat-label>Approvers Comment*</mat-label>
+                        <textarea matInput placeholder="Approvers Comment" [formControl]="approverCommentCtrl" class="filter-input"> </textarea>
+                    </mat-form-field>
+                </div>
+  
+                <div class="col-xs-6">
+                    <button type="button" *ngIf="!approvalScreen" (click)="save()" class="btn btn-success">Submit</button>
+                    <button type="button" *ngIf="approvalScreen" class="btn btn-success" (click)="updateDataStaus('approved')">Approve</button>
+                    <button type="button" *ngIf="approvalScreen" class="btn btn-danger" (click)="updateDataStaus('rejected')">Reject</button>
+                </div>
+                <!-- footer-> row -->
+            </div>
+            <!-- card-footer -->
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

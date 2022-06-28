@@ -1,0 +1,53 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- card header start -->
+                <div class="card-header">
+                    <strong>EMISSION FACTOR IPPU</strong>
+                </div>
+                <!-- card body start -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 col-sm-12">
+                            <mat-table w-100 table-border #table [dataSource]="tableRows" matSort>
+                                <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                    <mat-header-cell class="row" *matHeaderCellDef>
+                                        <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value
+                                            | uppercase}}
+                                        </mat-label>
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <mat-form-field appearance="outline">
+                                            <input matInput placeholder={{column.value}} [(value)]="element[column.id]"
+                                                [(ngModel)]="element[column.id]"
+                                                [disabled]="column.id === 'subSector' || column.id === 'unit'">
+                                        </mat-form-field>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                        <div class="row" w-100>
+                            <div class="col-xs-12 col-md-6">
+
+                            </div>
+                            <div class="col-xs-12 col-md-6 " style="text-align: right; ">
+                                <mat-paginator [pageSizeOptions]="[5, 10, 15] "></mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row" style="display: block;width: 100%;">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-success"
+                                (click)="saveIPPUEmissionFactor()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

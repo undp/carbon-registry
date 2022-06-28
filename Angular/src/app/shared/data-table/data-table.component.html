@@ -1,0 +1,68 @@
+<div w-100 class="card dataTableCard">
+    <div class="card-header">
+        <strong>{{dataTableTitle}}</strong>
+        <button mat-flat-button style="float: right;"  (click)="addNewDisbursementYearRow()" *ngIf="!approvalScreen && showAddNew">
+            <i class="material-icons">add_box</i> Add New
+        </button>
+    </div>
+    <div class="card-body">
+        <mat-table w-100 table-border #table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="select">
+                <mat-header-cell class="row" *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggleDisbursementYear() : null" [checked]="selectedData.hasValue() && isAllSelectedDisbursementYear()" [indeterminate]="selectedData.hasValue() && !isAllSelectedDisbursementYear()" [aria-label]="checkboxLabelDisbursementYear()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectedData.toggle(element) : null" [checked]="selectedData.isSelected(element)" [aria-label]="checkboxLabelDisbursementYear(element)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNameConfig">
+                <mat-header-cell class="row" *matHeaderCellDef>
+                    <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                    </mat-label>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field  appearance="outline" *ngIf="column.type == 'select'">
+                        <mat-select [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                          <mat-option *ngFor="let val of column.values;" [value]="val">
+                            {{val}}
+                          </mat-option>
+                        </mat-select>
+                        
+                      </mat-form-field>
+
+                    <mat-form-field appearance="outline" *ngIf="column.type != 'select'">
+                        <!-- <mat-label>{{column.value}}</mat-label> -->
+
+                        <input  [type]="column.type" matInput [placeholder]="column.placeHolder" [disabled]="column.readonly || approvalScreen" [(ngModel)]="element[column.id]" >
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="actions" >
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell class="row" *matCellDef="let element; let i=index;">
+                    <!-- <mat-icon style="color: #21d521;">save</mat-icon> -->
+                    <mat-icon *ngIf="!approvalScreen" (click)="removeIndividuallyFromList(i)">delete</mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <div class="row m-t-5" *ngIf="showDelete && dataSource && dataSource.length" >
+            <div class="col-xs-12 col-md-6" *ngIf="!approvalScreen">
+                <button mat-raised-button color="accent" (click)="removeSelected()">
+                    <mat-icon style="color: #ffffff;" >delete</mat-icon> Delete Selected
+                </button>
+            </div>
+            <div class="col-xs-12 col-md-6" style="text-align: right;">
+                <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+            </div>
+        </div>
+        <!-- first card body ends -->
+    </div>
+</div>
+<!-- row ends -->

@@ -1,0 +1,20 @@
+<mat-accordion class="m-b-20 example-headers-align col-xs-12 col-md-12 col-sm-12" multi>
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{totalChatData.label}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+                <canvas baseChart 
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [colors]="barChartColors"
+                [chartType]="barChartType">
+              </canvas>
+        </mat-panel-description>
+    </mat-expansion-panel>
+</mat-accordion>

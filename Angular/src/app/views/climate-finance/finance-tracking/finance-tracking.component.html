@@ -1,0 +1,93 @@
+<div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- card header start -->
+                    <div class="card-header">
+                        <strong>CLIMATE FINANCE TRACKING REPORT</strong>
+                    </div>
+                    <!-- card header end -->
+                    <!-- card body start -->
+                    <div class="card-body row">
+                        <!-- form start -->
+                        <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline">
+                            <mat-label>Select Year</mat-label>
+                            <mat-select name="reportYear" [(ngModel)]="selectedYear">
+                                <mat-option *ngFor="let year of allYearList" [value]="year" >{{year}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="col-xs-4 col-md-4 col-sm-4 padding-small" appearance="outline">
+                            <button  mat-raised-button color="primary" (click)="loadData()">Get Report</button>
+                        </div>
+                        <!-- form end -->
+                        <!-- for graph view section -->
+                        <mat-accordion class="m-b-20 example-headers-align col-xs-12 col-md-12 col-sm-12" multi>
+                            <mat-expansion-panel [expanded]="tableRows.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                            Finance Graph
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-panel-description>
+                                        <canvas baseChart 
+                                        [datasets]="barChartData"
+                                        [labels]="barChartLabels"
+                                        [options]="barChartOptions"
+                                        [plugins]="barChartPlugins"
+                                        [legend]="barChartLegend"
+                                        [colors]="barChartColors"
+                                        [chartType]="barChartType">
+                                      </canvas>
+                                </mat-panel-description>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <!-- for table view section -->
+                        <mat-accordion class="m-b-20 example-headers-align col-xs-12 col-md-12 col-sm-12" multi>
+                            <mat-expansion-panel [expanded]="tableRows.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Climate Finance Report
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-panel-description>
+                                    <!-- <div class="row">
+                                        <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline">
+                                            <mat-label>Filter:</mat-label>
+                                            <input matInput placeholder="Type to Filter..." name="filter">
+                                        </mat-form-field>
+                                        <div class="col-xs-4 col-md-4 col-sm-4 padding-small" appearance="outline">
+                                            <button  mat-raised-button color="primary">Get Report</button>
+                                        </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <mat-table table-border #table [dataSource]="tableRows" matSort w-100>
+                                            <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                                <mat-header-cell class="row" *matHeaderCellDef>
+                                                    <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                                    </mat-label>
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let element">
+                                                    <mat-label>{{element[column.id]| trimDecimal}}</mat-label>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                        </mat-table>
+                                        <div class="row" w-100>
+                                            <div class="col-xs-12 col-md-6">
+                            
+                                            </div>
+                                            <div class="col-xs-12 col-md-6 " style="text-align: right; ">
+                                                <mat-paginator [pageSizeOptions]="[5, 10, 15] "></mat-paginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-panel-description>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                    <!-- card body  end -->
+                </div>
+            </div>
+        </div>
+    </div>

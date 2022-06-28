@@ -1,0 +1,62 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- card header start -->
+                <div class="card-header">
+                    <strong>GHG Inventory Report </strong>
+                </div>
+                <!-- card header end -->
+
+                <!-- card body start -->
+                <div class="card-body">
+                    <!-- form start -->
+                    <form class="row" [formGroup]="reportByGasFormGrp">
+                        <!-- inventry year -->
+                        <mat-form-field class="col-xs-12 col-md-3 col-sm-3" appearance="outline">
+                            <mat-label>From Inventory Year</mat-label>
+                            <mat-select formControlName="fromInventoryYear" (selectionChange)="updateEndYear()">
+                                <mat-option *ngFor="let x of yearList" [value]="x">
+                                    {{x}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint class="error-snackbar" *ngIf="false">This field is required
+                            </mat-hint>
+                        </mat-form-field>
+                        <mat-form-field class="col-xs-12 col-md-3 col-sm-3" appearance="outline">
+                            <mat-label>To Inventory Year</mat-label>
+                            <mat-select formControlName="toInventoryYear">
+                                <mat-option *ngFor="let x of endYearList" [value]="x">
+                                    {{x}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint class="error-snackbar" *ngIf="false">This field is required
+                            </mat-hint>
+                        </mat-form-field>
+                        <!-- unit -->
+                        <mat-form-field class="col-xs-12 col-md-3 col-sm-3" appearance="outline">
+                            <mat-label>Select Inventory Unit</mat-label>
+                            <mat-select formControlName="inventoryUnit">
+                                <mat-option *ngFor="let x of inventoryUnitArr" [value]="x">
+                                    {{x}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint class="error-snackbar" *ngIf="false">This field is required
+                            </mat-hint>
+                        </mat-form-field>
+                        <div class="col-xs-12 col-md-3 col-sm-3 padding-small" appearance="outline">
+                            <button  mat-raised-button color="primary" [disabled]="reportByGasFormGrp.status == 'INVALID'" (click)="getReports()">Get Report</button>
+                        </div>
+                        <app-year-wise-chart w-100 *ngIf="isDataAvailable" [tabName]="tab" [totalChatData]="ghgReportWrapperModel" [chartLevel]="chartLevel" [unit]='unit'></app-year-wise-chart>
+                        <app-ghg-table w-100 *ngIf="isDataAvailable" [tabName]="tab" [reportDetailsMap]="ghgReportWrapperModel" [columnNames]='columnNames' [unit]='unit'></app-ghg-table>
+                    </form>
+                    <!-- card-body -->
+                </div>
+                <!-- card -->
+            </div>
+            <!-- col-12 -->
+        </div>
+        <!-- row -->
+    </div>
+    <!-- animated fadeIn -->
+</div>

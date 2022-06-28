@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 ">
+        <div class="card">
+            <div class="card-header">
+                <strong>GHG Report</strong>
+                <button type="button "  class="btn btn-success pull-right" >
+                    <a class="download"  [href]="getTemplateLink()" target="blank">Template Download</a>
+                    </button>
+            </div>
+            <div class="card-body">
+                <!-- <app-file-upload [menuId]="menu.menuId" [fieldName]="'ghgReport'" (fileUploadedEmit)="fileUploaded($event)"></app-file-upload> -->
+                <form [formGroup]="ghgFileUploadForm" *ngIf="menu">
+                    <mat-card *ngIf="menu" class="calc">
+                        <strong>Ghg Report Input</strong>
+                        <mat-form-field class="col-xs-6 col-md-4 col-sm-4" appearance="outline">
+                            <mat-label>Inventory Year</mat-label>
+                            <mat-select name="inventoryYear" formControlName="inventoryYear" (selectionChange)="loadGHGReportData()">
+                                <mat-option>Select year</mat-option>
+                                    <mat-option *ngFor="let x of yearList" [value]="x">
+                                        {{x}}
+                                    </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <app-file-upload (fileUploadedEmit)="fileUploaded($event)" [menuId]="menu.menuId" [fieldName]="'fileCalculation'" [inventoryYear]="inventoryYear"></app-file-upload>
+                    </mat-card>
+                    <!-- <mat-card>
+                        <mat-table table-border #table [dataSource]="tableRows" matSort w-100>
+                            <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                <mat-header-cell class="row" *matHeaderCellDef>
+                                    <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                    </mat-label>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <mat-label>{{element[column.id]| trimDecimal}}</mat-label>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </mat-card> -->
+                </form>
+            </div>
+        </div>
+        <div class="card" *ngIf="ghgReportWrapperModel && ghgReportWrapperModel.data">
+            <div class="card-body">
+                 <app-ghg-report-data [tabName]="tab" [reportDetailsMap]="ghgReportWrapperModel.data"></app-ghg-report-data>
+            </div>
+        </div>
+    </div>
+</div>

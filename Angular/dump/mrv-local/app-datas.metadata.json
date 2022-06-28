@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.app-datas"}],"uuid":"3db41fdc7c6d4278be2e484d8db7eb58"}

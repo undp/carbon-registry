@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.ghg-datas"}],"uuid":"aa63551bd9d643c4995d5c30d56ee630"}

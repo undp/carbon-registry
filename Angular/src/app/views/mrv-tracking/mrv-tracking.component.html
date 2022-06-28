@@ -1,0 +1,125 @@
+<div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- card header start -->
+                    <div class="card-header">
+                        <strong>MRV Report</strong>
+                    </div>
+                    <!-- card header end -->
+                    <!-- card body start -->
+                    <div class="card-body row">
+                        <!-- form start -->
+                        <mat-form-field class="col-xs-6 col-md-6 col-sm-6" appearance="outline">
+                            <mat-label>Project</mat-label>
+                            <mat-select name="project" formControlName="parentProject" (selectionChange)="onProjectSelect($event.value)">
+                                <mat-option *ngFor="let project of projectList;" [value]="project">
+                                    {{project.projectId}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="col-xs-4 col-md-4 col-sm-4 padding-small" appearance="outline">
+                            <button  mat-raised-button color="primary" (click)="getReport()">Get Report</button>
+                        </div>
+                        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                            <mat-tab-group mat-stretch-tabs>
+                                <!-- Project Details Tab -->
+                                <mat-tab label="Project Detils">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <strong>Project Details</strong>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+                                                            <mat-table class="project-details" table-border #table [dataSource]="projectDetails" matSort>
+                                                                <ng-container matColumnDef="{{column.id}}" *ngFor="let column of projectDetailsColumnNames">
+                                                                    <mat-header-cell class="row" *matHeaderCellDef>
+                                                                        <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                                                        </mat-label>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let element">
+                                                                        <mat-label>{{element[column.id]}}</mat-label>
+                                                                    </mat-cell>
+                                                                </ng-container>
+                                                                <mat-header-row *matHeaderRowDef="projectDetailsColumn"></mat-header-row>
+                                                                <mat-row *matRowDef="let row; columns: projectDetailsColumn;"></mat-row>
+                                                            </mat-table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- Mitigation Summary Tab -->
+                                <mat-tab label="Mitigation Summary">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <strong>MITIGATION PERFORMANCE</strong>
+                                                </div>
+                                                <div class="card-body" *ngIf="mrvDetails">
+                                                    <app-mitigation-report [mrvData]="mrvDetails"></app-mitigation-report>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- Adaptation Summary Tab -->
+                                <mat-tab label="Adaptation Summary">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <strong>ADAPTATION PERFORMANCE</strong>
+                                                </div>
+                                                <div class="card-body" *ngIf="mrvDetails">
+                                                    <app-adaptation-report [mrvData]="mrvDetails"></app-adaptation-report>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- Finance Summary Tab -->
+                                <mat-tab label="Finance Summary">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <strong>CLIMATE FINANCE SUMMARY</strong>
+                                                </div>
+                                                <div class="card-body" *ngIf="mrvDetails">
+                                                    <app-finance-report [mrvData]="mrvDetails"></app-finance-report>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- Sdg Summary Tab -->
+                                <mat-tab label="SDG Summary">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <strong>SDG PERFORMANCE</strong>
+                                                </div>
+                                                <div class="card-body" *ngIf="mrvDetails">
+                                                    <app-sdg-report [mrvData]="mrvDetails"></app-sdg-report>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                        <!-- form end -->
+                    </div>
+                    <!-- card body  end -->
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,248 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <!-- card header start -->
+                <div class="card-header">
+                    <strong>GHG INVENTORY - Other Lands</strong>
+                    <app-file-upload [menuId]="formGroup.controls.menuId.value"></app-file-upload>
+                </div>
+                <!-- card header end -->
+
+                <!-- card body start -->
+                <div class="card-body">
+                    <!-- form start -->
+                    <form class="row" [formGroup]="formGroup">
+                        <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline">
+                            <mat-label>Inventory Year</mat-label>
+                            <mat-select formControlName="inventoryYear" [disabled]="approvalScreen"  (selectionChange)="loadActivityData('inventoryYear',formGroup.controls['inventoryYear'].value)">
+                                <mat-option>Select year</mat-option>
+                                <mat-option *ngFor="let x of yearList" [value]="x">
+                                    {{x}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.inventoryYear.errors && formGroup.controls.inventoryYear.errors.required">Inventory Year is required</mat-error>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="col-xs-4 col-md-4 col-sm-4" appearance="outline">
+                            <mat-label>Sector</mat-label>
+                            <mat-select formControlName="sector" [disabled]="approvalScreen" >
+                                <mat-option *ngFor="let sector of sectorArr" [value]="sector">
+                                    {{sector}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.sector.errors && formGroup.controls.sector.errors.required">Sector is required</mat-error>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="col-xs-6 col-md-4 col-sm-4" appearance="outline">
+                            <mat-label>Sub Sector</mat-label>
+                            <mat-select formControlName="subSector" [disabled]="approvalScreen" >
+                                <mat-option *ngFor="let subSector of subSectorArr" [value]="subSector">
+                                    {{subSector}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.subSector.errors && formGroup.controls.subSector.errors.required">Sub Sector is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-xs-4 col-md-6 col-sm-6" appearance="outline">
+                            <mat-label>Category</mat-label>
+                            <mat-select formControlName="category" [disabled]="approvalScreen" >
+                                <mat-option *ngFor="let category of categoryArr" [value]="category">
+                                    {{category}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.category.errors && formGroup.controls.category.errors.required">Category is required</mat-error>
+                        </mat-form-field>
+
+                        <!-- calculation approach -->
+                        <mat-form-field class="col-xs-12 col-md-4 col-sm-4" appearance="outline" disabled="true">
+                            <mat-label>Calculation Approach</mat-label>
+                            <mat-select formControlName="calculationApproach" [disabled]="approvalScreen" >
+                                <mat-option>Select calculationApproach</mat-option>
+                                <mat-option value="Tier I">
+                                    Tier I
+                                </mat-option>
+                                <mat-option value="Tier II">
+                                    Tier II
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.calculationApproach.errors && formGroup.controls.calculationApproach.errors.required">Calculation Approach is required</mat-error>
+                        </mat-form-field>
+                    </form>
+
+                    <div class="row" *ngIf="formGroup.controls['inventoryYear'].value">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Other Lands Data</strong>
+                            </div>
+                            <div class="card-body">
+                                <mat-table table-border #table [dataSource]="dataSource" matSort>
+                                    <ng-container matColumnDef="select">
+                                        <mat-header-cell class="row" *matHeaderCellDef>
+                                            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                                            </mat-checkbox>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null" [checked]="selection.isSelected(element)" [aria-label]="checkboxLabel(element)">
+                                            </mat-checkbox>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                        <mat-header-cell class="row" *matHeaderCellDef>
+                                            <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                            </mat-label>
+                                            <!-- <mat-form-field appearance="outline" class="col-xs-12 col-md-12 col-sm-12">
+                                                <mat-label>Filter</mat-label>
+                                                <input class="filter-input" matInput [formControl]="column.formControl" placeholder="Filter {{column.value}}" />
+                                            </mat-form-field> -->
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>{{column.value}}</mat-label>
+                                                <input matInput [disabled]="approvalScreen"  placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="column.id === 'forestCategory'">
+
+                                            </mat-form-field>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container cdkColumnDef="actions">
+                                        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                                        <mat-cell class="row" *matCellDef="let element; let i=index;">
+                                            <!-- <mat-icon style="color: #21d521;">save</mat-icon> -->
+                                            <!-- <mat-icon *ngIf="!approvalScreen" style="color: #ff1a1a;" (click)="removeIndividuallyFromList('exist', i)">delete</mat-icon> -->
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                </mat-table>
+                                <div class="row m-t-5">
+                                    <!-- <div class="col-xs-12 col-md-6" *ngIf="!approvalScreen">
+                                <button mat-raised-button color="accent" (click)="removeSelected('exist')">
+                          <mat-icon style="color: #ffffff;">delete</mat-icon> Delete Selected
+                        </button>
+                            </div> -->
+                                    <div class="col-xs-12 col-md-6" style="text-align: right;">
+                                        <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+                                    </div>
+                                </div>
+                                <!-- first card body ends -->
+                            </div>
+                            <!-- newly added rows -->
+
+
+                            <div class="card-body" *ngIf="false">
+                                <div class="card-header " style="width: fit-content; " *ngIf="!approvalScreen ">
+                                    <!-- <strong>Newly Added</strong> -->
+                                    <button mat-flat-button (click)="addNewRow() ">
+                      <i class="material-icons ">add_box</i> Add New
+                    </button>
+                                </div>
+                                <mat-table table-border #table [dataSource]="newDataSource ">
+
+                                    <ng-container matColumnDef="select ">
+                                        <mat-cell *matCellDef="let element ">
+                                            <mat-checkbox (click)="$event.stopPropagation() " (change)="$event ? newSelection.toggle(element) : null " [checked]="newSelection.isSelected(element) " [aria-label]="checkboxLabelNew(element) ">
+                                            </mat-checkbox>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Lime type -->
+                                    <ng-container matColumnDef="forestCategory ">
+                                        <mat-cell *matCellDef="let element ">
+                                            <mat-form-field appearance="outline ">
+                                                <mat-label>Forest Category</mat-label>
+                                                <input matInput [disabled]="approvalScreen"  type="text " placeholder="Forest Category " [(ngModel)]="element.forestCategory" disabled>
+                                            </mat-form-field>
+                                        </mat-cell>
+                                    </ng-container>
+
+
+                                    <ng-container matColumnDef="heads ">
+                                        <mat-cell *matCellDef="let element ">
+                                            <mat-form-field appearance="outline ">
+                                                <mat-label>Heads</mat-label>
+                                                <input matInput [disabled]="approvalScreen"  numbersOnly type="number " placeholder="Heads " [(ngModel)]="element.heads ">
+                                            </mat-form-field>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="ghgEmissions ">
+                                        <mat-cell *matCellDef="let element ">
+                                            <mat-form-field appearance="outline ">
+                                                <mat-label>GHG Emissions (tCO2e)</mat-label>
+                                                <input matInput [disabled]="approvalScreen"  numbersOnly type="number " placeholder="GHG Emissions (tCO2e)" [(ngModel)]="element.ghgEmissions">
+                                            </mat-form-field>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="reference ">
+                                        <mat-cell *matCellDef="let element ">
+                                            <mat-form-field appearance="outline ">
+                                                <mat-label>Reference</mat-label>
+                                                <input matInput type="number " [disabled]="approvalScreen"  placeholder="Reference" [(ngModel)]="element.reference">
+                                            </mat-form-field>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container cdkColumnDef="actions ">
+                                        <mat-cell class="row " *matCellDef="let element; let i=index ">
+                                            <!-- <mat-icon style="color: #21d521; ">save</mat-icon> -->
+                                            <mat-icon (click)="removeIndividuallyFromList( 'new', i) ">delete</mat-icon>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                                </mat-table>
+                                <div class="row m-t-5 " *ngIf="newlyAddedList.length> 0">
+                                    <div class="col-xs-12 col-md-6">
+                                        <button mat-raised-button color="accent" (click)="removeSelected('new')">
+                          <mat-icon style="color: #ffffff;">delete</mat-icon> Delete Selected
+                        </button>
+                                    </div>
+                                </div>
+                                <!--second card body -->
+                            </div>
+                            <!-- inner card ends -->
+                        </div>
+                        <!-- row ends -->
+                    </div>
+                    <!-- row starts -->
+                    <div class="row" style="display: block;width: 100%;">
+                        <div class="col-xs-12">
+                            <mat-form-field style="width:100%" appearance="outline">
+                                <mat-label>Remarks*</mat-label>
+                                <textarea matInput placeholder="Remarks" [formControl]="remarksCtrl"  [readonly]='approvalScreen'></textarea>
+                                <mat-error *ngIf="formGroup.controls.remark.errors && formGroup.controls.remark.errors.required">Remark is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- card-body -->
+                </div>
+                <div class="card-footer">
+                    <div class="row" style="display: block;width: 100%;">
+
+                        <div class="col-xs-6" *ngIf="approvalScreen">
+                            <mat-form-field style="width:100%" appearance="outline">
+                                <mat-label>Approvers Comment*</mat-label>
+                                <textarea matInput placeholder="Approvers Comment" [formControl]="approverCommentCtrl" class="filter-input"> </textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <button type="button" *ngIf="!approvalScreen" (click)="saveElectricityGeneration()" class="btn btn-success">Submit</button>
+                            <button type="button" *ngIf="approvalScreen" class="btn btn-success" (click)="updateDataStaus('approved')">Approve</button>
+                            <button type="button" *ngIf="approvalScreen" class="btn btn-danger" (click)="updateDataStaus('rejected')">Reject</button>
+                        </div>
+                        <!-- footer-> row -->
+                    </div>
+                    <!-- card-footer -->
+                </div>
+                <!-- card -->
+            </div>
+            <!-- col-12 -->
+        </div>
+        <!-- row -->
+    </div>
+    <!-- animated fadeIn -->
+</div>

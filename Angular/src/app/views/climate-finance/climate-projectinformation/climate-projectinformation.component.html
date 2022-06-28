@@ -1,0 +1,472 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <!-- card header start -->
+                <div class="card-header">
+                    <strong>CLIMATE FINANCE - PROJECT INFORMATION</strong>
+                </div>
+                <!-- card header end -->
+
+                <!-- card body start -->
+                <div class="card-body">
+                    <!-- form start -->
+                    <form class="row" [formGroup]="formGroup" >
+                        <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline" *ngIf="!approvalScreen">
+                            <mat-label>Project Id</mat-label>
+                            <mat-select name="projectId" formControlName="projectId" (selectionChange)="onProjectSelect()">
+                                <mat-option disabled>Select a Project</mat-option>
+                                <mat-option *ngFor="let project of projectList;" [value]="project">
+                                    {{project.projectId}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.projectId.errors && formGroup.controls.projectId.errors.required">Project Id is required</mat-error>
+                        </mat-form-field>
+                    </form>
+
+                    <div class="row" *ngIf="approvalScreen">
+                        <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline">
+                            <mat-label>Project Id</mat-label>
+                            <input *ngIf="approvalScreen" matInput placeholder="Project Id" [(ngModel)]="climateFinanceData.projectId" disabled>
+                        </mat-form-field>
+                    </div>
+                    <!-- form end -->
+
+
+                    <div class="row" *ngIf="climateFinanceData && climateFinanceData.projectId">
+                        <mat-tab-group mat-stretch-tab>
+
+                            <mat-tab label="Project Details">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+
+                                            <!-- card body start -->
+                                            <div class="card-body">
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>Financial Year*</mat-label>
+                                                    <input matInput placeholder="Financial Year" name="financialYear" [formControl]="financialYearCtrl" [(ngModel)]="climateFinanceData.financialYear" >
+                                                    <mat-error *ngIf="financialYearCtrl.errors && financialYearCtrl.errors.required">Financial Year is required</mat-error>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>Applied Exchange Rate (KEX/USD) *</mat-label>
+                                                    <input matInput numbersOnly type="number" name="appliedExchange" [formControl]="appliedExchangeCtrl" placeholder="Applied Exchange Rate (KEX/USD) *" [(ngModel)]="climateFinanceData.appliedExchange" >
+                                                    <mat-error *ngIf="appliedExchangeCtrl.errors && appliedExchangeCtrl.errors.required">Applied Exchange Rate is required</mat-error>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>Financing Mode *</mat-label>
+                                                    <mat-select [(ngModel)]="climateFinanceData.financingMode" name="financingMode" [formControl]="financingModeCtrl" >
+                                                        <mat-option>Financing Mode *</mat-option>
+                                                        <mat-option value="On Budget">On Budget</mat-option>
+                                                        <mat-option value="Off Budget">Off Budget</mat-option>
+                                                        <mat-option value="Others">Others</mat-option>
+                                                        <mat-option value="Not Applicable">Not Applicable</mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="financingModeCtrl.errors && financingModeCtrl.errors.required">Financing Mode is required</mat-error>
+                                                </mat-form-field>
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>Budget Code</mat-label>
+                                                    <input matInput placeholder="Budget Code" name="budgetCode"  [(ngModel)]="climateFinanceData.budgetCode" >
+                                                    
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" >
+                                                    <mat-label>End Date (DD/MM/YYYY)</mat-label>
+                                                    <input matInput placeholder="End Date" [matDatepicker]="picker3" [(ngModel)]="climateFinanceData.approvalDate" disabled>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline">
+                                                    <mat-label>Financial Closure Date (DD/MM/YYYY)</mat-label>
+                                                    <input matInput [matDatepicker]="picker3" placeholder="Financial Closure Date" [(ngModel)]="climateFinanceData.closureDate" disabled>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline">
+                                                    <mat-label>Start Date (DD/MM/YYYY)</mat-label>
+                                                    <input [matDatepicker]="picker3" matInput placeholder="Start Date" [(ngModel)]="climateFinanceData.commissioningDate" disabled>
+                                                </mat-form-field>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </mat-tab>
+
+                            <mat-tab label="Financial Flow">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+
+                                            <!-- card body start -->
+                                            <div class="card-body">
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline">
+                                                    <mat-label>Project Size (million USD) *</mat-label>
+                                                    <mat-select name="projectSize" [formControl]="projectSizeCtrl" [(ngModel)]="climateFinanceData.projectSize" [disabled]="approvalScreen">
+                                                        <mat-option>Project Size (million USD) *</mat-option>
+                                                        <mat-option value=" 'Micro (<=0.1)'">Micro ( &lt; =0.1)</mat-option>
+
+                                                        <mat-option value=" 'Small (>0.1<=0.5)'">Small (>0.1 &lt;=0.5)
+                                                        </mat-option>
+
+                                                        <mat-option value=" 'Medium (>0.5<=1)'">Medium (>0.5 &lt;=1)
+                                                        </mat-option>
+                                                        <mat-option value=" 'Large(>1.0)'">Large(>1.0)</mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="projectSizeCtrl.errors && projectSizeCtrl.errors.required">Project Size is required</mat-error>
+                                                </mat-form-field>
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline">
+                                                    <mat-label>Project Cost (USD) *</mat-label>
+                                                    <input matInput numbersOnly placeholder="Project Cost (USD) *" [(ngModel)]="climateFinanceData.projectCost" disabled>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>National Budget (USD) *</mat-label>
+                                                    <input matInput type="text" name="nationalBudget" [formControl]="nationalBudgetCtrl" numbersOnly placeholder="National Budget (USD) *" [(ngModel)]="climateFinanceData.nationalBudget"  (change)="calculateOthers('nationalBudget')">
+                                                    <mat-error *ngIf="nationalBudgetCtrl.errors && nationalBudgetCtrl.errors.required">National Budget is required</mat-error>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>County Budgets (USD)*</mat-label>
+                                                    <input matInput type="text"  name="subNationalBudget" [formControl]="subNationalBudgetCtrl"  (change)="calculateOthers('subNationalBudget')" numbersOnly placeholder="Sub National Budget (USD) *" [(ngModel)]="climateFinanceData.subNationalBudget" >
+                                                    <mat-error *ngIf="subNationalBudgetCtrl.errors && subNationalBudgetCtrl.errors.required">County Budgets  is required</mat-error>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" [ngClass]="{'disabled' : approvalScreen}">
+                                                    <mat-label>Green Bonds (USD) *</mat-label>
+                                                    <input matInput type="text" (change)="calculateOthers('greenBonds')" placeholder="Green Bonds (USD) *" [(ngModel)]="climateFinanceData.greenBonds" numbersOnly>
+                                                </mat-form-field>
+
+
+                                                <mat-form-field class="col-xs-3 col-md-3 col-sm-3" appearance="outline" >
+                                                    <mat-label>Others (USD)</mat-label>
+                                                    <input matInput numbersOnly type="number" placeholder="Others (USD)" [(ngModel)]="climateFinanceData.others" disabled>
+                                                </mat-form-field>
+
+                                                <div class="row m-b-3">
+                                                    <div class="card" w-100>
+                                                        <div class="card-header">
+                                                            <strong>SOURCES OF FINANCE *</strong>
+                                                            <button mat-flat-button (click)="addNewSourceOfFinanceRow()" style="float: right;" *ngIf="!approvalScreen">
+                                                                <i class="material-icons">add_box</i> Add New
+                                                            </button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <mat-table w-100 table-border #table [dataSource]="sourceOfFinanceDataSource" matSort>
+
+                                                                <ng-container matColumnDef="select">
+                                                                    <mat-header-cell class="row checkbox-selection" *matHeaderCellDef>
+                                                                        <mat-checkbox (change)="$event ? masterToggleSourceFinance() : null" [checked]="sourceOfFinanceSelection.hasValue() && isAllSelectedSourceFinance()" [indeterminate]="sourceOfFinanceSelection.hasValue()
+                                                                                                    && !isAllSelectedSourceFinance(sourceOfFinanceDataSource, sourceOfFinanceSelection)" [aria-label]="checkboxLabelSourceFinance()">
+                                                                        </mat-checkbox>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell class="checkbox-selection" *matCellDef="let element">
+                                                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? sourceOfFinanceSelection.toggle(element) : null" [checked]="sourceOfFinanceSelection.isSelected(element)" [aria-label]="checkboxLabelSourceFinance(element)">
+                                                                        </mat-checkbox>
+                                                                    </mat-cell>
+                                                                </ng-container>
+
+                                                                <ng-container matColumnDef="{{column.id}}" *ngFor="let column of sourceOfFinanceColumnNames">
+                                                                    <mat-header-cell class="row" *matHeaderCellDef>
+                                                                        <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                                                        </mat-label>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let element" class="sm-input">
+                                                                        <mat-form-field appearance="outline">
+                                                                            <mat-label>{{column.value}}</mat-label>
+
+                                                                            <mat-select *ngIf="column.id=='fundingType'" [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                                <mat-option value="Loan">Loan</mat-option>
+                                                                                <mat-option value="Grant">Grant</mat-option>
+                                                                                <mat-option value="Public">Public</mat-option>
+                                                                                <mat-option value="Private">Private</mat-option>
+                                                                                <mat-option value="Others">Others</mat-option>
+                                                                                <mat-option value="Blended">Blended</mat-option>
+                                                                                <mat-option value="Revenue">Revenue</mat-option>
+                                                                                <mat-option value="Appropriation in Aid (AIA)">Appropriation in Aid (AIA)</mat-option>
+                                                                                <mat-option value="Revenue/AIA">Revenue/AIA</mat-option>
+                                                                                <mat-option value="Concessional loan">Concessional loan</mat-option>
+                                                                                <mat-option value="Non-concessional loan">Non-concessional loan</mat-option>
+                                                                                <mat-option value="Other Official Flows (OOF)">Other Official Flows (OOF)</mat-option>
+                                                                                <mat-option value="Equity">Equity</mat-option>
+                                                                                <mat-option value="Guarantee">Guarantee</mat-option>
+                                                                            </mat-select>
+
+                                                                            <mat-select *ngIf="column.id=='nationalInternational'" [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                                <mat-option value="National">National</mat-option>
+                                                                                <mat-option value="International">International</mat-option>
+                                                                            </mat-select>
+
+
+                                                                            <mat-select *ngIf="column.id=='channel'" [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                                <mat-option value="Bilateral">Bilateral</mat-option>
+                                                                                <mat-option value="Multilateral">Multilateral</mat-option>
+                                                                                <mat-option value="Multi-bilateral">Multi-bilateral</mat-option>
+                                                                                <mat-option value="Private sector">Private sector</mat-option>
+                                                                                <mat-option value="National Government">National Government</mat-option>
+                                                                                <mat-option value="County Government">County Government</mat-option>
+                                                                                <mat-option value="Development Financial Institution (DFI)">Development Financial Institution (DFI)</mat-option>
+                                                                                <mat-option value="Institutional Investors">Institutional Investors</mat-option>
+                                                                                <mat-option value="Insurance Company">Insurance Company</mat-option>
+                                                                                <mat-option value="Multilateral Climate Funds">Multilateral Climate Funds</mat-option>
+                                                                                <mat-option value="International NGOs">International NGOs</mat-option>
+                                                                                <mat-option value="Philanthropic Organizations">Philanthropic Organizations</mat-option>
+
+                                                                                <mat-option value="Co-financing">Co-financing</mat-option>
+                                                                                <mat-option value="International Fund">International Fund</mat-option>
+                                                                                <mat-option value="National Fund">National Fund</mat-option>
+                                                                                <mat-option value="Public Fund">Public Fund</mat-option>
+                                                                                <mat-option value="Private Fund">Private Fund</mat-option>
+                                                                                <mat-option value="Others">Others</mat-option>
+                                                                            </mat-select>
+
+                                                                            <input *ngIf="column.id=='fundingAgency'" matInput placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+
+                                                                            <input *ngIf="column.id=='amount'" (change)="calculateOthers('amount', element)" numbersOnly type="number" matInput placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                        </mat-form-field>
+                                                                    </mat-cell>
+                                                                </ng-container>
+
+                                                                <mat-header-row *matHeaderRowDef="sourceOfFinanceDisplayedColumns"></mat-header-row>
+                                                                <mat-row *matRowDef="let row; columns: sourceOfFinanceDisplayedColumns;"></mat-row>
+                                                            </mat-table>
+                                                            <div class="row m-t-5">
+                                                                <div class="col-xs-12 col-md-6" *ngIf="!approvalScreen">
+                                                                    <button mat-raised-button color="accent" (click)="removeSourceSelected()">
+                                                                        <mat-icon style="color: #ffffff;" >delete</mat-icon> Delete Selected
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-xs-12 col-md-6" style="text-align: right;">
+                                                                    <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- inner card ends -->
+                                                    </div>
+                                                    <!-- row ends -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <!-- ------------------------------------------------------------------------------------------------------------------------ -->
+                            <mat-tab label="Detailed Budget">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <!-- card body start -->
+                                            <div class="card-body">
+                                                <div class="row m-b-3">
+                                                    <div class="card" w-100>
+                                                        <div class="card-header">
+                                                            <strong>PROJECT COST BREAKDOWN *</strong>
+                                                            <button mat-flat-button style="float: right;" (click)="addNewDetailedBudgetRow()" *ngIf="!approvalScreen">
+                                                                <i class="material-icons">add_box</i> Add New
+                                                            </button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <mat-table w-100 table-border #table [dataSource]="detailedBudgetDataSource" matSort>
+
+                                                                <ng-container matColumnDef="select">
+                                                                    <mat-header-cell class="row checkbox-selection" *matHeaderCellDef>
+                                                                        <mat-checkbox (change)="$event ? masterToggleDetailedBudget() : null" [checked]="detailedBudgetSelection.hasValue() && isAllSelectedDetailedBudget()" [indeterminate]="detailedBudgetSelection.hasValue() && !isAllSelectedDetailedBudget()" [aria-label]="checkboxLabelDetailedBudget()">
+                                                                        </mat-checkbox>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell class="checkbox-selection" *matCellDef="let element">
+                                                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? detailedBudgetSelection.toggle(element) : null" [checked]="detailedBudgetSelection.isSelected(element)" [aria-label]="checkboxLabelDetailedBudget(element)">
+                                                                        </mat-checkbox>
+                                                                    </mat-cell>
+                                                                </ng-container>
+
+                                                                <ng-container matColumnDef="{{column.id}}" *ngFor="let column of detailedBudgetColumnNames">
+                                                                    <mat-header-cell class="row" *matHeaderCellDef>
+                                                                        <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                                                        </mat-label>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let element">
+                                                                        <mat-form-field appearance="outline">
+                                                                            <mat-label>{{column.value}}</mat-label>
+
+                                                                            <mat-select *ngIf="column.id=='category'" [(ngModel)]="element[column.id]" [disabled]="approvalScreen" (selectionChange)="checkCategrySelection(element)">
+                                                                                <mat-option [disabled]="getDisabled('Civil Work','budget')" value="Civil Work">Civil Work</mat-option>
+                                                                                <mat-option [disabled]="getDisabled('Equipment and Machinery','budget')" value="Equipment and Machinery">Equipment and Machinery</mat-option>
+                                                                               
+                                                                                <mat-option [disabled]= "getDisabled('Consultant - Individual - International','budget')" value="Consultant - Individual - International">Consultant - Individual - International</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Consultant - Individual - Local','budget')" value="Consultant - Individual - Local">Consultant - Individual - Local</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Professional Services - Companies','budget')" value="Professional Services - Companies">Professional Services - Companies</mat-option>
+                                                                                <mat-option [disabled]="getDisabled('IT Equipment','budget')" value="IT Equipment">IT Equipment</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Office Supplies','budget')" value="Office Supplies">Office Supplies</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Travel - International','budget')" value="Travel - International">Travel - International</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Travel - Local','budget')" value="Travel - Local">Travel - Local</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Workshop/Training','budget')" value="Workshop/Training">Workshop/Training</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Meetings/trainings','budget')" value="Meetings/trainings">Meetings/trainings</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Audio Visual & Printing','budget')" value="Audio Visual & Printing">Audio Visual & Printing</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Audit Fee','budget')" value="Audit Fee">Audit Fee</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('Others','budget')" value="Others">Others</mat-option>
+                                                                                <mat-option [disabled]= "getDisabled('New','budget')" value="New">New</mat-option>
+                                                                            </mat-select>
+
+                                                                            <input *ngIf="column.id=='reference'" matInput placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+
+                                                                            <input *ngIf="column.id=='amount'" type="number" (change)="calculateBudget(element)" numbersOnly matInput placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                        </mat-form-field>
+                                                                    </mat-cell>
+                                                                </ng-container>
+
+                                                                <mat-header-row *matHeaderRowDef="detailedBudgetDisplayedColumns"></mat-header-row>
+                                                                <mat-row *matRowDef="let row; columns: detailedBudgetDisplayedColumns;"></mat-row>
+                                                            </mat-table>
+                                                            <div class="row m-t-5">
+                                                                <div class="col-xs-12 col-md-6" *ngIf="!approvalScreen">
+                                                                    <button mat-raised-button color="accent" (click)="removeDetailedBudgetSelected()">
+                                                                        <mat-icon style="color: #ffffff;" >delete</mat-icon> Delete Selected
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-xs-12 col-md-6" style="text-align: right;">
+                                                                    <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- newly added rows -->
+                                                    </div>
+                                                    <!-- row ends -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+
+                            <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                            <mat-tab label="DISBURSEMENT YEAR">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+
+                                            <!-- card body start -->
+                                            <div class="card-body">
+                                                <div class="row m-b-3">
+                                                    <div class="card" w-100>
+                                                        <div class="card-header">
+                                                            <strong>DISBURSEMENT SCHEDULE *</strong>
+
+                                                            <button mat-flat-button style="float: right;" (click)="addNewDisbursementYearRow()" *ngIf="!approvalScreen">
+                                                                <i class="material-icons">add_box</i> Add New
+                                                            </button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <mat-table w-100 table-border #table [dataSource]="disbursementYearDataSource" matSort>
+
+                                                                <ng-container matColumnDef="select">
+                                                                    <mat-header-cell class="row checkbox-selection" *matHeaderCellDef>
+                                                                        <mat-checkbox (change)="$event ? masterToggleDisbursementYear() : null" [checked]="disbursementYearSelection.hasValue() && isAllSelectedDisbursementYear()" [indeterminate]="disbursementYearSelection.hasValue() && !isAllSelectedDisbursementYear()" [aria-label]="checkboxLabelDisbursementYear()">
+                                                                        </mat-checkbox>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell class="checkbox-selection" *matCellDef="let element">
+                                                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? disbursementYearSelection.toggle(element) : null" [checked]="disbursementYearSelection.isSelected(element)" [aria-label]="checkboxLabelDisbursementYear(element)">
+                                                                        </mat-checkbox>
+                                                                    </mat-cell>
+                                                                </ng-container>
+
+                                                                <ng-container matColumnDef="{{column.id}}" *ngFor="let column of disbursementYearColumnNames">
+                                                                    <mat-header-cell class="row" *matHeaderCellDef>
+                                                                        <mat-label mat-sort-header class="col-xs-12 col-md-12 col-sm-12">{{column.value | uppercase}}
+                                                                        </mat-label>
+                                                                    </mat-header-cell>
+                                                                    <mat-cell *matCellDef="let element">
+                                                                        <mat-form-field appearance="outline">
+                                                                            <mat-label>{{column.value}}</mat-label>
+
+                                                                            <mat-select *ngIf="column.id=='year'" [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                                <mat-option>Select year</mat-option>
+                                                                                <mat-option *ngFor="let x of yearList" [value]="x" [disabled]="getDisabled(x,'year')">
+                                                                                    {{x}}
+                                                                                </mat-option>
+                                                                            </mat-select>
+
+                                                                            <input *ngIf="column.id=='reference'" matInput placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+
+                                                                            <input *ngIf="column.id=='amount'" type="number" numbersOnly matInput placeholder={{column.value}} [(ngModel)]="element[column.id]" [disabled]="approvalScreen">
+                                                                        </mat-form-field>
+                                                                    </mat-cell>
+                                                                </ng-container>
+
+                                                                <mat-header-row *matHeaderRowDef="disbursementYearDisplayedColumns"></mat-header-row>
+                                                                <mat-row *matRowDef="let row; columns: disbursementYearDisplayedColumns;"></mat-row>
+                                                            </mat-table>
+                                                            <div class="row m-t-5">
+                                                                <div class="col-xs-12 col-md-6" *ngIf="!approvalScreen">
+                                                                    <button mat-raised-button color="accent" (click)="removeDisbursementYearSelected()">
+                                                                        <mat-icon style="color: #ffffff;" >delete</mat-icon> Delete Selected
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-xs-12 col-md-6" style="text-align: right;">
+                                                                    <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- newly added rows -->
+                                                    </div>
+                                                    <!-- row ends -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                </div>
+                <!-- card body  end -->
+
+                <div class="card-footer">
+                    <div class="row" style="display: block;width: 100%;">
+
+                        <div class="col-xs-12">
+                            <mat-form-field style="width:100%" appearance="outline">
+                                <mat-label>Remarks*</mat-label>
+                                <textarea matInput placeholder="Remarks" [formControl]="remarksCtrl" [readonly]='approvalScreen'></textarea>
+                                <mat-error *ngIf="remarksCtrl.errors && remarksCtrl.errors.required">Remark is required</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-xs-12" *ngIf="approvalScreen">
+                            <mat-form-field style="width:100%" appearance="outline">
+                                <mat-label>Approvers Comment*</mat-label>
+                                <textarea matInput placeholder="Approvers Comment" [formControl]="approverCommentCtrl" class="filter-input"> </textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <button type="button" *ngIf="!approvalScreen" (click)="save()" class="btn btn-success">Submit</button>
+                            <button type="button" *ngIf="approvalScreen" class="btn btn-success" (click)="updateDataStaus( 'approved')">Approve</button>
+                            <button type="button" *ngIf="approvalScreen" class="btn btn-danger" (click)="updateDataStaus( 'rejected')">Reject</button>
+                        </div>
+                        <!-- footer-> row -->
+                    </div>
+                    <!-- card-footer -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

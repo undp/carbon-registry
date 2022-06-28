@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.database-afolu-emission-factors"}],"uuid":"dee3d3f0411840a5a2abf22bce39393a"}

@@ -1,0 +1,78 @@
+.m-b-3 {
+    margin-bottom: 3%;
+}
+
+.mat-header-cell {
+    font-size: 10px;
+    font-weight: 800;
+    color: black !important;
+    min-width: 180px;
+    max-width: 180px;
+    margin-right: 5px;
+    mat-form-field {
+        max-width: 150px;
+    }
+}
+
+// .card-header {
+//     width: fit-content;
+// }
+.card-body {
+    overflow-x: scroll;
+}
+
+.mat-row {
+    margin-top: 10px;
+}
+
+mat-cell {
+    min-width: 170px;
+    max-width: 170px;
+    overflow-wrap: anywhere;
+    mat-form-field {
+        max-width: 141px;
+    }
+}
+
+mat-cell:first-of-type,
+mat-footer-cell:first-of-type,
+mat-header-cell:first-of-type {
+    padding-left: 30px;
+    min-width: 190px;
+}
+
+mat-icon:hover {
+    color: red !important;
+    cursor: pointer;
+}
+
+.mat-table {
+    width: fit-content;
+}
+
+.mat-icon {
+    height: 30px;
+    width: 30px;
+    margin-left: 15px;
+}
+
+.m-t-5 {
+    margin-top: 5px;
+}
+
+::ng-deep.snackbar-global {
+    margin-top: 70px !important;
+}
+
+.link {
+    color: #20a8d8 !important;
+    text-decoration: underline !important;
+    background-color: transparent;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: none !important;
+    font-weight: bold !important;
+}

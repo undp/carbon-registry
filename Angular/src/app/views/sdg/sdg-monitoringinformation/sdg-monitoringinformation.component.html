@@ -1,0 +1,155 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="sdgMIForm">
+                <div class="card">
+
+                    <!-- card header start -->
+                    <div class="card-header">
+                        <strong>SDG ASSESSMENT - MONITORING INFORMATION</strong>
+                    </div>
+                    <!-- card header end -->
+
+                    <!-- card body start -->
+                    <div class="card-body">
+                        <!-- form start -->
+                        <div class="row">
+                            <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline">
+                                <mat-label>Project Id</mat-label>
+                                <mat-select name="parentProject" [disabled]="approvalScreen" formControlName="parentProject" [(ngModel)]="selectedProject" (selectionChange)="onProjectSelect($event.value,true)">
+
+                                    <mat-option disabled>Select a Project</mat-option>
+                                    <mat-option *ngFor="let project of projects;" [value]="project">
+                                        {{project.projectId}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="sdgMIForm.controls.parentProject.errors && sdgMIForm.controls.parentProject.errors.required">Project is required</mat-error>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="!approvalScreen" class="col-xs-12 col-md-12 col-sm-12" appearance="outline">
+                                <mat-label>Monitoring Year</mat-label>
+                                <mat-select   name="monitoringYear" [disabled]="approvalScreen" formControlName="monitoringYear" (selectionChange)="onProjectSelect($event.value,false)">
+                                    <mat-option *ngFor="let year of monitoringYears" [value]="year">{{year}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="sdgMIForm.controls.monitoringYear.errors && sdgMIForm.controls.monitoringYear.errors.required">Year is required</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-xs-12 col-md-12 col-sm-12" appearance="outline" *ngIf="approvalScreen" [ngClass]="{'disabled' : approvalScreen}">
+                                <mat-label>Monitoring Year</mat-label>
+                                <input  matInput  name="monitoringYear" formControlName="monitoringYear" readonly>
+                            </mat-form-field>
+
+                            
+                            <!-- form end -->
+                        </div>
+
+                        <div class="row">
+                            <mat-tab-group mat-stretch-tabs (selectedTabChange)="onTabChange($event)">
+                                <!-- --------------------------------------------------------------------------------------------------------------------------------------->
+                                <mat-tab label="Poverty Reduction">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>POVERTY REDUCTION- MONITORED DATA</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+                                                <div class="card-body" *ngIf="povertyReductionArr.length">
+                                                    <app-question [approvalScreen]="approvalScreen" [isExistingData]="isExistingData" *ngFor="let poverty of povertyReductionArr;" [type]="'data'" [question]="poverty"></app-question>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- ------------------------------------------------------------------------------------------------------------------------ -->
+                                <mat-tab label="Reducing Inequality">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>REDUCING INEQUALITY - MONITORED DATA</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+                                                <div class="card-body" *ngIf="reducingInequalityArr.length">
+                                                    <app-question [approvalScreen]="approvalScreen" [isExistingData]="isExistingData" *ngFor="let reducingInequality of reducingInequalityArr;" [type]="'data'" [question]="reducingInequality"></app-question>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+
+                                <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                <mat-tab label="Gender Parity">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <!-- card header start -->
+                                                <div class="card-header">
+                                                    <strong>GENDER PARITY - MONITORED DATA</strong>
+                                                </div>
+                                                <!-- card header end -->
+
+                                                <!-- card body start -->
+                                                <div class="card-body" *ngIf="genderParityArr.length">
+                                                    <app-question [approvalScreen]="approvalScreen" [isExistingData]="isExistingData" *ngFor="let genderParity of genderParityArr;" [type]="'data'" [question]="genderParity"></app-question>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        Other SDG Impacts
+                                        <mat-icon (click)="openBottomSheet()">keyboard_arrow_down</mat-icon>
+                                    </ng-template>
+
+                                    <div class="row" *ngFor="let otherSdg of otherSDGArr;">
+                                        <div class="col-md-12" *ngIf="otherSdg.isVisible">
+                                            <app-other-sdg [approvalScreen]="approvalScreen" [isMonitoring]="true" [otherSdg]="otherSdg" [likelihoodArr]="likelihoodArr" [impactArr]="impactArr"></app-other-sdg>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card-footer">
+                            <div class="row" style="display: block;width: 100%;">
+
+                                <div class="col-xs-6">
+                                    <mat-form-field style="width:100%" appearance="outline">
+                                        <mat-label>Remarks*</mat-label>
+                                        <textarea matInput placeholder="Approvers Comment" name="remarks" [formControl]="remarksCtrl" class="filter-input"  [readonly]='approvalScreen'> </textarea>
+                                        <mat-error *ngIf="remarksCtrl.errors && remarksCtrl.errors.required">Remarks is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-xs-6" *ngIf="approvalScreen">
+                                    <mat-form-field style="width:100%" appearance="outline">
+                                        <mat-label>Approvers Comment*</mat-label>
+                                        <textarea matInput placeholder="Approvers Comment" name="approverComment" formControlName="approverComment" class="filter-input"> </textarea>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <button type="button" *ngIf="!approvalScreen" (click)="submit()" class="btn btn-success">Submit</button>
+                                    <button type="button" *ngIf="approvalScreen" class="btn btn-success" (click)="updateDataStatus('approved')">Approve</button>
+                                    <button type="button" *ngIf="approvalScreen" class="btn btn-danger" (click)="updateDataStatus('rejected')">Reject</button>
+                                </div>
+                                <!-- footer-> row -->
+                            </div>
+                            <!-- card-footer -->
+                        </div>
+                    </div>
+                    <!-- card body  end -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
