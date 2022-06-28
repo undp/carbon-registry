@@ -1,0 +1,630 @@
+# Copyright (C) 2016 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/PDFEmbedder\n"
+"POT-Creation-Date: 2016-03-23 16:27+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-03-23 17:46+0100\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.7\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr_FR\n"
+
+#: basic_pdf_embedder.php:76
+msgid "Options only available in Premium versions"
+msgstr "En option seulement dans les versions premium"
+
+#: basic_pdf_embedder.php:78 core/commercial_pdf_embedder.php:64
+msgid "Download Button"
+msgstr "Bouton téléchargement"
+
+#: basic_pdf_embedder.php:80
+msgid "Provide PDF download button on toolbar"
+msgstr "Affiche un bouton téléchargement dans la barre d'outils"
+
+#: basic_pdf_embedder.php:85 core/commercial_pdf_embedder.php:73
+msgid "Track Views/Downloads"
+msgstr "Suivre Vues / Téléchargements"
+
+#: basic_pdf_embedder.php:87
+msgid "Count number of views and downloads"
+msgstr "Compter le nombre de vues et téléchargements"
+
+#: basic_pdf_embedder.php:92 core/commercial_pdf_embedder.php:82
+msgid "External Links"
+msgstr "Liens externes"
+
+#: basic_pdf_embedder.php:94 core/commercial_pdf_embedder.php:85
+msgid "Open links in a new browser tab/window"
+msgstr "Ouvrir les liens dans un nouvel onglet de navigateur / fenêtre"
+
+#: basic_pdf_embedder.php:99 core/commercial_pdf_embedder.php:91
+msgid "Scroll to Top"
+msgstr "Défiler vers le Haut"
+
+#: basic_pdf_embedder.php:101 core/commercial_pdf_embedder.php:94
+msgid "Scroll to top of page when user clicks next/prev"
+msgstr ""
+"Défiler au haut de la page lorsque l'utilisateur clique suivante / précédente"
+
+#: basic_pdf_embedder.php:105
+msgid ""
+"Find out more about <a href=\"%s\" target=\"_blank\">Premium Versions of the "
+"plugin on our website</a>."
+msgstr ""
+"Pour en savoir plus sur <a href=\"%s\" target=\"_blank\">les Versions "
+"premium du plugin sur notre site</a>."
+
+#: basic_pdf_embedder.php:115
+msgid "Mobile-friendly embedding using PDF Embedder Premium"
+msgstr "Intégration pour mobiles en utilisant PDF Embedder premium"
+
+#: basic_pdf_embedder.php:116
+msgid ""
+"This free version of the plugin should work on most mobile browsers, but it "
+"will be cumbersome for users with small screens - it is difficult to "
+"position\n"
+"            the document entirely within the screen, and your users' fingers "
+"may catch the entire browser page when\n"
+"            they're trying only to move about the document..."
+msgstr ""
+"Cette version gratuite du plugin devrait fonctionner sur la plupart des "
+"navigateurs mobiles, mais il sera lourd pour les utilisateurs avec de petits "
+"écrans - il est difficile de position\n"
+"            le document entièrement à l'intérieur de l'écran, et les doigts "
+"de vos utilisateurs peuvent attraper la page entière du navigateur lorsque\n"
+"            ils essaient seulement de se déplacer sur le document..."
+
+#: basic_pdf_embedder.php:120
+msgid ""
+"Our <b>PDF Embedder Premium</b> plugin solves this problem with an "
+"intelligent 'full screen' mode.\n"
+"            When the document is smaller than a certain width, the document "
+"displays only as a 'thumbnail' with a large\n"
+"            'View in Full Screen' button for the\n"
+"            user to click when they want to study your document.\n"
+"            This opens up the document so it has the full focus of the "
+"mobile browser, and the user can move about the\n"
+"            document without hitting other parts of\n"
+"            the web page by mistake. Click Exit to return to the regular web "
+"page."
+msgstr ""
+"Notre plugin <b>PDF Embedder Premium</b> résout ce problème avec un mode "
+"intelligent \"plein écran\".\n"
+"            Lorsque le document est inférieur à une certaine largeur, le "
+"document indique seulement en tant que \"vignette\" avec un grand\n"
+"            bouton 'Voir en plein écran' pour que votre\n"
+"            utilisateur puisse cliquer quand ils veulent consulter votre "
+"document.\n"
+"            Cela ouvre le document de sorte qu'il a la pleine attention du "
+"navigateur mobile, et l'utilisateur peut se déplacer dans le\n"
+"            document sans cliquer d'autres parties de\n"
+"            la page Web par erreur. Cliquer sur Quitter pour revenir à la "
+"page Web principale."
+
+#: basic_pdf_embedder.php:129 core/core_pdf_embedder.php:335
+msgid ""
+"See our website <a href=\"%s\">wp-pdf.com</a> for more details and purchase "
+"options."
+msgstr ""
+"Consultez notre site Web <a href=\"%s\">wp-pdf.com</a> pour plus de détails "
+"et d'options d'achat."
+
+#: basic_pdf_embedder.php:175
+msgid ""
+"Track downloads and views with <a href=\"%s\" target=\"_blank\">PDF Embedder "
+"Premium</a>"
+msgstr ""
+"Tracer les téléchargements et les vues avec <a href=\"%s\" target=\"_blank"
+"\">PDF Embedder Premium</a>"
+
+#: basic_pdf_embedder.php:177
+msgid "Downloads/Views"
+msgstr "Téléchargements / Vues"
+
+#: core/EDD_SL_Plugin_Updater.php:248
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+"Il y a une nouvelle version de %1$s disponible. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">Voir les détails de la version %3$s</a>."
+
+#: core/EDD_SL_Plugin_Updater.php:255
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+"\">update now</a>."
+msgstr ""
+"Il y a une nouvelle version de %1$s disponible. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">Voir les détails de la version %3$s</a> ou <a "
+"href=\"%4$s\">mettre à jour maintenant</a>."
+
+#: core/EDD_SL_Plugin_Updater.php:479
+msgid "You do not have permission to install plugin updates"
+msgstr "Vous n'êtes pas autorisé à installer les mises à jour du plugin"
+
+#: core/EDD_SL_Plugin_Updater.php:479
+msgid "Error"
+msgstr "Erreur"
+
+#: core/commercial_pdf_embedder.php:53
+msgid "License"
+msgstr "License"
+
+#: core/commercial_pdf_embedder.php:67
+msgid "Check to provide PDF download button in toolbar"
+msgstr ""
+"Vérifiez la présence du bouton de téléchargement de PDF dans la barre "
+"d'outils"
+
+#: core/commercial_pdf_embedder.php:76
+msgid ""
+"Count number of views and downloads (figures will be shown in <a href=\"%s"
+"\">Media Library</a>)"
+msgstr ""
+"Compter le nombre de vues et téléchargements (les chiffres seront présentés "
+"dans la <a href=\"%s\">Bibliothèque Médias </a>)"
+
+#: core/commercial_pdf_embedder.php:104
+msgid "Default Mobile Settings"
+msgstr "Paramètres mobiles par défaut"
+
+#: core/commercial_pdf_embedder.php:106
+msgid ""
+"When the document is smaller than the width specified below, the document "
+"displays only as a 'thumbnail' with a large 'View in Full Screen' button for "
+"the user to click to open."
+msgstr ""
+"Lorsque le document est plus petite que la largeur spécifiée ci-dessous, le "
+"document s'affiche uniquement comme une 'miniature' avec un grand bouton "
+"'Voir en plein écran' pour que l'utilisateur clique pour ouvrir."
+
+#: core/commercial_pdf_embedder.php:108
+msgid "Mobile Width"
+msgstr "Largeur mobile"
+
+#: core/commercial_pdf_embedder.php:112
+msgid ""
+"Enter an integer number of pixels, or 0 to disable automatic full-screen"
+msgstr ""
+"Entrez un nombre entier de pixels, ou 0 pour désactiver automatique le plein "
+"écran"
+
+#: core/commercial_pdf_embedder.php:116
+msgid "Disable Device Zoom"
+msgstr "Désactiver le Zoom"
+
+#: core/commercial_pdf_embedder.php:119
+msgid "Enable if you are experiencing quality issues on mobiles"
+msgstr "Activer si vous rencontrez des problèmes de qualité sur les mobiles"
+
+#: core/commercial_pdf_embedder.php:124
+msgid ""
+"Some mobile browsers will use their own zoom, causing the PDF Embedder to "
+"render at a lower resolution than it should, or lose the toolbar off screen."
+msgstr ""
+"Certains navigateurs mobiles vont utiliser leur propre zoom, PDF Embedder "
+"peut alors afficher une résolution inférieure à ce qu'elle devrait, ou "
+"perdre la barre d'outils hors de l'écran."
+
+#: core/commercial_pdf_embedder.php:125
+msgid ""
+"Enabling this option may help, but could potentially affect appearance in "
+"the rest of your site."
+msgstr ""
+"L'activation de cette option peut aider, mais pourrait potentiellement "
+"affecter l'apparence dans le reste de votre site."
+
+#: core/commercial_pdf_embedder.php:126
+msgid "See <a href=\"%s\" target=\"_blank\">documentation</a> for details."
+msgstr ""
+"Voir la <a href=\"%s\" target=\"_blank\">documentation</a> pour plus de "
+"détails."
+
+#: core/commercial_pdf_embedder.php:137
+msgid ""
+"You should have received a license key when you purchased this premium "
+"version of PDF Embedder."
+msgstr ""
+"Vous devriez avoir reçu une clé de licence lorsque vous avez acheté cette "
+"version premium de PDF Embedder."
+
+#: core/commercial_pdf_embedder.php:138
+msgid ""
+"Please enter it below to enable automatic updates, or <a href=\"%s\">email "
+"us</a> if you do not have one."
+msgstr ""
+"Veuillez valider ci-dessous pour activer les mises à jour automatiques, ou "
+"<a href=\"%s\">envoyez nous un mail</a> si vous ne l'avez pas."
+
+#: core/commercial_pdf_embedder.php:140
+msgid "License Key"
+msgstr "Clé de licence"
+
+#: core/commercial_pdf_embedder.php:153
+msgid "Current License"
+msgstr "Licence actuelle"
+
+#: core/commercial_pdf_embedder.php:156
+msgid "Status"
+msgstr "Statut"
+
+#: core/commercial_pdf_embedder.php:160
+msgid "Last Checked"
+msgstr "Dernière vérification"
+
+#: core/commercial_pdf_embedder.php:168
+msgid "License Expires"
+msgstr "Licence Expirée"
+
+#: core/commercial_pdf_embedder.php:180
+msgid ""
+"To renew your license, please <a href=\"%s\" target=\"_blank\">click here</"
+"a>."
+msgstr ""
+"Pour renouveler votre licence, veuillez <a href=\"%s\" target=\"_blank"
+"\">cliquer ici</a>."
+
+#: core/commercial_pdf_embedder.php:183
+msgid ""
+"You will receive a 50% discount if you renew before your license expires."
+msgstr ""
+"Vous recevrez une remise de 50% si vous renouvelez avant l'expiration de "
+"votre licence."
+
+#: core/commercial_pdf_embedder.php:309
+msgid "Mobile width should be an integer number of pixels, or 0 to turn off"
+msgstr ""
+"La largeur du mobile doit être un nombre entier de pixels, ou 0 pour "
+"désactiver"
+
+#: core/commercial_pdf_embedder.php:310
+msgid "License key is too short"
+msgstr "La clé de licence est trop court"
+
+#: core/commercial_pdf_embedder.php:312
+msgid "License key failed to activate"
+msgstr "Echec d'activation de la clef de Licence"
+
+#: core/commercial_pdf_embedder.php:313
+msgid "License key does not exist in our system at all"
+msgstr "La clé de licence n'existe pas dans notre système"
+
+#: core/commercial_pdf_embedder.php:314
+msgid "License key entered is for the wrong product"
+msgstr "La clé de licence est entrée pour le mauvais produit"
+
+#: core/commercial_pdf_embedder.php:315
+msgid "License key has expired"
+msgstr "La clé de licence a expiré"
+
+#: core/commercial_pdf_embedder.php:316
+msgid "License key is not permitted for this website"
+msgstr "La clé de licence n'est pas autorisée pour ce site"
+
+#: core/commercial_pdf_embedder.php:317
+msgid "License key is not active for this website"
+msgstr "La clé de licence n'est pas active pour ce site"
+
+#: core/commercial_pdf_embedder.php:318
+msgid "License key has been disabled"
+msgstr "La clé de licence a été désactivée"
+
+#: core/commercial_pdf_embedder.php:319
+msgid "License key was not provided"
+msgstr "La clé de licence n'a pas été fourni"
+
+#: core/commercial_pdf_embedder.php:361
+msgid "Downloads"
+msgstr "Téléchargements"
+
+#: core/commercial_pdf_embedder.php:365
+msgid "Views"
+msgstr "Vues"
+
+#: core/core_pdf_embedder.php:37
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: core/core_pdf_embedder.php:38
+msgid "Page"
+msgstr "Page"
+
+#: core/core_pdf_embedder.php:39
+msgid "Zoom"
+msgstr "Zoom"
+
+#: core/core_pdf_embedder.php:40
+msgid "Previous page"
+msgstr "Page précédente"
+
+#: core/core_pdf_embedder.php:41
+msgid "Next page"
+msgstr "Page suivante"
+
+#: core/core_pdf_embedder.php:42
+msgid "Zoom In"
+msgstr "Zoom +"
+
+#: core/core_pdf_embedder.php:43
+msgid "Zoom Out"
+msgstr "Zoom -"
+
+#: core/core_pdf_embedder.php:44 core/core_pdf_embedder.php:211
+msgid "Secure"
+msgstr "Sécurité"
+
+#: core/core_pdf_embedder.php:45
+msgid "Download PDF"
+msgstr "Télécharger le PDF"
+
+#: core/core_pdf_embedder.php:46
+msgid "Full Screen"
+msgstr "Plein écran"
+
+#: core/core_pdf_embedder.php:47
+msgid ""
+"Error: URL to the PDF file must be on exactly the same domain as the current "
+"web page."
+msgstr ""
+"Erreur: l'URL du fichier PDF doit être exactement dans le même domaine que "
+"la page Web actuelle."
+
+#: core/core_pdf_embedder.php:48
+msgid "Click here for more info"
+msgstr "Cliquez ici pour en savoir plus"
+
+#: core/core_pdf_embedder.php:49
+msgid "PDF page width or height are invalid"
+msgstr "Largeur ou hauteur de la page PDF ne sont pas valides"
+
+#: core/core_pdf_embedder.php:50
+msgid "View in Full Screen"
+msgstr "Voir en plein écran"
+
+#: core/core_pdf_embedder.php:68
+msgid "PDFs"
+msgstr "PDF"
+
+#: core/core_pdf_embedder.php:68
+msgid "Manage PDFs"
+msgstr "Gérer les fichiers PDF"
+
+#: core/core_pdf_embedder.php:68
+msgid "PDF <span class=\"count\">(%s)</span>"
+msgid_plural "PDFs <span class=\"count\">(%s)</span>"
+msgstr[0] "PDF <span class=\"count\">(%s)</span>"
+msgstr[1] "PDFs <span class=\"count\">(%s)</span>"
+
+#: core/core_pdf_embedder.php:172 core/core_pdf_embedder.php:177
+msgid "PDF Embedder settings"
+msgstr "Paramètres PDF Embedder"
+
+#: core/core_pdf_embedder.php:172 core/core_pdf_embedder.php:177
+msgid "PDF Embedder"
+msgstr "PDF Embedder"
+
+#: core/core_pdf_embedder.php:197
+msgid "PDF Embedder setup"
+msgstr "Configuration PDF Embedder"
+
+#: core/core_pdf_embedder.php:199
+msgid ""
+"To use the plugin, just embed PDFs in the same way as you would normally "
+"embed images in your posts/pages - but try with a PDF file instead."
+msgstr ""
+"Pour utiliser le plug-in, incorporer des fichiers PDF de la même manière que "
+"vous le feriez pour incorporer des images dans vos articles / pages - mais "
+"essayez avec un fichier PDF à la place."
+
+#: core/core_pdf_embedder.php:200
+msgid ""
+"From the post editor, click Add Media, and then drag-and-drop your PDF file "
+"into the media library.\n"
+"                When you insert the PDF into your post, it will "
+"automatically embed using the plugin's viewer."
+msgstr ""
+"A partir de l'éditeur de messages, cliquez sur Ajouter des médias, puis "
+"faites glisser-déposer votre fichier PDF dans la bibliothèque multimédia.\n"
+"                Lorsque vous insérez le PDF dans votre message, il sera "
+"automatiquement intégré à l'aide du visualiseur de plugin."
+
+#: core/core_pdf_embedder.php:209
+msgid "Main Settings"
+msgstr "Paramètres Généraux"
+
+#: core/core_pdf_embedder.php:210
+msgid "Mobile"
+msgstr "Mobile"
+
+#: core/core_pdf_embedder.php:238
+msgid "Save Changes"
+msgstr "Sauvegarder les modifications"
+
+#: core/core_pdf_embedder.php:266
+msgid "Default Viewer Settings"
+msgstr "Paramètres par défaut du Viewer"
+
+#: core/core_pdf_embedder.php:268
+msgid "Width"
+msgstr "Largeur"
+
+#: core/core_pdf_embedder.php:272
+msgid "Height"
+msgstr "Hauteur"
+
+#: core/core_pdf_embedder.php:276
+msgid "Enter <b>max</b> or an integer number of pixels"
+msgstr "Entrez <b> max </ b> ou un nombre entier de pixels"
+
+#: core/core_pdf_embedder.php:280
+msgid "Toolbar Location"
+msgstr "Position de la barre d'outils"
+
+#: core/core_pdf_embedder.php:282
+msgid "Top"
+msgstr "Haut"
+
+#: core/core_pdf_embedder.php:283
+msgid "Bottom"
+msgstr "Bas"
+
+#: core/core_pdf_embedder.php:284
+msgid "Both"
+msgstr "Haut et bas"
+
+#: core/core_pdf_embedder.php:289
+msgid "Toolbar Hover"
+msgstr "Barre d'outils flottante"
+
+#: core/core_pdf_embedder.php:292
+msgid "Toolbar appears only on hover over document"
+msgstr ""
+"La barre d'outils apparaît uniquement sur le vol stationnaire sur le document"
+
+#: core/core_pdf_embedder.php:297
+msgid "Toolbar always visible"
+msgstr "Barre d'outils toujours visible"
+
+#: core/core_pdf_embedder.php:309
+msgid ""
+"You can override these defaults for specific embeds by modifying the "
+"shortcodes - see <a href=\"%s\" target=\"_blank\">instructions</a>."
+msgstr ""
+"Vous pouvez remplacer ces valeurs par défaut pour des intégrations "
+"spécifiques en modifiant les shortcodes - voir les <a href=\"%s\" target="
+"\"_blank\">instructions</a>"
+
+#: core/core_pdf_embedder.php:329
+msgid "Protect your PDFs using PDF Embedder Secure"
+msgstr "Protégez vos fichiers PDF à l'aide de PDF Embedder sécurisé"
+
+#: core/core_pdf_embedder.php:330
+msgid ""
+"Our <b>PDF Embedder Premium Secure</b> plugin provides the same simple but "
+"elegant viewer for your website visitors, with the added protection that\n"
+"            it is difficult for users to download or print the original PDF "
+"document."
+msgstr ""
+"Notre plugin<b>PDF Embedder Premium Sécurisé </b> fournit une interface "
+"simple mais pratique pour les visiteurs de votre site Web, avec la "
+"protection supplémentaire,\n"
+"            il est difficile pour les utilisateurs de télécharger ou "
+"d'imprimer le document PDF d'origine."
+
+#: core/core_pdf_embedder.php:333
+msgid ""
+"This means that your PDF is unlikely to be shared outside your site where "
+"you have no control over who views, prints, or shares it."
+msgstr ""
+"Cela signifie que votre PDF est peu susceptible d'être partagé en dehors de "
+"votre site où vous n'avez aucun contrôle sur qui vois, imprime, ou partage."
+
+#: core/core_pdf_embedder.php:381
+msgid "Width must be \"max\" or an integer (number of pixels)"
+msgstr "Largeur doit être \"max\" ou un nombre entier (nombre de pixels)"
+
+#: core/core_pdf_embedder.php:382
+msgid "Height must be \"max\" or an integer (number of pixels)"
+msgstr "Hauteur doit être \"max\" ou un nombre entier (nombre de pixels)"
+
+#: core/core_pdf_embedder.php:388
+msgid "Unspecified error"
+msgstr "Erreur non spécifiée"
+
+#: core/core_pdf_embedder.php:429
+msgid "Settings saved"
+msgstr "Paramètres sauvegardés"
+
+#: core/core_pdf_embedder.php:525
+msgid "Settings"
+msgstr "Paramètres"
+
+#: premium_secure_pdf_embedder.php:164 premium_secure_pdf_embedder.php:166
+msgid "Secure PDFs"
+msgstr "PDF sécurisés"
+
+#: premium_secure_pdf_embedder.php:169
+msgid "Send PDF media uploads to 'securepdfs' folder"
+msgstr "Envoyer les PDF dans un dossier média 'securepdfs'"
+
+#: premium_secure_pdf_embedder.php:175
+msgid "Disable Right Click"
+msgstr "Désactiver le Clic droit"
+
+#: premium_secure_pdf_embedder.php:178
+msgid "Disable right-click mouse menu"
+msgstr "Désactiver le menu de la souris clic-droit"
+
+#: premium_secure_pdf_embedder.php:185
+msgid ""
+"If 'Secure PDFs' is checked above, your PDF uploads will be 'secure' by "
+"default.\n"
+"            That is, they should be uploaded to a 'securepdfs' sub-folder of "
+"your uploads area. These files should not be accessible directly,\n"
+"            and the plugin provides a backdoor method for the embedded "
+"viewer to obtain the file contents."
+msgstr ""
+"Si 'PDF sécurisés' est cochée ci-dessus, vos téléchargements de fichiers PDF "
+"seront 'sécurisés' par défaut.\n"
+"            Autrement dit, ils doivent être téléchargés dans un sous-dossier "
+"'securepdfs' de votre espace de téléchargement. Ces fichiers ne doivent pas "
+"être accessibles directement,\n"
+"            et le plugin fournit une méthode de porte dérobée pour que le "
+"Viewer affiche le contenu du fichier."
+
+#: premium_secure_pdf_embedder.php:189
+msgid ""
+"This means that your PDF is unlikely to be shared outside your site where "
+"you have no control over who views, prints, or shares it.\n"
+"            Please note that it is still always possible for a determined "
+"user to obtain the original file. Sensitive information should never be "
+"presented to viewers in any form."
+msgstr ""
+"Cela signifie que votre PDF est peu susceptible d'être partagé en dehors de "
+"votre site où vous n'avez aucun contrôle sur qui vois, imprime, ou partage "
+"les fichiers.\n"
+"            A noter qu'il est toujours possible pour un utilisateur "
+"déterminé d'obtenir le fichier d'origine. Les informations sensibles ne "
+"devraient jamais être présenté aux visiteurs sous quelque forme que ce soit."
+
+#: premium_secure_pdf_embedder.php:192
+msgid ""
+"See <a href=\"http://wp-pdf.com/premium-instructions/?utm_source=PDF"
+"%20Settings%20Secure&utm_medium=premium&utm_campaign=Premium\" target="
+"\"_blank\">Instructions</a> for more details."
+msgstr ""
+"Voir les <a href=\"http://wp-pdf.com/premium-instructions/?utm_source=PDF"
+"%20Settings%20Secure&utm_medium=premium&utm_campaign=Premium\" target="
+"\"_blank\">Instructions</a> pour plus de détails."
+
+# wordpress plugin description
+msgid ""
+"Embed PDFs straight into your posts and pages, with flexible width and "
+"height. No third-party services required."
+msgstr ""
+"Intégration directe des PDF dans vos messages et pages, avec une largeur "
+"flexible et hauteur. Aucun service tiers requis."
+
+# readme description
+msgid ""
+"Embed PDFs straight into your posts and pages, with intelligent resizing of "
+"width and height. No third-party services or iframes required."
+msgstr ""
+"Intégration direct des PDF dans vos messages et pages, avec "
+"redimensionnement intelligent de la largeur et la hauteur. Pas de services "
+"tiers ou iframes nécessaires."
+
+# wordpress plugin description
+msgid "PDF Embedder Premium"
+msgstr "PDF Embedder Premium"
+
+# wordpress plugin description
+msgid "PDF Embedder Premium Secure"
+msgstr "PDF Embedder Premium Sécurisé"
