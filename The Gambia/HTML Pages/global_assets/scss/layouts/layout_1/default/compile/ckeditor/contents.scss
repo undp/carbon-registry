@@ -1,0 +1,27 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # CKEditor - contents.css
+ *
+ *  Custom file to style inner content. Basically a reset file that re-uses
+ *  Limitless variables.
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Config files, where variables are defined */
+@import "../../../../../config";
+@import "../../../../../shared/utils/ll-functions";
+@import "../../../../../shared/utils/ll-mixins";
+@import "../../../../../themes/default/colors/palette";
+
+// Core variables and mixins
+@import "../../../../../_bootstrap/functions";
+@import "../../../../../_bootstrap/variables";
+@import "../../../../../_bootstrap/mixins";
+
+// Import template's variables
+@import "../../variables/variables-core";
+@import "../../variables/variables-custom";
+@import "../../../../../themes/default/bootstrap_limitless/mixins";
+
+// Import contents styles
+@import "../../../../../themes/default/components/forms/editors/ckeditor/contents";

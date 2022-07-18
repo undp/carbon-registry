@@ -1,0 +1,178 @@
+/* ------------------------------------------------------------------------------
+*
+*  # CKEditor rich text editor - Core editor styles
+*
+*  CKEditor - smart WYSIWYG editor components with collaborative editing
+*
+* ---------------------------------------------------------------------------- */
+
+
+//
+// This section holds the "reset" requirements of CKEditor
+//
+
+// Reset for elements and their children
+body {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: $body-color;
+    margin: $card-spacer-y $card-spacer-x;
+}
+
+.cke_editable {
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    word-wrap: break-word;
+}
+
+blockquote {
+    font-style: italic;
+    font-family: $font-family-base;
+    font-size: $blockquote-font-size;
+    padding: map-get($spacers, 1) 0;
+    border-style: solid;
+    border-color: $blockquote-border-color;
+    border-width: 0;
+    padding-left: map-get($spacers, 3);
+    padding-right: map-get($spacers, 3);
+    border-left-width: $blockquote-border-width;
+}
+
+
+a {
+    color: $link-color;
+
+    &:hover {
+        color: $link-hover-color;
+    }
+}
+
+ol,ul,dl {
+    padding: 0 map-get($spacers, 4);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: $headings-font-weight;
+    line-height: $headings-line-height;
+}
+
+hr {
+    border: 0;
+    border-top: $hr-border-width solid $hr-border-color;
+}
+
+img.right {
+    border: $border-width solid $border-color;
+    float: right;
+    margin-left: map-get($spacers, 3);
+    padding: map-get($spacers, 1);
+}
+
+img.left {
+    border: $border-width solid $border-color;
+    float: left;
+    margin-right: map-get($spacers, 3);
+    padding: map-get($spacers, 1);
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -moz-tab-size: 4;
+    tab-size: 4;
+}
+
+.marker {
+    background-color: $mark-bg;
+    padding: $mark-padding;
+}
+
+span[lang]
+{
+    font-style: italic;
+}
+
+figure {
+    text-align: center;
+    outline: $border-width solid $border-color;
+    background: $card-bg;
+    padding: map-get($spacers, 2);
+    margin: map-get($spacers, 3);
+    display: inline-block;
+
+    > figcaption {
+        text-align: center;
+        display: block; /* For IE8 */
+    }
+}
+
+
+a > img {
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: 0;
+}
+
+/* Widget Styles */
+
+.image-clean
+{
+    border: 0;
+    background: none;
+    padding: 0;
+}
+
+.image-clean > figcaption
+{
+    font-size: .9em;
+    text-align: right;
+}
+
+.image-grayscale
+{
+    background-color: white;
+    color: #666;
+}
+
+.image-grayscale img, img.image-grayscale
+{
+    filter: grayscale(100%);
+}
+
+.embed-240p
+{
+    max-width: 426px;
+    max-height: 240px;
+    margin: 0 auto;
+}
+
+.embed-360p
+{
+    max-width: 640px;
+    max-height: 360px;
+    margin: 0 auto;
+}
+
+.embed-480p
+{
+    max-width: 854px;
+    max-height: 480px;
+    margin: 0 auto;
+}
+
+.embed-720p
+{
+    max-width: 1280px;
+    max-height: 720px;
+    margin: 0 auto;
+}
+
+.embed-1080p
+{
+    max-width: 1920px;
+    max-height: 1080px;
+    margin: 0 auto;
+}
+

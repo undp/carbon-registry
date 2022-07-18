@@ -1,0 +1,27 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # CKEditor - editor.css
+ *
+ *  This is he heart of the skin system. This is the file loaded by the editor to
+ *  style all elements inside its main interface.
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Config files, where variables are defined */
+@import "../../../../../config";
+@import "../../../../../shared/utils/ll-functions";
+@import "../../../../../shared/utils/ll-mixins";
+@import "../../../../../themes/default/colors/palette";
+
+// Core variables and mixins
+@import "../../../../../_bootstrap/functions";
+@import "../../../../../_bootstrap/variables";
+@import "../../../../../_bootstrap/mixins";
+
+// Import template's variables
+@import "../../variables/variables-core";
+@import "../../variables/variables-custom";
+@import "../../../../../themes/default/bootstrap_limitless/mixins";
+
+// Import editor styles
+@import "../../../../../themes/default/components/forms/editors/ckeditor/editor";

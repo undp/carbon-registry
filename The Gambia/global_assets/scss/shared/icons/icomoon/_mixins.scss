@@ -1,0 +1,20 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Icomoon mixins
+ *
+ *  Custom mixins for Icomoon icon set only.
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Rotate icon
+@mixin im-icon-rotate($degrees, $rotation) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation})";
+    transform: rotate($degrees);
+}
+
+// Flip icon
+@mixin im-icon-flip($horiz, $vert, $rotation) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation}, mirror=1)";
+    transform: scale($horiz, $vert);
+}

@@ -1,0 +1,31 @@
+[
+	{"title": "Expanded folder with children", "expanded": true, "folder": true, "children": [
+		{"key": "1_2", "title": "Expanded sub-item", "expanded": true, "children": [
+			{"key": "1_2_1", "title": "Active sub-item (active and focus on init)", "active": true, "focused": true},
+			{"key": "1_2_2", "title": "Basic <i>menu item</i> with <strong class='font-weight-semibold'>HTML support</strong>"}
+		]},
+		{"key": "1_3", "title": "Expanded sub-item", "children": [
+			{"key": "1_3_1", "title": "Sub-item 2.2.1"},
+			{"key": "1_3_2", "title": "Sub-item 2.2.2"}
+		]}
+	]},
+	{"key": "2", "title": "Menu item with key and tooltip", "extraClasses": "has-tooltip", "tooltip": "Look, a tool tip!"},
+	{"key": "3", "title": "Collapsed folder", "folder": true, "children": [
+		{"key": "3_1", "title": "Sub-item 1.1"},
+		{"key": "3_1", "title": "Sub-item 1.2"}
+	]},
+	{"key": "4", "title": "This is a selected item", "selected": true},
+	{"key": "5", "title": "Document with some children (expanded on init)", "expanded": true, "children": [
+		{"key": "5_1", "title": "Document sub-item"},
+		{"key": "5_2", "title": "Another document sub-item", "children": [
+			{"key": "5_2_1", "title": "Sub-item 2.1.1"},
+			{"key": "5_2_2", "title": "Sub-item 2.1.2"}
+		]}
+	]}
+]
+
+
+
+
+
+

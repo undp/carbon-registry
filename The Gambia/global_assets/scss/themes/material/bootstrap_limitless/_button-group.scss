@@ -1,0 +1,32 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Button group component
+ *
+ *  Overrides for button group bootstrap component
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Make sure custom border widths work correctly
+.btn-group {
+
+    // Double border width
+    > .btn.border-2:not(:first-child) {
+        margin-left: -($btn-border-width * 2);
+    }
+
+    // Tripple border width
+    > .btn.border-3:not(:first-child) {
+        margin-left: -($btn-border-width * 3);
+    }
+}
+
+// Justified button group
+.btn-group-justified {
+    display: flex;
+
+    // Stretch the buttons
+    .btn,
+    .btn-group {
+        flex: 1;
+    }
+}

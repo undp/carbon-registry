@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Implementation-Title: Gambia
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: rajes
+Implementation-Vendor-Id: com.gambia
+Spring-Boot-Version: 2.0.3.RELEASE
+Main-Class: org.springframework.boot.loader.WarLauncher
+Start-Class: com.gambia.MainRunner
+Spring-Boot-Classes: WEB-INF/classes/
+Spring-Boot-Lib: WEB-INF/lib/
+Created-By: Apache Maven 3.5.3
+Build-Jdk: 1.8.0_281
+Implementation-URL: http://maven.apache.org
+

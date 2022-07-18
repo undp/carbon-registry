@@ -1,0 +1,443 @@
+/* ------------------------------------------------------------------------------
+*
+*  # D3.js library
+*
+*  Basic styles for D3.js visualization library
+*
+* ---------------------------------------------------------------------------- */
+
+// Check if component is enabled
+@if $enable-d3 {
+
+    // Base
+    // ------------------------------
+
+    // Text color
+    .d3-text {
+        fill: $chart-text-color;
+    }
+
+    // Border color for slices
+    .d3-slice-border {
+        stroke: $card-bg;
+        stroke-width: 1.5px;
+    }
+
+    // Empty state background
+    .d3-state-empty {
+        fill: $chart-empty-bg;
+    }
+
+    // Background color
+    .d3-bg {
+        fill: $card-bg;
+    }
+
+
+    // Axis
+    // ------------------------------
+
+    // Base
+    .d3-axis {
+
+        // Lines
+        path,
+        line {
+            stroke: $chart-axis-line-color;
+            shape-rendering: crispEdges;
+        }
+
+        // Axis line
+        path {
+            fill: none;
+        }
+
+        // Ticks
+        .tick {
+            &,
+            text {
+                font-size: $font-size-sm;
+                fill: $chart-axis-text-color;
+            }
+        }
+    }
+
+    // Transparent axis
+    .d3-axis-transparent {
+        path {
+            stroke: none;
+        }
+    }
+
+    // Axis text titles
+    .d3-axis-title {
+        font-size: $font-size-sm;
+        fill: rgba($chart-text-color, 0.75);
+    }
+
+
+
+    // Tooltip
+    // ------------------------------
+
+    //
+    // Basic tooltip
+    //
+
+    // Base
+    .d3-tip {
+        position: absolute;
+        padding: $tooltip-padding-y $tooltip-padding-x;
+        background-color: $tooltip-bg;
+        color: $tooltip-color;
+        margin-bottom: -($tooltip-arrow-height);
+        font-size: $tooltip-font-size;
+        z-index: $zindex-tooltip;
+        @include border-radius($tooltip-border-radius);
+
+        // Arrow
+        .d3-tip-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+
+    // Tooltip positioning
+    .d3-tip {
+        &.n .d3-tip-arrow {
+            bottom: -($tooltip-arrow-height);
+            left: 50%;
+            margin-left: -($tooltip-arrow-height);
+            border-width: $tooltip-arrow-height $tooltip-arrow-height 0;
+            border-top-color: $tooltip-arrow-color;
+        }
+        &.e .d3-tip-arrow {
+            top: 50%;
+            margin-top: -$tooltip-arrow-height;
+            /*rtl:begin:ignore*/
+            left: -($tooltip-arrow-height);
+            border-width: $tooltip-arrow-height $tooltip-arrow-height $tooltip-arrow-height 0;
+            border-right-color: $tooltip-arrow-color;
+            /*rtl:end:ignore*/
+        }
+        &.w .d3-tip-arrow {
+            top: 50%;
+            margin-top: -$tooltip-arrow-height;
+            /*rtl:begin:ignore*/
+            right: -($tooltip-arrow-height);
+            border-width: $tooltip-arrow-height 0 $tooltip-arrow-height $tooltip-arrow-height;
+            border-left-color: $tooltip-arrow-color;
+            /*rtl:end:ignore*/
+        }
+        &.s .d3-tip-arrow {
+            top: 0;
+            left: 50%;
+            margin-left: -$tooltip-arrow-height;
+            border-width: 0 $tooltip-arrow-height $tooltip-arrow-height;
+            border-bottom-color: $tooltip-arrow-color;
+        }
+    }
+
+
+    //
+    // Venn diagram tooltip
+    //
+
+    // Base
+    .venntooltip {
+        position: absolute;
+        text-align: center;
+        white-space: nowrap;
+        background-color: $tooltip-bg;
+        color: $tooltip-color;
+        padding: $tooltip-padding-y $tooltip-padding-x;
+        display: none;
+        @include border-radius($tooltip-border-radius);
+    }
+
+
+
+    // Chart types
+    // ------------------------------
+
+    // Lines
+    .d3-line {
+        fill: none;
+
+        // Thin stroke
+        &-thin {
+            stroke-width: 1px;
+        }
+
+        // Medium stroke
+        &-medium {
+            stroke-width: 1.5px;
+        }
+
+        // Strong stroke
+        &-strong {
+            stroke-width: 2px;
+        }
+    }
+
+
+    // Line circles
+    .d3-line-circle {
+        fill: $card-bg;
+        cursor: pointer;
+
+        // Thin stroke
+        &-thin {
+            stroke-width: 1px;
+        }
+
+        // Medium stroke
+        &-medium {
+            stroke-width: 1.5px;
+        }
+
+        // Strong stroke
+        &-strong {
+            stroke-width: 2px;
+        }
+    }
+
+    // Connect lines
+    .d3-line-connect {
+        fill: none;
+        stroke: $chart-line-color;
+    }
+
+
+
+    // Grid
+    // ------------------------------
+
+    // Basic grid
+    .d3-grid {
+        .tick {
+            line {
+                stroke-width: 1px;
+                stroke: $chart-grid-color-primary;
+            }
+        }
+    }
+
+    // Dashed grid
+    .d3-grid-dashed {
+        .tick {
+            line {
+                stroke-dasharray: 4,2;
+                stroke: $chart-grid-color-primary;
+            }
+        }
+
+        path {
+            stroke-width: 0;
+        }
+    }
+
+
+
+    // Components
+    // ------------------------------
+
+    // Crosshair overlay
+    .d3-crosshair-overlay {
+        fill: none;
+        pointer-events: all;
+    }
+
+    // Crosshair pointer
+    .d3-crosshair-pointer {
+        text {
+            fill: $body-color;
+        }
+    }
+
+    // Crosshair line
+    .d3-crosshair-line {
+        fill: none;
+        stroke: $chart-line-color;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
+        pointer-events: none;
+    }
+
+
+
+    // Bullets
+    // ------------------------------
+
+    //
+    // Base
+    //
+
+    // Ticks
+    .bullet-tick {
+
+        // Line styles
+        line {
+            stroke: $chart-axis-line-color;
+            stroke-width: 1px;
+            shape-rendering: crispEdges;
+        }
+
+        // Text styles
+        text {
+            fill: $chart-axis-text-color;
+            font-size: $font-size-sm;
+        }
+    }
+
+    // Marker
+    .bullet-marker {
+        stroke-width: 2px;
+        shape-rendering: crispEdges;
+    }
+
+    // Title
+    .bullet-title {
+        fill: $chart-text-color;
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+    }
+
+    // Subtitle
+    .bullet-subtitle {
+        fill: $chart-text-color;
+    }
+
+
+    //
+    // First bullet
+    //
+
+    // Ranges
+    .bullet-1 .bullet-range-1 {
+        fill: rgba($color-slate-500, 0.8);
+    }
+    .bullet-1 .bullet-range-2 {
+        fill: rgba($color-slate-500, 0.4);
+    }
+    .bullet-1 .bullet-range-3 {
+        fill: $color-slate-500;
+    }
+
+    // Measures
+    .bullet-1 .bullet-measure-1 {
+        fill: rgba($color-slate-600, 0.9);
+    }
+    .bullet-1 .bullet-measure-2 {
+        fill: $white;
+    }
+
+    // Marker
+    .bullet-1 .bullet-marker {
+        stroke: $color-slate-800;
+    }
+
+
+    //
+    // Second bullet
+    //
+
+    // Ranges
+    .bullet-2 .bullet-range-1 {
+        fill: rgba($color-warning-400, 0.6);
+    }
+    .bullet-2 .bullet-range-2 {
+        fill: rgba($color-warning-400, 0.3);
+    }
+    .bullet-2 .bullet-range-3 {
+        fill: $color-warning-400;
+    }
+
+    // Measures
+    .bullet-2 .bullet-measure-1 {
+        fill: rgba($color-warning-600, 0.9);
+    }
+    .bullet-2 .bullet-measure-2 {
+        fill: $white;
+    }
+
+    // Marker
+    .bullet-2 .bullet-marker {
+        stroke: $color-warning-800;
+    }
+
+
+    //
+    // Third bullet
+    //
+
+    // Ranges
+    .bullet-3 .bullet-range-1 {
+        fill: rgba($color-success-400, 0.7);
+    }
+    .bullet-3 .bullet-range-2 {
+        fill: rgba($color-success-400, 0.35);
+    }
+    .bullet-3 .bullet-range-3 {
+        fill: $color-success-400;
+    }
+
+    // Measures
+    .bullet-3 .bullet-measure-1 {
+        fill: rgba($color-success-600, 0.9);
+    }
+    .bullet-3 .bullet-measure-2 {
+        fill: $white;
+    }
+
+    // Marker
+    .bullet-3 .bullet-marker {
+        stroke: $color-success-800;
+    }
+
+
+
+    // Progress counter icon. Styles moved to
+    // CSS, because IE9 drove me crazy...
+    // ------------------------------
+
+    .counter-icon {
+        font-size: ($icon-font-size * 2);
+        position: absolute;
+        left: 50%;
+        margin-left: -($icon-font-size);
+    }
+
+
+    // Legend
+    // ------------------------------
+
+    .d3-legend {
+        text {
+            fill: $chart-text-color;
+            font-size: $font-size-sm;
+        }
+
+        line {
+            stroke: $chart-axis-line-color;
+            stroke-width: 1px;
+        }
+    }
+
+    .chart-widget-legend {
+        margin: 0.625rem 0 0 0;
+        padding: 0;
+        fill: $chart-text-color;
+        font-size: $font-size-sm;
+        text-align: center;
+        
+        li {
+            margin: 0.3125rem 0.625rem 0;
+            padding: 0.4375rem 0.5rem 0.3125rem;
+            display: inline-block;
+        }
+    }
+}

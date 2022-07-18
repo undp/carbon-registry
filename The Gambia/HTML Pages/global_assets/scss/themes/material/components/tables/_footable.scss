@@ -1,0 +1,93 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Footable
+ *
+ *  jQuery plugin that aims to make HTML tables on smaller devices look awesome.
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Check if component is enabled
+@if $enable-footable {
+
+    // Base
+    .footable {
+        width: 100%;
+
+        // Remove user select
+        > thead > tr > th {
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        // Setup table styles
+        &.breakpoint {
+            > tbody {
+                > tr {
+
+                    // Add pointer
+                    &:hover:not(.footable-detail-row) {
+                        cursor: pointer;
+                    }
+
+                    // Add expand icon
+                    .footable-toggle {
+                        line-height: 1;
+                        margin-top: (($line-height-computed - $icon-font-size) / 2);
+
+                        // Icon base
+                        &:before {
+                            content: $icon-table-row-expand;
+                            display: block;  
+                            font-family: $icon-font-family;
+                            font-size: $icon-font-size;
+                            line-height: 1;
+                            @include ll-font-smoothing();
+                        }
+                    }
+
+                    // Stick to the left in first column
+                    .footable-first-visible .footable-toggle {
+                        float: left;
+                        margin-right: map-get($spacers, 2);
+                    }
+
+                    // Stick to the right in last column
+                    .footable-last-visible .footable-toggle {
+                        float: right;
+                        margin-left: map-get($spacers, 2);
+                    }
+
+                    // Add collapse icon
+                    &[data-expanded=true] .footable-toggle:before {
+                        content: $icon-table-row-collapse;       
+                    }
+                }
+            }
+        }
+
+        // Row that contains details
+        .footable-detail-row {
+
+            // Reset .table-hover highlight
+            &:hover {
+                background-color: transparent;
+            }
+            
+            // Reset inner cell styles
+            > td {
+                padding: 0;
+                background-color: transparent;
+            }
+        }
+    }
+
+    // Inner list
+    .footable-details {
+        background-color: $ft-inner-list-bg;
+
+        // Force text alignment to the left
+        td {
+            text-align: left!important;
+        }
+    }
+}

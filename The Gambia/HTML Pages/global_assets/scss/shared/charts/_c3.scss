@@ -1,0 +1,227 @@
+/* ------------------------------------------------------------------------------
+*
+*  # C3 charts
+*
+*  Styles for C3.js visualization library
+*
+* ---------------------------------------------------------------------------- */
+
+// Check if component is enabled
+@if $enable-c3 {
+
+    // Base
+    .c3 {
+
+        // Use smaller text
+        svg {
+            font-size: $font-size-sm;
+        }
+
+        // Paths and lines defaults
+        path,
+        line {
+            fill: none;
+            
+        }
+
+        // Disable text selection
+        text {
+            user-select: none;
+        }
+    }
+
+
+    //
+    // Axis
+    //
+
+    // Base
+    .c3-axis,
+    .c3-axis-y,
+    .c3-axis-x {
+        line,
+        path {
+            stroke: $chart-axis-line-color;
+        }
+
+        .tick {
+            fill: $chart-axis-text-color;
+        }
+    }
+
+    // Titles
+    .c3-axis-y-label,
+    .c3-axis-y2-label,
+    .c3-axis-x-label,
+    .c3-axis-x2-label,
+    .c3-ygrid-line text,
+    .c3-xgrid-line text {
+        fill: rgba($chart-text-color, 0.75);
+    }
+
+
+    //
+    // Components
+    //
+
+    // Default shape rendering style
+    .c3-legend-item-tile,
+    .c3-xgrid-focus,
+    .c3-ygrid,
+    .c3-event-rect,
+    .c3-bars path,
+    .c3 path.domain {
+        shape-rendering: crispEdges;
+    }
+
+    // Grid
+    .c3-grid {
+        line {
+            stroke: $chart-grid-color-primary;
+        }
+    }
+    .c3-xgrid,
+    .c3-ygrid {
+        stroke-dasharray: 3 3;
+    }
+
+    // Text on chart
+    .c3-text {
+        font-weight: $font-weight-semibold;
+
+        &.c3-empty {
+            fill: rgba($chart-text-color, 0.5);
+        }
+    }
+
+    // Line
+    .c3-line {
+        stroke-width: 2px;
+    }
+
+    // Area
+    .c3-area {
+        stroke-width: 0;
+        opacity: 0.4;
+    }
+
+    // Bar
+    .c3-bar {
+        stroke-width: 0;
+
+        &._expanded_ {
+            fill-opacity: 0.75;
+        }
+    }
+
+    // Arc
+    .c3-chart-arc {
+
+        // Slices
+        path {
+            stroke: $card-bg;
+            stroke-width: 2px;
+        }
+
+        // text
+        text {
+            fill: $white;
+            font-size: $font-size-base;
+        }
+
+        // Gauge
+        .c3-gauge-value {
+            fill: $body-color;
+            font-size: $h1-font-size;
+        }
+    }
+    .c3-chart-arcs-title {
+        font-size: $h6-font-size;
+        fill: $body-color;
+    }
+    .c3-chart-arcs {
+        .c3-chart-arcs-background {
+            fill: darken($card-bg, 2.5%);
+            stroke: none;
+        }
+
+        .c3-chart-arcs-gauge-unit {
+            fill: $body-color;
+            font-size: $h6-font-size;
+        }
+
+        .c3-chart-arcs-gauge-max,
+        .c3-chart-arcs-gauge-min {
+            fill: $body-color;
+        }
+    }
+
+    // Focus
+    .c3-target {
+        &.c3-focused {
+            opacity: 1;
+
+            path.c3-line,
+            path.c3-step {
+                stroke-width: 2px;
+            }
+        }
+
+        &.c3-defocused {
+            opacity: 0.3 !important;
+        }
+    }
+
+    // Region
+    .c3-region {
+        fill: $c3-region-bg;
+        fill-opacity: $c3-region-opacity;
+    }
+
+    // Brush
+    .c3-brush .extent {
+        fill-opacity: .1;
+    }
+
+    // Legend
+    .c3-legend-item {
+        font-size: $font-size-sm;
+
+        text {
+            fill: $chart-text-color;
+        }
+    }
+
+    // Tooltip
+    .c3-tooltip {
+        border-collapse: collapse;
+        border-spacing: 0;
+        background-color: $tooltip-bg;
+        color: $tooltip-color;
+        empty-cells: show;
+        opacity: $tooltip-opacity;
+        @include border-radius($tooltip-border-radius);
+
+        th {
+            padding: $table-cell-padding-xs;
+            font-weight: $font-weight-semibold;
+            @include border-top-radius($tooltip-border-radius);
+        }
+
+        td {
+            padding: $table-cell-padding-xs;
+            border-top: $border-width solid $c3-tooltip-border-color;
+
+
+            > span {
+                display: inline-block;
+                margin-right: map-get($spacers, 2);
+                @include size($badge-mark-size);
+            }
+
+            &.value {
+                text-align: right;
+            }
+        }
+    }
+}

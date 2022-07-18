@@ -1,0 +1,31 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # CKEditor - dialog.css
+ *
+ *  This file styles dialogs and all widgets available inside of it (tabs, buttons,
+ *  fields, etc.).
+
+ *  Dialogs are a complex system because they're very flexible. The CKEditor API
+ *  makes it easy to create and customize dialogs by code, by making use of several
+ *  different widgets inside its contents.
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Config files, where variables are defined */
+@import "../../../../../config";
+@import "../../../../../shared/utils/ll-functions";
+@import "../../../../../shared/utils/ll-mixins";
+@import "../../../../../themes/material/colors/palette";
+
+// Core variables and mixins
+@import "../../../../../_bootstrap/functions";
+@import "../../../../../_bootstrap/variables";
+@import "../../../../../_bootstrap/mixins";
+
+// Import template's variables
+@import "../../variables/variables-core";
+@import "../../variables/variables-custom";
+@import "../../../../../themes/material/bootstrap_limitless/mixins";
+
+// Import dialog styles
+@import "../../../../../themes/material/components/forms/editors/ckeditor/dialog";

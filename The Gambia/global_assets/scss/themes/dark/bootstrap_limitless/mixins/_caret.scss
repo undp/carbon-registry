@@ -1,0 +1,66 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Caret mixin
+ *
+ *  Override and extend default cared mixin.
+ *
+ * ---------------------------------------------------------------------------- */
+
+@mixin caret-down {
+    content: $icon-caret-down;
+}
+
+@mixin caret-up {
+    content: $icon-caret-up;
+}
+
+@mixin caret-right {
+    content: $icon-caret-right;
+}
+
+@mixin caret-left {
+    content: $icon-caret-left;
+}
+
+@mixin caret($caret-direction: down) {
+    @if $enable-caret {
+        &::after {
+            font-family: $icon-font-family;
+            display: inline-block;
+            border: 0;
+            vertical-align: $caret-vertical-align;
+            font-size: $caret-font-size;
+            margin-left: $caret-spacing;
+            line-height: 1;
+            position: relative;
+            @if $caret-direction == down {
+                @include caret-down;
+            } @else if $caret-direction == up {
+                @include caret-up;
+            } @else if $caret-direction == right {
+                @include caret-right;
+            }
+        }
+
+        @if $caret-direction == left {
+            &::after {
+                content: none;
+            }
+
+            &::before {
+                font-family: $icon-font-family;
+                display: inline-block;
+                border: 0;
+                font-size: $caret-font-size;
+                margin-right: ($element-spacer-x * .75);
+                line-height: 1;
+                position: relative;
+                @include caret-left;
+            }
+        }
+
+        &:empty::after {
+            margin-left: 0;
+        }
+    }
+}

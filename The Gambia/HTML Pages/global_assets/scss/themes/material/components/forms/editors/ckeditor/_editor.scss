@@ -1,0 +1,771 @@
+/* ------------------------------------------------------------------------------
+*
+*  # CKEditor rich text editor - Core editor styles
+*
+*  CKEditor - smart WYSIWYG editor components with collaborative editing
+*
+* ---------------------------------------------------------------------------- */
+
+
+//
+// This section holds the "reset" requirements of CKEditor
+//
+
+// Reset for elements and their children
+.cke_reset_all {
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        width: auto;
+        height: auto;
+        vertical-align: baseline;
+        position: static;
+        transition: none;
+
+        border-collapse: collapse;
+        font-size: $font-size-base;
+        font-family: $font-family-base;
+        line-height: $line-height-base;
+        color: $body-color;
+        text-align: left;
+        cursor: auto;
+        float: none;
+        outline: 0;
+        text-decoration: none;
+    }
+}
+
+
+
+//
+// This section styles the basic structure of the CKEditor user interface - the box
+// that holds everything
+//
+
+// The outer boundary of the interface
+.cke_chrome {
+    display: block;
+    border: $border-width solid $border-color;
+    @include border-radius($border-radius);
+}
+
+// The inner boundary of the interface
+.cke_inner {
+    display: block;
+    -webkit-touch-callout: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+// Remove outline when editable area is in focus
+.cke_editable {
+    &:focus {
+        outline: 0;
+    }
+}
+
+// Added to the outer boundary of the UI when in inline editing, when the UI is floating
+.cke_float {
+    border: 0;
+    background-color: $cke-float-toolbar-bg;
+
+    // Inner boundary
+    .cke_inner {
+        padding-bottom: 0;
+    }
+
+    // Add border to toolbar
+    .cke_top {
+        border: $border-width solid $border-color;
+    }
+}
+
+// Make the main spaces enlarge to hold potentially floated content
+.cke_top,
+.cke_contents,
+.cke_bottom {
+    display: block;
+    overflow: auto;
+}
+
+// Top area
+.cke_top {
+    padding: $card-spacer-y $card-spacer-x ($card-spacer-y - map-get($spacers, 2)) $card-spacer-x;
+    background-color: $cke-toolbar-bg;
+    white-space: normal;
+    border-bottom: $border-width solid $border-color;
+    @include border-top-radius($card-border-radius);
+
+    // Floating toolbar
+    .cke_float & {
+        @include border-bottom-radius($card-border-radius);
+    }
+}
+
+// Content
+.cke_contents {
+    background-color: $card-bg;
+}
+
+// Bottom area
+.cke_bottom {
+    position: relative;
+    padding: ($card-spacer-y / 2) $card-spacer-x;
+    border-top: $border-width solid $border-color;
+    background-color: $card-bg;
+    @include border-bottom-radius($border-radius);
+
+    // Floating toolbar
+    .cke_float & {
+        @include border-top-radius($card-border-radius);
+    }
+}
+
+// On iOS we need to manually enable scrolling in the contents block
+.cke_browser_ios .cke_contents {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+// Editor resizer
+.cke_resizer {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: $cke-resizer-size $cke-resizer-size 0 0;
+    border-color: transparent rgba($body-color, 0.75) transparent transparent;
+    border-style: dashed solid dashed dashed;
+    font-size: 0;
+    position: absolute;
+    right: $cke-resizer-size;
+    bottom: $cke-resizer-size;
+    cursor: se-resize;
+    @include transition(border-color ease-in-out $component-transition-timer);
+
+    // Hover state
+    @include hover-focus {
+        border-right-color: $body-color;
+    }
+}
+
+// If editable area is a <div>
+.cke_wysiwyg_div {
+    display: block;
+    height: 100%;
+    overflow: auto;
+    padding: $card-spacer-y $card-spacer-x;
+    outline: 0;
+}
+
+
+
+//
+// Panels - floating elements that can hold different types of contents
+// Basically it's a dropdown menu
+//
+
+// The box that holds an IFRAME
+.cke_panel {
+    visibility: visible;
+    overflow: hidden;
+    margin-top: $dropdown-spacer;
+    background-color: $dropdown-bg;
+    border: $dropdown-border-width solid $dropdown-border-color;
+    outline: 0;
+    background-clip: padding-box;
+    @include border-radius($dropdown-border-radius);
+    @include box-shadow($dropdown-box-shadow);
+}
+
+// This class represents panels which are used as context menus
+.cke_menu_panel {
+    width: 180px;
+}
+
+// This class represents panels which are used by rich combos
+.cke_combopanel {
+    width: 180px;
+    height: 250px;
+}
+
+// The IFRAME the panel is wrapped into
+.cke_panel_frame {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+// The HTML document which is a direct descendant of the IFRAME
+.cke_panel_container {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+// Panel block
+.cke_panel_block {
+    outline: 0;
+}
+
+// The list of panel items
+.cke_panel_list {
+    list-style-type: none;
+    margin: 0;
+    padding: $dropdown-padding-y 0;
+}
+
+// The item of .cke_panel_list
+.cke_panel_listItem {
+    margin: 0;
+
+    // The child of .cke_panel_listItem. These elements contain spans which are
+    // to display a real name of the property which is visible for an end-user
+    a {
+        padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+        color: $dropdown-link-color;
+        display: block;
+        line-height: $line-height-base;
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        outline: 0;
+        transition: background-color ease-in-out $component-transition-timer, color ease-in-out $component-transition-timer;
+
+        // Hover state
+        @include hover-focus {
+            background-color: $dropdown-link-hover-bg;
+            color: $dropdown-link-hover-color;
+        }
+    }
+
+    // Active state
+    &.cke_selected a {
+        background-color: $dropdown-link-active-bg;
+        color: $dropdown-link-active-color;
+        outline: none;
+    }
+
+    // The following styles set defaults of the elements used by the Paragraph Format panel
+    p, h1, h2, h3, h4, h5, h6, pre {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+// The title of the entire panel which is visible on top of the list
+.cke_panel_grouptitle {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    margin: 0;
+    padding: ($dropdown-item-padding-y * 1.5) $dropdown-item-padding-x;
+    line-height: $line-height-base;
+    background-color: rgba($black, 0.1);
+}
+
+
+
+//
+// Color panel - related to the contents part of the panels that are
+// displayed when clicking the color buttons of the toolbar
+//
+
+// The container of the color palette
+.cke_colorblock {
+    padding: map-get($spacers, 1);
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+
+    // Links
+    a {
+        text-decoration: none;
+        color: $link-color;
+    }
+}
+
+// The box which is to represent a single color on the color palette.
+// It is a small, square-shaped element which can be selected from the palette
+span.cke_colorbox {
+    width: map-get($spacers, 2);
+    height: map-get($spacers, 2);
+    float: left;
+}
+
+// The wrapper of the span.cke_colorbox. It provides an extra border and padding
+a.cke_colorbox {
+    border: $border-width solid $border-color;
+    padding: map-get($spacers, 1);
+    float: left;
+    width: map-get($spacers, 2);
+    height: map-get($spacers, 2);
+    @include border-radius($border-radius);
+}
+
+// Buttons which are visible at the top/bottom of the color palette:
+// - cke_colorauto (TOP) applies the automatic color.
+// - cke_colormore (BOTTOM) executes the color dialog.
+a.cke_colorauto,
+a.cke_colormore {
+    border: $border-width solid $border-color;
+    padding: map-get($spacers, 1);
+    display: block;
+    cursor: pointer;
+}
+
+
+
+//
+// This section styles the CKEditor toolbar and its buttons
+//
+
+// The box that holds each toolbar
+.cke_toolbar {
+    float: left;
+}
+
+// The box that holds buttons
+.cke_toolgroup {
+    float: left;
+    margin: 0 map-get($spacers, 2) map-get($spacers, 2) 0;
+    border: $btn-border-width solid $btn-light-border-color;
+    @include border-radius($btn-border-radius);
+}
+
+// Toolbar button
+a.cke_button {
+    display: inline-block;
+    font-family: $btn-font-family;
+    font-weight: $btn-font-weight;
+    color: $body-color;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: $btn-light-bg;
+    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, 0);
+    @include transition($btn-transition);
+
+    // Rounded corners
+    &:first-child {
+        @include border-left-radius($btn-border-radius);
+    }
+    &:last-child {
+        @include border-right-radius($btn-border-radius);
+    }
+}
+
+// This class is applied to the button when the feature associated with the
+// button cannot be used (grayed-out)
+.cke_button_disabled .cke_button_icon {
+    opacity: $btn-disabled-opacity;
+}
+
+// Hover state for button
+a.cke_button_off {
+    @include hover-focus {
+        outline: 0;
+        background-color: $btn-light-hover-bg;
+        color: $btn-light-hover-color;
+        border-color: $btn-light-hover-border-color;
+    }
+}
+
+// Hover state for dropdown
+a.cke_button_on {
+    background-color: $btn-light-hover-bg;
+    color: $btn-light-hover-color;
+    border-color: $btn-light-hover-border-color;
+}
+
+// The icon which is a visual representation of the button
+.cke_button_icon {
+    cursor: inherit;
+    background-repeat: no-repeat;
+    float: left;
+    display: inline-block;
+    margin-top: ($line-height-computed - $icon-font-size) / 2;
+    margin-bottom: ($line-height-computed - $icon-font-size) / 2;
+    background-image: url('icons.png') !important;
+    @include size($icon-font-size);
+
+    .cke_hidpi & {
+        background-image: url('icons_hidpi.png') !important;
+    }
+}
+
+// The label of the button that stores the name of the feature. By default,
+// labels are invisible. They can be revealed on demand though
+.cke_button_label {
+    display: none;
+    color: $body-color;
+    padding-left: map-get($spacers, 2);
+    line-height: $line-height-base;
+    vertical-align: middle;
+    float: left;
+    cursor: default;
+}
+
+// Button caret
+.cke_button_arrow {
+    margin-left: $caret-spacing;
+    color: $btn-light-color;
+    @include caret();
+}
+
+// The dummy element that breaks toolbars.
+// Once it is placed, the very next toolbar is moved to the new row
+.cke_toolbar_break {
+    display: block;
+    clear: left;
+}
+
+
+
+//
+// This section styles menus used in the editor UI
+//
+
+// .cke_menuitem is the element that holds the entire structure of each of the
+// menu items
+.cke_menu {
+    padding: $dropdown-padding-y 0;
+}
+
+// The "button" inside a menu item is a <a> element
+.cke_menubutton {
+    display: block;
+    position: relative;
+    padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+    @include transition(background-color ease-in-out $component-transition-timer);
+
+    // Hover state
+    @include hover-focus {
+        background-color: $dropdown-link-hover-bg;
+
+        // Text
+        span {
+            color: $dropdown-link-hover-color;
+        }
+    }
+}
+
+// Text
+.cke_menuitem span {
+    cursor: default;
+    color: $dropdown-link-color;
+}
+
+// Shortcut label
+.cke_menubutton_shortcut {
+    float: right;
+}
+
+// The menu item icon
+.cke_menubutton_icon {
+    display: none;
+}
+
+// Disabled state
+.cke_menubutton_disabled {
+
+    // Hover state
+    @include hover-focus {
+        background-color: transparent;
+    }
+
+    // Label color
+    @include plain-hover-focus {
+        .cke_menubutton_label {
+            color: $dropdown-link-disabled-color;
+        }
+    }
+
+}
+
+// Hide the label
+.cke_panel_frame .cke_menubutton_label {
+    display: none;
+}
+
+// The separator used to separate menu item groups
+.cke_menuseparator {
+    @include nav-divider($dropdown-divider-bg, $dropdown-divider-margin-y);
+}
+
+// The small arrow shown for item with sub-menus
+.cke_menuarrow {
+    position: absolute;
+    top: 50%;
+    margin-top: -($icon-font-size / 2);
+    right: $dropdown-item-padding-x;
+    line-height: 1;
+
+    // Arrow itself
+    span {
+        font-size: $font-size-sm;
+    }
+}
+
+
+
+//
+// This section holds the style set of the "Rich Combo" widget which is
+// commonly used in the toolbar
+//
+
+// The box that hold the entire combo widget
+.cke_combo {
+    display: inline-block;
+    float: left;
+}
+
+// The label of the combo widget. It is invisible by default, yet
+// it's important for semantics and accessibility.
+.cke_combo_label {
+    display: none;
+    color: $body-color;
+    padding-left: map-get($spacers, 2);
+    line-height: $line-height-base;
+    vertical-align: middle;
+    float: left;
+    cursor: default;
+}
+
+// The container for combo text and arrow.
+.cke_combo_button {
+    display: inline-block;
+    float: left;
+    font-family: $btn-font-family;
+    font-weight: $btn-font-weight;
+    color: $body-color;
+    margin: 0 map-get($spacers, 2) map-get($spacers, 2) 0;
+    background-color: $btn-light-bg;
+    border: $btn-border-width solid $btn-light-border-color;
+    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+    @include transition($btn-transition);
+}
+
+// Different states of the container
+.cke_combo_off {
+    a.cke_combo_button {
+        @include hover-focus {
+            outline: 0;
+            background-color: $btn-light-hover-bg;
+            color: $btn-light-hover-color;
+            border-color: $btn-light-hover-border-color;
+        }
+    }
+}
+
+// Opened menu
+.cke_combo_on {
+    a.cke_combo_button {
+        background-color: $btn-light-hover-bg;
+        color: $btn-light-hover-color;
+        border-color: $btn-light-hover-border-color;
+    }
+}
+
+// The label that shows the current value of the rich combo
+.cke_combo_text {
+    line-height: $line-height-base;
+    float: left;
+    cursor: default;
+    color: $body-color;
+}
+
+// The arrow which is displayed inside of the .cke_combo_open handler
+.cke_combo_arrow {
+    margin-left: $caret-spacing;
+    color: $btn-light-color;
+    @include caret();
+}
+
+// Disabled combo button styles
+.cke_combo_disabled {
+    .cke_combo_inlinelabel,
+    .cke_combo_open {
+        opacity: $btn-disabled-opacity;
+    }
+}
+
+
+
+//
+// This file styles the "Elements Path", whith is the list of element names
+// present at the the bottom bar of the CKEditor interface.
+//
+
+// The box that holds the entire elements path.
+.cke_path {
+    float: left;
+}
+
+// Each item of the elements path.
+.cke_path_item,
+.cke_path_empty {
+    display: inline-block;
+    padding: 0;
+    margin-right: map-get($spacers, 2);
+    cursor: default;
+    text-decoration: none;
+    outline: 0;
+    border: 0;
+    color: rgba($body-color, 0.75);
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    @include transition(color ease-in-out $component-transition-timer);
+}
+
+// The items are <a> elements, so we define its hover states here.
+a.cke_path_item {
+    @include hover-focus {
+        color: $body-color;
+    }
+}
+
+
+
+//
+// Source view
+//
+
+// "Source" button label
+.cke_button__source_label,
+.cke_button__sourcedialog_label {
+    display: inline-block;
+}
+
+// Editable regions
+.cke_source {
+    font-family: 'Courier New', Monospace;
+    background-color: transparent;
+    border: 0;
+    color: $body-color;
+    white-space: pre;
+    padding: $card-spacer-y $card-spacer-x;
+}
+
+
+
+//
+// Notifications
+//
+
+// Clickable area
+.cke_notifications_area {
+    pointer-events: none;
+}
+
+// Notification
+.cke_notification{
+    pointer-events: auto;
+    position: relative;
+    margin: $notification-gutter-y;
+    width: $notification-width;
+    text-align: center;
+    padding: $alert-padding-y $alert-padding-x;
+    @include border-radius($alert-border-radius);
+
+    // Last paragraph
+    p:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+// Success context
+.cke_notification_success {
+    background-color: theme-color("success");
+    border: $alert-border-width solid theme-color("success");
+}
+
+// Warning context
+.cke_notification_warning {
+    background-color: theme-color("warning");
+    border: $alert-border-width solid theme-color("warning");
+}
+
+// Info context
+.cke_notification_info {
+    background-color: theme-color("primary");
+    border: $alert-border-width solid theme-color("primary");
+
+    // Progress
+    span.cke_notification_progress {
+        background-color: theme-color("primary");
+        display: block;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1;
+    }
+}
+
+// Message
+.cke_notification_message {
+    position: relative;
+    z-index: 4;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+// Close button
+.cke_notification_close {
+    position: absolute;
+    cursor: pointer;
+    text-align: center;
+    top: $alert-padding-y;
+    right: $alert-padding-y;
+    z-index: 5;
+    color: $close-color;
+    opacity: .5;
+    @include transition(opacity ease-in-out $component-transition-timer);
+
+    // Icon
+    &:after {
+        content: $icon-action-cross;
+        font-family: $icon-font-family;
+        font-size: $font-size-base;
+        display: block;
+        line-height: 1;
+    }
+
+    // Override <a>'s hover style
+    @include hover-focus {
+        color: $close-color;
+        text-decoration: none;
+    }
+
+    // Hover state
+    &:not(:disabled):not(.disabled) {
+        @include hover-focus {
+            opacity: 1;
+        }
+    }
+
+    // Hide text
+    span {
+        display: none;
+    }
+}
+
+
+
+// Important!
+// To avoid showing the editor UI while its styles are still not available, the
+// editor creates it with visibility:hidden. Here, we restore the UI visibility
+.cke_chrome {
+    visibility: inherit;
+}
+
+// For accessibility purposes, several "voice labels" are present in the UI.
+// These are usually <span> elements that show not be visible, but that are
+// used by screen-readers to announce other elements. Here, we hide these
+// <spans>, in fact
+.cke_voice_label,
+legend.cke_voice_label {
+    display: none;
+}
