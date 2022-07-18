@@ -1,0 +1,199 @@
+{
+    "data": [
+        {
+            "name": [
+                "Nixon",
+                "Tiger"
+            ],
+            "hr": [
+                "System Architect",
+                "<span class='badge badge-info'>$320,800</span>",
+                "2011\/04\/25"
+            ],
+            "office": "Edinburgh",
+            "extn": "5421"
+        },
+        {
+            "name": [
+                "Winters",
+                "Garrett"
+            ],
+            "hr": [
+                "Accountant",
+                "<span class='badge badge-danger'>$170,750</span>",
+                "2011\/07\/25"
+            ],
+            "office": "Tokyo",
+            "extn": "8422"
+        },
+        {
+            "name": [
+                "Cox",
+                "Ashton"
+            ],
+            "hr": [
+                "Junior Technical Author",
+                "<span class='badge badge-secondary'>$86,000</span>",
+                "2009\/01\/12"
+            ],
+            "office": "San Francisco",
+            "extn": "1562"
+        },
+        {
+            "name": [
+                "Kelly",
+                "Cedric"
+            ],
+            "hr": [
+                "Senior Javascript Developer",
+                "<span class='badge badge-success'>$433,060</span>",
+                "2012\/03\/29"
+            ],
+            "office": "Edinburgh",
+            "extn": "6224"
+        },
+        {
+            "name": [
+                "Satou",
+                "Airi"
+            ],
+            "hr": [
+                "Accountant",
+                "<span class='badge badge-danger'>$162,700</span>",
+                "2008\/11\/28"
+            ],
+            "office": "Tokyo",
+            "extn": "5407"
+        },
+        {
+            "name": [
+                "Williamson",
+                "Brielle"
+            ],
+            "hr": [
+                "Integration Specialist",
+                "<span class='badge badge-info'>$372,000</span>",
+                "2012\/12\/02"
+            ],
+            "office": "New York",
+            "extn": "4804"
+        },
+        {
+            "name": [
+                "Chandler",
+                "Herrod"
+            ],
+            "hr": [
+                "Sales Assistant",
+                "<span class='badge badge-danger'>$137,500</span>",
+                "2012\/08\/06"
+            ],
+            "office": "San Francisco",
+            "extn": "9608"
+        },
+        {
+            "name": [
+                "Davidson",
+                "Rhona"
+            ],
+            "hr": [
+                "Integration Specialist",
+                "<span class='badge badge-secondary'>$97,900</span>",
+                "2010\/10\/14"
+            ],
+            "office": "Tokyo",
+            "extn": "6200"
+        },
+        {
+            "name": [
+                "Hurst",
+                "Colleen"
+            ],
+            "hr": [
+                "Javascript Developer",
+                "<span class='badge badge-success'>$405,500</span>",
+                "2009\/09\/15"
+            ],
+            "office": "San Francisco",
+            "extn": "2360"
+        },
+        {
+            "name": [
+                "Frost",
+                "Sonya"
+            ],
+            "hr": [
+                "Software Engineer",
+                "<span class='badge badge-danger'>$103,600</span>",
+                "2008\/12\/13"
+            ],
+            "office": "Edinburgh",
+            "extn": "1667"
+        },
+        {
+            "name": [
+                "Gaines",
+                "Jena"
+            ],
+            "hr": [
+                "Office Manager",
+                "<span class='badge badge-danger'>$90,560</span>",
+                "2008\/12\/19"
+            ],
+            "office": "London",
+            "extn": "3814"
+        },
+        {
+            "name": [
+                "Flynn",
+                "Quinn"
+            ],
+            "hr": [
+                "Support Lead",
+                "<span class='badge badge-info'>$342,000</span>",
+                "2013\/03\/03"
+            ],
+            "office": "Edinburgh",
+            "extn": "9497"
+        },
+        {
+            "name": [
+                "Marshall",
+                "Charde"
+            ],
+            "hr": [
+                "Regional Director",
+                "<span class='badge badge-success'>$470,600</span>",
+                "2008\/10\/16"
+            ],
+            "office": "San Francisco",
+            "extn": "6741"
+        },
+        {
+            "name": [
+                "Kennedy",
+                "Haley"
+            ],
+            "hr": [
+                "Senior Marketing Designer",
+                "<span class='badge badge-danger'>$113,500</span>",
+                "2012\/12\/18"
+            ],
+            "office": "London",
+            "extn": "3597"
+        },
+        {
+            "name": [
+                "Fitzpatrick",
+                "Tatyana"
+            ],
+            "hr": [
+                "Regional Director",
+                "<span class='badge badge-info'>$385,750</span>",
+                "2010\/03\/17"
+            ],
+            "office": "London",
+            "extn": "1965"
+        }
+    ]
+}
