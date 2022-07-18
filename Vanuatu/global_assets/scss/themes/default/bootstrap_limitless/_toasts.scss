@@ -1,0 +1,17 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Tooltip component
+ *
+ *  Override and extend default tooltip styles.
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Header
+.toast-header {
+    background-clip: border-box;
+
+    // Close button
+    .close {
+    	color: inherit;
+    }
+}

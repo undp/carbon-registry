@@ -1,0 +1,79 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Input group component
+ *
+ *  Overrides for input group component
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Base styles
+.input-group {
+
+    > .form-control,
+    > .form-control-plaintext,
+    > .custom-select,
+    > .custom-file {
+        + .form-control,
+        + .custom-select,
+        + .custom-file {
+            margin-left: $input-border-width;
+        }
+    }
+
+    // Form group feedback
+    .form-group-feedback {
+        position: relative;
+        flex: 1 1 auto;
+        width: 1%;
+        z-index: 4;
+
+        // Border radius fixes
+        &:not(:last-child) {
+            .form-control {
+                @include border-right-radius(0);
+            }
+        }
+        &:not(:first-child) {
+            .form-control {
+                @include border-left-radius(0);
+            }
+        }
+    }
+
+    // Make sure icon is always on top
+    + .form-control-feedback,
+    .form-control-feedback + & {
+        z-index: 4;
+    }
+}
+
+
+// Prepend and append
+.input-group-prepend,
+.input-group-append {
+    &:not(.d-none) + &:not(.d-none),
+    .btn + .btn,
+    .btn + .input-group-text,
+    .input-group-text + .input-group-text,
+    .input-group-text + .btn {
+        margin-left: $input-border-width;
+    }
+}
+.input-group-prepend {
+    margin-right: 0;
+}
+.input-group-append {
+    margin-left: 0;
+}
+
+
+// Textual addons
+.input-group-text {
+
+    // Icon
+    i {
+        display: block;
+        top: 0;
+    }
+}

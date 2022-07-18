@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="../../../../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="../../../../global_assets/js/main/jquery.min.js"></script>
+	<script src="../../../../global_assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="../../../../global_assets/js/plugins/ui/prism.min.js"></script>
+
+	<script src="assets/js/app.js"></script>
+	<!-- /theme JS files -->
+
+</head>
+
+<body class="sidebar-xs">
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-expand-md navbar-dark">
+		<div class="navbar-brand wmin-200">
+			<a href="index.html" class="d-inline-block">
+				<img src="../../../../global_assets/images/logo_light.png" alt="">
+			</a>
+		</div>
+
+		<div class="d-md-none">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+				<i class="icon-tree5"></i>
+			</button>
+			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+				<i class="icon-paragraph-justify3"></i>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbar-mobile">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+						<i class="icon-paragraph-justify3"></i>
+					</a>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
+						<i class="icon-bell2"></i>
+						<span class="d-md-none ml-2">Activity</span>
+						<span class="badge badge-pill badge-mark bg-orange-400 border-orange-400 ml-auto ml-md-0"></span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-content wmin-md-350">
+						<div class="dropdown-content-header">
+							<span class="font-weight-semibold">Latest activity</span>
+							<a href="#" class="text-default"><i class="icon-search4 font-size-base"></i></a>
+						</div>
+
+						<div class="dropdown-content-body dropdown-scrollable">
+							<ul class="media-list">
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-success-400 rounded-round btn-icon"><i class="icon-mention"></i></a>
+									</div>
+
+									<div class="media-body">
+										<a href="#">Taylor Swift</a> mentioned you in a post "Angular JS. Tips and tricks"
+										<div class="font-size-sm text-muted mt-1">4 minutes ago</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-pink-400 rounded-round btn-icon"><i class="icon-paperplane"></i></a>
+									</div>
+									
+									<div class="media-body">
+										Special offers have been sent to subscribed users by <a href="#">Donna Gordon</a>
+										<div class="font-size-sm text-muted mt-1">36 minutes ago</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-blue rounded-round btn-icon"><i class="icon-plus3"></i></a>
+									</div>
+									
+									<div class="media-body">
+										<a href="#">Chris Arney</a> created a new <span class="font-weight-semibold">Design</span> branch in <span class="font-weight-semibold">Limitless</span> repository
+										<div class="font-size-sm text-muted mt-1">2 hours ago</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-purple-300 rounded-round btn-icon"><i class="icon-truck"></i></a>
+									</div>
+									
+									<div class="media-body">
+										Shipping cost to the Netherlands has been reduced, database updated
+										<div class="font-size-sm text-muted mt-1">Feb 8, 11:30</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-warning-400 rounded-round btn-icon"><i class="icon-comment"></i></a>
+									</div>
+									
+									<div class="media-body">
+										New review received on <a href="#">Server side integration</a> services
+										<div class="font-size-sm text-muted mt-1">Feb 2, 10:20</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-teal-400 rounded-round btn-icon"><i class="icon-spinner11"></i></a>
+									</div>
+									
+									<div class="media-body">
+										<strong>January, 2018</strong> - 1320 new users, 3284 orders, $49,390 revenue
+										<div class="font-size-sm text-muted mt-1">Feb 1, 05:46</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+						<div class="dropdown-content-footer bg-light">
+							<a href="#" class="text-grey mr-auto">All activity</a>
+							<div>
+								<a href="#" class="text-grey" data-popup="tooltip" title="Clear list"><i class="icon-checkmark3"></i></a>
+								<a href="#" class="text-grey ml-2" data-popup="tooltip" title="Settings"><i class="icon-gear"></i></a>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<span class="badge bg-success-400 ml-md-auto mr-md-3">Active</span>
+
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown">
+					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
+						<i class="icon-bubbles5"></i>
+						<span class="d-md-none ml-2">Messages</span>
+						<span class="badge badge-pill badge-mark bg-orange-400 border-orange-400 ml-auto ml-md-0"></span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350">
+						<div class="dropdown-content-header">
+							<span class="font-weight-semibold">Messages</span>
+							<a href="#" class="text-default"><i class="icon-compose"></i></a>
+						</div>
+
+						<div class="dropdown-content-body dropdown-scrollable">
+							<ul class="media-list">
+								<li class="media">
+									<div class="mr-3 position-relative">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">James Alexander</span>
+												<span class="text-muted float-right font-size-sm">04:58</span>
+											</a>
+										</div>
+
+										<span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3 position-relative">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Margo Baker</span>
+												<span class="text-muted float-right font-size-sm">12:16</span>
+											</a>
+										</div>
+
+										<span class="text-muted">That was something he was unable to do because...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Jeremy Victorino</span>
+												<span class="text-muted float-right font-size-sm">22:48</span>
+											</a>
+										</div>
+
+										<span class="text-muted">But that would be extremely strained and suspicious...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Beatrix Diaz</span>
+												<span class="text-muted float-right font-size-sm">Tue</span>
+											</a>
+										</div>
+
+										<span class="text-muted">What a strenuous career it is that I've chosen...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Richard Vango</span>
+												<span class="text-muted float-right font-size-sm">Mon</span>
+											</a>
+										</div>
+										
+										<span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+						<div class="dropdown-content-footer justify-content-center p-0">
+							<a href="#" class="bg-light text-grey w-100 py-2" data-popup="tooltip" title="Load more"><i class="icon-menu7 d-block top-0"></i></a>
+						</div>
+					</div>
+				</li>
+
+				<li class="nav-item dropdown dropdown-user">
+					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+						<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
+						<span>Victoria</span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
+						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+						<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page header -->
+	<div class="page-header">
+		<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb">
+					<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+					<a href="#" class="breadcrumb-item">Horizontal nav</a>
+					<span class="breadcrumb-item active">Disabled items</span>
+				</div>
+
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+			<div class="header-elements d-none">
+				<div class="breadcrumb justify-content-center">
+					<a href="#" class="breadcrumb-elements-item">
+						<i class="icon-comment-discussion mr-2"></i>
+						Support
+					</a>
+
+					<div class="breadcrumb-elements-item dropdown p-0">
+						<a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-gear mr-2"></i>
+							Settings
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-right">
+							<a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+							<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+							<a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-header-content header-elements-md-inline">
+			<div class="page-title d-flex">
+				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Horizontal Nav</span> - Disabled Items</h4>
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+			<div class="header-elements d-none mb-3 mb-md-0">
+				<div class="d-flex justify-content-center">
+					<a href="#" class="btn btn-link btn-float text-default"><i class="icon-bars-alt text-indigo-400"></i> <span>Statistics</span></a>
+					<a href="#" class="btn btn-link btn-float text-default"><i class="icon-calculator text-indigo-400"></i> <span>Invoices</span></a>
+					<a href="#" class="btn btn-link btn-float text-default"><i class="icon-calendar5 text-indigo-400"></i> <span>Schedule</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page header -->
+		
+
+	<!-- Page content -->
+	<div class="page-content pt-0">
+
+		<!-- Main sidebar -->
+		<div class="sidebar sidebar-light sidebar-main sidebar-expand-md align-self-start">
+
+			<!-- Sidebar mobile toggler -->
+			<div class="sidebar-mobile-toggler text-center">
+				<a href="#" class="sidebar-mobile-main-toggle">
+					<i class="icon-arrow-left8"></i>
+				</a>
+				<span class="font-weight-semibold">Main sidebar</span>
+				<a href="#" class="sidebar-mobile-expand">
+					<i class="icon-screen-full"></i>
+					<i class="icon-screen-normal"></i>
+				</a>
+			</div>
+			<!-- /sidebar mobile toggler -->
+
+
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+				<div class="card card-sidebar-mobile">
+
+					<!-- Header -->
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Navigation</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+								<a class="list-icons-item" data-action="collapse"></a>
+							</div>
+						</div>
+					</div>
+					
+					<!-- User menu -->
+					<div class="sidebar-user">
+						<div class="card-body">
+							<div class="media">
+								<div class="mr-3">
+									<a href="#"><img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+								</div>
+
+								<div class="media-body">
+									<div class="media-title font-weight-semibold">Victoria Baker</div>
+									<div class="font-size-xs opacity-50">
+										<i class="icon-pin font-size-sm"></i> &nbsp;Santa Ana, CA
+									</div>
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<a href="#" class="text-white"><i class="icon-cog3"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /user menu -->
+
+					
+					<!-- Main navigation -->
+					<div class="card-body p-0">
+						<ul class="nav nav-sidebar" data-nav-type="accordion">
+
+							<!-- Main -->
+							<li class="nav-item-header mt-0"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
+							<li class="nav-item">
+								<a href="index.html" class="nav-link">
+									<i class="icon-home4"></i>
+									<span>
+										Dashboard
+										<span class="d-block font-weight-normal opacity-50">No active orders</span>
+									</span>
+								</a>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Layouts</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+									<li class="nav-item"><a href="../../../../layout_1/LTR/default/full/index.html" class="nav-link">Default layout</a></li>
+									<li class="nav-item"><a href="../../../../layout_2/LTR/default/full/index.html" class="nav-link">Layout 2</a></li>
+									<li class="nav-item"><a href="index.html" class="nav-link active">Layout 3</a></li>
+									<li class="nav-item"><a href="../../../../layout_4/LTR/default/full/index.html" class="nav-link">Layout 4</a></li>
+									<li class="nav-item"><a href="../../../../layout_5/LTR/default/full/index.html" class="nav-link">Layout 5</a></li>
+									<li class="nav-item"><a href="../../../../layout_6/LTR/default/full/index.html" class="nav-link disabled">Layout 6 <span class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Themes</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Themes">
+									<li class="nav-item"><a href="index.html" class="nav-link active">Default</a></li>
+									<li class="nav-item"><a href="../../../LTR/material/full/index.html" class="nav-link">Material</a></li>
+									<li class="nav-item"><a href="../../../LTR/dark/full/index.html" class="nav-link">Dark</a></li>
+									<li class="nav-item"><a href="../../../LTR/clean/full/index.html" class="nav-link disabled">Clean <span class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-stack"></i> <span>Starter kit</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item"><a href="../seed/layout_nav_horizontal.html" class="nav-link">Horizontal navigation</a></li>
+									<li class="nav-item"><a href="../seed/sidebar_none.html" class="nav-link">No sidebar</a></li>
+									<li class="nav-item"><a href="../seed/sidebar_main.html" class="nav-link">1 sidebar</a></li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">2 sidebars</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="../seed/sidebar_secondary.html" class="nav-link">Secondary sidebar</a></li>
+											<li class="nav-item"><a href="../seed/sidebar_right.html" class="nav-link">Right sidebar</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">3 sidebars</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="../seed/sidebar_right_hidden.html" class="nav-link">Right sidebar hidden</a></li>
+											<li class="nav-item"><a href="../seed/sidebar_right_visible.html" class="nav-link">Right sidebar visible</a></li>
+										</ul>
+									</li>
+									<li class="nav-item"><a href="../seed/sidebar_sections.html" class="nav-link">Sectioned sidebar</a></li>
+									<li class="nav-item"><a href="../seed/sidebar_stretched.html" class="nav-link">Stretched sidebar</a></li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="../seed/navbar_fixed_main.html" class="nav-link">Fixed main navbar</a></li>
+									<li class="nav-item"><a href="../seed/navbar_fixed_secondary.html" class="nav-link">Fixed secondary navbar</a></li>
+									<li class="nav-item"><a href="../seed/navbar_fixed_both.html" class="nav-link">Both navbars fixed</a></li>
+									<li class="nav-item"><a href="../seed/layout_boxed.html" class="nav-link">Boxed layout</a></li>
+								</ul>
+							</li>
+							<li class="nav-item"><a href="../../../RTL/default/full/index.html" class="nav-link"><i class="icon-width"></i> <span>RTL version</span></a></li>
+							<!-- /main -->
+
+							<!-- Layout -->
+							<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Layout</div> <i class="icon-menu" title="Layout options"></i></li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-stack2"></i> <span>Page layouts</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Page layouts">
+									<li class="nav-item"><a href="layout_navbar_fixed_main.html" class="nav-link">Fixed main navbar</a></li>
+									<li class="nav-item"><a href="layout_navbar_sticky_secondary.html" class="nav-link">Sticky secondary navbar</a></li>
+									<li class="nav-item"><a href="layout_navbar_hideable_main.html" class="nav-link">Hideable main navbar</a></li>
+									<li class="nav-item"><a href="layout_navbar_hideable_secondary.html" class="nav-link">Hideable secondary navbar</a></li>
+									<li class="nav-item"><a href="layout_footer_fixed.html" class="nav-link">Fixed footer</a></li>
+									<li class="nav-item"><a href="layout_footer_hideable.html" class="nav-link">Hideable footer</a></li>
+									<li class="nav-item"><a href="layout_sidebar_stretched.html" class="nav-link">Stretched sidebar</a></li>
+									<li class="nav-item"><a href="layout_without_header.html" class="nav-link">Without page header</a></li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="layout_boxed_default.html" class="nav-link">Boxed with default sidebar</a></li>
+									<li class="nav-item"><a href="layout_boxed_mini.html" class="nav-link">Boxed with mini sidebar</a></li>
+									<li class="nav-item"><a href="layout_boxed_full.html" class="nav-link">Boxed full width</a></li>
+									<li class="nav-item"><a href="layout_boxed_content.html" class="nav-link">Boxed content</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-page-break2"></i> <span>Headers &amp; footers</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Content styling">
+									<li class="nav-item"><a href="content_page_header.html" class="nav-link">Page header</a></li>
+									<li class="nav-item"><a href="content_page_footer.html" class="nav-link disabled">Page footer <span class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-indent-decrease2"></i> <span>Sidebars</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Sidebars">
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Main sidebar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="sidebar_default_collapse.html" class="nav-link">Default collapsible</a></li>
+											<li class="nav-item"><a href="sidebar_default_hide.html" class="nav-link">Default hideable</a></li>
+											<li class="nav-item"><a href="sidebar_default_hidden.html" class="nav-link">Default hidden</a></li>
+											<li class="nav-item"><a href="sidebar_mini_collapse.html" class="nav-link">Mini collapsible</a></li>
+											<li class="nav-item"><a href="sidebar_mini_hide.html" class="nav-link">Mini hideable</a></li>
+											<li class="nav-item"><a href="sidebar_mini_hidden.html" class="nav-link">Mini hidden</a></li>
+											<li class="nav-item-divider"></li>
+											<li class="nav-item"><a href="sidebar_default_sections.html" class="nav-link">Sectioned sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_default_stretched.html" class="nav-link">Stretched sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_default_color_dark.html" class="nav-link">Dark color</a></li>
+											<li class="nav-item"><a href="sidebar_default_color_custom.html" class="nav-link">Custom color</a></li>
+											<li class="nav-item"><a href="sidebar_default_color_sections_custom.html" class="nav-link">Custom sections color</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Secondary sidebar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="sidebar_secondary_after.html" class="nav-link">After default</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_before.html" class="nav-link">Before default</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_hidden.html" class="nav-link">Hidden by default</a></li>
+											<li class="nav-item-divider"></li>
+											<li class="nav-item"><a href="sidebar_secondary_sections.html" class="nav-link">Sectioned sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_stretched.html" class="nav-link">Stretched sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_color_dark.html" class="nav-link">Dark color</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_color_custom.html" class="nav-link">Custom color</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_color_sections_custom.html" class="nav-link">Custom sections color</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Right sidebar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="sidebar_right_default_collapse.html" class="nav-link">Show - collapse main</a></li>
+											<li class="nav-item"><a href="sidebar_right_default_hide.html" class="nav-link">Show - hide main</a></li>
+											<li class="nav-item"><a href="sidebar_right_default_toggle.html" class="nav-link">Show - fix default width</a></li>
+											<li class="nav-item"><a href="sidebar_right_mini_toggle.html" class="nav-link">Show - fix mini width</a></li>
+											<li class="nav-item"><a href="sidebar_right_secondary_hide.html" class="nav-link">Show - hide secondary</a></li>
+											<li class="nav-item"><a href="sidebar_right_visible.html" class="nav-link">Visible by default</a></li>
+											<li class="nav-item-divider"></li>
+											<li class="nav-item"><a href="sidebar_right_sections.html" class="nav-link">Sectioned sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_right_stretched.html" class="nav-link">Stretched sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_right_color_dark.html" class="nav-link">Dark color</a></li>
+											<li class="nav-item"><a href="sidebar_right_color_custom.html" class="nav-link">Custom color</a></li>
+											<li class="nav-item"><a href="sidebar_right_color_sections_custom.html" class="nav-link">Custom sections color</a></li>
+										</ul>
+									</li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="sidebar_components.html" class="nav-link">Sidebar components</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-menu3"></i> <span>Navbars</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Navbars">
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Single navbar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="navbar_single_top_static.html" class="nav-link">Single top static</a></li>
+											<li class="nav-item"><a href="navbar_single_top_fixed.html" class="nav-link">Single top fixed</a></li>
+											<li class="nav-item"><a href="navbar_single_bottom_static.html" class="nav-link">Single bottom static</a></li>
+											<li class="nav-item"><a href="navbar_single_bottom_fixed.html" class="nav-link">Single bottom fixed</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Multiple navbars</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="navbar_multiple_top_static.html" class="nav-link">Multiple top static</a></li>
+											<li class="nav-item"><a href="navbar_multiple_top_fixed.html" class="nav-link">Multiple top fixed</a></li>
+											<li class="nav-item"><a href="navbar_multiple_bottom_static.html" class="nav-link">Multiple bottom static</a></li>
+											<li class="nav-item"><a href="navbar_multiple_bottom_fixed.html" class="nav-link">Multiple bottom fixed</a></li>
+											<li class="nav-item"><a href="navbar_multiple_top_bottom.html" class="nav-link">Multiple - top and bottom</a></li>
+											<li class="nav-item"><a href="navbar_multiple_secondary_sticky.html" class="nav-link">Multiple - secondary sticky</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Content navbar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="navbar_component_single.html" class="nav-link">Single navbar</a></li>
+											<li class="nav-item"><a href="navbar_component_multiple.html" class="nav-link">Multiple navbars</a></li>
+										</ul>
+									</li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="navbar_colors.html" class="nav-link">Color options</a></li>
+									<li class="nav-item"><a href="navbar_sizes.html" class="nav-link">Sizing options</a></li>
+									<li class="nav-item"><a href="navbar_hideable.html" class="nav-link">Hide on scroll</a></li>
+									<li class="nav-item"><a href="navbar_components.html" class="nav-link">Navbar components</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-sort"></i> <span>Vertical navigation</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Vertical navigation">
+									<li class="nav-item"><a href="navigation_vertical_collapsible.html" class="nav-link">Collapsible menu</a></li>
+									<li class="nav-item"><a href="navigation_vertical_accordion.html" class="nav-link">Accordion menu</a></li>
+									<li class="nav-item"><a href="navigation_vertical_bordered.html" class="nav-link">Bordered navigation</a></li>
+									<li class="nav-item"><a href="navigation_vertical_right_icons.html" class="nav-link">Right icons</a></li>
+									<li class="nav-item"><a href="navigation_vertical_badges.html" class="nav-link">Badges</a></li>
+									<li class="nav-item"><a href="navigation_vertical_disabled.html" class="nav-link">Disabled items</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+								<a href="#" class="nav-link"><i class="icon-transmission"></i> <span>Horizontal navigation</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Horizontal navigation">
+									<li class="nav-item"><a href="navigation_horizontal_click.html" class="nav-link">Submenu on click</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_hover.html" class="nav-link">Submenu on hover</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_elements.html" class="nav-link">With custom elements</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_tabs.html" class="nav-link">Tabbed navigation</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_disabled.html" class="nav-link active">Disabled navigation links</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_mega.html" class="nav-link">Horizontal mega menu</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-tree5"></i> <span>Menu levels</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Menu levels">
+									<li class="nav-item"><a href="#" class="nav-link"><i class="icon-IE"></i> Second level</a></li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link"><i class="icon-firefox"></i> Second level with child</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="#" class="nav-link"><i class="icon-android"></i> Third level</a></li>
+											<li class="nav-item nav-item-submenu">
+												<a href="#" class="nav-link"><i class="icon-apple2"></i> Third level with child</a>
+												<ul class="nav nav-group-sub">
+													<li class="nav-item"><a href="#" class="nav-link"><i class="icon-html5"></i> Fourth level</a></li>
+													<li class="nav-item"><a href="#" class="nav-link"><i class="icon-css3"></i> Fourth level</a></li>
+												</ul>
+											</li>
+											<li class="nav-item"><a href="#" class="nav-link"><i class="icon-windows"></i> Third level</a></li>
+										</ul>
+									</li>
+									<li class="nav-item"><a href="#" class="nav-link"><i class="icon-chrome"></i> Second level</a></li>
+								</ul>
+							</li>
+							<!-- /layout -->
+								
+						</ul>
+					</div>
+					<!-- /main navigation -->
+
+				</div>
+			</div>
+			<!-- /sidebar content -->
+			
+		</div>
+		<!-- /main sidebar -->
+
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content">
+
+				<!-- Disabled items -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Disabled items</h5>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                		<a class="list-icons-item" data-action="remove"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						<p class="mb-3">Disabled state of horizontal navbar navigation with dropdown menu is also controlled by JS code located in <code>app.js</code> file - it disables click action in submenu. Styles of all disabled state are defined in SASS and can be easily changed in a set of variables. To disable single item, add <code>.disabled</code> to any <code>.navbar-nav-link</code> element, to disable nested menu levels in dropdown menu - add <code>.disabled</code> class to <code>.dropdown-submenu</code> container. In this case children list of nav items that comes right after nav link won't be toggleable.</p>
+
+						<div class="pb-1">
+							<p class="font-weight-semibold">In light navbar:</p>
+							<div class="navbar navbar-expand-xl navbar-light navbar-component rounded">
+								<div class="navbar-brand wmin-200">
+									<a href="index.html" class="d-inline-block">
+										<img src="../../../../global_assets/images/logo_dark.png" alt="">
+									</a>
+								</div>
+
+								<div class="d-xl-none">
+									<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-demo-light">
+										<i class="icon-menu"></i>
+									</button>
+								</div>
+
+								<div class="navbar-collapse collapse" id="navbar-demo-light">
+									<ul class="navbar-nav">
+										<li class="nav-item">
+											<a href="#" class="navbar-nav-link disabled">
+												<i class="icon-puzzle4 mr-2"></i>
+												Disabled link
+											</a>
+										</li>
+
+										<li class="nav-item dropdown">
+											<a href="#" class="navbar-nav-link dropdown-toggle disabled" data-toggle="dropdown">
+												<i class="icon-strategy mr-2"></i>
+												Disabled menu
+											</a>
+
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item"><i class="icon-google-drive"></i> Google Drive</a>
+												<a href="#" class="dropdown-item"><i class="icon-dropbox"></i> Dropbox</a>
+												<a href="#" class="dropdown-item"><i class="icon-dribbble3"></i> Dribbble</a>
+												<div class="dropdown-divider"></div>
+												<a href="#" class="dropdown-item"><i class="icon-github"></i> Github</a>
+												<a href="#" class="dropdown-item"><i class="icon-stackoverflow"></i> Stack Overflow</a>
+											</div>
+										</li>
+
+										<li class="nav-item dropdown">
+											<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+												<i class="icon-cube3 mr-2 ml-xl-0"></i>
+												Disabled levels
+											</a>
+
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item"><i class="icon-IE"></i> Second level</a>
+												<div class="dropdown-submenu">
+													<a href="#" class="dropdown-item dropdown-toggle"><i class="icon-firefox"></i> Has child</a>
+													<div class="dropdown-menu">
+														<a href="#" class="dropdown-item"><i class="icon-android"></i> Third level</a>
+														<div class="dropdown-submenu disabled">
+															<a href="#" class="dropdown-item dropdown-toggle"><i class="icon-apple2"></i> Has child</a>
+															<div class="dropdown-menu">
+																<a href="#" class="dropdown-item"><i class="icon-html5"></i> Fourth level</a>
+																<a href="#" class="dropdown-item"><i class="icon-css3"></i> Fourth level</a>
+															</div>
+														</div>
+														<a href="#" class="dropdown-item"><i class="icon-windows"></i> Third level</a>
+													</div>
+												</div>
+												<a href="#" class="dropdown-item disabled"><i class="icon-chrome"></i> Second level</a>
+											</div>
+										</li>
+									</ul>
+
+									<ul class="navbar-nav ml-xl-auto">
+										<li class="nav-item dropdown">
+											<a href="#" class="navbar-nav-link dropdown-toggle disabled" data-toggle="dropdown">
+												<i class="icon-browser"></i>
+												<span class="d-xl-none ml-2">Disabled icon</span>
+											</a>
+
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item"><i class="icon-google-drive"></i> Google Drive</a>
+												<a href="#" class="dropdown-item"><i class="icon-dropbox"></i> Dropbox</a>
+												<a href="#" class="dropdown-item"><i class="icon-dribbble3"></i> Dribbble</a>
+												<div class="dropdown-divider"></div>
+												<a href="#" class="dropdown-item"><i class="icon-github"></i> Github</a>
+												<a href="#" class="dropdown-item"><i class="icon-stackoverflow"></i> Stack Overflow</a>
+											</div>
+										</li>
+
+										<li class="nav-item dropdown">
+											<a href="#" class="navbar-nav-link dropdown-toggle caret-0 disabled" data-toggle="dropdown">
+												<i class="icon-bell2"></i>
+												<span class="d-xl-none ml-2">With badge</span>
+												<span class="badge badge-mark border-pink ml-auto ml-xl-0"></span>
+											</a>
+
+											<div class="dropdown-menu dropdown-menu-right">
+												<a href="#" class="dropdown-item"><i class="icon-train2"></i> Train tickets</a>
+												<a href="#" class="dropdown-item"><i class="icon-bus"></i> Bus tickets</a>
+												<a href="#" class="dropdown-item"><i class="icon-ship"></i> Ferry tickets</a>
+												<div class="dropdown-divider"></div>
+												<a href="#" class="dropdown-item"><i class="icon-car2"></i> Taxi</a>
+												<a href="#" class="dropdown-item"><i class="icon-car"></i> Car rental</a>
+											</div>
+										</li>
+
+										<li class="nav-item dropdown dropdown-user">
+											<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle disabled" data-toggle="dropdown">
+												<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
+												<span>Victoria</span>
+											</a>
+
+											<div class="dropdown-menu dropdown-menu-right">
+												<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+												<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
+												<a href="#" class="dropdown-item">
+													<i class="icon-comment-discussion"></i>
+													Messages
+													<span class="badge badge-pill bg-blue ml-auto">58</span>
+												</a>
+												<div class="dropdown-divider"></div>
+												<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+												<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<p class="font-weight-semibold">In dark navbar:</p>
+						<div class="navbar navbar-expand-xl navbar-dark navbar-component rounded mb-0">
+							<div class="navbar-brand wmin-200">
+								<a href="index.html" class="d-inline-block">
+									<img src="../../../../global_assets/images/logo_light.png" alt="">
+								</a>
+							</div>
+
+							<div class="d-xl-none">
+								<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-demo-dark">
+									<i class="icon-menu"></i>
+								</button>
+							</div>
+
+							<div class="navbar-collapse collapse" id="navbar-demo-dark">
+								<ul class="navbar-nav">
+									<li class="nav-item">
+										<a href="#" class="navbar-nav-link disabled">
+											<i class="icon-puzzle4 mr-2"></i>
+											Disabled link
+										</a>
+									</li>
+
+									<li class="nav-item dropdown">
+										<a href="#" class="navbar-nav-link dropdown-toggle disabled" data-toggle="dropdown">
+											<i class="icon-strategy mr-2"></i>
+											Disabled menu
+										</a>
+
+										<div class="dropdown-menu">
+											<a href="#" class="dropdown-item"><i class="icon-google-drive"></i> Google Drive</a>
+											<a href="#" class="dropdown-item"><i class="icon-dropbox"></i> Dropbox</a>
+											<a href="#" class="dropdown-item"><i class="icon-dribbble3"></i> Dribbble</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-github"></i> Github</a>
+											<a href="#" class="dropdown-item"><i class="icon-stackoverflow"></i> Stack Overflow</a>
+										</div>
+									</li>
+
+									<li class="nav-item dropdown">
+										<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+											<i class="icon-cube3 mr-2 ml-xl-0"></i>
+											Disabled levels
+										</a>
+
+										<div class="dropdown-menu">
+											<a href="#" class="dropdown-item"><i class="icon-IE"></i> Second level</a>
+											<div class="dropdown-submenu">
+												<a href="#" class="dropdown-item dropdown-toggle"><i class="icon-firefox"></i> Has child</a>
+												<div class="dropdown-menu">
+													<a href="#" class="dropdown-item"><i class="icon-android"></i> Third level</a>
+													<div class="dropdown-submenu disabled">
+														<a href="#" class="dropdown-item dropdown-toggle"><i class="icon-apple2"></i> Has child</a>
+														<div class="dropdown-menu">
+															<a href="#" class="dropdown-item"><i class="icon-html5"></i> Fourth level</a>
+															<a href="#" class="dropdown-item"><i class="icon-css3"></i> Fourth level</a>
+														</div>
+													</div>
+													<a href="#" class="dropdown-item"><i class="icon-windows"></i> Third level</a>
+												</div>
+											</div>
+											<a href="#" class="dropdown-item disabled"><i class="icon-chrome"></i> Second level</a>
+										</div>
+									</li>
+								</ul>
+
+								<ul class="navbar-nav ml-xl-auto">
+									<li class="nav-item dropdown">
+										<a href="#" class="navbar-nav-link dropdown-toggle disabled" data-toggle="dropdown">
+											<i class="icon-browser"></i>
+											<span class="d-xl-none ml-2">Disabled icon</span>
+										</a>
+
+										<div class="dropdown-menu">
+											<a href="#" class="dropdown-item"><i class="icon-google-drive"></i> Google Drive</a>
+											<a href="#" class="dropdown-item"><i class="icon-dropbox"></i> Dropbox</a>
+											<a href="#" class="dropdown-item"><i class="icon-dribbble3"></i> Dribbble</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-github"></i> Github</a>
+											<a href="#" class="dropdown-item"><i class="icon-stackoverflow"></i> Stack Overflow</a>
+										</div>
+									</li>
+
+									<li class="nav-item dropdown">
+										<a href="#" class="navbar-nav-link dropdown-toggle caret-0 disabled" data-toggle="dropdown">
+											<i class="icon-bell2"></i>
+											<span class="d-xl-none ml-2">With badge</span>
+											<span class="badge badge-mark border-white ml-auto ml-xl-0"></span>
+										</a>
+
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-train2"></i> Train tickets</a>
+											<a href="#" class="dropdown-item"><i class="icon-bus"></i> Bus tickets</a>
+											<a href="#" class="dropdown-item"><i class="icon-ship"></i> Ferry tickets</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-car2"></i> Taxi</a>
+											<a href="#" class="dropdown-item"><i class="icon-car"></i> Car rental</a>
+										</div>
+									</li>
+
+									<li class="nav-item dropdown dropdown-user">
+										<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle disabled" data-toggle="dropdown">
+											<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
+											<span>Victoria</span>
+										</a>
+
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+											<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
+											<a href="#" class="dropdown-item">
+												<i class="icon-comment-discussion"></i>
+												Messages
+												<span class="badge badge-pill bg-blue ml-auto">58</span>
+											</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+											<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /disabled items -->
+
+
+				<!-- Navigation classes -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Navigation classes</h5>
+
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                		<a class="list-icons-item" data-action="remove"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						This table contains all classes related to the horizontal navbar navigation. Navbar navigation links build on default <code>.nav</code> options with their own modifier class and require the use of toggler classes for proper responsive styling. Navigation in navbars will also grow to occupy as much horizontal space as possible to keep your navbar contents securely aligned. Dropdown menus require a wrapping element for positioning, so be sure to use separate and nested elements for <code>.nav-item</code> and <code>.nav-link</code>.
+					</div>
+
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 20%;">Class</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th colspan="3" class="table-active">Navigation elements</th>
+								</tr>
+								<tr>
+									<td><code>.nav</code></td>
+									<td>Global wrapper for navigation list. It uses default Bootstrap's styles of <code>.nav</code> component and similar markup options.</td>
+								</tr>
+								<tr>
+									<td><code>.navbar-nav</code></td>
+									<td>for a full-height and lightweight navigation (including support for dropdowns).</td>
+								</tr>
+								<tr>
+									<td><code>.nav-item</code></td>
+									<td>This class is required in an immediate nav link parent element in any <code>.nav</code> container: sidebar, navbar, nav groups, tabs, pills etc.</td>
+								</tr>
+								<tr>
+									<td><code>.nav-item.dropdown</code></td>
+									<td>Combination of these classes is required for items with dropdown menu - nav item with <code>.dropdown</code> class is a dropdown toggle and menu wrapper that declares <code>position: relative;</code>.</td>
+								</tr>
+								<tr>
+									<td><code>.nav-item.dropup</code></td>
+									<td>Same as <code>.dropdown</code>, but this class is required in bottom navbars, because it triggers dropdown menus above elements in navbar. Dropdown caret direction in bottom navbar also depends on this class.</td>
+								</tr>
+								<tr>
+									<td><code>.navbar-nav-link</code></td>
+									<td>A custom class, unlike Bootstrap's default <code>.nav-link</code> class it doesn't affect navs in dropdowns. This class is responsible for navigation link styling and is also required as a part of nav list element structure. It's also a target for <code>.active</code> and <code>.disabled</code> classes.</td>
+								</tr>
+
+								<tr class="table-border-double">
+									<th colspan="3" class="table-active">Dropdowns</th>
+								</tr>
+								<tr>
+									<td><code>.dropdown-user</code></td>
+									<td>This class is used in menu with user pic - image size is calculated dynamically in SASS and <code>.dropdown-user</code> is needed to target the container where these calculations need to run.</td>
+								</tr>
+								<tr>
+									<td><code>.dropdown-content</code></td>
+									<td>If you need to prevent dropdown from closing when you interact with it, add <code>.dropdown-content</code> to default <code>.dropdown-menu</code> container. This doesn't disable click event outside the dropdown though.</td>
+								</tr>
+								<tr>
+									<td><code>.dropdown-content-header</code></td>
+									<td>Class for the <strong>header</strong> within <code>.dropdown-content</code> - custom element with padding that mathches custom dropdown body and footer padding. Can contain multiple components on both sides.</td>
+								</tr>
+								<tr>
+									<td><code>.dropdown-content-body</code></td>
+									<td>Class for the <strong>body</strong> within <code>.dropdown-content</code> - element with custom padding, by default is similar to <code>.card-body</code>, but can be changed in SASS variables if you want to increase or decrease custom dropdown spacing.</td>
+								</tr>
+								<tr>
+									<td><code>.dropdown-content-footer</code></td>
+									<td>Class for the <strong>footer</strong> within <code>.dropdown-content</code> - custom element with padding that mathches custom dropdown body and header padding. Can contain multiple components on both sides.</td>
+								</tr>
+								<tr>
+									<td><code>.dropdown-scrollable</code></td>
+									<td>This class sets <code>max-height</code> to the dropdown body and adds vertical scrollbar. Can be added to <code>.dropdown-content-body</code> container to make only body scrollable or to the entire <code>.dropdown-menu</code>. Default max-height value is <code>340px</code>.</td>
+								</tr>
+								<tr>
+									<td><code>.mega-menu-[alignment]</code></td>
+									<td>These classes control the percent-based width of the menu. Options for <strong>[alignment]</strong>: <strong>full</strong> - sets 100% width, <strong>left</strong> - aligns menu to the left, <strong>right</strong> - aligns menu to the right. Note - make sure you don't use <code>.dropdown</code> and <code>.dropup</code> classes in <code>.nav-item</code> container.</td>
+								</tr>
+								<tr>
+									<td><code>.w-[breakpoint]-[value]</code></td>
+									<td>Set of responsive utility classes that set <code>min-width</code> property to the <code>.dropdown-menu</code> container. Very useful in dropdowns with long content. Available options for <strong>[value]</strong> (in pixels): 200, 250, 300, 350, 400, 450, 500, 550, 600.</td>
+								</tr>
+
+								<tr class="table-border-double">
+									<th colspan="3" class="table-active">Misc</th>
+								</tr>
+								<tr>
+									<td><code>.caret-0</code></td>
+									<td>Add this class to any <code>.navbar-nav-link.dropdown-toggle</code> if you want to hide caret (directional arrow). Useful in nav links with single icon, without text and badge.</td>
+								</tr>
+								<tr>
+									<td><code>[data-hover="dropdown"]</code></td>
+									<td>Data attribute that triggers dropdown toggling on <code>hover</code> <strong>and</strong> <code>click</code>. It also affects all submenus within this menu, so needs to be added to <code>[data-toggle="dropdown"]</code> only on top level.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- /navigation classes -->
+
+
+				<!-- Navigation markup -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Navigation markup</h5>
+
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                		<a class="list-icons-item" data-action="remove"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						<h6 class="font-weight-semibold">Navigation alignment</h6>
+						<p class="mb-3">Navigation in the navbar can be aligned to the <strong>left</strong>, <strong>right</strong> or <strong>center</strong>. By default it's aligned to the left (right in RTL direction). Since parent container is flexible, you need to use <a href="content_helpers_flex.html">flex utility classes</a> to change default alignment: add <code>.justify-content-[breakpoint]-[property]</code> to <code>.navbar-collapse</code> container and/or responsive <code>spacing</code> utilities to push content to the right and horizontal spacing between navigation containers. On mobiles all navigation items are stackable by default. Make sure you use same breakpoint in all navbar elements. Examples below demonstrate <strong>left</strong> (default) and <strong>right</strong> nav container alignments.</p>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<p class="font-weight-semibold">Left navigation alignment:</p>
+								<pre class="language-markup mb-3 mb-lg-4" data-line="5"><code>&lt;!-- Navbar collapse container -->
+&lt;div class="collapse navbar-collapse" id="navbar-mobile">
+
+	&lt;!-- Left aligned navigation -->
+	&lt;ul class="navbar-nav">
+		&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+		&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+		&lt;li class="nav-item dropdown">
+			&lt;a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+				Dropdown
+			&lt;/a>
+
+			&lt;div class="dropdown-menu">
+				&lt;a href="#" class="dropdown-item">Action&lt;/a>
+				&lt;a href="#" class="dropdown-item">Another action&lt;/a>
+				&lt;a href="#" class="dropdown-item">One more action&lt;/a>
+			&lt;/div>
+		&lt;/li>
+	&lt;/ul>
+	&lt;!-- /left aligned navigation -->
+
+	[...]
+
+&lt;/div>
+&lt;!-- /navbar collapse container -->
+</code></pre>
+							</div>
+
+							<div class="col-lg-6">
+								<p class="font-weight-semibold">Right navigation alignment:</p>
+								<pre class="language-markup mb-3 mb-lg-4" data-line="7"><code>&lt;!-- Navbar collapse container -->
+&lt;div class="collapse navbar-collapse" id="navbar-mobile">
+
+	[...]
+
+	&lt;!-- Right aligned navigation -->
+	&lt;ul class="navbar-nav ml-auto">
+		&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+		&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+		&lt;li class="nav-item dropdown">
+			&lt;a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+				Dropdown
+			&lt;/a>
+
+			&lt;div class="dropdown-menu">
+				&lt;a href="#" class="dropdown-item">Action&lt;/a>
+				&lt;a href="#" class="dropdown-item">Another action&lt;/a>
+				&lt;a href="#" class="dropdown-item">One more action&lt;/a>
+			&lt;/div>
+		&lt;/li>
+	&lt;/ul>
+	&lt;!-- /right aligned navigation -->
+
+&lt;/div>
+&lt;!-- /navbar collapse container -->
+</code></pre>
+							</div>
+						</div>
+
+
+						<h6 class="font-weight-semibold">Navigation dropdown trigger</h6>
+						<p class="mb-3">By default, all dropdown menus are toggled by clicking, this is an <a href="http://markdotto.com/2012/02/27/bootstrap-explained-dropdowns/">intentional design decision</a>. Another reason - browsers on mobile devices don't fully support hover/focus states, so if dropdown menu appearance is controlled by toggling <code>display: none;</code> on hover/focus, they won't be triggered on touch devices. However, there's a solution - toggle <code>.show</code> class on hover AND click. Limitless includes custom <code>dropdown_hover.js</code> extension that allows you to enable this behaviour on all dropdown levels and disable hover/focus triggering on mobiles. To use, just add <code>data-hover="dropdown"</code> to the dropdown link. Note - this enables hover trigger on <strong>all</strong> dropdown levels.</p>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<p class="font-weight-semibold">Trigger on click:</p>
+								<pre class="language-markup mb-3 mb-lg-4" data-line="6,7"><code>&lt;!-- Trigger on click -->
+&lt;ul class="navbar-nav">
+	&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+	&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+	&lt;li class="nav-item dropdown">
+		&lt;a href="#" class="navbar-nav-link dropdown-toggle"
+			data-toggle="dropdown">
+			Dropdown
+		&lt;/a>
+
+		&lt;div class="dropdown-menu">
+			&lt;a href="#" class="dropdown-item">Action&lt;/a>
+			&lt;a href="#" class="dropdown-item">Another action&lt;/a>
+			&lt;div class="dropdown-divider">&lt;/div>
+			&lt;a href="#" class="dropdown-item">One more action&lt;/a>
+		&lt;/div>
+	&lt;/li>
+&lt;/ul>
+&lt;!-- /trigger on click -->
+</code></pre>
+							</div>
+
+							<div class="col-lg-6">
+								<p class="font-weight-semibold">Trigger on hover:</p>
+								<pre class="language-markup mb-3 mb-lg-4" data-line="6-8"><code>&lt;!-- Trigger on hover -->
+&lt;ul class="navbar-nav">
+	&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+	&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+	&lt;li class="nav-item dropdown">
+		&lt;a href="#" class="navbar-nav-link dropdown-toggle"
+			data-toggle="dropdown"
+			data-hover="dropdown">
+			Dropdown
+		&lt;/a>
+
+		&lt;div class="dropdown-menu">
+			&lt;a href="#" class="dropdown-item">Action&lt;/a>
+			&lt;a href="#" class="dropdown-item">Another action&lt;/a>
+			&lt;a href="#" class="dropdown-item">One more action&lt;/a>
+		&lt;/div>
+	&lt;/li>
+&lt;/ul>
+&lt;!-- /trigger on hover -->
+</code></pre>
+							</div>
+						</div>
+
+
+						<h6 class="font-weight-semibold">Navigation item states</h6>
+						<p class="mb-3">Navbar navigation items support 2 states: <code>active</code> and <code>disabled</code>. In <code>active</code> state nav links appear pressed, with a darker background and stronger text. Please note: <code>.active</code> class doesn't open dropdown menu, it just highlights links. If navigation link has class <code>.disabled</code>, JS blocks user interaction (basically disabled click event) and CSS mutes the link down. If this class is added to the <code>.dropdown-toggle</code> navigation element, dropdown menu won't be toggled. Examples below demonstrate active/disabled states markup.</p>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<p class="font-weight-semibold">Active item/dropdown state:</p>
+								<pre class="language-markup mb-3 mb-lg-0" data-line="3, 6, 11"><code>&lt;!-- Active state -->
+&lt;ul class="navbar-nav">
+	&lt;li>&lt;a href="#" class="navbar-nav-link active">Active link&lt;/a>&lt;/li>
+	&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+	&lt;li class="nav-item dropdown">
+		&lt;a href="#" class="navbar-nav-link dropdown-toggle active" data-toggle="dropdown">
+			Active dropdown
+		&lt;/a>
+
+		&lt;div class="dropdown-menu">
+			&lt;a href="#" class="dropdown-item active">Active action&lt;/a>
+			&lt;a href="#" class="dropdown-item">Another action&lt;/a>
+			&lt;div class="dropdown-divider">&lt;/div>
+			&lt;a href="#" class="dropdown-item">One more action&lt;/a>
+		&lt;/div>
+	&lt;/li>
+&lt;/ul>
+&lt;!-- /active state -->
+</code></pre>
+							</div>
+
+							<div class="col-lg-6">
+								<p class="font-weight-semibold">Disabled item/dropdown state:</p>
+								<pre class="language-markup mb-3 mb-lg-0" data-line="3, 6, 11"><code>&lt;!-- Disabled state -->
+&lt;ul class="navbar-nav">
+	&lt;li>&lt;a href="#" class="navbar-nav-link disabled">Disabled link&lt;/a>&lt;/li>
+	&lt;li class="nav-item">&lt;a href="#" class="navbar-nav-link">Link&lt;/a>&lt;/li>
+	&lt;li class="nav-item dropdown">
+		&lt;a href="#" class="navbar-nav-link dropdown-toggle disabled" data-toggle="dropdown">
+			Disabled dropdown
+		&lt;/a>
+
+		&lt;div class="dropdown-menu">
+			&lt;a href="#" class="dropdown-item disabled">Disabled action&lt;/a>
+			&lt;a href="#" class="dropdown-item">Another action&lt;/a>
+			&lt;div class="dropdown-divider">&lt;/div>
+			&lt;a href="#" class="dropdown-item">One more action&lt;/a>
+		&lt;/div>
+	&lt;/li>
+&lt;/ul>
+&lt;!-- /disabled state -->
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /navigation markup -->
+
+			</div>
+			<!-- /content area -->
+
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+
+	<!-- Footer -->
+	<div class="navbar navbar-expand-lg navbar-light">
+		<div class="text-center d-lg-none w-100">
+			<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
+				<i class="icon-unfold mr-2"></i>
+				Footer
+			</button>
+		</div>
+
+		<div class="navbar-collapse collapse" id="navbar-footer">
+			<span class="navbar-text">
+				&copy; 2015 - 2018. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+			</span>
+
+			<ul class="navbar-nav ml-lg-auto">
+				<li class="nav-item"><a href="https://kopyov.ticksy.com/" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
+				<li class="nav-item"><a href="http://demo.interface.club/limitless/docs/" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
+				<li class="nav-item"><a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="navbar-nav-link font-weight-semibold"><span class="text-pink-400"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+		
+</body>
+</html>

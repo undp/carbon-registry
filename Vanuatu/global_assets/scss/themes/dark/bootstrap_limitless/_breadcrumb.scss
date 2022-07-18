@@ -1,0 +1,162 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Breadcrumb component
+ *
+ *  Overrides for breadcrumb bootstrap component
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Base
+.breadcrumb {
+    padding: 0;
+}
+
+// Breadcrumb item
+.breadcrumb-item {
+    padding: $breadcrumb-padding-y 0;
+
+    // Icons
+    i {
+        font-size: $font-size-sm;
+    }
+}
+
+// Linked items
+a.breadcrumb-item {
+    display: inline-block;
+    color: $breadcrumb-color;
+    @include transition(color ease-in-out $component-transition-timer);
+
+    // Hover state
+    &:hover,
+    &:focus,
+    .show > & {
+        color: $breadcrumb-hover-color;
+    }
+}
+
+// Transparent breadcrumb
+.page-header-content {
+
+    // Breadcrumb
+    > .breadcrumb {
+        padding-top: 0;
+        padding-bottom: ($breadcrumb-padding-y * 2);
+
+        &:first-child {
+            padding-bottom: 0;
+            padding-top: ($breadcrumb-padding-y * 2);
+        }
+    }
+}
+
+
+//
+// Divider styles
+//
+
+// Dash
+.breadcrumb-dash > .breadcrumb-item + .breadcrumb-item:before  {
+    content: '\2013\00a0';
+}
+
+// Arrow
+.breadcrumb-arrow > .breadcrumb-item + .breadcrumb-item:before  {
+    @if $direction == "LTR" {
+        content: '\2192\00a0';
+    }
+    @else {
+        content: '\2190\00a0';
+    }
+}
+
+// Arrows
+.breadcrumb-arrows > .breadcrumb-item + .breadcrumb-item:before  {
+    content: '\00bb\00a0';
+}
+
+// Caret
+.breadcrumb-caret > .breadcrumb-item + .breadcrumb-item:before  {
+    content: '\203A\00a0';
+}
+
+
+//
+// Breadcrumb line
+//
+
+// Base
+.breadcrumb-line {
+    position: relative;
+    padding-left: $breadcrumb-line-padding-x;
+    padding-right: $breadcrumb-line-padding-x;
+    border: $breadcrumb-line-border-width solid $breadcrumb-line-border-color;
+    border-width: $breadcrumb-line-border-width 0;
+}
+
+// Light line
+.breadcrumb-line-light {
+    background-color: $breadcrumb-line-light-bg;
+}
+
+// Dark line
+.breadcrumb-line-dark {
+    background-color: $breadcrumb-line-dark-bg;
+}
+
+// As a component
+.breadcrumb-line-component {
+    border-width: $breadcrumb-line-border-width;
+    @include border-radius($border-radius);
+    
+    // Inside page header
+    .page-header & {
+        margin-left: $page-header-padding-x;
+        margin-right: $page-header-padding-x;
+    }
+}
+
+
+//
+// Breadrumb elements
+//
+
+// Base
+.breadcrumb-elements-item {
+    padding: $breadcrumb-padding-y 0;
+
+    // Spacing between items
+    + .breadcrumb-elements-item {
+        margin-left: map-get($spacers, 3);
+    }
+}
+
+// Links
+a.breadcrumb-elements-item {
+    @extend a.breadcrumb-item;
+}
+
+
+
+// Layout specific additions
+// ------------------------------
+
+//
+// # Layout 5
+//
+
+@if $layout == 'layout_5' {
+
+    // Breadcrumb line has extra horizontal spacing that
+    // matches page content spacing
+    .breadcrumb-line:not(.breadcrumb-line-component) {
+        @include media-breakpoint-up(md) {
+            padding-left: ($page-container-padding-x / 2) + ($content-container-padding-x * 2);
+            padding-right: ($page-container-padding-x / 2) + ($content-container-padding-x * 2);
+        }
+        @include media-breakpoint-up(xl) {
+            padding-left: $page-container-padding-x + ($content-container-padding-x * 2);
+            padding-right: $page-container-padding-x + ($content-container-padding-x * 2);
+        }
+    }
+}
