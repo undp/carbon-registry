@@ -1,0 +1,13 @@
+service: lambda-layer
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  profile : default
+
+layers:
+  ServiceDependencies:
+    path: dependency_layer
+    description: "Node Modules Dependencies"

@@ -1,0 +1,30 @@
+service: carbon-registry-services
+package:
+  exclude:
+    - node_modules/**
+
+plugins:
+ - 'serverless-plugin-typescript'
+ - serverless-plugin-optimize
+ - serverless-offline
+ - serverless-dotenv-plugin
+
+provider:
+ name: aws
+ runtime: nodejs16.x
+ stage: ${opt:stage, 'dev'}
+ region: us-east-1
+ environment:
+   NODE_ENV: ${opt:stage, 'dev'} 
+
+functions:
+ national-api:
+   handler: src/national-api/handler.handler
+   events:
+     - http:
+         method: any
+         path: /api/national/{any+}
+   environment:
+     NODE_PATH: "./:/opt/node_modules"
+   layers:
+     - arn:aws:lambda:us-east-1:xxxxxxxxxx:layer:ServiceDependencies:1
