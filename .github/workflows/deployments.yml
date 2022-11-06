@@ -57,7 +57,8 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
-    needs: [ layer ]
+    if: needs.conditional_job_check_files.outputs.deps_changed == 'True'
+    needs: [layer]
     strategy:
       matrix:
         node-version: [16.x]
