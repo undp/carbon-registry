@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - develop
-      - master
+      - main
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -83,8 +83,8 @@ jobs:
         with:
           args: -c "cd ./lambda/services && serverless deploy --stage dev --param='depLayerArn=${{ steps.version.outputs.ARN }}' "
           entrypoint: /bin/sh
-      - name: serverless deploy master
-        if: github.ref == 'refs/heads/master'
+      - name: serverless deploy main
+        if: github.ref == 'refs/heads/main'
         uses: serverless/github-action@v3.1
         with:
           args: -c "cd ./lambda/services && serverless deploy --stage prod"
