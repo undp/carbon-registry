@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { STAGE } from '../constants';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class NationalAPIService {
+
+  constructor(private configService: ConfigService) {}
+  
   getHello(): string {
-    return 'Hello National API :' + STAGE;
+    const stage = this.configService.get<string>('stage');
+    return 'Hello National API :' + stage;
   }
 }

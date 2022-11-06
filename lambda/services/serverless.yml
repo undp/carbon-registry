@@ -1,13 +1,12 @@
 service: carbon-registry-services
-package:
-  exclude:
-    - node_modules/**
+# package:
+#   exclude:
+#     - node_modules/**
 
 plugins:
  - 'serverless-plugin-typescript'
  - serverless-plugin-optimize
  - serverless-offline
- - serverless-dotenv-plugin
 
 params:
  depLayerArn:
@@ -33,3 +32,16 @@ functions:
      NODE_PATH: "./:/opt/node_modules"
    layers:
      - ${param:depLayerArn}
+ default:
+   handler: src/shared/handler.handler
+   events:
+     - http:
+         method: any
+         path: /{any+}
+   environment:
+     NODE_PATH: "./:/opt/node_modules"
+   layers:
+     - ${param:depLayerArn}
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
