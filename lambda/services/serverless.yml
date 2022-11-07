@@ -1,7 +1,7 @@
 service: carbon-registry-services
-# package:
-#   exclude:
-#     - node_modules/**
+package:
+  exclude:
+    - node_modules/**
 
 plugins:
  - 'serverless-plugin-typescript'
