@@ -60,6 +60,7 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
               instance,
             }),
           })
+          nestApp.setGlobalPrefix(httpBase)
         nestApp.use(eventContext());
         setupSwagger(nestApp, module.name, httpBase)
         await nestApp.init();
