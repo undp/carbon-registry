@@ -3,11 +3,15 @@ export default () => ({
     database: {
         type: 'postgres',
         host: process.env.DB_HOST || 'localhost',
-        port: parseInt(process.env.DB_PORT) || 3306,
-        username: process.env.DB_HOST || 'root',
-        password: process.env.DB_HOST || 'root',
-        database: (process.env.DB_HOST || 'carbon') + '-' + process.env.NODE_ENV,
-        synchronize: process.env.NODE_ENV == 'dev' ? true : false,
+        port: parseInt(process.env.DB_PORT) || 5432,
+        username: process.env.DB_HOST || 'hquser',
+        password: process.env.DB_HOST || '',
+        database: (process.env.DB_HOST || 'carbon') + (process.env.NODE_ENV || 'dev'),
+        synchronize: process.env.NODE_ENV == 'prod' ? false : true,
         autoLoadEntities: true,
+    },
+    jwt: {
+        userSecret: process.env.USER_JWT_SECRET || '1324',
+        adminSecret: process.env.ADMIN_JWT_SECRET || '8654',
     }
 });
