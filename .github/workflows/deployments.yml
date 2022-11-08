@@ -53,6 +53,12 @@ jobs:
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer
         run: yarn install --frozen-lockfile
+      - name: Copy Dependency
+        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        working-directory: ./lambda/layer
+        run: |
+          cp -r node_modules ./dependency_layer
+          ls
       - name: serverless deploy develop
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
         uses: serverless/github-action@v3.1
