@@ -25,9 +25,9 @@ jobs:
         last_deps_mod_commit=`git log -n 1 --pretty=format:%H -- ./lambda/services/package.json`
         echo $last_deps_mod_commit
         if [ "${current_commit}" = "${last_deps_mod_commit}" ]; then
-          deps_changed=true
+          deps_changed='True'
         else
-          deps_changed=false
+          deps_changed='False'
         fi
         echo $deps_changed
   layer:
