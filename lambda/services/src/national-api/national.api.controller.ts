@@ -11,7 +11,7 @@ export class NationalAPIController {
 
   @Get('ping')
   getHello(): string {
-    this.logger.log('Hello received')
+    this.logger.log('Ping received')
     return this.appService.getHello();
   }
 }
