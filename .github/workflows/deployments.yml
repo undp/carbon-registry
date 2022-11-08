@@ -57,8 +57,8 @@ jobs:
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer
         run: |
-          yarn install serverless-plugin-typescript
-          yarn install serverless-plugin-optimize
+          yarn add --dev serverless-plugin-typescript
+          yarn add --dev serverless-plugin-optimize
       - name: serverless deploy develop
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
         uses: serverless/github-action@v3.1
