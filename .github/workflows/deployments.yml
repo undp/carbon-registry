@@ -63,13 +63,13 @@ jobs:
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
         uses: serverless/github-action@v3.1
         with:
-          args: -c "cd ./lambda/services && serverless deploy --stage dev"
+          args: -c "cd ./lambda/layer && serverless deploy --stage dev"
           entrypoint: /bin/sh
       - name: serverless deploy main
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/main'}}
         uses: serverless/github-action@v3.1
         with:
-          args: -c "cd ./lambda/services && serverless deploy --stage prod"
+          args: -c "cd ./lambda/layer && serverless deploy --stage prod"
           entrypoint: /bin/sh
   deploy:
     name: deploy
