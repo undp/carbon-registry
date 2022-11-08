@@ -24,7 +24,11 @@ jobs:
         echo $current_commit
         last_deps_mod_commit=`git log -n 1 --pretty=format:%H -- ./lambda/services/package.json`
         echo $last_deps_mod_commit
-        deps_changed=$(expr "${current_commit}" == "${last_deps_mod_commit}")
+        if [ "${current_commit}" = "${last_deps_mod_commit}" ]; then
+          deps_changed=true
+        else
+          deps_changed=false
+        fi
         echo $deps_changed
   layer:
     name: layer
