@@ -5,7 +5,6 @@ provider:
   runtime: nodejs16.x
   stage: ${opt:stage, 'dev'}
   region: us-east-1
-  profile : default
   iam:
     role: arn:aws:iam::302213478610:role/lambda-role
   vpc:
