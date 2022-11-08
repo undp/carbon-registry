@@ -6,6 +6,14 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   profile : default
+  iam:
+    role: arn:aws:iam::302213478610:role/lambda-role
+  vpc:
+    subnetIds:
+      - subnet-0c29051002d165a2c
+      - subnet-0c29051002d165a2c
+    securityGroupIds:
+      - sg-029b80f0fd44eb16a
 
 layers:
   ServiceDependencies:

@@ -10,22 +10,22 @@ Parameters:
   VpcCIDR:
     Description: Please enter the IP range (CIDR notation) for this VPC
     Type: String
-    Default: 10.192.0.0/16
+    Default: 10.0.0.0/16
 
   PublicSubnet1CIDR:
     Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
     Type: String
-    Default: 10.192.10.0/24
+    Default: 10.0.0.0/24
 
   PrivateSubnet1CIDR:
     Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
     Type: String
-    Default: 10.192.20.0/24
+    Default: 10.0.10.0/24
 
   PrivateSubnet2CIDR:
     Description: Please enter the IP range (CIDR notation) for the private subnet in the second Availability Zone
     Type: String
-    Default: 10.192.21.0/24
+    Default: 10.0.20.0/24
 
   DBInstanceIdentifier:
     Type: String
@@ -110,6 +110,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: !Ref PrivateSubnet1CIDR
+      AvailabilityZone: us-east-1a
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
@@ -119,7 +120,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs  '' ]
+      AvailabilityZone: us-east-1c
       CidrBlock: !Ref PrivateSubnet2CIDR
       MapPublicIpOnLaunch: false
       Tags:
@@ -243,46 +244,47 @@ Resources:
             ToPort: 443
             SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
 
-  mysqspolicy:
-    Type: AWS::SQS::QueuePolicy
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: lambda-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+            - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonQLDBFullAccess
+        - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+      Path: /
+
+  QLDBEndpoint:
+    Type: 'AWS::EC2::VPCEndpoint'
     Properties:
       PolicyDocument:
-        Id: MyQueuePolicy
-        Version: '2012-10-17'
-        Statement:
-        - Sid: Allow-User-SendMessage
-          Effect: Allow
-          Principal:
-            AWS: arn:aws:iam::123456789012:user/myapp
-          Action:
-          - sqs:SendMessage
-          Resource: "*"
-          
-    Queues:
-    - https://sqs.us-east-2.amazonaws.com/123456789012/myexistingqueue
-    - !Ref myqueue
-
-  # QLDBEndpoint:
-  #   Type: 'AWS::EC2::VPCEndpoint'
-  #   Properties:
-  #     PolicyDocument:
-  #         Version: '2012-10-17'
-  #         Statement:
-  #         - Effect: Allow
-  #           Principal:
-  #             AWS: arn:aws:iam::#{AWS::AccountId}:role/qldb-vpc-${self:provider.stage}-#{AWS::Region}-lambdaRole
-  #           Action: 
-  #           - 'qldb:SendCommand'
-  #           Resource: !Ref LedgerInstance
-  #     PrivateDnsEnabled: True
-  #     SecurityGroupIds:
-  #         - !GetAtt VpcEndpointSecurityGroup.GroupId
-  #     ServiceName: !Sub 'com.amazonaws.${AWS::Region}.qldb.session'
-  #     SubnetIds:
-  #         - Ref: PrivateSubnet1
-  #         - Ref: PrivateSubnet2
-  #     VpcEndpointType: Interface
-  #     VpcId: !Ref VPC
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal: "*"
+              Action: 
+                - 'qldb:SendCommand'
+              Resource: 
+                - !Ref LedgerInstance
+      PrivateDnsEnabled: True
+      SecurityGroupIds:
+          - !GetAtt VpcEndpointSecurityGroup.GroupId
+      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.qldb.session'
+      SubnetIds:
+          - Ref: PrivateSubnet1
+      VpcEndpointType: Interface
+      VpcId: !Ref VPC
       
 Outputs:
   VPC:
