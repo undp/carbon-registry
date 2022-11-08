@@ -20,7 +20,34 @@ provider:
  region: us-east-1
  environment:
    NODE_ENV: ${opt:stage, 'dev'} 
-
+ iam:
+  role:
+    # Add statements to the IAM role to give permissions to Lambda functions
+    statements:
+      - Effect: Allow
+        Action:
+          - 's3:ListBucket'
+        Resource:
+          Fn::Join:
+            - ''
+            - - 'arn:aws:s3:::'
+              - Ref: ServerlessDeploymentBucket
+      - Effect: Allow
+        Action:
+          - 's3:ListBucket'
+        Resource:
+          Fn::Join:
+            - ''
+            - - 'arn:aws:s3:::'
+              - Ref: ServerlessDeploymentBucket
+    name: lambda-exec-role
+    # CloudFormation tags
+    tags:
+      key: dev
+  vpc:
+  subnetIds:
+    - subnet-0c29051002d165a2c
+    - subnet-0c29051002d165a2c
 functions:
  national-api:
    handler: src/national-api/handler.handler
