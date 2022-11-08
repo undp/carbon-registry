@@ -1,5 +1,9 @@
 service: lambda-layer
 
+plugins:
+ - 'serverless-plugin-typescript'
+ - serverless-plugin-optimize
+
 provider:
   name: aws
   runtime: nodejs16.x

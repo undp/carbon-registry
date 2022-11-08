@@ -48,11 +48,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Copy package.json
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
-        working-directory: ./lambda/layer
-        run: cp ../services/package.json ./ && cp ../services/yarn.lock ./ && pwd && ls
+        working-directory: ./lambda/layer/dependency_layer
+        run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./ && pwd && ls
       - name: Install Dependency
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
-        working-directory: ./lambda/layer
+        working-directory: ./lambda/layer/dependency_layer
         run: yarn install --frozen-lockfile
       - name: serverless deploy develop
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
