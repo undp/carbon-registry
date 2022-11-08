@@ -37,8 +37,8 @@ jobs:
     steps:
       - name: check_file_changed
         run: |
-          echo needs.conditional_job_check_files.outputs.deps_changed
-          echo needs.conditional_job_check_files.outputs
+          echo $needs.conditional_job_check_files.outputs.deps_changed
+          echo $needs.conditional_job_check_files.outputs
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
