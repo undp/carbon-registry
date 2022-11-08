@@ -52,7 +52,7 @@ jobs:
       - name: Install Dependency
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer/dependency_layer
-        run: yarn install --frozen-lockfile
+        run: yarn install --production --frozen-lockfile
       # - name: Copy Dependency
       #   if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
       #   working-directory: ./lambda/layer
