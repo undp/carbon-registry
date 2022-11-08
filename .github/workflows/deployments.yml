@@ -49,7 +49,10 @@ jobs:
       - name: Copy package.json
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer
-        run: cp ../services/package.json ./ && cp ../services/yarn.lock ./ && yarn install --frozen-lockfile
+        run: cp ../services/package.json ./ && cp ../services/yarn.lock ./ && pwd && ls
+      - name: Install Dependency
+        working-directory: ./lambda/layer
+        run: yarn install --frozen-lockfile
       - name: serverless deploy develop
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
         uses: serverless/github-action@v3.1
