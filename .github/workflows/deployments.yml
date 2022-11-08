@@ -39,7 +39,6 @@ jobs:
         run: |
           echo ${{needs.conditional_job_check_files.outputs.deps_changed}}
           echo ${{needs.conditional_job_check_files.outputs}}
-          printf '%s\n' "${{needs.conditional_job_check_files.outputs}}"
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
@@ -48,12 +47,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Copy package.json
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
-        working-directory: ./lambda/layer
-        run: cp ../services/package.json ./ && cp ../services/yarn.lock ./ && pwd && ls
+        working-directory: ./lambda/layer/dependency_layer
+        run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./ && pwd && ls
       - name: Install Dependency
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
-        working-directory: ./lambda/layer
+        working-directory: ./lambda/layer/dependency_layer
         run: yarn install --frozen-lockfile
+      - name: Install Serverless Plugins
+        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        working-directory: ./lambda/layer
+        run: |
+          serverless plugin install -n serverless-plugin-typescript
+          serverless plugin install -n serverless-plugin-optimize
       - name: serverless deploy develop
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
         uses: serverless/github-action@v3.1
