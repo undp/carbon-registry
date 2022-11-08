@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: check_file_changed
+    - id: check_file_changed
       run: |
         current_commit=`git log -n 1 --pretty=format:%H`
         echo $current_commit
