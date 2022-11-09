@@ -14,13 +14,13 @@ import { CaslModule } from '../shared/casl/casl.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
       envFilePath: [`.env.${process.env.NODE_ENV}`, `.env`]
+    }),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
     }),
     AuthModule,
     UserModule,
