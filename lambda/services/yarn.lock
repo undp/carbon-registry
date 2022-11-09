@@ -3408,6 +3408,22 @@ aws-lambda@^1.0.7:
     js-yaml "^3.14.1"
     watchpack "^2.0.0-beta.10"
 
+aws-sdk@^2.1046.0:
+  version "2.1250.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1250.0.tgz#50cb987b196db402657069534f031780f2c66fb3"
+  integrity sha512-/fZno2UC2elau/VUOepMvqwKGXmk+dXx1tmahdy1DaAJmELXShg/XWWrtCVg346iLD/XC8eJFR8kQb5ffat0Fw==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.16.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    util "^0.12.4"
+    uuid "8.0.0"
+    xml2js "0.4.19"
+
 aws-sdk@^2.814.0:
   version "2.1248.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1248.0.tgz#300b8d16a560b422e25249dabb20983e26e3438f"
@@ -3758,7 +3774,7 @@ bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-bluebird@^3.5.3:
+bluebird@^3.5.3, bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
@@ -8707,6 +8723,14 @@ serverless-plugin-typescript@^2.1.4:
     fs-extra "^7.0.1"
     globby "^10.0.2"
     lodash "^4.17.21"
+
+serverless-ssm-fetch@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/serverless-ssm-fetch/-/serverless-ssm-fetch-2.0.0.tgz#e7ed9f65cb283419b0d3072811576f9357faa544"
+  integrity sha512-GnBU+zZ3ZnB96+FgPH36tf3HODKRSGGaksx9mkEhsgP1JfVUmxwtRsZoCjdYy0VDm34ZnXxq3VcdCWy3+9HmxQ==
+  dependencies:
+    aws-sdk "^2.1046.0"
+    bluebird "^3.7.2"
 
 setimmediate@^1.0.5:
   version "1.0.5"

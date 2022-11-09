@@ -263,6 +263,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
         - arn:aws:iam::aws:policy/AmazonQLDBFullAccess
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+        - arn:aws:iam::aws:policy/AmazonEC2FullAccess
       Path: /
 
   QLDBEndpoint:

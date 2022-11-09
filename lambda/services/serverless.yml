@@ -7,7 +7,8 @@ plugins:
  - 'serverless-plugin-typescript'
  - serverless-plugin-optimize
  - serverless-offline
-
+ - serverless-ssm-fetch
+ 
 params:
  depLayerArn1:
    Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
@@ -38,6 +39,10 @@ functions:
      - http:
          method: any
          path: /api/national/{any+}
+   ssmToEnvironment:
+     - DB_PASSWORD
+     - USER_JWT_SECRET
+     - ADMIN_JWT_SECRET
    environment:
      NODE_PATH: "./:/opt/node_modules"
    layers:
@@ -57,3 +62,8 @@ functions:
 custom:
   optimize:
     external: ['swagger-ui-dist']
+  serverlessSsmFetch:
+    DB_PASSWORD: ${/aws/ssm/parameter/${self:provider.stage}/DB_PASSWORD~true}
+    USER_JWT_SECRET: ${/aws/ssm/parameter/${self:provider.stage}/USER_JWT_SECRET~true}
+    ADMIN_JWT_SECRET: ${/aws/ssm/parameter/${self:provider.stage}/ADMIN_JWT_SECRET~true}
+  

@@ -4,7 +4,7 @@ export default () => ({
         type: 'postgres',
         host: process.env.DB_HOST || 'localhost',
         port: parseInt(process.env.DB_PORT) || 5432,
-        username: process.env.DB_HOST || 'hquser',
+        username: process.env.DB_USER || 'hquser',
         password: process.env.DB_PASSWORD || '',
         database: (process.env.DB_NAME || 'carbon') + (process.env.NODE_ENV || 'dev'),
         synchronize: process.env.NODE_ENV == 'prod' ? false : true,
