@@ -52,7 +52,8 @@ functions:
    environment:
      NODE_PATH: "./:/opt/node_modules"
    layers:
-     - ${param:depLayerArn}
+     - ${param:depLayerArn1}
+     - ${param:depLayerArn2}
 custom:
   optimize:
     external: ['swagger-ui-dist']
