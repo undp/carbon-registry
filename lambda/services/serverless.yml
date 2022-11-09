@@ -1,3 +1,4 @@
+useDotenv: true
 service: carbon-registry-services
 package:
   exclude:
