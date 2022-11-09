@@ -63,7 +63,7 @@ custom:
   optimize:
     external: ['swagger-ui-dist']
   serverlessSsmFetch:
-    DB_PASSWORD: ${/aws/ssm/parameter/${self:provider.stage}/DB_PASSWORD~true}
-    USER_JWT_SECRET: ${/aws/ssm/parameter/${self:provider.stage}/USER_JWT_SECRET~true}
-    ADMIN_JWT_SECRET: ${/aws/ssm/parameter/${self:provider.stage}/ADMIN_JWT_SECRET~true}
+    DB_PASSWORD: ${${self:provider.stage}/DB_PASSWORD~true}
+    USER_JWT_SECRET: ${${self:provider.stage}/USER_JWT_SECRET~true}
+    ADMIN_JWT_SECRET: ${${self:provider.stage}/ADMIN_JWT_SECRET~true}
   
