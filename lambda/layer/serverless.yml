@@ -15,6 +15,22 @@ provider:
       - sg-029b80f0fd44eb16a
 
 layers:
-  ServiceDependencies:
+  service-dependencies-1:
     path: dependency_layer
-    description: "Node Modules Dependencies"
+    description: "Node Modules Dependencies 1"
+    package:
+      exclude:
+        - node_modules/**
+        - '!node_modules/@*/**'
+        - '!node_modules/a*/**'
+        - '!node_modules/b*/**'
+        - '!node_modules/c*/**'
+  service-dependencies-2:
+    path: dependency_layer
+    description: "Node Modules Dependencies 2"
+    package:
+      exclude:
+        - 'node_modules/@*/**'
+        - 'node_modules/a*/**'
+        - 'node_modules/b*/**'
+        - 'node_modules/c*/**'
