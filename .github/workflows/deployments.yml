@@ -86,13 +86,14 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: version
         run: |
-          echo "ARN=$(aws lambda list-layer-versions --layer-name lambda-layer --region us-east-1 --query 'LayerVersions[0].LayerVersionArn')"
+          echo "ARN1=$(aws lambda list-layer-versions --layer-name service-dependencies-1 --region us-east-1 --query 'LayerVersions[0].LayerVersionArn')"
+          echo "ARN2=$(aws lambda list-layer-versions --layer-name service-dependencies-2 --region us-east-1 --query 'LayerVersions[0].LayerVersionArn')"
         id: layerArn
       - name: serverless deploy develop
         if: github.ref == 'refs/heads/develop'
         uses: serverless/github-action@v3.1
         with:
-          args: -c "cd ./lambda/services && serverless deploy --stage dev --param='depLayerArn=${{ steps.version.outputs.ARN }}' "
+          args: -c "cd ./lambda/services && serverless deploy --stage dev --param='depLayerArn1=${{ steps.layerArn.outputs.ARN1 }}' --param='depLayerArn2=${{ steps.layerArn.outputs.ARN2 }}'"
           entrypoint: /bin/sh
       - name: serverless deploy main
         if: github.ref == 'refs/heads/main'

@@ -9,7 +9,10 @@ plugins:
  - serverless-offline
 
 params:
- depLayerArn:
+ depLayerArn1:
+   Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
+   Type: String
+ depLayerArn2:
    Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
    Type: String
 
@@ -38,7 +41,8 @@ functions:
    environment:
      NODE_PATH: "./:/opt/node_modules"
    layers:
-     - ${param:depLayerArn}
+     - ${param:depLayerArn1}
+     - ${param:depLayerArn2}
  default:
    handler: src/shared/handler.handler
    events:
