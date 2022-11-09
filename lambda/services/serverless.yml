@@ -1,22 +1,4 @@
-useDotenv: true
 service: carbon-registry-services
-package:
-  exclude:
-    - node_modules/**
-
-plugins:
- - 'serverless-plugin-typescript'
- - serverless-plugin-optimize
- - serverless-offline
- - serverless-ssm-fetch
- 
-params:
- depLayerArn1:
-   Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
-   Type: String
- depLayerArn2:
-   Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
-   Type: String
 
 provider:
  name: aws
@@ -33,6 +15,27 @@ provider:
     - subnet-029725efdcd399b88
   securityGroupIds:
     - sg-029b80f0fd44eb16a
+
+package:
+    patterns:
+      - '!node_modules/**'
+      - ".env"
+      - .env.${self:provider.stage}
+
+plugins:
+ - 'serverless-plugin-typescript'
+ - serverless-plugin-optimize
+ - serverless-offline
+ - serverless-ssm-fetch
+ 
+params:
+ depLayerArn1:
+   Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
+   Type: String
+ depLayerArn2:
+   Default: arn:aws:lambda:us-west-2:111111111111:layer:layer:1
+   Type: String
+
 functions:
  national-api:
    handler: src/national-api/handler.handler
@@ -64,7 +67,7 @@ custom:
   optimize:
     external: ['swagger-ui-dist']
   serverlessSsmFetch:
-    DB_PASSWORD: /dev/DB_PASSWORD~true
-    USER_JWT_SECRET: /dev/USER_JWT_SECRET~true
-    ADMIN_JWT_SECRET: /dev/ADMIN_JWT_SECRET~true
+    DB_PASSWORD: /${self:provider.stage}/DB_PASSWORD~true
+    USER_JWT_SECRET: /${self:provider.stage}/USER_JWT_SECRET~true
+    ADMIN_JWT_SECRET: /${self:provider.stage}/ADMIN_JWT_SECRET~true
   
