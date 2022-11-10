@@ -26,10 +26,10 @@ export class UserController {
       return this.userService.findOne(req.user.username);
     }
     
-    @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
-    @UseGuards(PoliciesGuard)
-    @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, User))
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
+    // @UseGuards(PoliciesGuard)
+    // @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, User))
     @Post('add')
     addUser(@Body()user: UserDto) {
       return this.userService.create(user)
