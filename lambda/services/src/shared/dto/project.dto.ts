@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { ProjectStatus } from "./project-status.enum";
+import { ProjectStatus } from "../project-ledger/project-status.enum";
 
 export class Project {
 

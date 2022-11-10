@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
 import { ProjectStatus } from './project-status.enum';
-import { Project } from './project.dto';
+import { Project } from '../dto/project.dto';
 
 @Injectable()
 export class ProjectLedgerService {

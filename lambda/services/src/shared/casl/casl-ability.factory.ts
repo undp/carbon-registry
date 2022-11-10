@@ -1,6 +1,6 @@
 import { AbilityBuilder, AbilityClass, CreateAbility, createMongoAbility, ExtractSubjectType, InferSubjects, MongoAbility } from "@casl/ability";
 import { Injectable } from "@nestjs/common";
-import { User } from "../../national-api/user/user.entity";
+import { User } from "../entities/user.entity";
 import { Action } from "./action.enum";
 import { Role } from "./role.enum";
 
@@ -14,7 +14,7 @@ export class CaslAbilityFactory {
   createForUser(user: User) {
     const { can, cannot, build } = new AbilityBuilder(createAppAbility);
 
-    if (user && user.roles.includes(Role.Root)) {
+    if (user && user.role == Role.Root) {
       can(Action.Manage, 'all'); // read-write access to everything
     } else {
       can(Action.Read, 'all'); // read-only access to everything

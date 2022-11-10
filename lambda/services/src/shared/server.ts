@@ -9,6 +9,7 @@ import { Server } from 'http';
 import * as winston from 'winston';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 
 const express = require('express');
 
@@ -20,9 +21,10 @@ const binaryMimeTypes: string[] = [];
 
 function setupSwagger(nestApp: INestApplication, name: string, httpBase: String): void {
     const config = new DocumentBuilder()
-      .setTitle(`${name} API`)
-      .setDescription(`${name} API Documentation`)
+      .setTitle(`${name}`)
+      .setDescription(`API Documentation`)
       .setVersion('0.0.1')
+      .addBearerAuth()
       .addServer(`/${process.env.NODE_ENV}`)
       .build();
   
@@ -60,7 +62,9 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
               instance,
             }),
           })
-          nestApp.setGlobalPrefix(httpBase)
+        nestApp.setGlobalPrefix(httpBase)
+        nestApp.enableCors();
+        nestApp.useGlobalPipes(new ValidationPipe());
         nestApp.use(eventContext());
         setupSwagger(nestApp, module.name, httpBase)
         await nestApp.init();
