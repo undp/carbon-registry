@@ -257,6 +257,7 @@ Resources:
             Principal:
               Service:
               - lambda.amazonaws.com
+              - qldb.amazonaws.com
         Version: 2012-10-17
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
@@ -264,6 +265,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonQLDBFullAccess
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
         - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+        - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
       Path: /
 
   QLDBEndpoint:
@@ -286,7 +288,23 @@ Resources:
           - Ref: PrivateSubnet1
       VpcEndpointType: Interface
       VpcId: !Ref VPC
-      
+
+  KinesisStream:
+    Type: AWS::Kinesis::Stream
+    Properties: 
+      Name: !Sub carbon-stream-${EnvironmentName}
+      ShardCount: 1
+
+  QLDBStream:
+    Type: AWS::QLDB::Stream
+    Properties: 
+      InclusiveStartTime: '2020-05-29T00:00:00Z'
+      KinesisConfiguration: 
+        StreamArn: !GetAtt KinesisStream.Arn
+      LedgerName: !Ref LedgerInstance
+      RoleArn: !GetAtt LambdaRole.Arn
+      StreamName: !Sub qldb-${EnvironmentName}
+
 Outputs:
   VPC:
     Description: A reference to the created VPC
