@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, isNotEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Role } from "../casl/role.enum";
 
 export class UserDto {
 
-    @IsEmail()
     @IsNotEmpty()
+    @IsEmail()
     @ApiProperty()
     email: string;
 
@@ -16,15 +16,18 @@ export class UserDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    @IsEnum(Role, {
+        message: 'Invalid role. Supported following roles:' + Object.values(Role)
+    })
     role: Role;
 
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     @ApiProperty()
     firstName: string;
 
-    @IsString()
     @ApiProperty()
+    @IsString()
     lastName: string;
 
 }

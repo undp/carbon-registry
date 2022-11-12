@@ -10,6 +10,7 @@ import * as winston from 'winston';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
+import { TrimPipe } from './validation/trim-pipe.transform';
 
 const express = require('express');
 
@@ -64,6 +65,7 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
           })
         nestApp.setGlobalPrefix(httpBase)
         nestApp.enableCors();
+        nestApp.useGlobalPipes(new TrimPipe());
         nestApp.useGlobalPipes(new ValidationPipe());
         nestApp.use(eventContext());
         setupSwagger(nestApp, module.name, httpBase)

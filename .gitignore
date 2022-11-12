@@ -2,3 +2,4 @@
 **/.serverless/
 **/dist/
 **/.build/
+lambda/services/.env.local

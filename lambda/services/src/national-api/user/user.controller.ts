@@ -17,8 +17,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
     
     @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
-    @UseGuards(PoliciesGuard)
+    @UseGuards(JwtAuthGuard, PoliciesGuard)
     // TODO: change the policy to view self only
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, User))
     @Get('profile')
@@ -27,8 +26,7 @@ export class UserController {
     }
     
     @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
-    @UseGuards(PoliciesGuard)
+    @UseGuards(JwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, User))
     @Post('add')
     addUser(@Body()user: UserDto) {
