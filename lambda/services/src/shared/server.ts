@@ -8,7 +8,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { Server } from 'http';
 import * as winston from 'winston';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication } from '@nestjs/common';
+import { BadRequestException, INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { TrimPipe } from './validation/trim-pipe.transform';
 
@@ -66,7 +66,15 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
         nestApp.setGlobalPrefix(httpBase)
         nestApp.enableCors();
         nestApp.useGlobalPipes(new TrimPipe());
-        nestApp.useGlobalPipes(new ValidationPipe());
+        nestApp.useGlobalPipes(new ValidationPipe({
+            exceptionFactory: (errors) => {
+              console.log(errors)
+                const result = errors.map((error) => ({
+                    [error.property]: Object.values(error.constraints),
+                }));
+                return new BadRequestException(result);
+            },
+        }));
         nestApp.use(eventContext());
         setupSwagger(nestApp, module.name, httpBase)
         await nestApp.init();
