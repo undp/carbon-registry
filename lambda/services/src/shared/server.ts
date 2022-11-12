@@ -11,6 +11,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { BadRequestException, INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { TrimPipe } from './validation/trim-pipe.transform';
+import { ValidationException } from './validation/validation.exception';
+import { ValidationExceptionFilter } from './validation/validation-exception.filter';
 
 const express = require('express');
 
@@ -67,14 +69,15 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
         nestApp.enableCors();
         nestApp.useGlobalPipes(new TrimPipe());
         nestApp.useGlobalPipes(new ValidationPipe({
-            exceptionFactory: (errors) => {
-              console.log(errors)
-                const result = errors.map((error) => ({
-                    [error.property]: Object.values(error.constraints),
-                }));
-                return new BadRequestException(result);
-            },
+            exceptionFactory: (errors) => new ValidationException(errors)
+            // exceptionFactory: (errors) => {
+            //     const result = errors.map((error) => ({
+            //         [error.property]: Object.values(error.constraints),
+            //     }));
+            //     return new BadRequestException(result);
+            // },
         }));
+        nestApp.useGlobalFilters(new ValidationExceptionFilter())
         nestApp.use(eventContext());
         setupSwagger(nestApp, module.name, httpBase)
         await nestApp.init();
