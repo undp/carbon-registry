@@ -1,6 +1,6 @@
 {
   "name": "serial-number-gen",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Serial Number Generator",
   "main": "./dist/esm/index.js",
   "module": "./dist/cjs/index.js",
