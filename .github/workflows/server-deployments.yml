@@ -6,13 +6,14 @@ on:
       - main
     paths:
       - lambda/**
+      - libs/**
     
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  conditional_job_check_files:
+  check_dependency_change:
     runs-on: ubuntu-latest
     # Declare outputs for next jobs
     outputs:
@@ -26,8 +27,10 @@ jobs:
         current_commit=`git log -n 1 --pretty=format:%H`
         echo $current_commit
         last_deps_mod_commit=`git log -n 1 --pretty=format:%H -- ./lambda/services/package.json`
+        last_libs_mod_commit=`git log -n 1 --pretty=format:%H -- ./libs/`
         echo $last_deps_mod_commit
-        if [ "${current_commit}" = "${last_deps_mod_commit}" ]; then
+        echo $last_libs_mod_commit
+        if [ "${current_commit}" = "${last_deps_mod_commit}" ] || [ "${current_commit}" = "${last_libs_mod_commit}" ]; then
           echo "deps_changed=True" >> $GITHUB_OUTPUT
         else
           echo "deps_changed=False" >> $GITHUB_OUTPUT
@@ -48,6 +51,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Build Serial Generator Package
+        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        working-directory: ./libs/serial-number-gen
+        run: yarn run build
+      - name: Build Carbon Credit Package
+        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        working-directory: ./libs/carbon-credit-calculator
+        run: yarn run build
       - name: Copy package.json
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer/dependency_layer

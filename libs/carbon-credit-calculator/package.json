@@ -1,0 +1,18 @@
+{
+  "name": "carbon-credit-calculator",
+  "version": "1.0.0",
+  "description": "Carbon Credit Calculator",
+  "main": "./dist/esm/index.js",
+  "module": "./dist/cjs/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "files": [
+    "dist/"
+  ],
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
