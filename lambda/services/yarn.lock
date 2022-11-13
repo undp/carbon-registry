@@ -9230,7 +9230,7 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serial-number-gen@../../libs/serial-number-gen/:
+serial-number-gen@../../../libs/serial-number-gen/:
   version "1.0.0"
 
 serialize-javascript@^6.0.0:
