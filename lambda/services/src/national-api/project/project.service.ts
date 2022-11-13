@@ -24,7 +24,6 @@ export class ProjectService {
         project.serialNo = generateSerialNumber(projectDto.countryAlpha2Code, "AGRI", 1, 2022);
         project.credit = 0;
         project.status = ProjectStatus.ISSUED;
-        return project
-        // return await this.projectLedger.createProject(project);
+        return await this.projectLedger.createProject(project);
     }
 }

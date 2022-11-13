@@ -52,6 +52,16 @@ functions:
    layers:
      - ${param:depLayerArn1}
      - ${param:depLayerArn2}
+   replicator:
+    handler: src/ledger-replicator/handler.handler
+    events:
+      - stream:
+          arn: arn:aws:kinesis:us-east-1:302213478610:stream/carbon-stream-dev
+          batchSize: 2
+          startingPosition: LATEST
+          maximumRetryAttempts: 10
+          enabled: false
+          
  default:
    handler: src/shared/handler.handler
    events:

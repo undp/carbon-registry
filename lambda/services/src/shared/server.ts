@@ -44,39 +44,37 @@ function setupSwagger(nestApp: INestApplication, name: string, httpBase: String)
     });
 }
 
+export function getLogger(module) {
+  const instance = createLogger({
+      transports: [
+          new winston.transports.Console({
+              format: winston.format.combine(
+              winston.format.timestamp(),
+              winston.format.ms(),
+              nestWinstonModuleUtilities.format.nestLike(module.name, {
+                  // options
+              }),
+              )
+          })
+      ]
+  });
+
+  return WinstonModule.createLogger({
+    instance,
+  });
+}
+
 export async function bootstrapServer(cachedServer: Server, module: any, httpBase: string): Promise<Server> {
     if (!cachedServer) {
-        const instance = createLogger({
-            transports: [
-                new winston.transports.Console({
-                    format: winston.format.combine(
-                    winston.format.timestamp(),
-                    winston.format.ms(),
-                    nestWinstonModuleUtilities.format.nestLike(module.name, {
-                        // options
-                    }),
-                    )
-                })
-            ]
-        });
-
         const expressApp = express();
         const nestApp = await NestFactory.create(module, new ExpressAdapter(expressApp), {
-            logger: WinstonModule.createLogger({
-              instance,
-            }),
+            logger: getLogger(module),
           })
         nestApp.setGlobalPrefix(httpBase)
         nestApp.enableCors();
         nestApp.useGlobalPipes(new TrimPipe());
         nestApp.useGlobalPipes(new ValidationPipe({
             exceptionFactory: (errors) => new ValidationException(errors)
-            // exceptionFactory: (errors) => {
-            //     const result = errors.map((error) => ({
-            //         [error.property]: Object.values(error.constraints),
-            //     }));
-            //     return new BadRequestException(result);
-            // },
         }));
         nestApp.useGlobalFilters(new ValidationExceptionFilter())
         nestApp.use(eventContext());
