@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Project } from '../entities/project.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
 import { ProjectStatus } from './project-status.enum';
-import { Project } from '../dto/project.dto';
 
 @Injectable()
 export class ProjectLedgerService {
@@ -15,9 +15,9 @@ export class ProjectLedgerService {
         return project;
     }
 
-    public async getProjectById(id: string): Promise<Project> {
+    public async getProjectById(serialNo: string): Promise<Project> {
         const p = (await this.ledger.fetchRecords({
-            'id': id
+            'serialNo': serialNo
         })).map(domValue => {
                 var newInstance = Object.create(Project);
                 newInstance.constructor.apply(newInstance, domValue.fields());
@@ -27,12 +27,12 @@ export class ProjectLedgerService {
         return (p.length <= 0) ? null: p[0];
     }
 
-    public async updateProjectStatus(id: string, status: ProjectStatus): Promise<void> {
-        this.logger.log(`Updating project ${id} status ${status}`)
+    public async updateProjectStatus(serialNo: string, status: ProjectStatus): Promise<void> {
+        this.logger.log(`Updating project ${serialNo} status ${status}`)
         await this.ledger.updateRecords({
             'status': status.valueOf()
         }, {
-            'id': id
+            'serialNo': serialNo
         });
     }
 }

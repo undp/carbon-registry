@@ -28,6 +28,7 @@ function setupSwagger(nestApp: INestApplication, name: string, httpBase: String)
       .setDescription(`API Documentation`)
       .setVersion('0.0.1')
       .addBearerAuth()
+      .addApiKey()
       .addServer(`/${process.env.NODE_ENV}`)
       .build();
   

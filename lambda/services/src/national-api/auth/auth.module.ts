@@ -8,6 +8,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { CaslModule } from '../../shared/casl/casl.module';
+import { ApiKeyStrategy } from './strategies/apikey.strategy';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { CaslModule } from '../../shared/casl/casl.module';
     }),
     CaslModule
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, Logger],
+  providers: [AuthService, LocalStrategy, JwtStrategy, ApiKeyStrategy, Logger],
   exports: [AuthService],
   controllers: [AuthController],
 })

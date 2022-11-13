@@ -18,6 +18,11 @@ export class AuthService {
         return null;
     }
 
+    async validateApiKey(apiKey: string): Promise<any> {
+        // TODO: Implement the logic
+        return apiKey === '1111' ? { role: 'root' }: null;
+    }
+
     async login(user: any) {
         const payload = { username: user.email, sub: user.id, role: user.role };
         return {

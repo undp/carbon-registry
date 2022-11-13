@@ -19,7 +19,7 @@ export class UserService {
     }
 
     async create(userDto: UserDto): Promise<User | undefined> {
-        this.logger.log('User create received', userDto)
+        this.logger.verbose('User create received', userDto.email)
         return await this.userRepo.save(userDto);
     }
 }

@@ -4,6 +4,7 @@ import { ProjectLedgerService } from './project-ledger.service';
 
 @Module({
     imports: [LedgerDbModule],
-    providers: [ProjectLedgerService, Logger]
+    providers: [ProjectLedgerService, Logger],
+    exports: [ProjectLedgerService]
 })
 export class ProjectLedgerModule {}

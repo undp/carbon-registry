@@ -1,8 +1,9 @@
 import { Role } from '../casl/role.enum';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { EntitySubject } from './entity.subject';
 
 @Entity()
-export class User {
+export class User  implements EntitySubject{
     @PrimaryGeneratedColumn()
     id: number;
 

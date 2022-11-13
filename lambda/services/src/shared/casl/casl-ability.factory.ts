@@ -3,8 +3,9 @@ import { Injectable } from "@nestjs/common";
 import { User } from "../entities/user.entity";
 import { Action } from "./action.enum";
 import { Role } from "./role.enum";
+import { EntitySubject } from "../entities/entity.subject";
 
-type Subjects = InferSubjects<typeof User> | 'all';
+type Subjects = InferSubjects<typeof EntitySubject> | 'all';
 
 export type AppAbility = MongoAbility<[Action, Subjects]>;
 export const createAppAbility = createMongoAbility as CreateAbility<AppAbility>;

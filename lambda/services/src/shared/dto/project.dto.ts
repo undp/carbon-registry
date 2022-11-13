@@ -1,20 +1,19 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { ProjectStatus } from "../project-ledger/project-status.enum";
 
-export class Project {
+export class ProjectDto {
 
-    @IsNotEmpty()
-    id: string;
-
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     name: string;
 
+    @ApiProperty()
     group: string;
 
-    @IsNumber()
+    @ApiProperty()
     @IsNotEmpty()
-    credit: number;
-
-    status: ProjectStatus;
+    @IsString()
+    countryAlpha2Code: string;
 }
