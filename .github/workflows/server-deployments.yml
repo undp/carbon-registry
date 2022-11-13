@@ -51,7 +51,7 @@ jobs:
       - name: Copy package.json
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer/dependency_layer
-        run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./ && pwd && ls
+        run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./ && cp -r ../../../libs ../../
       - name: Install Dependency
         if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer/dependency_layer
