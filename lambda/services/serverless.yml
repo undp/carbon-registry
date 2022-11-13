@@ -61,6 +61,13 @@ functions:
          startingPosition: LATEST
          maximumRetryAttempts: 10
          enabled: false
+   ssmToEnvironment:
+     - DB_PASSWORD
+   environment:
+     NODE_PATH: "./:/opt/node_modules"
+   layers:
+     - ${param:depLayerArn1}
+     - ${param:depLayerArn2}
           
  default:
    handler: src/shared/handler.handler
