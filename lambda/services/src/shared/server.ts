@@ -54,7 +54,8 @@ export function getLogger(module) {
               nestWinstonModuleUtilities.format.nestLike(module.name, {
                   // options
               }),
-              )
+              ),
+              level: process.env.LOG_LEVEL
           })
       ]
   });
