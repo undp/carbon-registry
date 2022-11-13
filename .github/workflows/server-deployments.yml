@@ -39,48 +39,48 @@ jobs:
   layer:
     name: layer
     runs-on: ubuntu-latest
-    needs: conditional_job_check_files
+    needs: check_dependency_change
     steps:
       - name: check_file_changed
         run: |
-          echo ${{needs.conditional_job_check_files.outputs.deps_changed}}
-          echo ${{needs.conditional_job_check_files.outputs}}
+          echo ${{needs.check_dependency_change.outputs.deps_changed}}
+          echo ${{needs.check_dependency_change.outputs}}
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Build Serial Generator Package
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         working-directory: ./libs/serial-number-gen
         run: yarn run build
       - name: Build Carbon Credit Package
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         working-directory: ./libs/carbon-credit-calculator
         run: yarn run build
       - name: Copy package.json
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer/dependency_layer
         run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./ && cp -r ../../../libs ../../
       - name: Install Dependency
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         working-directory: ./lambda/layer/dependency_layer
         run: yarn install --production --frozen-lockfile
       # - name: Copy Dependency
-      #   if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' }}
+      #   if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
       #   working-directory: ./lambda/layer
       #   run: |
       #     cp -r node_modules ./dependency_layer
       #     ls
       - name: serverless deploy develop
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' && github.ref == 'refs/heads/develop'}}
         uses: serverless/github-action@v3.1
         with:
           args: -c "cd ./lambda/layer && serverless deploy --stage dev"
           entrypoint: /bin/sh
       - name: serverless deploy main
-        if: ${{ needs.conditional_job_check_files.outputs.deps_changed == 'True' && github.ref == 'refs/heads/main'}}
+        if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' && github.ref == 'refs/heads/main'}}
         uses: serverless/github-action@v3.1
         with:
           args: -c "cd ./lambda/layer && serverless deploy --stage prod"
