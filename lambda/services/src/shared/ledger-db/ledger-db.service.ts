@@ -21,8 +21,9 @@ export class LedgerDbService {
         this.logger.debug('Statement', sql, 'parameter size', parameters.length)
         this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
-            return txn.execute(sql, parameters) 
+            return await txn.execute(sql, parameters) 
         });
+        this.logger.debug('Response', JSON.stringify(resp))
         this.driver.close()
         return null;
     }
