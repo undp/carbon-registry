@@ -69,7 +69,7 @@ Parameters:
 
   LedgerName:
     Type: String
-    Default: carbon-ledger
+    Default: carbon-registry
 
 Resources:
   VPC:
@@ -256,8 +256,8 @@ Resources:
             Effect: Allow
             Principal:
               Service:
-              - lambda.amazonaws.com
-              - qldb.amazonaws.com
+                - lambda.amazonaws.com
+                - qldb.amazonaws.com
         Version: 2012-10-17
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
@@ -276,10 +276,8 @@ Resources:
           Statement:
             - Effect: Allow
               Principal: "*"
-              Action: 
-                - 'qldb:SendCommand'
-              Resource: 
-                - !Ref LedgerInstance
+              Action: "*"
+              Resource: "*"
       PrivateDnsEnabled: True
       SecurityGroupIds:
           - !GetAtt VpcEndpointSecurityGroup.GroupId

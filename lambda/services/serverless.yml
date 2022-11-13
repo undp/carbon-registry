@@ -60,7 +60,7 @@ functions:
          batchSize: 2
          startingPosition: LATEST
          maximumRetryAttempts: 10
-         enabled: false
+         enabled: true
    ssmToEnvironment:
      - DB_PASSWORD
    environment:

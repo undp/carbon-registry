@@ -1,6 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Project } from '../shared/entities/project.entity';
 import configuration from '../shared/configuration';
 import { TypeOrmConfigService } from '../shared/typeorm.config.service';
 import { LedgerReplicatorService } from './ledger-replicator.service';
@@ -15,6 +16,7 @@ import { LedgerReplicatorService } from './ledger-replicator.service';
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
+    TypeOrmModule.forFeature([Project])
   ],
   providers: [LedgerReplicatorService, Logger]
 })
