@@ -10,7 +10,7 @@ export class ProjectLedgerService {
     }
 
     public async createProject(project: Project): Promise<Project> {
-        this.logger.log('Creating project', project)
+        this.logger.debug('Creating project', JSON.stringify(project))
         this.ledger.insertRecord(project)
         return project;
     }

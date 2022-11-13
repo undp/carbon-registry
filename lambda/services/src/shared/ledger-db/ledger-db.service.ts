@@ -13,17 +13,18 @@ export class LedgerDbService {
     constructor(private readonly logger: Logger, private readonly configService: ConfigService) {
         this.ledgerName = configService.get<string>('ledger.name')
         this.tableName = configService.get<string>('ledger.table')
-        this.driver = new QldbDriver(this.ledgerName);
         logger.log("Ledger init ", this.ledgerName)
     }
 
     // TODO: Handler session expire
     private async execute<TM>(sql, ...parameters: any[]): Promise<Result> {
         this.logger.debug('Statement', sql, 'parameter size', parameters.length)
+        this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
             return txn.execute(sql, parameters) 
         });
-        return resp;
+        this.driver.close()
+        return null;
     }
 
     public async insertRecord(document: Record<string, any>): Promise<void> {
