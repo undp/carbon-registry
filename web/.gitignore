@@ -13,6 +13,7 @@
 
 # misc
 .env
+.env.*
 /.env-cmdrc.json
 /.DS_Store
 
