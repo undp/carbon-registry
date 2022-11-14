@@ -8,6 +8,7 @@ import { PoliciesGuard } from '../../shared/casl/policy.guard';
 import { ProjectDto } from '../../shared/dto/project.dto';
 import { ProjectService } from './project.service';
 import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
+import { QueryDto } from '../../shared/dto/query.dto';
 
 @ApiTags('Project')
 @ApiBearerAuth('api_key')
@@ -27,4 +28,13 @@ export class ProjectController {
     addProject(@Body()project: ProjectDto) {
       return this.projectService.create(project)
     }
+
+    @ApiBearerAuth('api_key')
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
+    @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
+    @Post('query')
+    getAll(@Body()query: QueryDto) {
+      return this.projectService.query(query)
+    }   
 }
