@@ -2,5 +2,5 @@
 **/.serverless/
 **/dist/
 **/.build/
-lambda/services/.env.dev
+lambda/services/.env.local
 **/yarn-error.log
