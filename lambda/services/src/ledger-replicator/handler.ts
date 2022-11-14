@@ -10,5 +10,5 @@ export const handler: Handler = async (event: any, context: Context) => {
    const app = await NestFactory.createApplicationContext(LedgerReplicatorModule, {
       logger: getLogger(LedgerReplicatorModule),
     });
-    app.get(LedgerReplicatorService).replicate(event);
+    await app.get(LedgerReplicatorService).replicate(event);
 }
