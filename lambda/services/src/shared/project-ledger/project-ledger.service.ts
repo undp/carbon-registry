@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
+import { ProjectHistoryDto } from '../dto/project.history.dto';
 import { Project } from '../entities/project.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
 import { ProjectStatus } from './project-status.enum';
@@ -24,6 +25,15 @@ export class ProjectLedgerService {
             }
         )
         return (p.length <= 0) ? null: p[0];
+    }
+
+    public async getProjectHistory(serialNo: string): Promise<ProjectHistoryDto[]> {
+        return (await this.ledger.fetchHistory({
+            'serialNo': serialNo
+        }))?.map(domValue => {
+                return plainToClass(ProjectHistoryDto, JSON.parse(JSON.stringify(domValue)));
+            }
+        )
     }
 
     public async updateProjectStatus(serialNo: string, status: ProjectStatus): Promise<void> {

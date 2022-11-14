@@ -42,4 +42,9 @@ export class ProjectService {
         });
     }
 
+    async getProjectEvents(serialNo: string): Promise<any> {
+        const resp = await this.projectLedger.getProjectHistory(serialNo);
+        return resp == null ? []: resp;
+    }
+
 }
