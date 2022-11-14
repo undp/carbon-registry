@@ -27,14 +27,14 @@
     "start:dev": "env-cmd -e development react-scripts start",
     "start:prod": "env-cmd -e production react-scripts start",
     "clean": "npx rimraf build",
-    "build": "npm run clean && react-scripts build",
+    "build": "yarn run clean && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint \"./src/**/*.{ts,tsx,js,jsx,scss,css}\"",
-    "lint:fix": "npm run lint -- --fix \"./src/**/*.{ts,tsx,js,jsx,scss,css}\"",
+    "lint:fix": "yarn run lint -- --fix \"./src/**/*.{ts,tsx,js,jsx,scss,css}\"",
     "prettier": "npx prettier --check \"./src/**/*.{ts,tsx,js,jsx,scss,css}\"",
-    "prettier:fix": "npm run prettier -- --write \"./src/**/*.{ts,tsx,js,jsx,scss,css}\"",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "prettier:fix": "yarn prettier -- --write \"./src/**/*.{ts,tsx,js,jsx,scss,css}\"",
+    "format": "yarn run prettier:fix && yarn run lint:fix"
   },
   "browserslist": {
     "production": [
