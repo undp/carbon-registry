@@ -1,5 +1,5 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post, Query, UseGuards, ValidationPipe } from '@nestjs/common';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Project } from '../../shared/entities/project.entity';
 import { Action } from '../../shared/casl/action.enum';
 import { AppAbility } from '../../shared/casl/casl-ability.factory';
@@ -25,7 +25,7 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Project))
     @Post('add')
-    addProject(@Body()project: ProjectDto) {
+    async addProject(@Body()project: ProjectDto) {
       return this.projectService.create(project)
     }
 
@@ -34,7 +34,16 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
     @Post('query')
-    getAll(@Body()query: QueryDto) {
+    async getAll(@Body()query: QueryDto) {
       return this.projectService.query(query)
-    }   
+    }
+
+    @ApiBearerAuth('api_key')
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
+    @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
+    @Get('getHistory')
+    async getHistory(@Query('serialNo') serialNo: string) {
+        return this.projectService.getProjectEvents(serialNo)
+    }
 }

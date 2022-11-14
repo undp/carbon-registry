@@ -30,6 +30,6 @@ export class TrimPipe implements PipeTransform {
             return this.trim(values)
         }
 
-        throw new BadRequestException('Validation failed')
+        return values;
     }
 }

@@ -18,7 +18,7 @@ export class LedgerDbService {
 
     // TODO: Handler session expire
     private async execute<TM>(sql, ...parameters: any[]): Promise<Result> {
-        this.logger.debug('Statement', sql, 'parameter size', parameters.length)
+        this.logger.debug(`Statement: ${sql}, parameter: ${JSON.stringify(parameters)}`)
         this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
             return await txn.execute(sql, parameters) 
@@ -33,13 +33,20 @@ export class LedgerDbService {
     }
     
     public async fetchRecords<T extends Record<string, any>>(where: Record<string, any>): Promise<dom.Value[]> {
-        const whereClause = where.keys().map(k => (`${k} = ?`)).join(',')
-        return (await this.execute(`SELECT * FROM ${this.tableName} WHERE ${whereClause}`, ...where.values())).getResultList();
+        const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(',')
+        return (await this.execute(`SELECT * FROM ${this.tableName} WHERE ${whereClause}`, ...Object.values(where)))?.getResultList();
+    }
+
+    public async fetchHistory(where: Record<string, any>): Promise<dom.Value[]> {
+        const whereClause = Object.keys(where).map(k => (`h.data.${k} = ?`)).join(',')
+        const x = (await this.execute(`SELECT * FROM history(${this.tableName}) as h WHERE ${whereClause}`, ...Object.values(where)))?.getResultList();
+        console.log('Results', x)
+        return x
     }
     
     public async updateRecords(update: Record<string, any>,  where: Record<string, any>): Promise<void> {
-        const whereClause = where.keys().map(k => (`${k} = ?`)).join(',')
-        const updateClause = update.keys().map(k => (`${k} = ?`)).join(',')
-        await this.execute(`UPDATE ${this.tableName} SET ${updateClause} WHERE ${whereClause}`, ...update.values(), ...where.values());
+        const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(',')
+        const updateClause = Object.keys(update).map(k => (`${k} = ?`)).join(',')
+        await this.execute(`UPDATE ${this.tableName} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update), ...Object.values(where));
     };
 }
