@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from '../shared/entities/project.entity';
 import { dom } from "ion-js";
+import { plainToClass } from 'class-transformer';
 
 const computeChecksums = true;
 const REVISION_DETAILS = "REVISION_DETAILS";
@@ -16,26 +17,29 @@ export class LedgerReplicatorService {
     }
 
     async processRecords(records) {
-        await Promise.all(
+        return await Promise.all(
             records.map(async (record) => {
                 // Kinesis data is base64 encoded so decode here
                 const payload = Buffer.from(record.data, "base64");
 
                 // payload is the actual ion binary record published by QLDB to the stream
                 const ionRecord = dom.load(payload);
-                this.logger.log('ION Record', JSON.stringify(ionRecord))
                 // Only process records where the record type is REVISION_DETAILS
-                // if (JSON.parse(dom.dumpText(ionRecord.recordType)) !== REVISION_DETAILS) {
-                //     console.log(`Skipping record of type ${ion.dumpPrettyText(ionRecord.recordType)}`);
-                // } else {
-                //     // process record
-                // }
+                if (ionRecord.get('recordType').stringValue() !== REVISION_DETAILS) {
+                    this.logger.log(`Skipping record of type ${ionRecord.get('recordType').stringValue()}`);
+                } else {
+                    this.logger.log('ION Record', JSON.stringify(ionRecord))
+                    const payload = ionRecord.get("payload").get("revision").get("data");
+                    const project: Project = plainToClass(Project, JSON.stringify(payload));
+                    this.logger.debug(JSON.stringify(project));
+                    await this.projectRepo.save(project);
+                }
             })
         );
     }
 
     async promiseDeaggregate(record) {
-        new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             deagg.deaggregateSync(record, computeChecksums, (err, responseObject) => {
                 if (err) {
                     //handle/report error
@@ -48,7 +52,7 @@ export class LedgerReplicatorService {
 
     async replicate(event): Promise<any> {
         this.logger.log('Event received', JSON.stringify(event));
-        await Promise.all(
+        return await Promise.all(
             event.Records.map(async (kinesisRecord) => {
                 const records = await this.promiseDeaggregate(kinesisRecord.kinesis);
                 await this.processRecords(records);

@@ -16,6 +16,7 @@ export class ProjectService {
 
     private toProject(projectDto: ProjectDto): Project {
         const data = instanceToPlain(projectDto);
+        console.log('instanceToPlain', data)
         return plainToClass(Project, data);
     }
 
