@@ -30,7 +30,7 @@ export class LedgerReplicatorService {
                 } else {
                     this.logger.log('ION Record', JSON.stringify(ionRecord))
                     const payload = ionRecord.get("payload").get("revision").get("data");
-                    const project: Project = plainToClass(Project, JSON.stringify(payload));
+                    const project: Project = plainToClass(Project, JSON.parse(JSON.stringify(payload)));
                     this.logger.debug(JSON.stringify(project));
                     await this.projectRepo.save(project);
                 }
