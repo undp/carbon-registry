@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { plainToClass } from 'class-transformer';
 import { Project } from '../entities/project.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
 import { ProjectStatus } from './project-status.enum';
@@ -19,9 +20,7 @@ export class ProjectLedgerService {
         const p = (await this.ledger.fetchRecords({
             'serialNo': serialNo
         })).map(domValue => {
-                var newInstance = Object.create(Project);
-                newInstance.constructor.apply(newInstance, domValue.fields());
-                return newInstance;
+                return plainToClass(Project, JSON.parse(JSON.stringify(domValue)));
             }
         )
         return (p.length <= 0) ? null: p[0];
