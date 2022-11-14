@@ -32,7 +32,7 @@ export class LedgerReplicatorService {
                     const payload = ionRecord.get("payload").get("revision").get("data");
                     const project: Project = plainToClass(Project, JSON.parse(JSON.stringify(payload)));
                     this.logger.debug(JSON.stringify(project));
-                    await this.projectRepo.save(project);
+                    return await this.projectRepo.save(project);
                 }
             })
         );
@@ -55,7 +55,7 @@ export class LedgerReplicatorService {
         return await Promise.all(
             event.Records.map(async (kinesisRecord) => {
                 const records = await this.promiseDeaggregate(kinesisRecord.kinesis);
-                await this.processRecords(records);
+                return await this.processRecords(records);
             })
         );
     }
