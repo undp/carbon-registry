@@ -1,3 +1,35 @@
-# NestJS Server Starter 
+# UNDP Carbon Registry
 
-aws cloudformation deploy --template-file ./deployment/aws-formation.yml --stack-name carbon-registry-basic --parameter-overrides EnvironmentName=dev DBPassword=<password> --capabilities CAPABILITY_NAMED_IAM 
+UNDP Carbon Registry based on AWS Serverless 
+
+## Project Structure
+
+    .
+    ├── .github                         # Github Actions files
+    ├── deployment                      # AWS cloudformation files for initial resource creation and setup
+    ├── lambda                          # Server implementation - NestJS applications
+        ├── layer                       # AWS lambda layer deployment scripts for services node dependencies
+        ├── services                    # AWS lambda function deployments scripts and implementation (NestJS application)
+    ├── libs
+        ├── carbon-credit-calculator    # Node module implementation for the Carbon credit calculation library
+        ├── serial-number-gen           # Node module implementation for the carbon project serial number calculation
+    ├── web                             # System ReactJS web frontend implementation
+    ├── .gitignore
+    └── README.md
+
+## Run Services Locally
+- Setup postgreSQL locally
+- Update following DB configurations in the .env.local file (If file does not exist please create a new .env.local)
+    - DB_HOST (Default localhost)
+    - DB_PORT (Default 5432)
+    - DB_USER (Default root)
+    - DB_PASSWORD
+    - DB_NAME (Default carbondbdev)
+- Move to folder `cd lambda/service` folder
+- Run `yarn install  --frozen-lockfile`
+- Execute `sls offline --stage=local`
+- Swagger documentation will be available on `http://localhost:3000/local/api/national/docs#/`
+
+## Deploy System on AWS
+- Execute `aws cloudformation deploy --template-file ./deployment/aws-formation.yml --stack-name carbon-registry-basic --parameter-overrides EnvironmentName=<stage> DBPassword=<password> --capabilities CAPABILITY_NAMED_IAM`. This will create all the required resources on the AWS.
+- 
