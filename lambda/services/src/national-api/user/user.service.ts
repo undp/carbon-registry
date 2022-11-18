@@ -6,6 +6,7 @@ import { User } from '../../shared/entities/user.entity';
 import { EmailService } from '../../shared/email/email.service';
 import { EmailTypes } from '../../shared/email/emailtypes.enum';
 import { QueryDto } from '../../shared/dto/query.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
@@ -37,13 +38,14 @@ export class UserService {
 
     async create(userDto: UserDto): Promise<User | undefined> {
         this.logger.verbose('User create received', userDto.email)
+        userDto.password = this.generateRandomPassword()
         await this.emailService.sendEmail(
             userDto.email,
             EmailTypes.REGISTER_EMAIL,
             {
-                "name": userDto.email,
+                "name": userDto.name,
                 "countryName": userDto.country,
-                "password": this.generateRandomPassword()
+                "password": userDto.password
             });
 
         return await this.userRepo.save(userDto);
