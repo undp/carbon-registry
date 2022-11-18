@@ -45,4 +45,6 @@ export class UserDto {
     @IsString()
     @ApiProperty()
     contactNo: string;
+
+    password: string;
 }

@@ -36,6 +36,11 @@ exports.handler = async (event) => {
       user.email = process.env.ROOT_EMAIL
       user.name = "Root"
       user.role = Role.Root;
+      user.city = "-"
+      user.contactNo = "-"
+      user.country = " "
+      user.state = "-"
+      user.zipCode = "-"
       await userService.create(user)
     } catch (e) {
       console.log(`User ${process.env.ROOT_EMAIL} does not create`, e) 
