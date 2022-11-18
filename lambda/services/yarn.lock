@@ -1816,10 +1816,26 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@hapi/accept@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-6.0.0.tgz#360d6a12c7597489b19ad7830b41e3c38fe8c8c4"
-  integrity sha512-aG/Ml4kSBWCVmWvR8N8ULRuB385D8K/3OI7lquZQruH11eM7sHR5Nha30BbDzijJHtyV7Vwc6MlMwNfwb70ISg==
+"@haftahave/serverless-ses-template@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@haftahave/serverless-ses-template/-/serverless-ses-template-4.0.5.tgz#a9a6ee20b38e0cf0661f4a8f9f6c251fed1a323e"
+  integrity sha512-8sbPisVxZuBYPRGWeu9OLi+mQ5rwKl/+kSEc6wi8iWu6sElJc0SUXgdN3AiqCPeAR0ZZ3NAnTrrx4XW5L8V0Lg==
+  dependencies:
+    chalk "^4.1.2"
+    cli-table "^0.3.11"
+
+"@hapi/accept@^5.0.1":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"
+  integrity sha512-CmzBx/bXUR8451fnZRuZAJRlzgm0Jgu5dltTX/bszmR2lheb9BpyN47Q1RbaGTsvFzn0PXAEs+lXDKfshccYZw==
+  dependencies:
+    "@hapi/boom" "9.x.x"
+    "@hapi/hoek" "9.x.x"
+
+"@hapi/ammo@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@hapi/ammo/-/ammo-5.0.1.tgz#9d34560f5c214eda563d838c01297387efaab490"
+  integrity sha512-FbCNwcTbnQP4VYYhLNGZmA76xb2aHg9AMPiy18NZyWMG310P5KdFGyA9v2rm5ujrIny77dEEIkMOwl0Xv+fSSA==
   dependencies:
     "@hapi/boom" "^10.0.0"
     "@hapi/hoek" "^10.0.0"
@@ -4430,6 +4446,13 @@ cli-table3@0.6.2:
   optionalDependencies:
     "@colors/colors" "1.5.0"
 
+cli-table@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/cli-table/-/cli-table-0.3.11.tgz#ac69cdecbe81dccdba4889b9a18b7da312a9d3ee"
+  integrity sha512-IqLQi4lO0nIB4tcdTpN4LCB9FI3uqrJZK7RC515EnhZ6qBaglkIgICb1wjeAqpdoOabm1+SuQtkXIPdYC93jhQ==
+  dependencies:
+    colors "1.0.3"
+
 cli-width@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-3.0.0.tgz#a2f48437a2caa9a22436e794bf071ec9e61cedf6"
@@ -4514,6 +4537,11 @@ color@^3.1.3:
   dependencies:
     color-convert "^1.9.3"
     color-string "^1.6.0"
+
+colors@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
+  integrity sha512-pFGrxThWcWQ2MsAz6RtgeWe4NK2kUE1WfsrvvlctdII745EW9I0yflqhe7++M5LEc7bV2c/9/5zc8sFcpL0Drw==
 
 colorspace@1.1.x:
   version "1.1.4"

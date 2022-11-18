@@ -258,6 +258,7 @@ Resources:
               Service:
                 - lambda.amazonaws.com
                 - qldb.amazonaws.com
+                - ses.amazonaws.com
         Version: 2012-10-17
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
@@ -266,6 +267,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
         - arn:aws:iam::aws:policy/AmazonEC2FullAccess
         - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
+        - arn:aws:iam::aws:policy/AmazonSESFullAccess
       Path: /
 
   QLDBEndpoint:
@@ -302,6 +304,41 @@ Resources:
       LedgerName: !Ref LedgerInstance
       RoleArn: !GetAtt LambdaRole.Arn
       StreamName: !Sub qldb-${EnvironmentName}
+  
+
+  VPCEndpointForSES:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: True
+      SecurityGroupIds:
+          - !GetAtt VpcEndpointSecurityGroup.GroupId
+      ServiceName: 'com.amazonaws.us-east-1.email-smtp'
+      SubnetIds:
+          - Ref: PrivateSubnet1
+      VpcEndpointType: Interface
+      VpcId: !Ref VPC
+
+  S3BucketWeb:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Sub 'carbon-www-${EnvironmentName}'
+      WebsiteConfiguration:
+        ErrorDocument: 'index.html'
+        IndexDocument: 'index.html'
+
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3BucketWeb
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Action: 's3:GetObject'
+            Principal: '*'
+            Resource: !Sub '${S3BucketWeb.Arn}/*'
 
 Outputs:
   VPC:
@@ -327,3 +364,7 @@ Outputs:
   NoIngressSecurityGroup:
     Description: Security group with no ingress rule
     Value: !Ref NoIngressSecurityGroup
+
+  BucketUrl:
+    Description: 'S3 Web Bucket Url'
+    Value: !GetAtt 'S3BucketWeb.WebsiteURL'

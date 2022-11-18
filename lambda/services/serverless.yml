@@ -27,6 +27,7 @@ plugins:
  - serverless-plugin-optimize
  - serverless-offline
  - serverless-ssm-fetch
+ - '@haftahave/serverless-ses-template'
  
 params:
   local:
@@ -49,6 +50,7 @@ functions:
    layers:
      - ${param:depLayerArn1}
      - ${param:depLayerArn2}
+
  replicator:
    handler: src/ledger-replicator/handler.handler
    events:
@@ -58,6 +60,16 @@ functions:
          startingPosition: LATEST
          maximumRetryAttempts: 10
          enabled: true
+   ssmToEnvironment:
+     - DB_PASSWORD
+   environment:
+     NODE_PATH: "./:/opt/node_modules"
+   layers:
+     - ${param:depLayerArn1}
+     - ${param:depLayerArn2}
+
+ setup:
+   handler: src/setup/handler.handler
    ssmToEnvironment:
      - DB_PASSWORD
    environment:
@@ -84,4 +96,8 @@ custom:
     DB_PASSWORD: /${self:provider.stage}/DB_PASSWORD~true
     USER_JWT_SECRET: /${self:provider.stage}/USER_JWT_SECRET~true
     ADMIN_JWT_SECRET: /${self:provider.stage}/ADMIN_JWT_SECRET~true
+  sesTemplates:
+    addStage: true                             # Specifies whether to add stage to template name (default false)
+    configFile: './src/shared/email/email.template.ts' # Config file path (default './ses-email-templates/index.js')
+    region: 'us-east-1'   
   

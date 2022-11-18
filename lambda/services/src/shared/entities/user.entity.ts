@@ -11,19 +11,31 @@ export class User  implements EntitySubject{
     email: string;
 
     @Column()
-    firstName: string;
-
-    @Column()
-    lastName: string;
-
-    @Column()
     password: string;
 
     @Column({
         type: "enum",
         enum: Role,
         array: false,
-        default: Role.User
+        default: Role.NationalView
     })
     role: Role;
+
+    @Column()
+    name: string;
+
+    @Column()
+    city: string;
+
+    @Column()
+    zipCode: string;
+
+    @Column()
+    state: string;
+
+    @Column()
+    country: string;
+
+    @Column()
+    contactNo: string;
 }

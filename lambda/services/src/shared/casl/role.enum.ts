@@ -1,4 +1,9 @@
 export enum Role {
-    User = 'user',
-    Root = 'root',
+    Root = 'Root',
+    Admin = 'Admin',
+    NationalAdmin = 'NationalAdmin',
+    NationalGeneral = 'NationalGeneral',
+    NationalView = 'NationalView',
+    ProjectDeveloper = 'ProjectDeveloper',
+    Certifier = 'Certifier'
 }

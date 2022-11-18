@@ -21,11 +21,24 @@ export class LedgerDbService {
         this.logger.debug(`Statement: ${sql}, parameter: ${JSON.stringify(parameters)}`)
         this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
-            return await txn.execute(sql, parameters) 
+            if (parameters.length > 0) {
+                return await txn.execute(sql, parameters) 
+            } else {
+                return await txn.execute(sql) 
+            }
+                
         });
         this.logger.debug('Response', JSON.stringify(resp))
         this.driver.close()
         return null;
+    }
+
+    public async createTable(): Promise<void> {
+        await (await this.execute(`create table ${this.tableName}`));
+    }
+
+    public async createIndex(indexCol: string): Promise<void> {
+        await (await this.execute(`create index on ${this.tableName} (${indexCol})`));
     }
 
     public async insertRecord(document: Record<string, any>): Promise<void> {
