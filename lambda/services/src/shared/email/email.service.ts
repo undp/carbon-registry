@@ -25,7 +25,7 @@ export class EmailService {
             },
             Source: this.sourceEmail,
             Template: emailTemplateName,
-            TemplateData: templateData,
+            TemplateData: JSON.stringify(templateData),
         };
         return (await this.ses.sendTemplatedEmail(params).promise());
     }

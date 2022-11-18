@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from '../../shared/entities/user.entity';
 import { EmailService } from '../../shared/email/email.service';
 import { EmailTypes } from '../../shared/email/emailtypes.enum';
+import { QueryDto } from '../../shared/dto/query.dto';
 
 @Injectable()
 export class UserService {
@@ -46,5 +47,18 @@ export class UserService {
             });
 
         return await this.userRepo.save(userDto);
+    }
+
+    async query(query: QueryDto): Promise<User[]> {
+        const skip = (query.size * query.page) - query.size;
+        return await this.userRepo.find({
+            skip,
+            take: query.size
+        });
+    }
+
+    async delete(username: string): Promise<boolean> {
+        const result = await this.userRepo.delete({ email: username });
+        return result.affected > 0
     }
 }

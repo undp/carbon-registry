@@ -8,6 +8,7 @@ import { User } from '../../shared/entities/user.entity';
 import { UserDto } from '../../shared/dto/user.dto';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { QueryDto } from '../../shared/dto/query.dto';
 
 @ApiTags('User')
 @ApiBearerAuth()
@@ -31,5 +32,21 @@ export class UserController {
     @Post('add')
     addUser(@Body()user: UserDto) {
       return this.userService.create(user)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard, PoliciesGuard)
+    @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, User))
+    @Post('query')
+    queryUser(@Body()query: QueryDto) {
+      return this.userService.query(query)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard, PoliciesGuard)
+    @CheckPolicies((ability: AppAbility) => ability.can(Action.Delete, User))
+    @Post('delete')
+    deleteUser(@Request() req) {
+      return this.userService.delete(req.user.username)
     }
 }

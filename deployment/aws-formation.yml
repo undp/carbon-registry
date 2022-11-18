@@ -318,6 +318,28 @@ Resources:
       VpcEndpointType: Interface
       VpcId: !Ref VPC
 
+  S3BucketWeb:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Sub 'carbon-www-${EnvironmentName}'
+      WebsiteConfiguration:
+        ErrorDocument: 'index.html'
+        IndexDocument: 'index.html'
+
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3BucketWeb
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Action: 's3:GetObject'
+            Principal: '*'
+            Resource: !Sub '${S3BucketWeb.Arn}/*'
+
 Outputs:
   VPC:
     Description: A reference to the created VPC
@@ -342,3 +364,7 @@ Outputs:
   NoIngressSecurityGroup:
     Description: Security group with no ingress rule
     Value: !Ref NoIngressSecurityGroup
+
+  BucketUrl:
+    Description: 'S3 Web Bucket Url'
+    Value: !GetAtt 'S3BucketWeb.WebsiteURL'

@@ -4,7 +4,7 @@ import { Server } from 'http';
 import { NestFactory } from '@nestjs/core';
 import { LedgerReplicatorModule } from './ledger-replicator.module';
 import { LedgerReplicatorService } from './ledger-replicator.service';
-import { getLogger } from 'src/shared/server';
+import { getLogger } from '../shared/server';
 
 export const handler: Handler = async (event: any, context: Context) => {
    const app = await NestFactory.createApplicationContext(LedgerReplicatorModule, {

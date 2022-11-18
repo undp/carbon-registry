@@ -28,14 +28,13 @@ exports.handler = async (event) => {
       await ledgerModule.createTable();
       await ledgerModule.createIndex('serialNo');
     } catch(e) {
-      console.log('QLDB table does not create', e) 
+      console.log('QLDB table does not create') 
     }
     
     try {
       const user = new UserDto()
       user.email = process.env.ROOT_EMAIL
-      user.firstName = "Root"
-      user.lastName = "User"
+      user.name = "Root"
       user.role = Role.Root;
       await userService.create(user)
     } catch (e) {
