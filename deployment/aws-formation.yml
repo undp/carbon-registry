@@ -258,6 +258,7 @@ Resources:
               Service:
                 - lambda.amazonaws.com
                 - qldb.amazonaws.com
+                - ses.amazonaws.com
         Version: 2012-10-17
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
@@ -266,6 +267,7 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
         - arn:aws:iam::aws:policy/AmazonEC2FullAccess
         - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
+        - arn:aws:iam::aws:policy/AmazonSESFullAccess
       Path: /
 
   QLDBEndpoint:
@@ -302,6 +304,19 @@ Resources:
       LedgerName: !Ref LedgerInstance
       RoleArn: !GetAtt LambdaRole.Arn
       StreamName: !Sub qldb-${EnvironmentName}
+  
+
+  VPCEndpointForSES:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PrivateDnsEnabled: True
+      SecurityGroupIds:
+          - !GetAtt VpcEndpointSecurityGroup.GroupId
+      ServiceName: 'com.amazonaws.us-east-1.email-smtp'
+      SubnetIds:
+          - Ref: PrivateSubnet1
+      VpcEndpointType: Interface
+      VpcId: !Ref VPC
 
 Outputs:
   VPC:

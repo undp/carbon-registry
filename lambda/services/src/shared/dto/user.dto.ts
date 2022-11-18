@@ -10,11 +10,6 @@ export class UserDto {
     email: string;
 
     @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    password: string;
-
-    @IsNotEmpty()
     @ApiProperty()
     @IsEnum(Role, {
         message: 'Invalid role. Supported following roles:' + Object.values(Role)
@@ -24,10 +19,30 @@ export class UserDto {
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
-    firstName: string;
+    name: string;
 
-    @ApiProperty()
+    @IsNotEmpty()
     @IsString()
-    lastName: string;
+    @ApiProperty()
+    city: string;
 
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    zipCode: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    state: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    country: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    contactNo: string;
 }

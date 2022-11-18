@@ -15,10 +15,21 @@ export class CaslAbilityFactory {
   createForUser(user: User) {
     const { can, cannot, build } = new AbilityBuilder(createAppAbility);
 
-    if (user && user.role == Role.Root) {
-      can(Action.Manage, 'all'); // read-write access to everything
-    } else {
-      can(Action.Read, 'all'); // read-only access to everything
+    if (user) {
+      switch(user.role) {
+        case Role.Root:
+          can(Action.Manage, 'all');
+          break;
+        case Role.Admin:
+          can(Action.Manage, User, { role: { $nin: [Role.Root] }});
+          break;
+        case Role.NationalAdmin:
+          can(Action.Manage, User, { role: { $in: [Role.NationalAdmin, Role.NationalGeneral, Role.NationalView] }});
+          break;
+        default:
+          cannot(Action.Update, User, ['email', 'role']);
+          can([Action.Update, Action.Read], User, { id: user.id })
+      }
     }
 
     return build({

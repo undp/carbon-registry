@@ -28,6 +28,14 @@ export class LedgerDbService {
         return null;
     }
 
+    public async createTable(): Promise<void> {
+        await (await this.execute(`create table ${this.tableName}`));
+    }
+
+    public async createIndex(indexCol: string): Promise<void> {
+        await (await this.execute(`create index on ${this.tableName} (${indexCol})`));
+    }
+
     public async insertRecord(document: Record<string, any>): Promise<void> {
         await (await this.execute(`INSERT INTO ${this.tableName} ?`, document));
     }
