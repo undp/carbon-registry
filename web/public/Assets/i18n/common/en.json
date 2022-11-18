@@ -1,0 +1,10 @@
+{
+  "submit": "Submit",
+  "name": "Name",
+  "email": "Email",
+  "pwd": "Password",
+  "login": "Sign In",
+  "signUp": "Sign Up",
+  "language": "Language",
+  "nigeria": "Federal Republic of Nigeria"
+}
