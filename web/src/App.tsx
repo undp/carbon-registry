@@ -1,27 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ConnectionContextProvider } from './Context/ConnectionContext/connectionContext';
+import Login from './Pages/Login/login';
+import 'antd/dist/antd.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React{process.env.REACT_APP_BACKEND}
-          <span>{process.env.REACT_APP_STAGE}</span>
-        </a>
-      </header>
-    </div>
+    <ConnectionContextProvider
+      serverURL={
+        process.env.REACT_APP_BACKEND ? process.env.REACT_APP_BACKEND : 'http://localhost:3000'
+      }
+    >
+      <Suspense fallback="loading...">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
+    </ConnectionContextProvider>
   );
-}
+};
 
 export default App;
