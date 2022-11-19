@@ -1824,18 +1824,10 @@
     chalk "^4.1.2"
     cli-table "^0.3.11"
 
-"@hapi/accept@^5.0.1":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"
-  integrity sha512-CmzBx/bXUR8451fnZRuZAJRlzgm0Jgu5dltTX/bszmR2lheb9BpyN47Q1RbaGTsvFzn0PXAEs+lXDKfshccYZw==
-  dependencies:
-    "@hapi/boom" "9.x.x"
-    "@hapi/hoek" "9.x.x"
-
-"@hapi/ammo@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@hapi/ammo/-/ammo-5.0.1.tgz#9d34560f5c214eda563d838c01297387efaab490"
-  integrity sha512-FbCNwcTbnQP4VYYhLNGZmA76xb2aHg9AMPiy18NZyWMG310P5KdFGyA9v2rm5ujrIny77dEEIkMOwl0Xv+fSSA==
+"@hapi/accept@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-6.0.0.tgz#360d6a12c7597489b19ad7830b41e3c38fe8c8c4"
+  integrity sha512-aG/Ml4kSBWCVmWvR8N8ULRuB385D8K/3OI7lquZQruH11eM7sHR5Nha30BbDzijJHtyV7Vwc6MlMwNfwb70ISg==
   dependencies:
     "@hapi/boom" "^10.0.0"
     "@hapi/hoek" "^10.0.0"
@@ -3550,6 +3542,22 @@ aws-sdk@^2.1046.0, aws-sdk@^2.814.0:
   version "2.1254.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1254.0.tgz#523d65f09c3f25d509e3a2cab87cf901178ea525"
   integrity sha512-PDBSEskxckCwmfl9GVU+F6JZ9NusgO98DzRRqFv/PzQxkyw6vbdT6N/porUt+mFmGz3HjnGZLeZdywaDMtx7Dg==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.16.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    util "^0.12.4"
+    uuid "8.0.0"
+    xml2js "0.4.19"
+
+aws-sdk@^2.1258.0:
+  version "2.1258.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1258.0.tgz#35cadaef14e2cebe0ed13029d2d9f84bb3cf2e8b"
+  integrity sha512-siqNFXlhJZVN1BizPZebJViFXtTUPgcA+yLfHKl2eC4Ied7kE7spOjZmAzpuiGUTzFagk1oWCaJ1Hit4llIoGg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
