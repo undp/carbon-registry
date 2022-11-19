@@ -1,24 +1,21 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { SESClient, SendTemplatedEmailCommand } from "@aws-sdk/client-ses";
 
-var AWS = require('aws-sdk');
-// AWS.config.update({region: 'REGION'});
 
 @Injectable()
 export class EmailService {
 
-    private ses = new AWS.SES({ apiVersion: '2010-12-01' });
+    private ses = new SESClient({ apiVersion: '2010-12-01' });
     private sourceEmail: string;
 
     constructor(private logger: Logger, private configService: ConfigService) {
         this.sourceEmail = this.configService.get<string>('email.source');
     }
 
-    public async sendEmail(sendToEmail: string, emailTemplateName: string, templateData: any): Promise<void> {
+    public async sendEmail(sendToEmail: string, emailTemplateName: string, templateData: any): Promise<any> {
         const params = {
             Destination: {
-                CcAddresses: [
-                ],
                 ToAddresses: [
                     sendToEmail
                 ]
@@ -27,6 +24,6 @@ export class EmailService {
             Template: emailTemplateName + "_" + "dev", //stage
             TemplateData: JSON.stringify(templateData),
         };
-        return (await this.ses.sendTemplatedEmail(params).promise());
+        return (await this.ses.send(new SendTemplatedEmailCommand(params)));
     }
 }
