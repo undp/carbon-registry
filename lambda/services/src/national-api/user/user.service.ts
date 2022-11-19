@@ -4,9 +4,9 @@ import { UserDto } from '../../shared/dto/user.dto';
 import { Repository } from 'typeorm';
 import { User } from '../../shared/entities/user.entity';
 import { EmailService } from '../../shared/email/email.service';
-import { EmailTypes } from '../../shared/email/emailtypes.enum';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { ConfigService } from '@nestjs/config';
+import { EmailTemplates } from '../../shared/email/email.template';
 
 @Injectable()
 export class UserService {
@@ -41,7 +41,7 @@ export class UserService {
         userDto.password = this.generateRandomPassword()
         await this.emailService.sendEmail(
             userDto.email,
-            EmailTypes.REGISTER_EMAIL,
+            EmailTemplates.REGISTER_EMAIL,
             {
                 "name": userDto.name,
                 "countryName": userDto.country,
