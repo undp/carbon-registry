@@ -14,7 +14,7 @@ exports.handler = async (event) => {
       logger: getLogger(UserModule),
     });
     const userService = userApp.get(UserService);
-    const u = await userService.findOne(process.env.ROOT_EMAIL);
+    const u = await userService.findOne(event['rootEmail']);
     if (u != undefined) {
       console.log('Root user already created and setup is completed')
       return;
@@ -33,7 +33,7 @@ exports.handler = async (event) => {
     
     try {
       const user = new UserDto()
-      user.email = process.env.ROOT_EMAIL
+      user.email = event['rootEmail']
       user.name = "Root"
       user.role = Role.Root;
       user.city = "-"
@@ -43,7 +43,7 @@ exports.handler = async (event) => {
       user.zipCode = "-"
       await userService.create(user)
     } catch (e) {
-      console.log(`User ${process.env.ROOT_EMAIL} does not create`, e) 
+      console.log(`User ${event['rootEmail']} does not create`, e) 
     }
   
 }
