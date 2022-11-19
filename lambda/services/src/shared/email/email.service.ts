@@ -12,6 +12,7 @@ export class EmailService {
     private sourceEmail: string;
 
     constructor(private logger: Logger, private configService: ConfigService) {
+        this.sourceEmail = this.configService.get<string>("email.source")
         this.transporter = nodemailer.createTransport({
             host: this.configService.get<string>("email.endpoint"),
             port: 465,

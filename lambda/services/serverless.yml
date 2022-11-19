@@ -76,6 +76,7 @@ functions:
    handler: src/setup/handler.handler
    ssmToEnvironment:
      - DB_PASSWORD
+     - SES_PASSWORD
    environment:
      NODE_PATH: "./:/opt/node_modules"
    layers:

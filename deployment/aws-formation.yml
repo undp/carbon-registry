@@ -243,6 +243,10 @@ Resources:
             FromPort: 443
             ToPort: 443
             SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
+          - IpProtocol: tcp
+            FromPort: 465
+            ToPort: 465
+            SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
 
   LambdaRole:
     Type: AWS::IAM::Role
