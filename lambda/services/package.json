@@ -35,6 +35,7 @@
     "amazon-qldb-driver-nodejs": "^3.0.1",
     "aws-kinesis-agg": "^4.2.6",
     "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1258.0",
     "aws-serverless-express": "^3.4.0",
     "carbon-credit-calculator": "../../libs/carbon-credit-calculator",
     "class-transformer": "^0.5.1",
