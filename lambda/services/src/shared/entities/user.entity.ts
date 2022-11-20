@@ -7,7 +7,7 @@ export class User  implements EntitySubject{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Column()

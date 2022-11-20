@@ -5,5 +5,5 @@ export enum Role {
     NationalGeneral = 'NationalGeneral',
     NationalView = 'NationalView',
     ProjectDeveloper = 'ProjectDeveloper',
-    Certifier = 'Certifier'
+    Certifier = 'Certifier',
 }
