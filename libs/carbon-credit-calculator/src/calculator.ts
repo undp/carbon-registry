@@ -1,3 +1,17 @@
-export const calculateCredit = (): number => {
-    return 100;
+import { AgricultureCal } from "./calculators/agricultureCal";
+import { SolarCal } from "./calculators/solarCal";
+import { SubSectorConstants } from "./constants/subSectorConstants";
+import { AgricultureCreationRequest } from "./requests/agricultureCreationRequest";
+import { CreditCreationRequest } from "./requests/creditCreationRequest";
+import { SolarCreationRequest } from "./requests/solarCreationRequest";
+
+export const PRECISION = 3
+export const calculateCredit = (request: CreditCreationRequest): number => {
+    if (request instanceof AgricultureCreationRequest) {
+        return AgricultureCal.calculate(request)
+    } else if (request instanceof SolarCreationRequest) {
+        return SolarCal.calculate(request)
+    } else {
+        throw Error("Not implemented")
+    }
 }
