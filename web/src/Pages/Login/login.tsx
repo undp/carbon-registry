@@ -15,9 +15,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('i18nextLng') !== null) {
-      if (localStorage.getItem('i18nextLng').length > 2) {
-      }
+    if (localStorage.getItem('i18nextLng')!.length > 2) {
       i18next.changeLanguage('en');
     }
   }, []);
