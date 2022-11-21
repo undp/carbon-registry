@@ -83,6 +83,11 @@ export class UserService {
 
     async create(userDto: UserDto): Promise<User | undefined> {
         this.logger.verbose('User create received', userDto.email)
+
+        const user = await this.findOne(userDto.email)
+        if (user) {
+            throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST)
+        }
         userDto.password = this.generateRandomPassword()
         await this.emailService.sendEmail(
             userDto.email,
