@@ -7,36 +7,14 @@ on:
     paths:
       - lambda/**
       - libs/**
-      - web/**
     
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  path-filter:
-    runs-on: ubuntu-latest
-    outputs:
-      changes: ${{steps.filter.outputs.workflows}}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            web:
-              - 'web/**'
-      - name: check for front-end changes
-        if: steps.changes.outputs.web == 'true'
-        run: echo "There are changes in the front-end"
-
-      - name: check for back-end end changes
-        if: steps.changes.outputs.web == 'false'
-        run: echo "There are changes in the back-end"
   check_dependency_change:
     runs-on: ubuntu-latest
-    needs: path-filter
-    if: needs.path-filter.outputs.changes == 'false'
     # Declare outputs for next jobs
     outputs:
       deps_changed: ${{ steps.check_file_changed.outputs.deps_changed }}
@@ -142,34 +120,3 @@ jobs:
         with:
           args: -c "cd ./lambda/services && serverless deploy --stage prod"
           entrypoint: /bin/sh
-  deploy_front_end:
-    runs-on: ubuntu-latest
-    needs: path-filter
-    if: needs.path-filter.outputs.changes == 'true'
-    env:
-      REACT_APP_BACKEND: https://ck5kt5uaw1.execute-api.us-east-1.amazonaws.com/dev/api/national/docs#/Auth/AuthController_login
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache modules
-        uses: actions/cache@v1
-        id: yarn-cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: CI=false yarn
-      - name: Build
-        run: CI=false yarn build
-      - name: Deploy
-        run: aws s3 sync ./build s3://carbon-www-dev
