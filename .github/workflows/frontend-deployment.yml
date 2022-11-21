@@ -1,0 +1,39 @@
+name: Deploy Front end in S3
+on:
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - web/**
+
+jobs:
+  deploy_front_end:
+    runs-on: ubuntu-latest
+    env:
+      REACT_APP_BACKEND: https://ck5kt5uaw1.execute-api.us-east-1.amazonaws.com/dev/api/national/docs#/Auth/AuthController_login
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache modules
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: CI=false yarn
+      - name: Build
+        run: CI=false yarn build
+      - name: Deploy
+        run: aws s3 sync ./build s3://carbon-www-dev
