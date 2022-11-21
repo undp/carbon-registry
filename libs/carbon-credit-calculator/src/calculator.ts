@@ -1,6 +1,5 @@
 import { AgricultureCal } from "./calculators/agricultureCal";
 import { SolarCal } from "./calculators/solarCal";
-import { SubSectorConstants } from "./constants/subSectorConstants";
 import { AgricultureCreationRequest } from "./requests/agricultureCreationRequest";
 import { CreditCreationRequest } from "./requests/creditCreationRequest";
 import { SolarCreationRequest } from "./requests/solarCreationRequest";
