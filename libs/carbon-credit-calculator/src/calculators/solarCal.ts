@@ -18,7 +18,7 @@ export class SolarCal {
 
         let threshold = constants.buildingTypes[req.buildingType];
         if (!threshold) {
-            throw Error("Invalid building type" + req.buildingType)
+            throw Error("Invalid building type " + req.buildingType)
         }
 
         if (req.energyGenerationUnit != constants.thresholdUnit) {

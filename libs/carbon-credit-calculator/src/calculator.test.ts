@@ -38,6 +38,16 @@ describe("Agriculture calculation", () => {
         req.landAreaUnit = 'ha'
         expect(calculateCredit(req)).toBe(839.5);
     });
+
+    it("test error", () => {
+        const req = new AgricultureCreationRequest();
+        req.duration = 365
+        req.durationUnit = 'd'
+        req.landArea = 50
+        req.landAreaUnit = 'ha'
+        req.agricultureConstants.emissionFactorUnit = "km"
+        expect(() => calculateCredit(req)).toThrow("Invalid emission factor unit km");
+    });
 });
 
 describe("Solar calculation", () => {
@@ -73,4 +83,28 @@ describe("Solar calculation", () => {
         expect(calculateCredit(req)).toBe(0.439);
     });
     
+    it("example1 error", () => {
+        const req = new SolarCreationRequest();
+        req.energyGeneration = 20
+        req.energyGenerationUnit = 'kWh/year/unit'
+        req.buildingType = 'Household'
+        req.solarConstants.emissionFactorUnit = "m"
+        expect(() => calculateCredit(req)).toThrow("Invalid emission factor unit m");
+    });
+
+    it("example1 error 2", () => {
+        const req = new SolarCreationRequest();
+        req.energyGeneration = 20
+        req.buildingType = 'Household'
+        req.energyGenerationUnit = 'km'
+        expect(() => calculateCredit(req)).toThrow("Invalid measured unit km");
+    });
+
+    it("example1 error build type", () => {
+        const req = new SolarCreationRequest();
+        req.energyGeneration = 20
+        req.buildingType = 'TestType'
+        req.energyGenerationUnit = 'kWh/year/unit'
+        expect(() => calculateCredit(req)).toThrow("Invalid building type TestType");
+    });
 });
