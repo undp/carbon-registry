@@ -32,8 +32,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
+        working-directory: ./web
         run: CI=false yarn
       - name: Build
+        working-directory: ./web
         run: CI=false yarn build
       - name: Deploy
-        run: aws s3 sync ./build s3://carbon-www-dev
+        run: aws s3 sync ./web/build s3://carbon-www-dev
