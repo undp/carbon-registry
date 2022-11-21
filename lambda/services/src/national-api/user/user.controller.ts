@@ -24,7 +24,9 @@ export class UserController {
     @Get('profile')
     async getProfile(@Request() req) {
       const u = await this.userService.findOne(req.user.username);
-      delete u.password; 
+      if (u) {
+        delete u.password; 
+      }
       return u;
     }
     

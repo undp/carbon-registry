@@ -72,10 +72,17 @@ export const PoliciesGuardEx = (injectQuery: boolean, action: Action, subject:ty
       if (policyHandlers.length == 0 && action && subject) {
         const obj = Object.assign(new subject(), body);
         if (obj instanceof User) {
-          obj['role'] = user.role
+          obj['role'] == undefined ? obj['role'] = user.role : ""
           obj['id'] ==  undefined ? obj['id'] = user.id : ""
         }
-        return ability.can(action, obj)
+        for (const key in obj) {
+          if(!ability.can(action, obj, key)) {
+            if (key == 'role' && obj['role'] == user.role) {
+              continue;
+            }
+            return false
+          }
+        }
       }
 
       return policyHandlers.every((handler) =>

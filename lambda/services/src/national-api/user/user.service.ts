@@ -55,7 +55,12 @@ export class UserService {
             this.logger.error(err)
             return err;
         });
-        return result.affected ? (await this.findById(id)) : undefined
+        if (result.affected) {
+            const u = await this.findById(id);
+            delete u.password
+            return u
+        }
+        return undefined;
     }
 
     async resetPassword(id: number, passwordResetDto: PasswordUpdateDto) {
@@ -79,15 +84,14 @@ export class UserService {
     async create(userDto: UserDto): Promise<User | undefined> {
         this.logger.verbose('User create received', userDto.email)
         userDto.password = this.generateRandomPassword()
-        console.log(userDto)
-        await this.emailService.sendEmail(
-            userDto.email,
-            EmailTemplates.REGISTER_EMAIL,
-            {
-                "name": userDto.name,
-                "countryName": userDto.country,
-                "password": userDto.password
-            });
+        // await this.emailService.sendEmail(
+        //     userDto.email,
+        //     EmailTemplates.REGISTER_EMAIL,
+        //     {
+        //         "name": userDto.name,
+        //         "countryName": userDto.country,
+        //         "password": userDto.password
+        //     });
 
         return await this.userRepo.save(userDto).catch((err: any) => {
             if (err instanceof QueryFailedError) {

@@ -4,6 +4,7 @@ import { User } from "../entities/user.entity";
 import { Action } from "./action.enum";
 import { Role } from "./role.enum";
 import { EntitySubject } from "../entities/entity.subject";
+import { Project } from "../entities/project.entity";
 
 type Subjects = InferSubjects<typeof EntitySubject> | 'all';
 
@@ -27,9 +28,10 @@ export class CaslAbilityFactory {
           can(Action.Manage, User, { role: { $in: [Role.NationalAdmin, Role.NationalGeneral, Role.NationalView ] }});
           break;
         default:
-          cannot(Action.Update, User, ['email', 'role']);
           can([Action.Update, Action.Read], User, { id: { $eq: user.id }})
+          break;
       }
+      cannot(Action.Update, User, ['email', 'role']);
     }
 
     return build({
