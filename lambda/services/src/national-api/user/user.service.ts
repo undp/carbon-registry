@@ -84,14 +84,14 @@ export class UserService {
     async create(userDto: UserDto): Promise<User | undefined> {
         this.logger.verbose('User create received', userDto.email)
         userDto.password = this.generateRandomPassword()
-        // await this.emailService.sendEmail(
-        //     userDto.email,
-        //     EmailTemplates.REGISTER_EMAIL,
-        //     {
-        //         "name": userDto.name,
-        //         "countryName": userDto.country,
-        //         "password": userDto.password
-        //     });
+        await this.emailService.sendEmail(
+            userDto.email,
+            EmailTemplates.REGISTER_EMAIL,
+            {
+                "name": userDto.name,
+                "countryName": userDto.country,
+                "password": userDto.password
+            });
 
         return await this.userRepo.save(userDto).catch((err: any) => {
             if (err instanceof QueryFailedError) {
