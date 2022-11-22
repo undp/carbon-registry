@@ -5,6 +5,7 @@ import { Action } from "./action.enum";
 import { Role } from "./role.enum";
 import { EntitySubject } from "../entities/entity.subject";
 import { Project } from "../entities/project.entity";
+import { QueryDto } from "../dto/query.dto";
 
 type Subjects = InferSubjects<typeof EntitySubject> | 'all';
 
@@ -18,11 +19,13 @@ export class CaslAbilityFactory {
     if (user) {
       switch(user.role) {
         case Role.Root:
-          // can(Action.Manage, 'all'); // If root user needs add more root users use this
-          can(Action.Manage, User, { role: { $ne: Role.Root }});
+          can(Action.Manage, 'all'); // If root user needs add more root users use this
+          // can(Action.Manage, User, { role: { $ne: Role.Root }});
+          // can(Action.Manage, QueryDto, 'all');
           break;
         case Role.Admin:
           can(Action.Manage, User, { role: { $ne: Role.Root }});
+          // can(Action.Manage, QueryDto, 'all');
           break;
         case Role.NationalAdmin:
           can(Action.Manage, User, { role: { $in: [Role.NationalAdmin, Role.NationalGeneral, Role.NationalView ] }});
