@@ -62,7 +62,7 @@ export const PoliciesGuardEx = (injectQuery: boolean, action: Action, subject:ty
         context.switchToHttp().getRequest()['ability'] = ability;
 
         const mongoQuery = JSON.stringify(rulesToQuery(ability, action, subject, rule => rule.inverted ? { $not: rule.conditions } : rule.conditions))
-        if (mongoQuery != '{"$or":[{}]}') {
+        if (mongoQuery && mongoQuery != "" && mongoQuery != "{}" && mongoQuery != '{"$or":[{}]}') {
           const query = mongoToSqlConverter.convertToSQL(`db.temp.find(${mongoQuery})`, true);
           const where = query.split(' WHERE ')[1].replace('(', '').replace(');', '')
           context.switchToHttp().getRequest()['abilityCondition'] = where;
@@ -75,14 +75,24 @@ export const PoliciesGuardEx = (injectQuery: boolean, action: Action, subject:ty
           obj['role'] == undefined ? obj['role'] = user.role : ""
           obj['id'] ==  undefined ? obj['id'] = user.id : ""
         }
-        for (const key in obj) {
-          if(!ability.can(action, obj, key)) {
-            if (key == 'role' && obj['role'] == user.role) {
-              continue;
+        if (action == Action.Update) {
+          
+          for (const key in obj) {
+            if(!ability.can(action, obj, key)) {
+              if (key == 'role' && obj['role'] == user.role) {
+                continue;
+              }
+              console.log('Returned due to ', key)
+              return false
             }
-            return false
-          }
+          }  
+        } 
+        else {
+          console.log(JSON.stringify(ability.rules))
+          console.log('Obj can', obj)
+          return ability.can(action, obj)
         }
+        
       }
 
       return policyHandlers.every((handler) =>
