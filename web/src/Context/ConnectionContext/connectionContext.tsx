@@ -1,10 +1,10 @@
 import React, { createContext, FC, useCallback, useContext, useEffect, useState } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ConnectionProps } from '../../Definitions/Interfaces/connectionContext.interfaces';
 import {
+  ConnectionProps,
   ConnectionContextProviderProps,
   Methods,
-} from '../../Definitions/Types/connectionContext.types';
+} from '../../Definitions/InterfacesAndType/connectionContext.definitions';
 
 const ConnectionContext = createContext<{
   connection?: ConnectionProps;
@@ -53,18 +53,11 @@ export const ConnectionContextProvider: FC<ConnectionContextProviderProps> = (
         })
           .then((response: AxiosResponse) => {
             if (response.status) {
-              if (response.status === 200) {
+              if (response.status === 200 || response.status === 201) {
                 resolve({
                   status: response.status,
                   data: response.data.data ?? response.data,
                   statusText: 'SUCCESS',
-                  message: response.data.message,
-                });
-              } else if (response.status === 201) {
-                resolve({
-                  status: response.status,
-                  data: response.data.message,
-                  statusText: 'CREATED',
                   message: response.data.message,
                 });
               } else if (response.status === 422) {
@@ -146,10 +139,10 @@ export const ConnectionContextProvider: FC<ConnectionContextProviderProps> = (
     [send]
   );
 
-  const updateToken = useCallback(async (tokenx?: string) => {
-    if (tokenx) {
-      localStorage.setItem('token', tokenx);
-      setToken(tokenx);
+  const updateToken = useCallback(async (newToken?: string) => {
+    if (newToken) {
+      localStorage.setItem('token', newToken);
+      setToken(newToken);
     } else {
       localStorage.removeItem('token');
       setToken(undefined);
