@@ -11,6 +11,7 @@ import { BadRequestError } from 'passport-headerapikey';
 import { PG_UNIQUE_VIOLATION } from '@drdgvhbh/postgres-error-codes';
 import { UserUpdateDto } from '../../shared/dto/user.update.dto';
 import { PasswordUpdateDto } from '../../shared/dto/password.update.dto';
+import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
 
 @Injectable()
 export class UserService {
@@ -78,7 +79,10 @@ export class UserService {
             this.logger.error(err)
             return err;
         });
-        return result.affected > 0 ? "Successfully updated" : "Password update failed"
+        if (result.affected > 0) {
+            return new BasicResponseDto(200, "Successfully updated");
+        } 
+        throw new HttpException("Password update failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     async create(userDto: UserDto): Promise<User | undefined> {
@@ -121,7 +125,7 @@ export class UserService {
             })
     }
 
-    async delete(username: string, query: string): Promise<string> {
+    async delete(username: string, query: string): Promise<BasicResponseDto> {
 
         if (query) {
             query = `${query} and email = '${username}'`
@@ -133,6 +137,9 @@ export class UserService {
             throw new HttpException("No visible user found", HttpStatus.BAD_REQUEST)
         }
         const result2 = await this.userRepo.delete({ email: username });
-        return result2.affected > 0 ? "Successfully deleted" : "Delete failed"
+        if (result2.affected > 0) {
+            return new BasicResponseDto(200, "Successfully deleted");
+        } 
+        throw new HttpException("Delete failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

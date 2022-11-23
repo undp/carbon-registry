@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Request, Post, Body, Query, Req, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Post, Body, Query, Req, HttpException, HttpStatus, Delete, Put } from '@nestjs/common';
 import { Action } from '../../shared/casl/action.enum';
 import { AppAbility, CaslAbilityFactory } from '../../shared/casl/casl-ability.factory';
 import { CheckPolicies } from '../../shared/casl/policy.decorator';
@@ -45,7 +45,7 @@ export class UserController {
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard, PoliciesGuardEx(false, Action.Update, User))
     // @CheckPolicies((ability, body) => ability.can(Action.Update, Object.assign(new User(), body)))
-    @Post('update')
+    @Put('update')
     updateUser(@Body()user: UserUpdateDto) {
       return this.userService.update(user)
     }
@@ -53,23 +53,22 @@ export class UserController {
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard, PoliciesGuardEx(false, Action.Update, User))
     // @CheckPolicies((ability, body) => ability.can(Action.Update, Object.assign(new User(), body)))
-    @Post('resetPassword')
+    @Put('resetPassword')
     resetPassword(@Body()reset: PasswordUpdateDto, @Request() req) {
-      console.log(req.user)
       return this.userService.resetPassword(req.user.id, reset)
     }
 
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User))
-    @Post('query')
-    queryUser(@Body()query: QueryDto, @Request() req) {
+    @Get('query')
+    queryUser(@Query()query: QueryDto, @Request() req) {
       return this.userService.query(query, req.abilityCondition)
     }
     
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Delete, User))
-    @Post('delete')
-    deleteUser(@Query('email') email: string, @Request() req) {
+    @Delete('delete')
+    deleteUser(@Query() email: string, @Request() req) {
       return this.userService.delete(email, req.abilityCondition)
     }
 }
