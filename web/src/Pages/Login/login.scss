@@ -66,6 +66,20 @@
         .login-input-fields {
           margin-top: 3vw;
           height: 15vw;
+          .ant-form-item {
+            .login-input-email {
+              margin-bottom: 1vw;
+            }
+            .ant-form-item-explain-error {
+              padding-left: 1vw;
+              margin-bottom: 1vw;
+              font-family: 'Proxima-Nova-Regular';
+              // margin-top: 1vw;
+            }
+            #login-details_password_help {
+              margin-top: 1vw;
+            }
+          }
           .login-forget-pwd-container {
             display: flex;
             flex-direction: row;
@@ -82,9 +96,6 @@
           }
           .login-submit-btn-container {
             margin-top: 2vw;
-          }
-          .login-input-email {
-            margin-bottom: 2vw;
           }
           .login-register-new-container {
             display: flex;
@@ -109,7 +120,7 @@
           display: flex;
           flex-direction: row;
           justify-content: flex-end;
-          margin-top: 10vw;
+          margin-top: 15vw;
           font-family: 'Proxima-Nova-Regular';
           font-size: 1vw;
           color: $login-black;
@@ -119,8 +130,8 @@
           border-radius: 0.3vw;
           font-family: 'Proxima-Nova-Regular';
           font-size: 1vw;
-          box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.06);
-          border: none;
+          box-shadow: 14px 16px 15px rgba(0, 0, 0, 0.06);
+          border: red;
         }
         .ant-input::placeholder {
           font-family: 'Proxima-Nova-Regular';
@@ -132,6 +143,7 @@
           color: $login-white;
           font-family: 'Proxima-Nova-Regular';
           border: none;
+          height: 3vw;
           font-size: 1vw;
           border-radius: 0.3vw;
           box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);

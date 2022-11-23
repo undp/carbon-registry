@@ -1,5 +1,14 @@
 import { AxiosRequestConfig, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios';
 
+import { ReactNode } from 'react';
+
+export type Methods = 'get' | 'post' | 'delete' | 'put' | 'patch';
+
+export type ConnectionContextProviderProps = {
+  serverURL: string;
+  children: ReactNode;
+};
+
 export interface Response<T> {
   data: T;
   statusText: string;
