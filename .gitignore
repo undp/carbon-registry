@@ -4,3 +4,4 @@
 **/.build/
 lambda/services/.env.local
 **/yarn-error.log
+**/coverage
