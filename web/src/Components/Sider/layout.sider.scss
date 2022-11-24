@@ -1,0 +1,48 @@
+@import '../../Pages//Common/colors.layout.sider.scss';
+
+.layout-sider-container {
+  overflow: auto;
+  height: 100vh;
+  // position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #023c66;
+  .layout-sider-container {
+    // padding-left: 2.5vw;
+    padding-top: 2vw;
+    .layout-sider-heading-container {
+      margin-bottom: 2vw;
+      padding-left: 2vw;
+      .layout-sider-heading-txt {
+        font-family: 'Proxima-Nova-Bold';
+        font-size: 2vw;
+        color: $layout-sider-header-txt;
+        cursor: pointer;
+      }
+    }
+    .layout-sider-menu-container {
+      .ant-menu {
+        background-color: #023c66;
+        .ant-menu-title-content {
+          font-family: 'Proxima-Nova-Regular';
+          font-size: 1vw;
+          color: $layout-sider-menu-txt;
+        }
+        .ant-menu-item-selected {
+          background-color: $layout-sider-hover-bg;
+          border-top-left-radius: 0.5vw;
+          border-bottom-left-radius: 0.5vw;
+          .ant-menu-title-content {
+            font-family: 'Proxima-Nova-Regular';
+            font-size: 1.1vw;
+            color: $layout-sider-header-txt;
+          }
+        }
+        .ant-menu-item {
+          height: 3.5vw;
+        }
+      }
+    }
+  }
+}

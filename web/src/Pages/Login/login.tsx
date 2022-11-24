@@ -12,7 +12,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { post, updateToken } = useConnection();
-  const { IsAuthenticated } = useUserContext();
+  const { IsAuthenticated, setUserInfo } = useUserContext();
   const { i18n, t } = useTranslation(['common', 'login']);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ const Login = () => {
       });
       if (response.status === 200 || response.status === 201) {
         updateToken(response.data.access_token);
+        setUserInfo({ id: response.data.id, userRole: response.data.role });
         return IsAuthenticated()
           ? // <Navigate to="dashboard" replace={true} state={{ from: location }} />
             navigate('/dashboard', { replace: true })

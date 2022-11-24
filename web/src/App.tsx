@@ -3,10 +3,12 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ConnectionContextProvider } from './Context/ConnectionContext/connectionContext';
 import 'antd/dist/antd.css';
 import Login from './Pages/Login/login';
-import Dashboard from './Pages/Dashboard/dashboard';
+import DashboardLayout from './Pages/Dashboard/dashboard.layout';
+import UserManagementLayout from './Pages/UserManagement/userManagement.layout';
 import { UserInformationContextProvider } from './Context/UserInformationContext/userInformationContext';
 import PrivateRoute from './Components/PrivateRoute/privateRoute';
 import SignUp from './Pages/Sign-up/signup';
+import AddUserLayout from './Pages/AddUser/addUserLayout';
 
 const App = () => {
   return (
@@ -24,7 +26,9 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/" element={<PrivateRoute />}>
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="dashboard" element={<DashboardLayout />} />
+                <Route path="userManagement" element={<UserManagementLayout />} />
+                <Route path="addUser" element={<AddUserLayout />} />
               </Route>
               <Route path="/*" element={<Navigate to="login" replace />} />
             </Routes>

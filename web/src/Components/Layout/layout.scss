@@ -1,0 +1,25 @@
+@import '../../Pages/Common/colors.layout.scss';
+
+.layout-main-container {
+  overflow: hidden;
+  .layout-header-container {
+    position: 'fixed';
+    top: 0;
+    z-index: 1;
+    width: '100%';
+    padding: 0;
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+  .ant-layout-header {
+    height: 7vw;
+    background-color: $layout-header-bg;
+  }
+  .layout-content-container {
+    margin-left: 2vw;
+    margin-right: 2vw;
+    background-color: $layout-header-bg;
+    margin-top: 3vw;
+    border-radius: 0.5vw;
+  }
+}
