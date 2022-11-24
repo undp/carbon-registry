@@ -1,17 +1,53 @@
-import { Button, Col, Input, Row, Select } from 'antd';
-import React, { useEffect } from 'react';
-// import { useConnection } from '../../Context/ConnectionContext/connectionContext';
+import { Button, Col, Form, Input, message, Row, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import './login.scss';
+// import sha1 from 'sha1';
 import countryLogo from '../../Assets/Images/nigeria.png';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
+import { useUserContext } from '../../Context/UserInformationContext/userInformationContext';
+import { LoginProps } from '../../Definitions/InterfacesAndType/userLogin.definitions';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  // const { get } = useConnection();
+  const { post, updateToken } = useConnection();
+  const { IsAuthenticated } = useUserContext();
   const { i18n, t } = useTranslation(['common', 'login']);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleLanguageChange = (lang: string) => {
     i18n.changeLanguage(lang);
+  };
+
+  const onSubmit = async (values: LoginProps) => {
+    setLoading(true);
+    try {
+      const email = values.email.trim();
+      // const pwd = sha1(`${email.toLowerCase()}${values.password}`);
+      const response = await post('national/auth/login', {
+        username: email,
+        password: values.password,
+      });
+      if (response.status === 200 || response.status === 201) {
+        updateToken(response.data.access_token);
+        return IsAuthenticated()
+          ? // <Navigate to="dashboard" replace={true} state={{ from: location }} />
+            navigate('/dashboard', { replace: true })
+          : navigate('/login', { replace: true });
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      message.open({
+        type: 'error',
+        content: error,
+        duration: 2,
+        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+      });
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -59,20 +95,64 @@ const Login = () => {
           <Row>
             <Col span={18} offset={3}>
               <div className="login-input-fields">
-                <div className="login-input-email">
-                  <Input placeholder={`${t('common:email')}`} />
-                </div>
-                <div className="login-input-password">
-                  <Input placeholder={`${t('common:pwd')}`} />
-                </div>
-                <div className="login-forget-pwd-container">
-                  <span className="login-forget-pwd-txt">{t('login:forgot-pwd')} ?</span>
-                </div>
-                <div className="login-submit-btn-container">
-                  <Button type="primary" size="large" block>
-                    {t('common:login')}
-                  </Button>
-                </div>
+                <Form
+                  layout="vertical"
+                  onFinish={onSubmit}
+                  name="login-details"
+                  requiredMark={false}
+                >
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      ({ getFieldValue }) => ({
+                        validator(rule, value) {
+                          if (
+                            getFieldValue('email') &&
+                            !getFieldValue('email')
+                              ?.trim()
+                              .match(
+                                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                              )
+                          ) {
+                            return Promise.reject('Please enter a valid E-mail!');
+                          }
+                          return Promise.resolve();
+                        },
+                      }),
+                      {
+                        required: true,
+                        message: 'Email can not be empty!',
+                      },
+                    ]}
+                  >
+                    <div className="login-input-email">
+                      <Input placeholder={`${t('common:email')}`} />
+                    </div>
+                  </Form.Item>
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Password can not be empty!',
+                      },
+                    ]}
+                  >
+                    <div className="login-input-password">
+                      <Input placeholder={`${t('common:pwd')}`} />
+                    </div>
+                  </Form.Item>
+                  <div className="login-forget-pwd-container">
+                    <span className="login-forget-pwd-txt">{t('login:forgot-pwd')} ?</span>
+                  </div>
+                  <Form.Item>
+                    <div className="login-submit-btn-container">
+                      <Button type="primary" size="large" htmlType="submit" block loading={loading}>
+                        {t('common:login')}
+                      </Button>
+                    </div>
+                  </Form.Item>
+                </Form>
                 <div className="login-register-new-container">
                   <span className="login-register-new-txt">
                     {t('login:register-acc')}?&nbsp;&nbsp;
