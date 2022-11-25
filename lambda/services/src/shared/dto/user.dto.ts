@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNumber, IsString, ValidateIf } from "class-validator";
 import { Role } from "../casl/role.enum";
 
 export class UserDto {
@@ -46,5 +46,34 @@ export class UserDto {
     @ApiProperty()
     contactNo: string;
 
+    @ValidateIf(o => o.role === Role.ProjectDeveloper)
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    companyName: string;
+
+    @ValidateIf(o => o.role === Role.ProjectDeveloper)
+    @IsNotEmpty()
+    @ApiProperty()
+    companyLogo: string;
+
+    @ValidateIf(o => o.role === Role.ProjectDeveloper)
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    companyLocation: string;
+
+    @ValidateIf(o => o.role === Role.ProjectDeveloper)
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    registrationNo: string;
+
+    @ValidateIf(o => o.role === Role.ProjectDeveloper)
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    industry: string;
+    
     password: string;
 }
