@@ -3,9 +3,8 @@
 .userManagement-container {
   overflow: hidden;
   padding: 2vw;
-  // background-color: red;
-  // height: 100vh;
-  overflow: initial;
+  // height: 200vh; //TODO to check the scrolling with the fixed header and sider
+  margin-bottom: 2vw; //NOTE need to add this to all main containers
   .ant-col-4 {
     .ant-btn-primary {
       background-color: $usr-mgt-btn-bg;

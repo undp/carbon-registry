@@ -26,7 +26,7 @@ const Login = () => {
     try {
       const email = values.email.trim();
       // const pwd = sha1(`${email.toLowerCase()}${values.password}`);
-      const response = await post('national/auth/login', {
+      const response = await post('auth/login', {
         username: email,
         password: values.password,
       });
@@ -140,7 +140,7 @@ const Login = () => {
                     ]}
                   >
                     <div className="login-input-password">
-                      <Input placeholder={`${t('common:pwd')}`} />
+                      <Input.Password type="password" placeholder={`${t('common:pwd')}`} />
                     </div>
                   </Form.Item>
                   <div className="login-forget-pwd-container">
