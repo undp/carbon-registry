@@ -49,25 +49,30 @@ export class UserDto {
     @ValidateIf(o => o.role === Role.ProjectDeveloper)
     @IsNotEmpty()
     @IsString()
+    @ApiProperty()
     companyName: string;
 
     @ValidateIf(o => o.role === Role.ProjectDeveloper)
     @IsNotEmpty()
+    @ApiProperty()
     companyLogo: string;
 
     @ValidateIf(o => o.role === Role.ProjectDeveloper)
     @IsNotEmpty()
     @IsString()
+    @ApiProperty()
     companyLocation: string;
 
     @ValidateIf(o => o.role === Role.ProjectDeveloper)
     @IsNotEmpty()
     @IsString()
+    @ApiProperty()
     registrationNo: string;
 
     @ValidateIf(o => o.role === Role.ProjectDeveloper)
     @IsNotEmpty()
     @IsString()
+    @ApiProperty()
     industry: string;
     
     password: string;
