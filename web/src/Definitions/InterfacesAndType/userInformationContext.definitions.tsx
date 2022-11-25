@@ -1,15 +1,11 @@
 export type UserProps = {
-  email: string;
-  id?: string;
-  fullName: string;
-  userRole?: string;
+  id: string;
+  userRole: string;
 };
 
 export interface UserContextProps {
-  userInfo?: UserProps;
+  userInfoState?: UserProps;
   setUserInfo: (val: UserProps) => void;
   removeUserInfo: () => void;
-  setFullName: (val: string) => void;
-  getFullName: () => string;
   IsAuthenticated: () => boolean;
 }
