@@ -39,7 +39,7 @@ export class PoliciesGuard implements CanActivate {
   }
 }
 
-export const PoliciesGuardEx = (injectQuery: boolean, action: Action, subject:typeof EntitySubject) => {
+export const PoliciesGuardEx = (injectQuery: boolean, action?: Action, subject?:typeof EntitySubject, onlyInject?: boolean) => {
 
   @Injectable()
   class PoliciesGuardMixin implements CanActivate {
@@ -47,6 +47,29 @@ export const PoliciesGuardEx = (injectQuery: boolean, action: Action, subject:ty
       public reflector: Reflector,
       public caslAbilityFactory: CaslAbilityFactory,
     ) { }
+
+    parseMongoQueryToSQL(mongoQuery, isNot = false, key = undefined) {
+      let final = undefined;
+      for (let operator in mongoQuery) {
+        if (operator.startsWith("$")) {
+          if (operator == "$and" || operator == "$or") {
+            const val = mongoQuery[operator].map( st => this.parseMongoQueryToSQL(st)).join(operator.replace("$", ''))
+            final = final == undefined ? val : `${final} and ${val}`
+          } else if (operator == "$not") {
+            return this.parseMongoQueryToSQL(mongoQuery["$not"], !isNot)
+          } else if (operator == "$eq") {
+            const value = (typeof mongoQuery["$eq"] === "number") ? String(mongoQuery["$eq"]) : `'${mongoQuery["$eq"]}'`
+            return `${key} ${ isNot ? "!=" : "=" } ${value}`
+          } else if (operator == "$ne") {
+            const value = (typeof mongoQuery["$ne"] === "number") ? String(mongoQuery["$ne"]) : `'${mongoQuery["$ne"]}'`
+            return `${key} ${ isNot ? "=" : "!=" } ${value}`
+          }
+        } else {
+          return this.parseMongoQueryToSQL(mongoQuery[operator], isNot, operator)
+        }
+      }
+      return final;
+    }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
       const policyHandlers =
@@ -61,38 +84,33 @@ export const PoliciesGuardEx = (injectQuery: boolean, action: Action, subject:ty
       if (injectQuery) {
         context.switchToHttp().getRequest()['ability'] = ability;
 
-        const mongoQuery = JSON.stringify(rulesToQuery(ability, action, subject, rule => rule.inverted ? { $not: rule.conditions } : rule.conditions))
+        const mongoQuery = JSON.stringify(rulesToQuery(ability, action, subject, rule => {
+          console.log(rule)
+          return rule.inverted ? { $not: rule.conditions } : rule.conditions
+        }))
+      
+        console.log('mongoQuery', mongoQuery, ability)
         if (mongoQuery && mongoQuery != "" && mongoQuery != "{}" && mongoQuery != '{"$or":[{}]}') {
-          const query = mongoToSqlConverter.convertToSQL(`db.temp.find(${mongoQuery})`, true);
-          const where = query.split(' WHERE ')[1].replace('(', '').replace(');', '')
-          context.switchToHttp().getRequest()['abilityCondition'] = where;
+          const whereQuery = this.parseMongoQueryToSQL(JSON.parse(mongoQuery));
+          console.log('Ability SQL where', whereQuery)
+          context.switchToHttp().getRequest()['abilityCondition'] = whereQuery;
         }
       }
       
-      if (policyHandlers.length == 0 && action && subject) {
+      if (policyHandlers.length == 0 && action && subject && !onlyInject) {
         const obj = Object.assign(new subject(), body);
-        if (obj instanceof User) {
-          obj['role'] == undefined ? obj['role'] = user.role : ""
-          obj['id'] ==  undefined ? obj['id'] = user.id : ""
-        }
         if (action == Action.Update) {
-          
           for (const key in obj) {
             if(!ability.can(action, obj, key)) {
-              if (key == 'role' && obj['role'] == user.role) {
-                continue;
-              }
-              console.log('Returned due to ', key)
               return false
             }
           }  
-        } 
+        } else if (action == Action.Delete) {
+          return ability.can(action, subject)
+        }
         else {
-          console.log(JSON.stringify(ability.rules))
-          console.log('Obj can', obj)
           return ability.can(action, obj)
         }
-        
       }
 
       return policyHandlers.every((handler) =>

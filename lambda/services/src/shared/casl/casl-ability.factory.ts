@@ -20,17 +20,14 @@ export class CaslAbilityFactory {
           can(Action.Manage, 'all');
           break;
         case Role.Admin:
-          can(Action.Manage, User, { role: { $ne: Role.Root }});
-          // can(Action.Manage, QueryDto, 'all');
-          break;
-        case Role.NationalAdmin:
-          can(Action.Manage, User, { role: { $in: [Role.NationalAdmin, Role.NationalGeneral, Role.NationalView ] }});
+          can(Action.Manage, 'all', { role: { $ne: Role.Root }});
           break;
         default:
           can([Action.Update, Action.Read], User, { id: { $eq: user.id }})
+          cannot(Action.Update, User, ['email', 'role']);
           break;
       }
-      cannot(Action.Update, User, ['email', 'role']);
+      cannot(Action.Delete, User, { id: { $eq: user.id }})
     }
 
     return build({
