@@ -104,14 +104,14 @@ export class UserService {
             throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST)
         }
         userDto.password = this.generateRandomPassword()
-        // await this.emailService.sendEmail(
-        //     userDto.email,
-        //     EmailTemplates.REGISTER_EMAIL,
-        //     {
-        //         "name": userDto.name,
-        //         "countryName": userDto.country,
-        //         "password": userDto.password
-        //     });
+        await this.emailService.sendEmail(
+            userDto.email,
+            EmailTemplates.REGISTER_EMAIL,
+            {
+                "name": userDto.name,
+                "countryName": userDto.country,
+                "password": userDto.password
+            });
 
         return await this.userRepo.save(userDto).catch((err: any) => {
             if (err instanceof QueryFailedError) {
