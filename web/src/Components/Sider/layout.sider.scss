@@ -3,13 +3,10 @@
 .layout-sider-container {
   overflow: auto;
   height: 100vh;
-  // position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
+  position: fixed;
+  z-index: 20;
   background-color: #023c66;
-  .layout-sider-container {
-    // padding-left: 2.5vw;
+  .layout-sider-div-container {
     padding-top: 2vw;
     .layout-sider-heading-container {
       margin-bottom: 2vw;
@@ -44,5 +41,11 @@
         }
       }
     }
+  }
+}
+@media screen and (max-width: 1170px) {
+  .layout-sider-container {
+    position: unset !important;
+    height: auto !important;
   }
 }

@@ -13,7 +13,7 @@ const CustomLayout = (props: LayoutProps) => {
     <div className="layout-main-container">
       <Layout hasSider>
         <LayoutSider selectedKey={selectedKey} />
-        <Layout>
+        <Layout className="layout-container">
           <Header className="layout-header-container">
             <LayoutHeader title={title} />
           </Header>
