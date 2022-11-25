@@ -33,7 +33,7 @@ export class UserController {
     @Post('add')
     addUser(@Body()user: UserDto) {
       if (user.role == Role.Root) {
-        throw new HttpException("Unauthorized", HttpStatus.FORBIDDEN)
+        throw new HttpException("Forbidden", HttpStatus.FORBIDDEN)
       }
       return this.userService.create(user)
     }
