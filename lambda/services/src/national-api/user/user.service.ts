@@ -30,6 +30,17 @@ export class UserService {
 
         return pass;
     }
+
+    async getUserCredentials(username: string): Promise<User | undefined> {
+        const users = await this.userRepo.find({
+            select: ['id', 'email', 'password', 'role'],
+            where: {
+                email: username,
+            }
+        });
+        return (users && users.length > 0) ? users[0] : undefined;
+    }
+
     async findOne(username: string): Promise<User | undefined> {
         const users = await this.userRepo.find({
             where: {
@@ -45,27 +56,29 @@ export class UserService {
         });
     }
 
-    async update(userDto: UserUpdateDto): Promise<User | undefined> {
-        this.logger.verbose('User update received', userDto.id)
+    async update(userDto: UserUpdateDto, abilityCondition: string): Promise<User | undefined> {
+        this.logger.verbose('User update received', abilityCondition)
         const { id, ...update } = userDto;
-        const result = await this.userRepo.update({
-            id: id
-        }, update).catch((err: any) => {
-            this.logger.error(err)
-            return err;
-        });
+
+        const result = await this.userRepo.createQueryBuilder()
+            .update(User)
+            .set(update)
+            .where(`id = ${id}`)
+            .andWhere(abilityCondition ? abilityCondition : "")
+            .execute().catch((err: any) => {
+                this.logger.error(err)
+                return err;
+            });
         if (result.affected) {
-            const u = await this.findById(id);
-            delete u.password
-            return u
+            return await this.findById(id);
         }
-        return undefined;
+        throw new HttpException("No visible user found", HttpStatus.NOT_FOUND)
     }
 
-    async resetPassword(id: number, passwordResetDto: PasswordUpdateDto) {
+    async resetPassword(id: number, passwordResetDto: PasswordUpdateDto, abilityCondition: string) {
         this.logger.verbose('User password reset received', id)
 
-        const user = await this.findById(id)
+        const user = await this.userRepo.createQueryBuilder().whereInIds(id).where(abilityCondition ? abilityCondition : "").addSelect(["User.password"]).getOne()
         if (!user || user.password != passwordResetDto.password) {
             throw new HttpException("Password mismatched", HttpStatus.UNAUTHORIZED)
         }
@@ -79,7 +92,7 @@ export class UserService {
         });
         if (result.affected > 0) {
             return new BasicResponseDto(200, "Successfully updated");
-        } 
+        }
         throw new HttpException("Password update failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -112,33 +125,23 @@ export class UserService {
     }
 
     async query(query: QueryDto, abilityCondition: string): Promise<User[]> {
-        this.logger.verbose('Ability query', abilityCondition)
         return (await this.userRepo.createQueryBuilder()
             .where(abilityCondition ? abilityCondition : "")
             .skip((query.size * query.page) - query.size)
             .take(query.size)
-            .getMany()).map(e => {
-                delete e.password
-                return e;
-            })
+            .getMany())
     }
 
-    async delete(username: string, query: string): Promise<BasicResponseDto> {
+    async delete(username: string, ability: string): Promise<BasicResponseDto> {
         this.logger.verbose('User delete received', username)
-
-        if (query) {
-            query = `${query} and email = '${username}'`
-        } else {
-            query = `email = '${username}'`
-        }
-        const result = await this.userRepo.createQueryBuilder().where(query).getMany()
+        const result = await this.userRepo.createQueryBuilder().where(`email = '${username}'`).andWhere(ability ? ability : "").getMany()
         if (result.length <= 0) {
-            throw new HttpException("No visible user found", HttpStatus.BAD_REQUEST)
+            throw new HttpException("No visible user found", HttpStatus.NOT_FOUND)
         }
         const result2 = await this.userRepo.delete({ email: username });
         if (result2.affected > 0) {
             return new BasicResponseDto(200, "Successfully deleted");
-        } 
+        }
         throw new HttpException("Delete failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

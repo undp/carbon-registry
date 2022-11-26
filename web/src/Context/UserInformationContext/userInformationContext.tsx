@@ -9,32 +9,19 @@ import jwt_decode from 'jwt-decode';
 export const UserContext = createContext<UserContextProps>({
   setUserInfo: () => {},
   removeUserInfo: () => {},
-  setFullName: () => {},
-  getFullName: () => '',
   IsAuthenticated: () => false,
 });
 
 export const UserInformationContextProvider = ({ children }: React.PropsWithChildren) => {
   const { token } = useConnection();
   const initialUserProps: UserProps = {
-    email: '',
     id: '',
-    fullName: '',
     userRole: '',
   };
-  const [userInfo, setUserInfoState] = useState<UserProps>(initialUserProps);
+  const [userInfoState, setUserInfoState] = useState<UserProps>(initialUserProps);
 
   const setUserInfo = (value: UserProps) => {
-    setUserInfoState(value);
-    const { email, id, fullName, userRole } = value;
-    if (fullName) {
-      setUserInfoState((prev) => ({ ...prev, fullName }));
-    }
-
-    if (email) {
-      setUserInfoState((prev) => ({ ...prev, email }));
-    }
-
+    const { id, userRole } = value;
     if (id) {
       setUserInfoState((prev) => ({ ...prev, id }));
       localStorage.setItem('userId', id);
@@ -70,22 +57,12 @@ export const UserInformationContextProvider = ({ children }: React.PropsWithChil
     setUserInfoState(initialUserProps);
   };
 
-  const setFullName = (fullName: string) => {
-    setUserInfoState((prev) => ({ ...prev, fullName }));
-  };
-
-  const getFullName = (): string => {
-    return userInfo.fullName;
-  };
-
   return (
     <UserContext.Provider
       value={{
-        userInfo,
+        userInfoState,
         setUserInfo,
         removeUserInfo,
-        setFullName,
-        getFullName,
         IsAuthenticated,
       }}
     >

@@ -1,0 +1,63 @@
+@import '../../Pages/Common/colors.layout.header.scss';
+
+.header-container {
+  overflow: hidden;
+  padding: 0;
+  .ant-col-8 {
+    .header-country-logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      height: 7vw;
+      overflow: hidden;
+      // background-color: red;
+      img {
+        object-fit: cover;
+        height: auto;
+        width: 6vw;
+      }
+    }
+    .header-title-container {
+      .header-title-txt {
+        font-family: 'Proxima-Nova-Bold';
+        font-size: 1.4vw;
+        font-style: Bold;
+        color: $layout-black;
+      }
+      height: 7vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      //   background-color: rgb(0, 38, 255);
+    }
+    .header-language-selection-container {
+      font-family: 'Proxima-Nova-Regular';
+      font-size: 1vw;
+      height: 7vw;
+      color: $layout-black;
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      align-items: center;
+      //   background-color: rgb(77, 255, 0);
+    }
+    .ant-select-selector {
+      border: none;
+      background-color: unset;
+      color: $layout-txt-black;
+    }
+    .ant-select-focused .ant-select-selector,
+    .ant-select-selector:focus,
+    .ant-select-selector:active,
+    .ant-select-open .ant-select-selector {
+      border-color: none;
+      box-shadow: none !important;
+    }
+  }
+}
+.ant-layout-header {
+  box-shadow: 1px 10px 9px rgba(0, 0, 0, 0.06);
+  background-color: $layout-header-bg !important;
+}

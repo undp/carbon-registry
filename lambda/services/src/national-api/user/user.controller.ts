@@ -24,11 +24,7 @@ export class UserController {
     @UseGuards(JwtAuthGuard)
     @Get('profile')
     async getProfile(@Request() req) {
-      const u = await this.userService.findOne(req.user.username);
-      if (u) {
-        delete u.password; 
-      }
-      return u;
+      return await this.userService.findOne(req.user.username);
     }
     
     @ApiBearerAuth()
@@ -37,29 +33,29 @@ export class UserController {
     @Post('add')
     addUser(@Body()user: UserDto) {
       if (user.role == Role.Root) {
-        throw new HttpException("Unauthorized", HttpStatus.UNAUTHORIZED)
+        throw new HttpException("Forbidden", HttpStatus.FORBIDDEN)
       }
       return this.userService.create(user)
     }
 
     @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard, PoliciesGuardEx(false, Action.Update, User))
+    @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Update, User))
     // @CheckPolicies((ability, body) => ability.can(Action.Update, Object.assign(new User(), body)))
     @Put('update')
-    updateUser(@Body()user: UserUpdateDto) {
-      return this.userService.update(user)
+    updateUser(@Body()user: UserUpdateDto, @Request() req) {
+      return this.userService.update(user, req.abilityCondition)
     }
 
     @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard, PoliciesGuardEx(false, Action.Update, User))
+    @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Update, User, true))
     // @CheckPolicies((ability, body) => ability.can(Action.Update, Object.assign(new User(), body)))
     @Put('resetPassword')
     resetPassword(@Body()reset: PasswordUpdateDto, @Request() req) {
-      return this.userService.resetPassword(req.user.id, reset)
+      return this.userService.resetPassword(req.user.id, reset, req.abilityCondition)
     }
 
     @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User))
+    @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
     @Get('query')
     queryUser(@Query()query: QueryDto, @Request() req) {
       return this.userService.query(query, req.abilityCondition)

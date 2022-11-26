@@ -12,7 +12,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { post, updateToken } = useConnection();
-  const { IsAuthenticated } = useUserContext();
+  const { IsAuthenticated, setUserInfo } = useUserContext();
   const { i18n, t } = useTranslation(['common', 'login']);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -26,12 +26,13 @@ const Login = () => {
     try {
       const email = values.email.trim();
       // const pwd = sha1(`${email.toLowerCase()}${values.password}`);
-      const response = await post('national/auth/login', {
+      const response = await post('auth/login', {
         username: email,
         password: values.password,
       });
       if (response.status === 200 || response.status === 201) {
         updateToken(response.data.access_token);
+        setUserInfo({ id: response.data.id, userRole: response.data.role });
         return IsAuthenticated()
           ? // <Navigate to="dashboard" replace={true} state={{ from: location }} />
             navigate('/dashboard', { replace: true })
@@ -139,7 +140,7 @@ const Login = () => {
                     ]}
                   >
                     <div className="login-input-password">
-                      <Input placeholder={`${t('common:pwd')}`} />
+                      <Input.Password type="password" placeholder={`${t('common:pwd')}`} />
                     </div>
                   </Form.Item>
                   <div className="login-forget-pwd-container">
