@@ -5,9 +5,10 @@ import { ProjectLedgerModule } from '../../shared/project-ledger/project-ledger.
 import { CaslModule } from '../../shared/casl/casl.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Project } from '../../shared/entities/project.entity';
+import { UtilModule } from '../../shared/util/util.module';
 
 @Module({
-  imports: [ProjectLedgerModule, CaslModule, TypeOrmModule.forFeature([Project])],
+  imports: [ProjectLedgerModule, CaslModule, TypeOrmModule.forFeature([Project]), UtilModule],
   providers: [Logger, ProjectService],
   controllers: [ProjectController]
 })

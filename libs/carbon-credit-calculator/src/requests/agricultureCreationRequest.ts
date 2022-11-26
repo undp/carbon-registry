@@ -7,4 +7,6 @@ export class AgricultureCreationRequest implements CreditCreationRequest {
     duration!: number;
     durationUnit!: string;
     agricultureConstants: AgricultureConstants = new AgricultureConstants();
+
+    
 }

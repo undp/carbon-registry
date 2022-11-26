@@ -3,7 +3,7 @@ import { SectoralScope } from "./constants/sectoralScope"
 export const generateSerialNumber = (
     countryISO2Code: string,
     sectoralScope: SectoralScope,
-    projectId: number,
+    projectId: string,
     year: number,
     blockStartCredit: number,
     blockEndCredit: number

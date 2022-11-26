@@ -1,5 +1,6 @@
 import { calculateCredit } from './calculator'
 import { AgricultureConstants } from './constants/agricultureConstants';
+import { BuildingType } from './constants/building.type.enum';
 import { SolarConstants } from './constants/solarConstants';
 import { SubSectorConstants } from './constants/subSectorConstants';
 import { AgricultureCreationRequest } from './requests/agricultureCreationRequest';
@@ -13,5 +14,6 @@ export {
     SolarCreationRequest,
     AgricultureCreationRequest,
     AgricultureConstants,
-    SolarConstants
+    SolarConstants,
+    BuildingType
 }

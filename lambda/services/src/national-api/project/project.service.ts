@@ -5,16 +5,23 @@ import { ProjectLedgerService } from '../../shared/project-ledger/project-ledger
 import { generateSerialNumber } from 'serial-number-gen';
 import { instanceToPlain, plainToClass } from 'class-transformer';
 import { ProjectStatus } from '../../shared/project-ledger/project-status.enum';
-import { calculateCredit } from 'carbon-credit-calculator';
+import { AgricultureCreationRequest, calculateCredit, SolarCreationRequest } from 'carbon-credit-calculator';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PrimaryGeneratedColumnType } from 'typeorm/driver/types/ColumnTypes';
+import { CounterService } from '../../shared/util/counter.service';
+import { CounterType } from '../../shared/util/counter.type.enum';
+import { SubSector } from '../../shared/enum/subsector.enum';
+
+export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
 @Injectable()
 export class ProjectService {
 
     constructor(
         private projectLedger: ProjectLedgerService, 
+        private counterService: CounterService,
         @InjectRepository(Project) private projectRepo: Repository<Project>, 
         private logger: Logger) {}
 
@@ -24,12 +31,35 @@ export class ProjectService {
         return plainToClass(Project, data);
     }
 
+    private getCreditRequest(projectDto: ProjectDto) {
+        switch(projectDto.subSector) {
+            case SubSector.AGRICULTURE:
+                const ar = new AgricultureCreationRequest()
+                ar.duration = (projectDto.endTime - projectDto.startTime)
+                ar.durationUnit = "s"
+                ar.landArea = projectDto.agricultureProperties.landArea;
+                ar.landAreaUnit = projectDto.agricultureProperties.landAreaUnit
+                return ar;
+            case SubSector.SOLAR:
+                const sr = new SolarCreationRequest()
+                sr.buildingType = projectDto.solarProperties.consumerGroup;
+                sr.energyGeneration = projectDto.solarProperties.energyGeneration;
+                sr.energyGenerationUnit = projectDto.solarProperties.energyGenerationUnit
+                return ar;
+        }
+        throw Error("Unknown sub sector " + projectDto.subSector)
+    }
+
     async create(projectDto: ProjectDto): Promise<Project | undefined> {
         this.logger.verbose('ProjectDTO received', projectDto)
         const project: Project = this.toProject(projectDto);
         this.logger.verbose('Project create', project)
-        project.serialNo = generateSerialNumber(projectDto.countryAlpha2Code, "AGRI", 1, 2022);
-        project.credit = calculateCredit();
+        const projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 4))
+        const year = new Date(projectDto.startTime).getFullYear()
+        const startBlock = await this.counterService.getCount(CounterType.ITMO)
+        project.numberOfITMO = calculateCredit(this.getCreditRequest(projectDto));
+        const endBlock = Number(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
+        project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, projectId, year, startBlock, endBlock);
         project.status = ProjectStatus.ISSUED;
         return await this.projectLedger.createProject(project);
     }

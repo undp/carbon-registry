@@ -5,9 +5,7 @@ import { QueryFailedError, Repository } from 'typeorm';
 import { User } from '../../shared/entities/user.entity';
 import { EmailService } from '../../shared/email/email.service';
 import { QueryDto } from '../../shared/dto/query.dto';
-import { ConfigService } from '@nestjs/config';
 import { EmailTemplates } from '../../shared/email/email.template';
-import { BadRequestError } from 'passport-headerapikey';
 import { PG_UNIQUE_VIOLATION } from '@drdgvhbh/postgres-error-codes';
 import { UserUpdateDto } from '../../shared/dto/user.update.dto';
 import { PasswordUpdateDto } from '../../shared/dto/password.update.dto';
@@ -126,6 +124,7 @@ export class UserService {
     }
 
     async delete(username: string, query: string): Promise<BasicResponseDto> {
+        this.logger.verbose('User delete received', username)
 
         if (query) {
             query = `${query} and email = '${username}'`
