@@ -1,3 +1,4 @@
+import { PRECISION } from 'carbon-credit-calculator/dist/esm/calculator';
 import { SectoralScope } from 'serial-number-gen';
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { AgricultureProperties } from '../dto/agriculture.properties';
@@ -48,7 +49,7 @@ export class Project implements EntitySubject {
     @Column()
     endTime: number;
 
-    @Column()
+    @Column({type: "decimal", precision: PRECISION})
     numberOfITMO: number;
 
     @Column({
