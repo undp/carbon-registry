@@ -85,14 +85,11 @@ export const PoliciesGuardEx = (injectQuery: boolean, action?: Action, subject?:
         context.switchToHttp().getRequest()['ability'] = ability;
 
         const mongoQuery = JSON.stringify(rulesToQuery(ability, action, subject, rule => {
-          console.log(rule)
           return rule.inverted ? { $not: rule.conditions } : rule.conditions
         }))
       
-        console.log('mongoQuery', mongoQuery, ability)
         if (mongoQuery && mongoQuery != "" && mongoQuery != "{}" && mongoQuery != '{"$or":[{}]}') {
           const whereQuery = this.parseMongoQueryToSQL(JSON.parse(mongoQuery));
-          console.log('Ability SQL where', whereQuery)
           context.switchToHttp().getRequest()['abilityCondition'] = whereQuery;
         }
       }
