@@ -56,7 +56,7 @@ export class ProjectService {
         this.logger.verbose('Project create', project)
         project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 4))
         const year = new Date(projectDto.startTime*1000).getFullYear()
-        const startBlock = await this.counterService.getCount(CounterType.ITMO)
+        const startBlock = await this.counterService.getCount(CounterType.ITMO) + 1
         project.numberOfITMO = calculateCredit(this.getCreditRequest(projectDto));
         const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
         project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
