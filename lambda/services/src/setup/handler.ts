@@ -26,7 +26,7 @@ exports.handler = async (event) => {
     try {
       const ledgerModule = app.get(LedgerDbService)
       await ledgerModule.createTable();
-      await ledgerModule.createIndex('serialNo');
+      await ledgerModule.createIndex('projectId');
     } catch(e) {
       console.log('QLDB table does not create') 
     }

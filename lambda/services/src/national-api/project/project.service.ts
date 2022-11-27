@@ -54,12 +54,13 @@ export class ProjectService {
         this.logger.verbose('ProjectDTO received', projectDto)
         const project: Project = this.toProject(projectDto);
         this.logger.verbose('Project create', project)
-        const projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 4))
-        const year = new Date(projectDto.startTime).getFullYear()
+        project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 4))
+        const year = new Date(projectDto.startTime*1000).getFullYear()
         const startBlock = await this.counterService.getCount(CounterType.ITMO)
         project.numberOfITMO = calculateCredit(this.getCreditRequest(projectDto));
-        const endBlock = Number(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
-        project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, projectId, year, startBlock, endBlock);
+        console.log('Credits', project.numberOfITMO)
+        const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
+        project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
         project.status = ProjectStatus.ISSUED;
         return await this.projectLedger.createProject(project);
     }
