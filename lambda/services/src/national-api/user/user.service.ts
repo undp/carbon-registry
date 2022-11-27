@@ -71,7 +71,7 @@ export class UserService {
         const result = await this.userRepo.createQueryBuilder()
             .update(User)
             .set(update)
-            .where(`id = ${id} ${abilityCondition ? ' AND ' + abilityCondition: ""}`)
+            .where(`id = ${id} ${abilityCondition ? (' AND ' + abilityCondition) : "" }`)
             .execute().catch((err: any) => {
                 this.logger.error(err)
                 return err;
