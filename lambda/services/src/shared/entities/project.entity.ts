@@ -49,7 +49,7 @@ export class Project implements EntitySubject {
     @Column()
     endTime: number;
 
-    @Column({type: "decimal", precision: PRECISION})
+    @Column({type: "decimal", precision: 10, scale: PRECISION})
     numberOfITMO: number;
 
     @Column({
