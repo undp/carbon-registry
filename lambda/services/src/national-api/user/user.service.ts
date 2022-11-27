@@ -10,6 +10,10 @@ import { PG_UNIQUE_VIOLATION } from '@drdgvhbh/postgres-error-codes';
 import { UserUpdateDto } from '../../shared/dto/user.update.dto';
 import { PasswordUpdateDto } from '../../shared/dto/password.update.dto';
 import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
+import { Role } from '../../shared/casl/role.enum';
+import { nanoid } from 'nanoid';
+import { API_KEY_SEPARATOR } from '../../shared/constants';
+import { DataResponseDto } from '../../shared/dto/data.response.dto';
 
 @Injectable()
 export class UserService {
@@ -31,9 +35,13 @@ export class UserService {
         return pass;
     }
 
+    private async generateApiKey(email) {
+        return Buffer.from(`${email}${API_KEY_SEPARATOR}${await nanoid()}`).toString('base64')
+    }
+
     async getUserCredentials(username: string): Promise<User | undefined> {
         const users = await this.userRepo.find({
-            select: ['id', 'email', 'password', 'role'],
+            select: ['id', 'email', 'password', 'role', 'apiKey'],
             where: {
                 email: username,
             }
@@ -56,7 +64,7 @@ export class UserService {
         });
     }
 
-    async update(userDto: UserUpdateDto, abilityCondition: string): Promise<User | undefined> {
+    async update(userDto: UserUpdateDto, abilityCondition: string): Promise<DataResponseDto | undefined> {
         this.logger.verbose('User update received', abilityCondition)
         const { id, ...update } = userDto;
 
@@ -69,7 +77,7 @@ export class UserService {
                 return err;
             });
         if (result.affected) {
-            return await this.findById(id);
+            return new DataResponseDto(HttpStatus.OK, await this.findById(id));
         }
         throw new HttpException("No visible user found", HttpStatus.NOT_FOUND)
     }
@@ -78,7 +86,7 @@ export class UserService {
         this.logger.verbose('User password reset received', id)
 
         const user = await this.userRepo.createQueryBuilder().whereInIds(id).where(abilityCondition ? abilityCondition : "").addSelect(["User.password"]).getOne()
-        if (!user || user.password != passwordResetDto.password) {
+        if (!user || user.password != passwordResetDto.oldPassword) {
             throw new HttpException("Password mismatched", HttpStatus.UNAUTHORIZED)
         }
         const result = await this.userRepo.update({
@@ -90,11 +98,40 @@ export class UserService {
             return err;
         });
         if (result.affected > 0) {
-            return new BasicResponseDto(200, "Successfully updated");
+            return new BasicResponseDto(HttpStatus.OK, "Successfully updated");
         }
         throw new HttpException("Password update failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    async regenerateApiKey(email, abilityCondition) {
+        this.logger.verbose('Regenerated api key received', email)
+        const user = await this.userRepo.createQueryBuilder().where(`email = '${email}' ${abilityCondition ? ' AND ' + abilityCondition: ""}`).getOne()
+        if (!user) {
+            throw new HttpException("No visible user found", HttpStatus.UNAUTHORIZED)
+        }
+        const apiKey = await this.generateApiKey(email)
+        const result = await this.userRepo.update({
+            id: user.id
+        }, {
+            apiKey: apiKey
+        }).catch((err: any) => {
+            this.logger.error(err)
+            return err;
+        });
+
+        if (result.affected > 0) {
+            await this.emailService.sendEmail(
+                user.email,
+                EmailTemplates.API_KEY_EMAIL,
+                {
+                    "name": user.name,
+                    "apiKey": apiKey
+                });
+    
+            return new BasicResponseDto(HttpStatus.OK, "Successfully updated");
+        }
+        throw new HttpException("Password update failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     async create(userDto: UserDto): Promise<User | undefined> {
         this.logger.verbose('User create received', userDto.email)
 
@@ -103,16 +140,20 @@ export class UserService {
             throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST)
         }
         userDto.password = this.generateRandomPassword()
+        if (userDto.role == Role.Api) {
+            userDto.apiKey = await this.generateApiKey(userDto.email)
+        }
         await this.emailService.sendEmail(
             userDto.email,
             EmailTemplates.REGISTER_EMAIL,
             {
                 "name": userDto.name,
                 "countryName": userDto.country,
-                "password": userDto.password
+                "password": userDto.password,
+                "apiKeyText":userDto.apiKey? `<br>Api Key: ${userDto.apiKey}`: ""
             });
 
-        return await this.userRepo.save(userDto).catch((err: any) => {
+        const usr = await this.userRepo.save(userDto).catch((err: any) => {
             if (err instanceof QueryFailedError) {
                 switch (err.driverError.code) {
                     case PG_UNIQUE_VIOLATION:
@@ -121,6 +162,8 @@ export class UserService {
             }
             return err;
         });
+        const { apiKey, password, ...resp } = usr
+        return resp;
     }
 
     async query(query: QueryDto, abilityCondition: string): Promise<User[]> {
@@ -139,7 +182,7 @@ export class UserService {
         }
         const result2 = await this.userRepo.delete({ email: username });
         if (result2.affected > 0) {
-            return new BasicResponseDto(200, "Successfully deleted");
+            return new BasicResponseDto(HttpStatus.OK, "Successfully deleted");
         }
         throw new HttpException("Delete failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }

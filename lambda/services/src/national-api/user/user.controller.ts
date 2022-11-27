@@ -55,6 +55,15 @@ export class UserController {
     }
 
     @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Update, User, true))
+    // @CheckPolicies((ability, body) => ability.can(Action.Update, Object.assign(new User(), body)))
+    @Put('regenerateApiKey')
+    resetApiKey(@Query('email') email: string, @Request() req) {
+      return this.userService.regenerateApiKey(email, req.abilityCondition)
+    }
+
+
+    @ApiBearerAuth()
     @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
     @Get('query')
     queryUser(@Query()query: QueryDto, @Request() req) {

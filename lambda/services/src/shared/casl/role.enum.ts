@@ -5,5 +5,6 @@ export enum Role {
     ViewOnly = 'ViewOnly',
     ProjectDeveloper = 'ProjectDeveloper',
     Certifier = 'Certifier',
-    Visitor = 'Visitor'
+    Visitor = 'Visitor',
+    Api = 'Api'
 }

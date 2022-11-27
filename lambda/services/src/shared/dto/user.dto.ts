@@ -76,4 +76,6 @@ export class UserDto {
     industry: string;
     
     password: string;
+
+    apiKey?: string;
 }
