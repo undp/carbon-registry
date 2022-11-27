@@ -22,7 +22,7 @@ export class LedgerDbService {
         this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
             if (parameters.length > 0) {
-                return await txn.execute(sql, parameters) 
+                return await txn.execute(sql, ...parameters) 
             } else {
                 return await txn.execute(sql) 
             }
@@ -30,7 +30,7 @@ export class LedgerDbService {
         });
         this.logger.debug('Response', JSON.stringify(resp))
         this.driver.close()
-        return null;
+        return resp;
     }
 
     public async createTable(): Promise<void> {
