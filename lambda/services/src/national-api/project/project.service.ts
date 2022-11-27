@@ -27,7 +27,7 @@ export class ProjectService {
 
     private toProject(projectDto: ProjectDto): Project {
         const data = instanceToPlain(projectDto);
-        console.log('instanceToPlain', data)
+        this.logger.verbose('Converted project', JSON.stringify(data))
         return plainToClass(Project, data);
     }
 
@@ -58,7 +58,6 @@ export class ProjectService {
         const year = new Date(projectDto.startTime*1000).getFullYear()
         const startBlock = await this.counterService.getCount(CounterType.ITMO)
         project.numberOfITMO = calculateCredit(this.getCreditRequest(projectDto));
-        console.log('Credits', project.numberOfITMO)
         const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
         project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
         project.status = ProjectStatus.ISSUED;
