@@ -72,8 +72,8 @@ export class ProjectService {
         });
     }
 
-    async getProjectEvents(serialNo: string): Promise<any> {
-        const resp = await this.projectLedger.getProjectHistory(serialNo);
+    async getProjectEvents(projectId: string): Promise<any> {
+        const resp = await this.projectLedger.getProjectHistory(projectId);
         return resp == null ? []: resp;
     }
 

@@ -17,9 +17,9 @@ export class ProjectLedgerService {
         return project;
     }
 
-    public async getProjectById(serialNo: string): Promise<Project> {
+    public async getProjectById(projectId: string): Promise<Project> {
         const p = (await this.ledger.fetchRecords({
-            'serialNo': serialNo
+            'projectId': projectId
         })).map(domValue => {
                 return plainToClass(Project, JSON.parse(JSON.stringify(domValue)));
             }
@@ -27,21 +27,21 @@ export class ProjectLedgerService {
         return (p.length <= 0) ? null: p[0];
     }
 
-    public async getProjectHistory(serialNo: string): Promise<ProjectHistoryDto[]> {
+    public async getProjectHistory(projectId: string): Promise<ProjectHistoryDto[]> {
         return (await this.ledger.fetchHistory({
-            'serialNo': serialNo
+            'projectId': projectId
         }))?.map(domValue => {
                 return plainToClass(ProjectHistoryDto, JSON.parse(JSON.stringify(domValue)));
             }
         )
     }
 
-    public async updateProjectStatus(serialNo: string, status: ProjectStatus): Promise<void> {
-        this.logger.log(`Updating project ${serialNo} status ${status}`)
+    public async updateProjectStatus(projectId: string, status: ProjectStatus): Promise<void> {
+        this.logger.log(`Updating project ${projectId} status ${status}`)
         await this.ledger.updateRecords({
             'status': status.valueOf()
         }, {
-            'serialNo': serialNo
+            'projectId': projectId
         });
     }
 }
