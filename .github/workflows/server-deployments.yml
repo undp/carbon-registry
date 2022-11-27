@@ -24,13 +24,7 @@ jobs:
         fetch-depth: 0
     - id: check_file_changed
       run: |
-        current_commit=`git log -n 1 --pretty=format:%H`
-        echo $current_commit
-        last_deps_mod_commit=`git log -n 1 --pretty=format:%H -- ./lambda/services/package.json`
-        last_libs_mod_commit=`git log -n 1 --pretty=format:%H -- ./libs/`
-        echo $last_deps_mod_commit
-        echo $last_libs_mod_commit
-        if [ "${current_commit}" = "${last_deps_mod_commit}" ] || [ "${current_commit}" = "${last_libs_mod_commit}" ]; then
+        if [[ $(git diff --name-only HEAD^ HEAD | grep lambda/services/package.json) ]] || [[ $(git diff --name-only HEAD^ HEAD | grep libs/) ]]; then
           echo "deps_changed=True" >> $GITHUB_OUTPUT
         else
           echo "deps_changed=False" >> $GITHUB_OUTPUT
