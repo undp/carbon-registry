@@ -20,7 +20,7 @@ export class AuthService {
 
     async validateApiKey(apiKey: string): Promise<any> {
         // TODO: Implement the logic
-        return apiKey === '1111' ? { role: 'root' }: null;
+        return apiKey === '1111' ? { role: 'Root' }: null;
     }
 
     async login(user: any) {

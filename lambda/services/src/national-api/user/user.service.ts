@@ -133,6 +133,7 @@ export class UserService {
     }
 
     async delete(username: string, ability: string): Promise<BasicResponseDto> {
+        this.logger.verbose('User delete received', username)
         const result = await this.userRepo.createQueryBuilder().where(`email = '${username}'`).andWhere(ability ? ability : "").getMany()
         if (result.length <= 0) {
             throw new HttpException("No visible user found", HttpStatus.NOT_FOUND)

@@ -1,4 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
+import { SectoralScope } from 'serial-number-gen';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { AgricultureProperties } from '../dto/agriculture.properties';
+import { ProjectProperties } from '../dto/project.properties';
+import { SolarProperties } from '../dto/solar.properties';
 import { ProjectStatus } from '../project-ledger/project-status.enum';
 import { EntitySubject } from './entity.subject';
 
@@ -6,19 +10,29 @@ import { EntitySubject } from './entity.subject';
 export class Project implements EntitySubject {
 
     @PrimaryColumn()
+    projectId: string;
+
+    @Column()
     serialNo: string;
 
     @Column()
-    name: string;
+    title: string;
 
     @Column()
-    countryAlpha2Code: string;
+    countryCodeA2: string;
 
     @Column()
-    group: string;
+    expectedLifeTime: number;
+
+    @Column({
+        type: "enum",
+        enum: SectoralScope,
+        array: false
+    })
+    sectoralScope: SectoralScope;
 
     @Column()
-    credit: number;
+    sector: string;
 
     @Column({
         type: "enum",
@@ -27,4 +41,94 @@ export class Project implements EntitySubject {
         default: ProjectStatus.ISSUED
     })
     status: ProjectStatus;
+
+    @Column()
+    startTime: number;
+
+    @Column()
+    endTime: number;
+
+    @Column()
+    numberOfITMO: number;
+
+    @Column({
+        type: 'jsonb',
+        array: false
+    })
+    projectProperties: ProjectProperties;
+
+    @Column({
+        type: 'jsonb',
+        array: false,
+        nullable: true
+    })
+    agricultureProperties: AgricultureProperties;
+
+    @Column({
+        type: 'jsonb',
+        array: false,
+        nullable: true
+    })
+    solarProperties: SolarProperties;
+
+    // @Column()
+    // proponentName: string;
+
+    // @Column()
+    // proponentEmail: string;
+
+    // @Column()
+    // proponentPhone: string;
+
+    // @Column()
+    // proponentCompany: string;
+
+    // @Column()
+    // currentStage: string;
+
+    // @Column()
+    // bilateralName: string;
+
+    // @Column()
+    // bilateralEmail: string;
+
+    // @Column()
+    // bilateralPhone: string;
+
+    // @Column()
+    // typeOfMitigationAction: string;
+
+    // @Column()
+    // subTimeMitigationActivity: string;
+
+    // @Column()
+    // mitigationTypeCalculation: string;
+
+    // @Column({
+    //     type: "enum",
+    //     enum: BuildingType,
+    //     array: false,
+    // })
+    // consumerGroup: BuildingType;
+
+
+
+    // @Column()
+    // contactPersonName: string;
+
+    // @Column()
+    // contactPersonEmail: string;
+
+    // @Column()
+    // contactPersonNo: string;
+
+
+
+    // @Column()
+    // landArea: number;
+
+    // @Column()
+    // energyGeneration: number;
+
+
 }
