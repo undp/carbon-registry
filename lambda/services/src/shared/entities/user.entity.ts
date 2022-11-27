@@ -38,4 +38,7 @@ export class User  implements EntitySubject{
 
     @Column()
     contactNo: string;
+
+    @Column({nullable: true, select: false})
+    apiKey: string;
 }
