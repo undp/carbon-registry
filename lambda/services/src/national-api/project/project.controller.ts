@@ -43,7 +43,7 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
     @Get('getHistory')
-    async getHistory(@Query('serialNo') serialNo: string) {
-        return this.projectService.getProjectEvents(serialNo)
+    async getHistory(@Query('projectId') projectId: string) {
+        return this.projectService.getProjectEvents(projectId)
     }
 }
