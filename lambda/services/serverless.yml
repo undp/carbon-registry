@@ -21,6 +21,7 @@ package:
       - '!node_modules/**'
       - ".env"
       - .env.${self:provider.stage}
+      - "countries.json"
 
 plugins:
  - 'serverless-plugin-typescript'

@@ -1,10 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, ValidateIf } from "class-validator";
+import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, Length, ValidateIf } from "class-validator";
 import { SectoralScope } from 'serial-number-gen'
 import { SubSector } from "../enum/subsector.enum";
 import { AgricultureProperties } from "./agriculture.properties";
 import { SolarProperties } from "./solar.properties";
 import { ProjectProperties } from "./project.properties";
+import { IsValidCountry } from "../util/validcountry.decorator";
 
 export class ProjectDto {
 
@@ -16,6 +17,10 @@ export class ProjectDto {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
+    @Length(2, 2)
+    @IsValidCountry({
+        message: 'Not a valid country alpha 2 country code',
+    })
     countryCodeA2: string;
 
     @ApiProperty()
