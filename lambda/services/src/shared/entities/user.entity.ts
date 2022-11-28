@@ -39,6 +39,21 @@ export class User  implements EntitySubject{
     @Column()
     contactNo: string;
 
+    @Column({nullable: true})
+    companyName: string;
+
+    @Column({nullable: true})
+    companyLogo: string;
+
+    @Column({nullable: true})
+    companyLocation: string;
+
+    @Column({nullable: true})
+    registrationNo: string;
+
+    @Column({nullable: true})
+    industry: string;
+
     @Column({nullable: true, select: false})
     apiKey: string;
 }

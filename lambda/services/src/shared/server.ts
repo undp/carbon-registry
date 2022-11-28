@@ -13,6 +13,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { TrimPipe } from './validation/trim-pipe.transform';
 import { ValidationException } from './validation/validation.exception';
 import { ValidationExceptionFilter } from './validation/validation-exception.filter';
+import { useContainer } from 'class-validator';
+import { UtilModule } from './util/util.module';
 
 const express = require('express');
 
@@ -71,6 +73,7 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
         const nestApp = await NestFactory.create(module, new ExpressAdapter(expressApp), {
             logger: getLogger(module),
           })
+        useContainer(nestApp.select(UtilModule), { fallbackOnErrors: true });
         nestApp.setGlobalPrefix(httpBase)
         nestApp.enableCors();
         nestApp.useGlobalPipes(new TrimPipe());

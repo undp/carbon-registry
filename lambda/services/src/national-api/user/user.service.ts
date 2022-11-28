@@ -143,15 +143,15 @@ export class UserService {
         if (userDto.role == Role.Api) {
             userDto.apiKey = await this.generateApiKey(userDto.email)
         }
-        await this.emailService.sendEmail(
-            userDto.email,
-            EmailTemplates.REGISTER_EMAIL,
-            {
-                "name": userDto.name,
-                "countryName": userDto.country,
-                "password": userDto.password,
-                "apiKeyText":userDto.apiKey? `<br>Api Key: ${userDto.apiKey}`: ""
-            });
+        // await this.emailService.sendEmail(
+        //     userDto.email,
+        //     EmailTemplates.REGISTER_EMAIL,
+        //     {
+        //         "name": userDto.name,
+        //         "countryName": userDto.country,
+        //         "password": userDto.password,
+        //         "apiKeyText":userDto.apiKey? `<br>Api Key: ${userDto.apiKey}`: ""
+        //     });
 
         const usr = await this.userRepo.save(userDto).catch((err: any) => {
             if (err instanceof QueryFailedError) {
