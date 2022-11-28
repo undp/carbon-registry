@@ -26,6 +26,7 @@
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.0.0",
+    "react-phone-number-input": "^3.2.12",
     "react-router-dom": "^6.4.3",
     "sha1": "^1.1.1",
     "typescript": "^4.8.4",
