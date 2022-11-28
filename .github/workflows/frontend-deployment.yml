@@ -13,7 +13,7 @@ jobs:
     env:
       REACT_APP_BACKEND: https://ck5kt5uaw1.execute-api.us-east-1.amazonaws.com/dev/api/national
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache modules
         uses: actions/cache@v1
         id: yarn-cache

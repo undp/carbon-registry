@@ -115,23 +115,57 @@
               }
             }
           }
+          .login-input-email {
+            box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.06);
+            .ant-input {
+              height: 4vw;
+              border-radius: 0.3vw;
+              font-family: 'Proxima-Nova-Regular';
+              font-size: 1vw;
+              border: none;
+              padding-left: 1.5vw;
+            }
+            input[type='username']:-webkit-autofill,
+            input[type='username']:-webkit-autofill:hover,
+            input[type='username']:-webkit-autofill:focus {
+              -webkit-text-fill-color: $login-black;
+              -webkit-box-shadow: 0 0 0 30px white inset !important;
+            }
+            .ant-input:focus {
+              border: none !important;
+              box-shadow: none;
+            }
+          }
+          .login-input-password {
+            .ant-input {
+              height: 4vw;
+              font-family: 'Proxima-Nova-Regular';
+              font-size: 1vw;
+              border: none;
+              padding-left: 0.8vw;
+              box-shadow: none;
+            }
+            .ant-input-password {
+              border: none;
+              box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.06);
+              background-color: white !important;
+            }
+            input[type='password']:-webkit-autofill,
+            input[type='password']:-webkit-autofill:hover,
+            input[type='password']:-webkit-autofill:focus {
+              -webkit-text-fill-color: $login-black;
+              -webkit-box-shadow: 0 0 0 30px white inset !important;
+            }
+          }
         }
         .login-language-selection-container {
           display: flex;
           flex-direction: row;
           justify-content: flex-end;
-          margin-top: 15vw;
+          margin-top: 10vw;
           font-family: 'Proxima-Nova-Regular';
           font-size: 1vw;
           color: $login-black;
-        }
-        .ant-input {
-          height: 4vw;
-          border-radius: 0.3vw;
-          font-family: 'Proxima-Nova-Regular';
-          font-size: 1vw;
-          box-shadow: 14px 16px 15px rgba(0, 0, 0, 0.06);
-          border: red;
         }
         .ant-input::placeholder {
           font-family: 'Proxima-Nova-Regular';
@@ -151,13 +185,6 @@
         .ant-select-selector {
           border: none;
           color: $login-grey;
-        }
-        .ant-select-focused .ant-select-selector,
-        .ant-select-selector:focus,
-        .ant-select-selector:active,
-        .ant-select-open .ant-select-selector {
-          border-color: none;
-          box-shadow: none !important;
         }
       }
     }

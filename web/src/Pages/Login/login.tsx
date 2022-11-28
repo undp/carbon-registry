@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { useUserContext } from '../../Context/UserInformationContext/userInformationContext';
 import { LoginProps } from '../../Definitions/InterfacesAndType/userLogin.definitions';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { post, updateToken } = useConnection();
@@ -25,7 +25,6 @@ const Login = () => {
     setLoading(true);
     try {
       const email = values.email.trim();
-      // const pwd = sha1(`${email.toLowerCase()}${values.password}`);
       const response = await post('auth/login', {
         username: email,
         password: values.password,
@@ -33,9 +32,9 @@ const Login = () => {
       if (response.status === 200 || response.status === 201) {
         updateToken(response.data.access_token);
         setUserInfo({ id: response.data.id, userRole: response.data.role });
+        console.log('Authenticated', IsAuthenticated());
         return IsAuthenticated()
-          ? // <Navigate to="dashboard" replace={true} state={{ from: location }} />
-            navigate('/dashboard', { replace: true })
+          ? navigate('/dashboard', { replace: true })
           : navigate('/login', { replace: true });
       }
       setLoading(false);
@@ -127,7 +126,7 @@ const Login = () => {
                     ]}
                   >
                     <div className="login-input-email">
-                      <Input placeholder={`${t('common:email')}`} />
+                      <Input type="username" placeholder={`${t('common:email')}`} />
                     </div>
                   </Form.Item>
                   <Form.Item

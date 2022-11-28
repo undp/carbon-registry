@@ -5,7 +5,7 @@ import AddUser from './addUser';
 const AddUserLayout = () => {
   return (
     <div>
-      <CustomLayout title="Add new User" selectedKey="userManagement">
+      <CustomLayout title="Create an User" selectedKey="userManagement">
         <AddUser />
       </CustomLayout>
     </div>
