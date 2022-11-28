@@ -17,6 +17,7 @@ const AddUser = () => {
   const [userRole, setUserRole] = useState<string>('');
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
+  const [contactNoInput, setContactNoInput] = useState<any>();
   const [previewTitle, setPreviewTitle] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -306,8 +307,7 @@ const AddUser = () => {
                   required
                   rules={[
                     () => ({
-                      validator(_, value) {
-                        console.log(value);
+                      validator() {
                         if (fileList.length === 0) {
                           return Promise.reject('Upload the logo of the company!');
                         } else if (fileList.length > 1) {
@@ -458,8 +458,10 @@ const AddUser = () => {
                 <PhoneInput
                   placeholder="Contact number"
                   international
+                  value={formatPhoneNumberIntl(contactNoInput)}
                   defaultCountry="LK"
                   countryCallingCodeEditable={false}
+                  onChange={(v) => setContactNoInput(v)}
                 />
               </Form.Item>
             </Col>

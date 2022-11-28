@@ -105,7 +105,7 @@ const Login = () => {
                     name="email"
                     rules={[
                       ({ getFieldValue }) => ({
-                        validator(rule, value) {
+                        validator() {
                           if (
                             getFieldValue('email') &&
                             !getFieldValue('email')
