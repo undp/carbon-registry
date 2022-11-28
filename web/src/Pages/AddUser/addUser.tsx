@@ -31,10 +31,8 @@ const AddUser = () => {
   const onSubmitData = async (values: any) => {
     setLoading(true);
     if (values.role === 'ProjectDeveloper') {
-      console.log(fileList[0], '1*');
-      const kk = await getBase64(fileList[0].originFileObj as RcFile);
-      values.companyLogo = kk;
-      console.log(kk, '1');
+      const logoBase64 = await getBase64(fileList[0].originFileObj as RcFile);
+      values.companyLogo = logoBase64;
     }
     try {
       values.contactNo = formatPhoneNumberIntl(values.contactNo);
