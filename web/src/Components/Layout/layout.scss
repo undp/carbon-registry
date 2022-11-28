@@ -9,7 +9,7 @@
     // width: 80vw;
     padding: 0;
     padding-left: 2vw;
-    padding-right: 2vw;
+    // padding-right: 2vw;
   }
   .ant-layout-header {
     height: 7vw;
@@ -25,6 +25,8 @@
     background-color: $layout-content-bg;
     margin-top: 3vw;
     border-radius: 0.5vw;
+    padding-bottom: 0px;
+    margin-bottom: 2vw;
   }
   .ant-layout {
     background-color: $layout-bg;

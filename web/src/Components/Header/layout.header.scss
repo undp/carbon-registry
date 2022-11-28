@@ -32,16 +32,27 @@
       align-items: center;
       //   background-color: rgb(0, 38, 255);
     }
-    .header-language-selection-container {
-      font-family: 'Proxima-Nova-Regular';
-      font-size: 1vw;
-      height: 7vw;
-      color: $layout-black;
-      display: flex;
-      flex-direction: row;
-      justify-content: right;
-      align-items: center;
-      //   background-color: rgb(77, 255, 0);
+    .ant-col-offset-14 {
+      .header-menu-container {
+        font-family: 'Proxima-Nova-Regular';
+        font-size: 1vw;
+        height: 7vw;
+        color: $layout-black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        // background-color: rgb(77, 255, 0);
+        .header-language-selection-txt {
+        }
+        .header-signOut-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          // flex: 1;
+        }
+      }
     }
     .ant-select-selector {
       border: none;
