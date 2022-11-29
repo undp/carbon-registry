@@ -160,44 +160,45 @@ const Login = () => {
                   </span>
                 </div>
               </div>
-              <div className="login-language-selection-container">
-                <span className="login-language-selection-txt">
-                  {t('common:language')} :
-                  <Select
-                    placeholder="Search to Select"
-                    defaultValue={
-                      localStorage.getItem('i18nextLng') !== null
-                        ? localStorage.getItem('i18nextLng')
-                        : 'en'
-                    }
-                    placement="topRight"
-                    onChange={(lan: string) => handleLanguageChange(lan)}
-                    optionFilterProp="children"
-                    filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                    filterSort={(optionA, optionB) =>
-                      (optionA?.label ?? '')
-                        .toLowerCase()
-                        .localeCompare((optionB?.label ?? '').toLowerCase())
-                    }
-                    options={[
-                      {
-                        value: 'en',
-                        label: 'English',
-                      },
-                      {
-                        value: 'es',
-                        label: 'Española',
-                      },
-                      {
-                        value: 'fr',
-                        label: 'française',
-                      },
-                    ]}
-                  />
-                </span>
-              </div>
             </Col>
           </Row>
+
+          <div className="login-language-selection-container">
+            <span className="login-language-selection-txt">
+              {t('common:language')} :
+              <Select
+                placeholder="Search to Select"
+                defaultValue={
+                  localStorage.getItem('i18nextLng') !== null
+                    ? localStorage.getItem('i18nextLng')
+                    : 'en'
+                }
+                placement="topRight"
+                onChange={(lan: string) => handleLanguageChange(lan)}
+                optionFilterProp="children"
+                filterOption={(input, option) => (option?.label ?? '').includes(input)}
+                filterSort={(optionA, optionB) =>
+                  (optionA?.label ?? '')
+                    .toLowerCase()
+                    .localeCompare((optionB?.label ?? '').toLowerCase())
+                }
+                options={[
+                  {
+                    value: 'en',
+                    label: 'English',
+                  },
+                  {
+                    value: 'es',
+                    label: 'Española',
+                  },
+                  {
+                    value: 'fr',
+                    label: 'française',
+                  },
+                ]}
+              />
+            </span>
+          </div>
         </Col>
       </Row>
     </div>
