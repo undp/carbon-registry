@@ -9,6 +9,8 @@ import { ProjectDto } from '../../shared/dto/project.dto';
 import { ProjectService } from './project.service';
 import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
 import { QueryDto } from '../../shared/dto/query.dto';
+import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
+import { SubSector } from '../../shared/enum/subsector.enum';
 
 @ApiTags('Project')
 @ApiBearerAuth('api_key')
@@ -33,8 +35,8 @@ export class ProjectController {
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
-    @Post('query')
-    async getAll(@Body()query: QueryDto) {
+    @Get('query')
+    async getAll(@Query()query: QueryDto) {
       return this.projectService.query(query)
     }
 
@@ -45,5 +47,13 @@ export class ProjectController {
     @Get('getHistory')
     async getHistory(@Query('projectId') projectId: string) {
         return this.projectService.getProjectEvents(projectId)
+    }
+
+    @ApiBearerAuth('api_key')
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
+    @Post('updateConfigs')
+    async updateConfigs(@Body() config: ConstantUpdateDto) {
+        return this.projectService.updateCustomConstants(config.type, config);
     }
 }

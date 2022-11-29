@@ -1,11 +1,11 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpCode, HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ProjectDto } from '../../shared/dto/project.dto';
 import { Project } from '../../shared/entities/project.entity';
 import { ProjectLedgerService } from '../../shared/project-ledger/project-ledger.service';
 import { generateSerialNumber } from 'serial-number-gen';
 import { instanceToPlain, plainToClass } from 'class-transformer';
 import { ProjectStatus } from '../../shared/project-ledger/project-status.enum';
-import { AgricultureCreationRequest, calculateCredit, SolarCreationRequest } from 'carbon-credit-calculator';
+import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest, SubSectorConstants } from 'carbon-credit-calculator';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,6 +13,10 @@ import { PrimaryGeneratedColumnType } from 'typeorm/driver/types/ColumnTypes';
 import { CounterService } from '../../shared/util/counter.service';
 import { CounterType } from '../../shared/util/counter.type.enum';
 import { SubSector } from '../../shared/enum/subsector.enum';
+import { ConstantEntity } from '../../shared/entities/constants.entity';
+import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
+import { DataResponseDto } from '../../shared/dto/data.response.dto';
+import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -23,6 +27,7 @@ export class ProjectService {
         private projectLedger: ProjectLedgerService, 
         private counterService: CounterService,
         @InjectRepository(Project) private projectRepo: Repository<Project>, 
+        @InjectRepository(ConstantEntity) private constantRepo: Repository<ConstantEntity>,
         private logger: Logger) {}
 
     private toProject(projectDto: ProjectDto): Project {
@@ -31,7 +36,7 @@ export class ProjectService {
         return plainToClass(Project, data);
     }
 
-    private getCreditRequest(projectDto: ProjectDto) {
+    private async getCreditRequest(projectDto: ProjectDto, constants: ConstantEntity) {
         switch(projectDto.subSector) {
             case SubSector.AGRICULTURE:
                 const ar = new AgricultureCreationRequest()
@@ -39,13 +44,19 @@ export class ProjectService {
                 ar.durationUnit = "s"
                 ar.landArea = projectDto.agricultureProperties.landArea;
                 ar.landAreaUnit = projectDto.agricultureProperties.landAreaUnit
+                if (constants) {
+                    ar.agricultureConstants = constants.data as AgricultureConstants
+                } 
                 return ar;
             case SubSector.SOLAR:
                 const sr = new SolarCreationRequest()
                 sr.buildingType = projectDto.solarProperties.consumerGroup;
                 sr.energyGeneration = projectDto.solarProperties.energyGeneration;
                 sr.energyGenerationUnit = projectDto.solarProperties.energyGenerationUnit
-                return ar;
+                if (constants) {
+                    sr.solarConstants = constants.data as SolarConstants
+                } 
+                return sr;
         }
         throw Error("Unknown sub sector " + projectDto.subSector)
     }
@@ -57,7 +68,13 @@ export class ProjectService {
         project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 4))
         const year = new Date(projectDto.startTime*1000).getFullYear()
         const startBlock = await this.counterService.getCount(CounterType.ITMO) + 1
-        project.numberOfITMO = calculateCredit(this.getCreditRequest(projectDto));
+
+        const constants = await this.getLatestConstant(projectDto.subSector)
+
+        const req = await this.getCreditRequest(projectDto, constants);
+        console.log(typeof(req), req)
+        project.numberOfITMO = await calculateCredit(req);
+        project.constantVersion = constants ? String(constants.version): "default"
         const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
         project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
         project.status = ProjectStatus.ISSUED;
@@ -77,4 +94,42 @@ export class ProjectService {
         return resp == null ? []: resp;
     }
 
+    async updateCustomConstants(customConstantType: SubSector, constants: ConstantUpdateDto) {
+        let config;
+        if (customConstantType == SubSector.AGRICULTURE) {
+            config = new AgricultureConstants()
+            const recv = instanceToPlain(constants.agricultureConstants)
+            for (const key in recv) {
+                if (recv.hasOwnProperty(key) && recv[key] != undefined) {
+                    config[key] = recv[key]
+                }
+            }
+        }
+        else if (customConstantType == SubSector.SOLAR) {
+            config = new SolarConstants()
+            const recv = instanceToPlain(constants.solarConstants)
+            for (const key in recv) {
+                if (recv.hasOwnProperty(key) && recv[key] != undefined) {
+                    config[key] = recv[key]
+                }
+            }
+        }
+
+        const existing = await this.getLatestConstant(customConstantType);
+        if (existing && JSON.stringify(existing.data) == JSON.stringify(config)) {
+            throw new HttpException("Not difference in the config from the previous version", HttpStatus.BAD_REQUEST)
+        }
+        const resp = await this.constantRepo.save({
+            id: customConstantType,
+            data: config
+        })
+        return new DataResponseDto(HttpStatus.OK, resp);
+    }
+
+    async getLatestConstant(customConstantType: SubSector) {
+        return await this.constantRepo.findOne({
+            where: [ {id : customConstantType}],
+            order: { version: 'DESC' }
+        });
+    }
 }
