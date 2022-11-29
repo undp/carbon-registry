@@ -1,16 +1,19 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards, ValidationPipe } from '@nestjs/common';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Project } from '../../shared/entities/project.entity';
 import { Action } from '../../shared/casl/action.enum';
 import { AppAbility } from '../../shared/casl/casl-ability.factory';
 import { CheckPolicies } from '../../shared/casl/policy.decorator';
-import { PoliciesGuard } from '../../shared/casl/policy.guard';
+import { PoliciesGuard, PoliciesGuardEx } from '../../shared/casl/policy.guard';
 import { ProjectDto } from '../../shared/dto/project.dto';
 import { ProjectService } from './project.service';
 import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
-import { SubSector } from '../../shared/enum/subsector.enum';
+import { ProjectStatus } from '../../shared/project-ledger/project-status.enum';
+import { ProjectApprove } from '../../shared/dto/project.approve';
+import { ProjectReject } from '../../shared/dto/project.reject';
+import { ProjectRetire } from '../../shared/dto/project.retire';
 
 @ApiTags('Project')
 @ApiBearerAuth('api_key')
@@ -26,15 +29,15 @@ export class ProjectController {
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Project))
-    @Post('add')
+    @Post('create')
     async addProject(@Body()project: ProjectDto) {
       return this.projectService.create(project)
     }
 
     @ApiBearerAuth('api_key')
     @ApiBearerAuth()
-    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
-    @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Project, true))
+    // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
     @Get('query')
     async getAll(@Query()query: QueryDto) {
       return this.projectService.query(query)
@@ -43,7 +46,7 @@ export class ProjectController {
     @ApiBearerAuth('api_key')
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
-    @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Project, true))
     @Get('getHistory')
     async getHistory(@Query('projectId') projectId: string) {
         return this.projectService.getProjectEvents(projectId)
@@ -51,9 +54,33 @@ export class ProjectController {
 
     @ApiBearerAuth('api_key')
     @ApiBearerAuth()
-    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
     @Post('updateConfigs')
     async updateConfigs(@Body() config: ConstantUpdateDto) {
         return this.projectService.updateCustomConstants(config.type, config);
+    }
+
+    @ApiBearerAuth('api_key')
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
+    @Put('authorize')
+    async projectApprove(@Body() body: ProjectApprove) {
+        return this.projectService.updateProjectStatus(body, ProjectStatus.AUTHORIZED, ProjectStatus.REGISTERED)
+    }
+
+    @ApiBearerAuth('api_key')
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
+    @Put('reject')
+    async projectReject(@Body() body: ProjectReject) {
+        return this.projectService.updateProjectStatus(body, ProjectStatus.REJECTED, ProjectStatus.REGISTERED)
+    }
+
+    @ApiBearerAuth('api_key')
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
+    @Put('retire')
+    async projectRetire(@Body() body: ProjectRetire) {
+        return this.projectService.updateProjectStatus(body, ProjectStatus.RETIRED, ProjectStatus.AUTHORIZED)
     }
 }

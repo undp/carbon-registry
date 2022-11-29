@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
+import { BasicResponseDto } from '../dto/basic.response.dto';
 import { ProjectHistoryDto } from '../dto/project.history.dto';
 import { Project } from '../entities/project.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
@@ -36,12 +37,17 @@ export class ProjectLedgerService {
         )
     }
 
-    public async updateProjectStatus(projectId: string, status: ProjectStatus): Promise<void> {
+    public async updateProjectStatus(projectId: string, status: ProjectStatus, currentExpectedStatus: ProjectStatus): Promise<BasicResponseDto> {
         this.logger.log(`Updating project ${projectId} status ${status}`)
-        await this.ledger.updateRecords({
+        const affected = (await this.ledger.updateRecords({
             'status': status.valueOf()
         }, {
-            'projectId': projectId
-        });
+            'projectId': projectId,
+            'status': currentExpectedStatus.valueOf()
+        }));
+        if (affected && affected.length > 0) {
+            return new BasicResponseDto(HttpStatus.OK, "Successfully updated")
+        }
+        return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${currentExpectedStatus} status for the given project id ${projectId}`)
     }
 }

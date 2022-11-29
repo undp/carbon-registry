@@ -5,6 +5,7 @@ import { Action } from "./action.enum";
 import { Role } from "./role.enum";
 import { EntitySubject } from "../entities/entity.subject";
 import { Project } from "../entities/project.entity";
+import { ProjectStatus } from "../project-ledger/project-status.enum";
 
 type Subjects = InferSubjects<typeof EntitySubject> | 'all';
 
@@ -26,7 +27,23 @@ export class CaslAbilityFactory {
           cannot(Action.Update, User, ['role', 'apiKey', 'password']);
           break;
         case Role.Api:
-          can(Action.Manage, Project);
+          can([Action.Create, Action.Read], Project);
+          cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password']);
+          break;
+        case Role.General:
+        case Role.ViewOnly:
+          can(Action.Read, Project);
+          can([Action.Update, Action.Read], User, { id: { $eq: user.id }})
+          cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password']);
+          break;
+        case Role.Certifier:
+          can(Action.Read, Project, { status: { $in: [ ProjectStatus.AUTHORIZED, ProjectStatus.RETIRED ]}});
+          can([Action.Update, Action.Read], User, { id: { $eq: user.id }})
+          cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password']);
+          break;
+        case Role.ProjectDeveloper:
+          can(Action.Read, Project, { status: { $eq: ProjectStatus.AUTHORIZED }});
+          can([Action.Update, Action.Read], User, { id: { $eq: user.id }})
           cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password']);
           break;
         default:
