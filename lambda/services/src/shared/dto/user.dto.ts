@@ -10,7 +10,7 @@ export class UserDto {
     email: string;
 
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({ enum: Role })
     @IsEnum(Role, {
         message: 'Invalid role. Supported following roles:' + Object.values(Role)
     })

@@ -29,14 +29,14 @@ export class ProjectDto {
     @IsInt()
     expectedLifeTime: number;
 
-    @ApiProperty()
+    @ApiProperty({ enum: SectoralScope })
     @IsNotEmpty()
     @IsEnum(SectoralScope, {
         message: 'Invalid sectoral scope. Supported following sectoral scope:' + Object.values(SectoralScope)
     })
     sectoralScope: SectoralScope;
 
-    @ApiProperty()
+    @ApiProperty({ enum: SubSector })
     @IsEnum(SubSector, {
         message: 'Invalid sub sector. Supported following values:' + Object.values(SubSector)
     })

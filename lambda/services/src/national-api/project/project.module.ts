@@ -6,9 +6,10 @@ import { CaslModule } from '../../shared/casl/casl.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Project } from '../../shared/entities/project.entity';
 import { UtilModule } from '../../shared/util/util.module';
+import { ConstantEntity } from '../../shared/entities/constants.entity';
 
 @Module({
-  imports: [ProjectLedgerModule, CaslModule, TypeOrmModule.forFeature([Project]), UtilModule],
+  imports: [ProjectLedgerModule, CaslModule, TypeOrmModule.forFeature([Project]), TypeOrmModule.forFeature([ConstantEntity]), UtilModule],
   providers: [Logger, ProjectService],
   controllers: [ProjectController]
 })

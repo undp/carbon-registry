@@ -14,7 +14,7 @@ export class SolarProperties {
     @IsNotEmpty()
     energyGenerationUnit: string;
 
-    @ApiProperty()
+    @ApiProperty({ enum: BuildingType })
     @IsEnum(BuildingType, {
         message: 'Invalid consumer group. Supported following values:' + Object.values(BuildingType)
     })

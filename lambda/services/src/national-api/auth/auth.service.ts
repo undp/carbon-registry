@@ -20,12 +20,10 @@ export class AuthService {
     }
 
     async validateApiKey(apiKey: string): Promise<any> {
-        console.log(apiKey)
         const parts = Buffer.from(apiKey, 'base64').toString('utf-8').split(API_KEY_SEPARATOR)
         if (parts.length != 2) {
             return null;
-        }
-        console.log(parts)    
+        } 
         const user = await this.userService.getUserCredentials(parts[0]);
         if (user && user.apiKey === apiKey) {
             const { password, apiKey, ...result } = user;

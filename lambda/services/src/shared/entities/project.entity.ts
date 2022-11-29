@@ -60,6 +60,9 @@ export class Project implements EntitySubject {
     @Column({type: "decimal", precision: 10, scale: PRECISION})
     numberOfITMO: number;
 
+    @Column({nullable: true})
+    constantVersion: string;
+
     @Column({
         type: 'jsonb',
         array: false
