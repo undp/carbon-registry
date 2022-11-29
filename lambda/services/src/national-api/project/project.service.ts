@@ -1,11 +1,11 @@
-import { HttpCode, HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ProjectDto } from '../../shared/dto/project.dto';
 import { Project } from '../../shared/entities/project.entity';
 import { ProjectLedgerService } from '../../shared/project-ledger/project-ledger.service';
 import { generateSerialNumber } from 'serial-number-gen';
 import { instanceToPlain, plainToClass } from 'class-transformer';
 import { ProjectStatus } from '../../shared/project-ledger/project-status.enum';
-import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest, SubSectorConstants } from 'carbon-credit-calculator';
+import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest } from 'carbon-credit-calculator';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -14,9 +14,9 @@ import { CounterService } from '../../shared/util/counter.service';
 import { CounterType } from '../../shared/util/counter.type.enum';
 import { SubSector } from '../../shared/enum/subsector.enum';
 import { ConstantEntity } from '../../shared/entities/constants.entity';
-import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
 import { DataResponseDto } from '../../shared/dto/data.response.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
+import { ProjectApprove } from '../../shared/dto/project.approve';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -77,7 +77,7 @@ export class ProjectService {
         project.constantVersion = constants ? String(constants.version): "default"
         const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
         project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
-        project.status = ProjectStatus.ISSUED;
+        project.status = ProjectStatus.REGISTERED;
         return await this.projectLedger.createProject(project);
     }
 
@@ -131,5 +131,10 @@ export class ProjectService {
             where: [ {id : customConstantType}],
             order: { version: 'DESC' }
         });
+    }
+
+    async updateProjectStatus(req: ProjectApprove, status: ProjectStatus, expectedCurrentStatus: ProjectStatus) {
+        this.logger.log(`Project ${req.projectId} status updating to ${status}. Comment: ${req.comment}`)
+        return await this.projectLedger.updateProjectStatus(req.projectId, status, expectedCurrentStatus)
     }
 }

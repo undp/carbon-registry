@@ -47,7 +47,7 @@ export class Project implements EntitySubject {
         type: "enum",
         enum: ProjectStatus,
         array: false,
-        default: ProjectStatus.ISSUED
+        default: ProjectStatus.REGISTERED
     })
     status: ProjectStatus;
 

@@ -46,20 +46,20 @@ export class LedgerDbService {
     }
     
     public async fetchRecords<T extends Record<string, any>>(where: Record<string, any>): Promise<dom.Value[]> {
-        const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(',')
+        const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(' and ')
         return (await this.execute(`SELECT * FROM ${this.tableName} WHERE ${whereClause}`, ...Object.values(where)))?.getResultList();
     }
 
     public async fetchHistory(where: Record<string, any>): Promise<dom.Value[]> {
-        const whereClause = Object.keys(where).map(k => (`h.data.${k} = ?`)).join(',')
+        const whereClause = Object.keys(where).map(k => (`h.data.${k} = ?`)).join(' and ')
         const x = (await this.execute(`SELECT * FROM history(${this.tableName}) as h WHERE ${whereClause}`, ...Object.values(where)))?.getResultList();
         console.log('Results', x)
         return x
     }
     
-    public async updateRecords(update: Record<string, any>,  where: Record<string, any>): Promise<void> {
-        const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(',')
+    public async updateRecords(update: Record<string, any>,  where: Record<string, any>): Promise<dom.Value[]> {
+        const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(' and ')
         const updateClause = Object.keys(update).map(k => (`${k} = ?`)).join(',')
-        await this.execute(`UPDATE ${this.tableName} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update), ...Object.values(where));
+        return (await this.execute(`UPDATE ${this.tableName} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update), ...Object.values(where)))?.getResultList();
     };
 }
