@@ -103,6 +103,7 @@ const Login = () => {
                 >
                   <Form.Item
                     name="email"
+                    validateTrigger={'onBlur'}
                     rules={[
                       ({ getFieldValue }) => ({
                         validator() {

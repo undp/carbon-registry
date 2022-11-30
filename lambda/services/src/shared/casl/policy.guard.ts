@@ -53,7 +53,7 @@ export const PoliciesGuardEx = (injectQuery: boolean, action?: Action, subject?:
       for (let operator in mongoQuery) {
         if (operator.startsWith("$")) {
           if (operator == "$and" || operator == "$or") {
-            const val = mongoQuery[operator].map( st => this.parseMongoQueryToSQL(st)).join(operator.replace("$", ''))
+            const val = mongoQuery[operator].map( st => this.parseMongoQueryToSQL(st)).join(` ${operator.replace("$", '')} `)
             final = final == undefined ? val : `${final} and ${val}`
           } else if (operator == "$not") {
             return this.parseMongoQueryToSQL(mongoQuery["$not"], !isNot)
@@ -90,6 +90,7 @@ export const PoliciesGuardEx = (injectQuery: boolean, action?: Action, subject?:
       
         if (mongoQuery && mongoQuery != "" && mongoQuery != "{}" && mongoQuery != '{"$or":[{}]}') {
           const whereQuery = this.parseMongoQueryToSQL(JSON.parse(mongoQuery));
+          console.log("Where", whereQuery)
           context.switchToHttp().getRequest()['abilityCondition'] = whereQuery;
         }
       }

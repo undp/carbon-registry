@@ -44,6 +44,7 @@ export class CaslAbilityFactory {
         case Role.ProjectDeveloper:
           can(Action.Read, Project, { status: { $eq: ProjectStatus.AUTHORIZED }});
           can([Action.Update, Action.Read], User, { id: { $eq: user.id }})
+          can(Action.Read, User, { role: { $eq: Role.Certifier }})
           cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password']);
           break;
         default:

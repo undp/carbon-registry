@@ -166,12 +166,12 @@ export class UserService {
         return resp;
     }
 
-    async query(query: QueryDto, abilityCondition: string): Promise<User[]> {
-        return (await this.userRepo.createQueryBuilder()
+    async query(query: QueryDto, abilityCondition: string): Promise<any> {        
+       return (await this.userRepo.createQueryBuilder()
             .where(abilityCondition ? abilityCondition : "")
             .skip((query.size * query.page) - query.size)
             .take(query.size)
-            .getMany())
+            .getManyAndCount())
     }
 
     async delete(username: string, ability: string): Promise<BasicResponseDto> {
