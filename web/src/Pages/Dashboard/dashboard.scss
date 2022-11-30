@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 10px 5px 10px 5px;
+    padding: 10px 10px 10px 15px;
 
     .stastic-card-row {
       width: 100%;
@@ -58,6 +58,7 @@
           align-items: center;
           justify-content: center;
           width: 100%;
+          height: 400px;
           background: #f6f6f6;
           box-shadow: rgba(106, 106, 106, 0.2) 0px 8px 24px;
           border-radius: 10px;
