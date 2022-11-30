@@ -5,28 +5,28 @@
     .ant-form-item-label > label {
       color: $common-form-label;
       font-family: 'Proxima-Nova-Regular';
-      font-size: 1.1vw;
+      font-size: 1.1rem;
     }
     .ant-input {
-      height: 3.5vw;
+      height: 3.5rem;
       background: #ffffff;
       box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.06);
-      border-radius: 0.3vw;
+      border-radius: 0.3rem;
       border: none;
-      padding-left: 1.5vw;
+      padding-left: 1.5rem;
     }
     .ant-input::placeholder {
       color: $common-form-placeholder !important;
       font-family: 'Proxima-Nova-Regular';
-      font-size: 1vw;
+      font-size: 1rem;
     }
     .ant-select-selector {
-      height: 3.5vw;
+      height: 3.5rem;
       background: #ffffff;
       box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.06);
-      border-radius: 0.3vw;
+      border-radius: 0.3rem;
       border: none;
-      padding-left: 1.5vw;
+      padding-left: 1.5rem;
       flex-direction: row;
       align-items: center;
     }
@@ -40,21 +40,21 @@
       //   background-color: red !important;
     }
     .ant-form-item-explain-error {
-      padding-left: 1.5vw;
-      margin-top: 0.6vw;
+      padding-left: 1.5rem;
+      margin-top: 0.6rem;
     }
     .PhoneInputInput {
-      height: 3.5vw;
+      height: 3.5rem;
       background: #ffffff;
       box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.06);
-      border-radius: 0.3vw;
+      border-radius: 0.3rem;
       border: none;
-      padding-left: 1.5vw;
+      padding-left: 1.5rem;
       flex-direction: row;
       align-items: center;
       color: $common-form-label;
       font-family: 'Proxima-Nova-Regular';
-      font-size: 1vw;
+      font-size: 1rem;
     }
     input:-webkit-autofill,
     input:-webkit-autofill:hover,

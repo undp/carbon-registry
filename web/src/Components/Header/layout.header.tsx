@@ -39,7 +39,7 @@ const LayoutHeader = (props: HeaderProps) => {
         </Col>
         <Col span={8}>
           <div className="header-title-container">
-            <span className="header-title-txt">{title}</span>
+            {/* <span className="header-title-txt">{title}</span> */}
           </div>
         </Col>
         <Col span={8}>

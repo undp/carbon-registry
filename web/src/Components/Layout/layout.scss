@@ -12,21 +12,23 @@
     // padding-right: 2vw;
   }
   .ant-layout-header {
-    height: 7vw;
+    height: 90px;
   }
   .layout-container {
-    margin-left: 21vw;
+    margin-left: 310px;
+    // margin-left: 21vw;
     // margin-bottom: 4vw;
     // background-color: red !important;
   }
   .layout-content-container {
-    margin-left: 3vw;
-    margin-right: 2vw;
+    margin: 20px;
+    // margin-left: 3rem;
+    // margin-right: 2rem;
     background-color: $layout-content-bg;
-    margin-top: 3vw;
+    // margin-top: 3vw;
     border-radius: 0.5vw;
     padding-bottom: 0px;
-    margin-bottom: 2vw;
+    // margin-bottom: 2vw;
   }
   .ant-layout {
     background-color: $layout-bg;

@@ -9,23 +9,24 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      height: 7vw;
+      height: 90px;
       overflow: hidden;
       // background-color: red;
       img {
+        margin: 5px 10px;
         object-fit: cover;
         height: auto;
-        width: 6vw;
+        height: 70%;
       }
     }
     .header-title-container {
       .header-title-txt {
         font-family: 'Proxima-Nova-Bold';
-        font-size: 1.4vw;
+        font-size: 1.4rem;
         font-style: Bold;
         color: $layout-black;
       }
-      height: 7vw;
+      height: 100%;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -35,8 +36,8 @@
     .ant-col-offset-14 {
       .header-menu-container {
         font-family: 'Proxima-Nova-Regular';
-        font-size: 1vw;
-        height: 7vw;
+        font-size: 1rem;
+        height: 90px;
         color: $layout-black;
         display: flex;
         flex-direction: row;
