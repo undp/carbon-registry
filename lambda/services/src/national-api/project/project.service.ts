@@ -17,6 +17,7 @@ import { ConstantEntity } from '../../shared/entities/constants.entity';
 import { DataResponseDto } from '../../shared/dto/data.response.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
 import { ProjectApprove } from '../../shared/dto/project.approve';
+import { DataListResponseDto } from '../../shared/dto/data.list.response';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -81,12 +82,18 @@ export class ProjectService {
         return await this.projectLedger.createProject(project);
     }
 
-    async query(query: QueryDto): Promise<Project[]> {
+    async query(query: QueryDto, abilityCondition: string): Promise<DataListResponseDto> {
         const skip = (query.size * query.page) - query.size;
-        return await this.projectRepo.find({
-            skip,
-            take: query.size
-        });
+        const resp = (await this.projectRepo.createQueryBuilder()
+            .where(abilityCondition ? abilityCondition : "")
+            .skip(skip)
+            .take(query.size)
+            .getManyAndCount())
+
+        return new DataListResponseDto(
+            resp.length > 0 ? resp[0] : undefined,
+            resp.length > 1 ? resp[1] : undefined
+        );
     }
 
     async getProjectEvents(projectId: string): Promise<any> {

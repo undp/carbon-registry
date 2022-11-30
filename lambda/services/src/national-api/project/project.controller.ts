@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Project } from '../../shared/entities/project.entity';
 import { Action } from '../../shared/casl/action.enum';
@@ -39,8 +39,8 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Project, true))
     // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
     @Get('query')
-    async getAll(@Query()query: QueryDto) {
-      return this.projectService.query(query)
+    async getAll(@Query()query: QueryDto, @Request() req) {
+      return this.projectService.query(query, req.abilityCondition)
     }
 
     @ApiBearerAuth('api_key')
