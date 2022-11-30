@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start:dev": "PORT=3030 env-cmd -e development react-scripts start",
-    "start:prod": "PORT=3030 env-cmd -e production react-scripts start",
+    "start:prod": "set PORT=3030 env-cmd -e production && react-scripts start",
     "clean": "npx rimraf build",
     "build": "yarn run clean && react-scripts build",
     "test": "react-scripts test",

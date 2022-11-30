@@ -1,0 +1,45 @@
+@import '../../Pages/Common/colors.dashboard.scss';
+
+.stastic-card-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  height: 160px;
+  border-radius: 10px;
+  padding: 20px 30px 20px 30px;
+
+  .value-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Proxima-Nova-Regular';
+    font-size: 3.7rem;
+    font-weight: 600;
+    color: $card-value;
+    width: 100%;
+    height: 40%;
+  }
+
+  .title-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Proxima-Nova-Regular';
+    line-height: 1.1;
+    font-size: 1.3rem;
+    color: $card-value;
+    width: 100%;
+    height: 40%;
+  }
+
+  .last-update-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Proxima-Nova-Regular';
+    font-size: 0.8rem;
+    color: $card-value;
+    width: 100%;
+    height: 20%;
+  }
+}

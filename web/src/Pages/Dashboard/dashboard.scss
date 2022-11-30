@@ -1,1 +1,36 @@
 @import '../Common/colors.dashboard.scss';
+
+.dashboard-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 5px;
+
+  .header-and-title {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 5px 0 5px;
+    font-family: 'Proxima-Nova-Regular';
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .stastics-cards-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px 5px 10px 5px;
+
+    .stastic-card-row {
+      width: 100%;
+
+      .stastic-card-col {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+    }
+  }
+}

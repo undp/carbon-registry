@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ConnectionContextProvider } from './Context/ConnectionContext/connectionContext';
 import 'antd/dist/antd.css';
@@ -11,13 +11,16 @@ import SignUp from './Pages/Sign-up/signup';
 import AddUserLayout from './Pages/AddUser/addUserLayout';
 
 const App = () => {
+  useEffect(() => {
+    console.log(process.env.REACT_APP_BACKEND);
+  }, []);
   return (
     <Suspense fallback="loading...">
       <ConnectionContextProvider
         serverURL={
           process.env.REACT_APP_BACKEND
             ? process.env.REACT_APP_BACKEND
-            : 'http://localhost:3000/local/api'
+            : 'https://ck5kt5uaw1.execute-api.us-east-1.amazonaws.com/dev/api/national'
         }
       >
         <UserInformationContextProvider>
