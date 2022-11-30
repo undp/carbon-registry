@@ -147,7 +147,7 @@ const UserManagement = () => {
             icon={<PlusOutlined />}
             onClick={() => navigate('/addUser')}
           >
-            ADD USER
+            Add User
           </Button>
         </div>
         {/* </Col> */}
