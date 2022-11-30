@@ -87,7 +87,7 @@
           height: 15vh;
           .ant-form-item {
             .login-input-email {
-              margin-bottom: 1rem;
+              margin-bottom: 0.5rem;
             }
             .ant-form-item-explain-error {
               padding-left: 1rem;
@@ -95,9 +95,9 @@
               font-family: 'Proxima-Nova-Regular';
               // margin-top: 1vw;
             }
-            // #login-details_password_help {
-            //   // margin-top: 1rem;
-            // }
+            #login-details_password_help {
+              margin-top: 0.5rem;
+            }
           }
           .login-forget-pwd-container {
             display: flex;

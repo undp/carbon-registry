@@ -467,7 +467,7 @@ const AddUser = () => {
             </Col>
           </Row>
           <Row>
-            <Col span={10} offset={7}>
+            <Col offset={1}>
               <Form.Item>
                 <div className="create-user-btn-container">
                   <Button type="primary" size="large" htmlType="submit" block loading={loading}>

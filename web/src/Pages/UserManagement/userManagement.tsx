@@ -66,7 +66,7 @@ const UserManagement = () => {
           <Popconfirm
             title={`Are you sure to delete the user`}
             placement="topLeft"
-            icon={<WarningOutlined style={{ fontSize: '1.2vw' }} color="#eec335" />}
+            icon={<WarningOutlined style={{ fontSize: '1.2rem' }} color="#eec335" />}
             okText="Yes"
             okButtonProps={{ danger: true }}
             cancelText="No"
@@ -138,19 +138,19 @@ const UserManagement = () => {
   return (
     <div className="userManagement-container">
       <Row>
-        <Col span={4}>
-          <div className="userManagement-addUser-btn-container">
-            <Button
-              type="primary"
-              size="large"
-              block
-              icon={<PlusOutlined />}
-              onClick={() => navigate('/addUser')}
-            >
-              ADD USER
-            </Button>
-          </div>
-        </Col>
+        {/* <Col span={4}> */}
+        <div className="userManagement-addUser-btn-container">
+          <Button
+            type="primary"
+            size="large"
+            block
+            icon={<PlusOutlined />}
+            onClick={() => navigate('/addUser')}
+          >
+            Add User
+          </Button>
+        </div>
+        {/* </Col> */}
         <Col span={24}>
           <div className="userManagement-table-container">
             <Table dataSource={tableData} columns={columns} className="common-table-class" />

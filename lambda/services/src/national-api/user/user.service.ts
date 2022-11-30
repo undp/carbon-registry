@@ -14,6 +14,7 @@ import { Role } from '../../shared/casl/role.enum';
 import { nanoid } from 'nanoid';
 import { API_KEY_SEPARATOR } from '../../shared/constants';
 import { DataResponseDto } from '../../shared/dto/data.response.dto';
+import { DataListResponseDto } from '../../shared/dto/data.list.response';
 
 @Injectable()
 export class UserService {
@@ -166,12 +167,17 @@ export class UserService {
         return resp;
     }
 
-    async query(query: QueryDto, abilityCondition: string): Promise<User[]> {
-        return (await this.userRepo.createQueryBuilder()
+    async query(query: QueryDto, abilityCondition: string): Promise<any> {        
+       const resp = (await this.userRepo.createQueryBuilder()
             .where(abilityCondition ? abilityCondition : "")
             .skip((query.size * query.page) - query.size)
             .take(query.size)
-            .getMany())
+            .getManyAndCount())
+            
+        return new DataListResponseDto(
+            resp.length > 0 ? resp[0] : undefined,
+            resp.length > 1 ? resp[1] : undefined
+        );
     }
 
     async delete(username: string, ability: string): Promise<BasicResponseDto> {
