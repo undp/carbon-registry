@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Form, Input, Select, message, Spin, Upload, Modal } from 'antd';
 import type { UploadFile } from 'antd/es/upload/interface';
 import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input';
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import 'react-phone-number-input/style.css';
-import './addUser.scss';
+import './updateUser.scss';
 import '../Common/common.form.scss';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import type { RcFile, UploadProps } from 'antd/lib/upload';
 
-const AddUser = () => {
-  const { post } = useConnection();
+const UpdateUser = () => {
+  const { put } = useConnection();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<string>('');
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [contactNoInput, setContactNoInput] = useState<any>();
   const [previewTitle, setPreviewTitle] = useState('');
@@ -31,28 +33,31 @@ const AddUser = () => {
 
   const onSubmitData = async (values: any) => {
     setLoading(true);
+    values.id = state.record.id;
     if (values.role === 'ProjectDeveloper') {
       const logoBase64 = await getBase64(fileList[0].originFileObj as RcFile);
       values.companyLogo = logoBase64;
     }
     try {
       values.contactNo = formatPhoneNumberIntl(values.contactNo);
-      const response = await post('user/add', values);
+      console.log(values);
+      const response = await put('user/update', values);
       if (response.status === 200 || response.status === 201) {
         message.open({
           type: 'success',
-          content: 'User added Successfully!',
+          content: 'User Updated Successfully!',
           duration: 3,
           style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
         });
         navigate('/userManagement', { replace: true });
+        state.record = {};
         setLoading(false);
       }
     } catch (error: any) {
-      console.log('Error in user creation', error);
+      console.log('Error in user update', error);
       message.open({
         type: 'error',
-        content: `Error in adding user! ${error.message}`,
+        content: `Error in updating user! ${error.message}`,
         duration: 3,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
@@ -94,6 +99,28 @@ const AddUser = () => {
     setFileList(newFileList);
   };
 
+  useEffect(() => {
+    console.log(state);
+    if (!state) {
+      console.log(state);
+      navigate('/userManagement', { replace: true });
+    }
+    {
+      setImageLoading(true);
+      setUserRole(state.record.role);
+      if (state.record.companyLogo !== null)
+        setFileList([
+          {
+            uid: '-1',
+            name: `${state.record.companyName}`,
+            status: 'done',
+            url: `${state.record.companyLogo}`,
+          },
+        ]);
+      setImageLoading(false);
+    }
+  }, []);
+
   return (
     <div className="create-user-container">
       <Spin spinning={loading}>
@@ -108,6 +135,7 @@ const AddUser = () => {
               <Form.Item
                 name="name"
                 label="User Name"
+                initialValue={state.record.name}
                 rules={[
                   {
                     required: true,
@@ -135,6 +163,7 @@ const AddUser = () => {
               <Form.Item
                 name="email"
                 label="Email"
+                initialValue={state.record.email}
                 rules={[
                   ({ getFieldValue }) => ({
                     validator() {
@@ -166,6 +195,7 @@ const AddUser = () => {
               <Form.Item
                 name="role"
                 label="Role"
+                initialValue={state.record.role}
                 rules={[
                   {
                     required: true,
@@ -221,6 +251,7 @@ const AddUser = () => {
                 <Form.Item
                   name="industry"
                   label="Industry"
+                  initialValue={state.record.industry}
                   rules={[
                     {
                       required: true,
@@ -250,6 +281,7 @@ const AddUser = () => {
                 <Form.Item
                   name="companyName"
                   label="Company Name"
+                  initialValue={state.record.companyName}
                   rules={[
                     {
                       required: true,
@@ -267,6 +299,7 @@ const AddUser = () => {
               <Col span={22} offset={1}>
                 <Form.Item
                   name="companyLocation"
+                  initialValue={state.record.companyLocation}
                   label="Company Location"
                   rules={[
                     {
@@ -286,6 +319,7 @@ const AddUser = () => {
                 <Form.Item
                   name="registrationNo"
                   label="Registration Number"
+                  initialValue={state.record.registrationNo}
                   rules={[
                     {
                       required: true,
@@ -298,7 +332,7 @@ const AddUser = () => {
               </Col>
             </Row>
           )}
-          {userRole === 'ProjectDeveloper' && (
+          {userRole === 'ProjectDeveloper' && !imageLoading && (
             <Row>
               <Col span={22} offset={1}>
                 <Form.Item
@@ -354,6 +388,7 @@ const AddUser = () => {
             <Col span={11} offset={1}>
               <Form.Item
                 name="city"
+                initialValue={state.record.city}
                 label="City"
                 rules={[
                   {
@@ -380,6 +415,7 @@ const AddUser = () => {
               <Form.Item
                 name="zipCode"
                 label="Zip Code"
+                initialValue={state.record.zipCode}
                 rules={[
                   {
                     required: true,
@@ -407,6 +443,7 @@ const AddUser = () => {
               <Form.Item
                 name="state"
                 label="State/Province"
+                initialValue={state.record.state}
                 rules={[
                   {
                     required: true,
@@ -421,6 +458,7 @@ const AddUser = () => {
               <Form.Item
                 name="country"
                 label="Country"
+                initialValue={state.record.country}
                 rules={[
                   {
                     required: true,
@@ -448,6 +486,7 @@ const AddUser = () => {
               <Form.Item
                 name="contactNo"
                 label="Contact Number"
+                initialValue={state.record.contactNo}
                 rules={[
                   {
                     required: true,
@@ -467,11 +506,11 @@ const AddUser = () => {
             </Col>
           </Row>
           <Row>
-            <Col offset={8} span={8}>
+            <Col span={10} offset={7}>
               <Form.Item>
                 <div className="create-user-btn-container">
                   <Button type="primary" size="large" htmlType="submit" block loading={loading}>
-                    Create User
+                    Update
                   </Button>
                 </div>
               </Form.Item>
@@ -483,4 +522,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default UpdateUser;

@@ -1,5 +1,5 @@
-import { Col, Row } from 'antd';
 import React from 'react';
+import { Col, Row } from 'antd';
 import Chart from 'react-apexcharts';
 import StasticCard from '../../Components/StasticCard/StasticCard';
 import './dashboard.scss';

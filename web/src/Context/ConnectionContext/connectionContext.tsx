@@ -9,6 +9,7 @@ import {
 const ConnectionContext = createContext<{
   connection?: ConnectionProps;
 }>({});
+import jwt_decode from 'jwt-decode';
 
 export const ConnectionContextProvider: FC<ConnectionContextProviderProps> = (
   props: ConnectionContextProviderProps
@@ -57,6 +58,7 @@ export const ConnectionContextProvider: FC<ConnectionContextProviderProps> = (
                 resolve({
                   status: response.status,
                   data: response.data.data ?? response.data,
+                  response: response,
                   statusText: 'SUCCESS',
                   message: response.data.message,
                 });
@@ -65,6 +67,7 @@ export const ConnectionContextProvider: FC<ConnectionContextProviderProps> = (
                   status: response.status,
                   data: response.data?.data,
                   statusText: 'ERROR',
+                  response: response,
                   message: response.data.message,
                   errors: response.data?.errors,
                 });
@@ -149,10 +152,32 @@ export const ConnectionContextProvider: FC<ConnectionContextProviderProps> = (
     }
   }, []);
 
+  const removeToken = (tkn?: string) => {
+    if (tkn) {
+      const { exp } = jwt_decode(tkn) as any;
+      if (Date.now() > exp * 1000) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('userId');
+      } else {
+        const diff = exp * 1000 - Date.now();
+        setTimeout(() => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('userRole');
+          localStorage.removeItem('userId');
+        }, diff);
+      }
+    }
+  };
+
+  useEffect(() => {
+    removeToken(token);
+  }, [token]);
+
   return (
     <ConnectionContext.Provider
       value={{
-        connection: { post, put, get, patch, delete: del, updateToken, token },
+        connection: { post, put, get, patch, delete: del, updateToken, token, removeToken },
       }}
     >
       {children}
