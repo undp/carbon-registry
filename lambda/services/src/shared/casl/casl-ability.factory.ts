@@ -20,11 +20,11 @@ export class CaslAbilityFactory {
       switch(user.role) {
         case Role.Root:
           can(Action.Manage, 'all');
-          cannot(Action.Update, User, ['role', 'apiKey', 'password']);
+          cannot(Action.Update, User, ['role', 'apiKey', 'password'], { id: { $eq: user.id }});
           break;
         case Role.Admin:
           can(Action.Manage, 'all', { role: { $ne: Role.Root }});
-          cannot(Action.Update, User, ['role', 'apiKey', 'password']);
+          cannot(Action.Update, User, ['role', 'apiKey', 'password'], { id: { $eq: user.id }});
           break;
         case Role.Api:
           can([Action.Create, Action.Read], Project);
