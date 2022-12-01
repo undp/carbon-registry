@@ -31,4 +31,5 @@ export type ConnectionProps = {
   ): Promise<R>;
   updateToken: (token?: string) => void;
   token?: string;
+  removeToken: (tkn?: string) => void;
 };

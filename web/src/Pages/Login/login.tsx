@@ -11,7 +11,7 @@ import { LoginProps } from '../../Definitions/InterfacesAndType/userLogin.defini
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { post, updateToken } = useConnection();
+  const { post, updateToken, removeToken } = useConnection();
   const { IsAuthenticated, setUserInfo } = useUserContext();
   const { i18n, t } = useTranslation(['common', 'login']);
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,17 +32,15 @@ const Login = () => {
       if (response.status === 200 || response.status === 201) {
         updateToken(response.data.access_token);
         setUserInfo({ id: response.data.id, userRole: response.data.role });
-        console.log('Authenticated', IsAuthenticated());
-        return IsAuthenticated()
-          ? navigate('/dashboard', { replace: true })
-          : navigate('/login', { replace: true });
+        removeToken();
+        return IsAuthenticated() ? navigate('/dashboard', { replace: true }) : navigate('/login');
       }
       setLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log('Error in Login', error);
       message.open({
         type: 'error',
-        content: error,
+        content: error.message,
         duration: 2,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
