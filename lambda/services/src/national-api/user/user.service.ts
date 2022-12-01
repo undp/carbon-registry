@@ -86,7 +86,7 @@ export class UserService {
     async resetPassword(id: number, passwordResetDto: PasswordUpdateDto, abilityCondition: string) {
         this.logger.verbose('User password reset received', id)
 
-        const user = await this.userRepo.createQueryBuilder().whereInIds(id).where(abilityCondition ? abilityCondition : "").addSelect(["User.password"]).getOne()
+        const user = await this.userRepo.createQueryBuilder().where(`id = '${id}' ${abilityCondition ? ' AND ' + abilityCondition: ""}`).addSelect(["User.password"]).getOne()
         if (!user || user.password != passwordResetDto.oldPassword) {
             throw new HttpException("Password mismatched", HttpStatus.UNAUTHORIZED)
         }
