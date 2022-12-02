@@ -1,15 +1,16 @@
 // import React from 'react';
 // import CustomLayout from '../../Components/Layout/layout';
-// import AddUser from './addUser';
+// import UpdateUser from './updateUser';
 
-// const AddUserLayout = () => {
+// const UpdateUserLayout = () => {
 //   return (
 //     <div>
 //       <CustomLayout selectedKey="userManagement">
-//         <AddUser />
+//         <UpdateUser />
 //       </CustomLayout>
 //     </div>
 //   );
 // };
 
+// export default UpdateUserLayout;
 export default 'AddUserLayout';

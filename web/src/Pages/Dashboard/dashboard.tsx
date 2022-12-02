@@ -1,5 +1,5 @@
-import { Col, Row } from 'antd';
 import React from 'react';
+import { Col, Row } from 'antd';
 import Chart from 'react-apexcharts';
 import MapCard from '../../Components/MapCards.tsx/MapCard';
 import StasticCard from '../../Components/StasticCard/StasticCard';

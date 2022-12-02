@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import './layout.sider.scss';
 import { CodeSandboxOutlined, DashboardOutlined, UserOutlined } from '@ant-design/icons';
 import { LayoutSiderProps } from '../../Definitions/InterfacesAndType/layout.sider.definitions';
@@ -35,17 +35,17 @@ const LayoutSider = (props: LayoutSiderProps) => {
               key="dashboard"
               icon={!collapsed ? <CodeSandboxOutlined style={{ fontSize: '1.2rem' }} /> : ''}
             >
-              <NavLink to="/dashboard">
+              <Link to="/dashboard">
                 {collapsed ? <CodeSandboxOutlined style={{ fontSize: '2rem' }} /> : 'Dashboard'}
-              </NavLink>
+              </Link>
             </Menu.Item>
             <Menu.Item
               key="userManagement"
               icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
             >
-              <NavLink to="/userManagement">
+              <Link to="/userManagement">
                 {collapsed ? <UserOutlined style={{ fontSize: '2rem' }} /> : 'User Management'}
-              </NavLink>
+              </Link>
             </Menu.Item>
           </Menu>
         </div>

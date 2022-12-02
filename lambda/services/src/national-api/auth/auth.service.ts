@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { CaslAbilityFactory } from '../../shared/casl/casl-ability.factory';
 import { API_KEY_SEPARATOR } from '../../shared/constants';
 import { UserService } from '../user/user.service';
 
@@ -8,6 +9,7 @@ export class AuthService {
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
+        public caslAbilityFactory: CaslAbilityFactory
     ) {}
 
     async validateUser(username: string, pass: string): Promise<any> {
@@ -34,10 +36,12 @@ export class AuthService {
 
     async login(user: any) {
         const payload = { username: user.email, sub: user.id, role: user.role };
+        const ability = this.caslAbilityFactory.createForUser(user);
         return {
             access_token: this.jwtService.sign(payload),
             role: user.role,
-            id: user.id
+            id: user.id,
+            ability: JSON.stringify(ability)
         };
     }
 }
