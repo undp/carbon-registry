@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.ghg-fuels"}],"uuid":"2294ab57304f479e915cad86c6a80dc5"}

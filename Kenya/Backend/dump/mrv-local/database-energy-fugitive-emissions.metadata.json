@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.database-energy-fugitive-emissions"}],"uuid":"c75fd2e9335e415582eb5b90ecbd5d5b"}

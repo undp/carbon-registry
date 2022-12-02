@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"mrv-local.database-ippu-gwps"}],"uuid":"28378db8b0d346648189bb7fd118d6f5"}
