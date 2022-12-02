@@ -74,7 +74,10 @@ export class ProjectService {
 
         const req = await this.getCreditRequest(projectDto, constants);
         console.log(typeof(req), req)
-        project.numberOfITMO = await calculateCredit(req);
+        project.numberOfITMO = Math.round(await calculateCredit(req));
+        if (project.numberOfITMO <= 0) {
+            throw new HttpException("Not enough credits to create the project", HttpStatus.BAD_REQUEST)
+        }
         project.constantVersion = constants ? String(constants.version): "default"
         const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
         project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
