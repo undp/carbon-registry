@@ -127,4 +127,4 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run User onboarding tests
         run: |
-          postman collection run "20428472-dc42dd58-c64c-4f68-a418-3b8766ef8fc1" -d ./testing/api/user_onboarding_3.csv
+          postman collection run "20428472-dc42dd58-c64c-4f68-a418-3b8766ef8fc1" -d ./testing/api/user_onboarding_4.csv
