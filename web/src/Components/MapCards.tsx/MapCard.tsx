@@ -4,15 +4,16 @@ import './mapCard.scss';
 
 export interface MapCardProps {
   title: string;
+  children: any;
 }
 
-const MapCard: FC<MapCardProps> = (props: MapCardProps, { children }) => {
-  const { title } = props;
+const MapCard: FC<MapCardProps> = (props: MapCardProps) => {
+  const { title, children } = props;
 
   return (
     <div className="map-card">
       <div className="title">{title}</div>
-      {children}
+      <div className="map-container">{children}</div>
     </div>
   );
 };
