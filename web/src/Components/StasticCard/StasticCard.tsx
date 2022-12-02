@@ -36,7 +36,7 @@ const StasticCard: FC<StasticCardItemProps> = (props: StasticCardItemProps) => {
       <div className="value-section">{value}</div>
       <div className="title-section">{title}</div>
       <div className="last-update-section">
-        {moment.unix(updatedDate).format('DD:MM:YYYY, hh:mm:ss a')}
+        Last updated on: {moment.unix(updatedDate).format('DD:MM:YYYY')}
       </div>
     </div>
   );

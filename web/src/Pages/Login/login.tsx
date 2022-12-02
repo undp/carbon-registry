@@ -37,7 +37,6 @@ const Login = () => {
           ? navigate('/dashboard', { replace: true })
           : navigate('/login', { replace: true });
       }
-      setLoading(false);
     } catch (error) {
       console.log(error);
       message.open({
@@ -46,6 +45,7 @@ const Login = () => {
         duration: 2,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
+    } finally {
       setLoading(false);
     }
   };
