@@ -85,6 +85,23 @@
         .login-input-fields {
           margin-top: 3vh;
           height: 15vh;
+          .login-error-message-container {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            justify-content: flex-start;
+            // background-color: $login-red-error;
+            // padding: 0.5rem;
+            // margin-top: 1.2rem;
+            // margin-bottom: 2rem;
+            align-items: center;
+            .login-error-message-txt {
+              font-family: 'Proxima-Nova-Regular';
+              font-size: 0.9rem;
+              color: $login-red;
+              // color: $login-white;
+            }
+          }
           .ant-form-item {
             .login-input-email {
               margin-bottom: 0.5rem;
