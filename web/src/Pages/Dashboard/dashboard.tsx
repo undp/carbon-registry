@@ -1,415 +1,36 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 import Chart from 'react-apexcharts';
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import MapCard from '../../Components/MapCards.tsx/MapCard';
 import StasticCard from '../../Components/StasticCard/StasticCard';
 import './dashboard.scss';
+import {
+  DUmData,
+  options,
+  optionsA,
+  optionsP,
+  optionsQ,
+  optionsR,
+  optionsX,
+  optionsY,
+  optionsZ,
+  series,
+  seriesA,
+  seriesP,
+  seriesQ,
+  seriesR,
+  seriesX,
+  seriesY,
+  seriesZ,
+} from './DUMMY_DATAS';
+import HtmlCluster from './SampleMap';
 
-const DUmData = [
-  {
-    value: 220,
-    title: 'Projects Registered',
-    updatedDate: 1669788334,
-    level: '1',
-  },
-  {
-    value: 220,
-    title: 'Projects Authorized',
-    updatedDate: 1669781334,
-    level: '2',
-  },
-  {
-    value: 80,
-    title: 'Projects Rejected',
-    updatedDate: 1669788334,
-    level: '3',
-  },
-  {
-    value: 72,
-    title: 'Projects Certified',
-    updatedDate: 1669788334,
-    level: '4',
-  },
-  {
-    value: 25,
-    title: 'Certified Credits Available',
-    updatedDate: 1669763334,
-    level: '5',
-  },
-  {
-    value: 200,
-    title: 'Certified Credits Transferred',
-    updatedDate: 1669783334,
-    level: '6',
-  },
-  {
-    value: 22,
-    title: 'Certified Credits Available',
-    updatedDate: 1669783334,
-    level: '7',
-  },
-];
-
-const options: any = {
-  states: {
-    active: {
-      filter: {
-        type: 'none',
-      },
-    },
-  },
-  chart: {
-    type: 'bar',
-    height: 400,
-    stacked: true,
-    stackType: 'normal',
-  },
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0,
-        },
-      },
-    },
-  ],
-  xaxis: {
-    categories: [
-      '2011 Q1',
-      '2011 Q2',
-      '2011 Q3',
-      '2011 Q4',
-      '2012 Q1',
-      '2012 Q2',
-      '2012 Q3',
-      '2012 Q4',
-    ],
-  },
-  fill: {
-    opacity: 1,
-  },
-  title: {
-    text: 'Total Projects',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      fontFamily: 'Proxima-Nova-Regular',
-      color: '#263238',
-    },
-  },
-  legend: {
-    show: true,
-    showForSingleSeries: false,
-    showForNullSeries: true,
-    showForZeroSeries: true,
-    position: 'bottom',
-    horizontalAlign: 'center',
-    floating: false,
-    fontSize: '14px',
-    fontFamily: 'Helvetica, Arial',
-    fontWeight: 400,
-    formatter: undefined,
-    inverseOrder: false,
-    width: undefined,
-    height: undefined,
-    tooltipHoverFormatter: undefined,
-    customLegendItems: [],
-    offsetX: 0,
-    offsetY: 5,
-    labels: {
-      colors: undefined,
-      useSeriesColors: false,
-    },
-    markers: {
-      width: 12,
-      height: 12,
-      strokeWidth: 0,
-      strokeColor: '#fff',
-      fillColors: undefined,
-      radius: 12,
-      customHTML: undefined,
-      onClick: undefined,
-      offsetX: 0,
-      offsetY: 0,
-    },
-    itemMargin: {
-      horizontal: 5,
-      vertical: 0,
-    },
-    onItemClick: {
-      toggleDataSeries: true,
-    },
-    onItemHover: {
-      highlightDataSeries: true,
-    },
-  },
-};
-
-const optionsX: any = {
-  states: {
-    active: {
-      filter: {
-        type: 'none',
-      },
-    },
-  },
-  chart: {
-    type: 'bar',
-    height: 400,
-    stacked: true,
-    stackType: 'normal',
-  },
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0,
-        },
-      },
-    },
-  ],
-  xaxis: {
-    categories: [
-      '2011 Q1',
-      '2011 Q2',
-      '2011 Q3',
-      '2011 Q4',
-      '2012 Q1',
-      '2012 Q2',
-      '2012 Q3',
-      '2012 Q4',
-    ],
-  },
-  fill: {
-    opacity: 1,
-    colors: ['#414487', '#22A884', '#FDE725'],
-  },
-  title: {
-    text: 'Total Projects, Sector wised',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      fontFamily: 'Proxima-Nova-Regular',
-      color: '#263238',
-    },
-  },
-  legend: {
-    show: true,
-    showForSingleSeries: false,
-    showForNullSeries: true,
-    showForZeroSeries: true,
-    position: 'bottom',
-    horizontalAlign: 'center',
-    floating: false,
-    fontSize: '14px',
-    fontFamily: 'Helvetica, Arial',
-    fontWeight: 400,
-    formatter: undefined,
-    inverseOrder: false,
-    width: undefined,
-    height: undefined,
-    tooltipHoverFormatter: undefined,
-    customLegendItems: [],
-    offsetX: 0,
-    offsetY: 5,
-    labels: {
-      colors: ['#414487', '#22A884', '#FDE725'],
-      useSeriesColors: false,
-    },
-    markers: {
-      width: 12,
-      height: 12,
-      strokeWidth: 0,
-      strokeColor: '#fff',
-      fillColors: undefined,
-      radius: 12,
-      customHTML: undefined,
-      onClick: undefined,
-      offsetX: 0,
-      offsetY: 0,
-    },
-    itemMargin: {
-      horizontal: 5,
-      vertical: 0,
-    },
-    onItemClick: {
-      toggleDataSeries: true,
-    },
-    onItemHover: {
-      highlightDataSeries: true,
-    },
-  },
-};
-
-const series = [
-  {
-    name: 'Approved',
-    data: [44, 55, 41, 67, 22, 43, 21, 49],
-  },
-  {
-    name: 'Rejected',
-    data: [13, 23, 20, 8, 13, 27, 33, 12],
-  },
-  {
-    name: 'Pending',
-    data: [11, 17, 15, 15, 21, 14, 15, 13],
-  },
-];
-
-const optionsY: any = {
-  states: {
-    active: {
-      filter: {
-        type: 'none',
-      },
-    },
-  },
-  chart: {
-    type: 'bar',
-    height: 400,
-  },
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0,
-        },
-      },
-    },
-  ],
-  xaxis: {
-    categories: [
-      '2011 Q1',
-      '2011 Q2',
-      '2011 Q3',
-      '2011 Q4',
-      '2012 Q1',
-      '2012 Q2',
-      '2012 Q3',
-      '2012 Q4',
-    ],
-  },
-  fill: {
-    opacity: 1,
-    colors: ['#414487', '#22A884', '#FDE725'],
-  },
-  title: {
-    text: 'Total Projects, Sector wised',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      fontFamily: 'Proxima-Nova-Regular',
-      color: '#263238',
-    },
-  },
-  legend: {
-    show: true,
-    showForSingleSeries: false,
-    showForNullSeries: true,
-    showForZeroSeries: true,
-    position: 'bottom',
-    horizontalAlign: 'center',
-    floating: false,
-    fontSize: '14px',
-    fontFamily: 'Helvetica, Arial',
-    fontWeight: 400,
-    formatter: undefined,
-    inverseOrder: false,
-    width: undefined,
-    height: undefined,
-    tooltipHoverFormatter: undefined,
-    customLegendItems: [],
-    offsetX: 0,
-    offsetY: 5,
-    labels: {
-      colors: ['#414487', '#22A884', '#FDE725'],
-      useSeriesColors: false,
-    },
-    markers: {
-      width: 12,
-      height: 12,
-      strokeWidth: 0,
-      strokeColor: '#fff',
-      fillColors: undefined,
-      radius: 12,
-      customHTML: undefined,
-      onClick: undefined,
-      offsetX: 0,
-      offsetY: 0,
-    },
-    itemMargin: {
-      horizontal: 5,
-      vertical: 0,
-    },
-    onItemClick: {
-      toggleDataSeries: true,
-    },
-    onItemHover: {
-      highlightDataSeries: true,
-    },
-  },
-};
-
-const seriesY = [
-  {
-    name: 'Approved',
-    data: [44, 55, 41, 67, 22, 43, 21, 49],
-  },
-  {
-    name: 'Rejected',
-    data: [13, 23, 20, 8, 13, 27, 33, 12],
-  },
-  {
-    name: 'Pending',
-    data: [11, 17, 15, 15, 21, 14, 15, 13],
-  },
-];
-
-const optionsP: any = {
-  chart: {
-    type: 'pie',
-    height: 400,
-  },
-  labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 200,
-        },
-        legend: {
-          position: 'bottom',
-        },
-      },
-    },
-  ],
-};
-
-const seriesP = [44, 55, 13, 43, 22];
+const Map = ReactMapboxGl({
+  accessToken:
+    'pk.eyJ1IjoiZmFicmljOCIsImEiOiJjaWc5aTV1ZzUwMDJwdzJrb2w0dXRmc2d0In0.p6GGlfyV-WksaDV_KdN27A',
+});
 
 const Dashboard = () => {
   return (
@@ -431,8 +52,8 @@ const Dashboard = () => {
           })}
         </Row>
       </div>
-      <div className="stastics-charts-container">
-        <Row gutter={[16, 30]} className="stastic-charts-row">
+      <div className="stastics-charts-container-total-projects">
+        <Row gutter={[16, 30]} justify="start" className="stastic-charts-row">
           <Col xxl={12} xl={12} md={12} className="stastic-charts-col">
             <div className="chart-card">
               <Chart options={options} series={series} type="bar" height="350px" width="450px" />
@@ -440,9 +61,18 @@ const Dashboard = () => {
           </Col>
           <Col xxl={12} xl={12} md={12} className="stastic-charts-col">
             <div className="chart-card">
-              <Chart options={optionsX} series={series} type="bar" height="350px" width="450px" />
+              <Chart options={optionsX} series={seriesX} type="bar" height="350px" width="450px" />
             </div>
           </Col>
+          <Col xxl={12} xl={12} md={12} pull={6} className="stastic-charts-col">
+            <div className="chart-card">
+              <Chart options={optionsA} series={seriesA} type="bar" height="350px" width="450px" />
+            </div>
+          </Col>
+        </Row>
+      </div>
+      <div className="stastics-charts-container-certified-projects">
+        <Row gutter={[16, 30]} justify="start" className="stastic-charts-row">
           <Col xxl={12} xl={12} md={12} className="stastic-charts-col">
             <div className="chart-card">
               <Chart options={optionsY} series={seriesY} type="bar" height="350px" width="450px" />
@@ -450,12 +80,44 @@ const Dashboard = () => {
           </Col>
           <Col xxl={12} xl={12} md={12} className="stastic-charts-col">
             <div className="chart-card">
-              <Chart options={optionsP} series={seriesP} type="pie" height="350px" width="450px" />
+              <Chart options={optionsZ} series={seriesZ} type="bar" height="350px" width="450px" />
             </div>
           </Col>
         </Row>
       </div>
-      <div className="maps-container"></div>
+
+      <div className="stastics-pie-charts-container">
+        <Row gutter={[16, 30]} justify="start" className="stastic-charts-row">
+          <Col xxl={12} xl={12} md={12} className="stastic-charts-col">
+            <div className="chart-card">
+              <Chart options={optionsP} series={seriesP} type="pie" height="350px" width="450px" />
+            </div>
+          </Col>
+          <Col xxl={12} xl={12} md={12} className="stastic-charts-col">
+            <div className="chart-card">
+              <Chart options={optionsQ} series={seriesQ} type="pie" height="350px" width="450px" />
+            </div>
+          </Col>
+          <Col xxl={12} xl={12} md={12} pull={6} className="stastic-charts-col">
+            <div className="chart-card">
+              <Chart options={optionsR} series={seriesR} type="pie" height="350px" width="450px" />
+            </div>
+          </Col>
+        </Row>
+      </div>
+      <div className="maps-container">
+        <Row gutter={[16, 30]} justify="start" className="maps-container-row">
+          <Col xxl={12} xl={12} md={12} className="maps-container-col">
+            <MapCard title="Projects Locations">&nbsp;</MapCard>
+          </Col>
+          <Col xxl={12} xl={12} md={12} className="maps-container-col">
+            <MapCard title="Transfer Locations">&nbsp;</MapCard>
+          </Col>
+          <Col xxl={12} xl={12} md={12} pull={6} className="maps-container-col">
+            <MapCard title="Transfer by Entity">&nbsp;</MapCard>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

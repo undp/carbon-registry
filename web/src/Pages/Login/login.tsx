@@ -38,7 +38,6 @@ const Login = () => {
         removeToken();
         return IsAuthenticated() ? navigate('/dashboard', { replace: true }) : navigate('/login');
       }
-      setLoading(false);
     } catch (error: any) {
       console.log('Error in Login', error);
       setShowError(true);
@@ -48,6 +47,7 @@ const Login = () => {
         duration: 2,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
+    } finally {
       setLoading(false);
     }
   };
