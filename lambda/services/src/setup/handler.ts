@@ -9,6 +9,7 @@ import { getLogger } from "../shared/server";
 import { UtilModule } from "../shared/util/util.module";
 import { Country } from "../shared/entities/country.entity";
 import { CountryService } from "../shared/util/country.service";
+import { CreditOverall } from "../shared/entities/credit.overall.entity";
 const fs = require('fs')
 
 exports.handler = async (event) => {
@@ -21,7 +22,6 @@ exports.handler = async (event) => {
     const u = await userService.findOne(event['rootEmail']);
     if (u != undefined) {
       console.log('Root user already created and setup is completed')
-      return;
     }
 
     const app = await NestFactory.createApplicationContext(LedgerDbModule, {
@@ -29,8 +29,16 @@ exports.handler = async (event) => {
     });
     try {
       const ledgerModule = app.get(LedgerDbService)
+      await ledgerModule.createTable('overall');
+      await ledgerModule.createIndex('countryCodeA2', 'overall');
+      const creditOverall = new CreditOverall()
+      creditOverall.ITMO = 0;
+      creditOverall.countryCodeA2 = event['systemCountryCode']
+      creditOverall.serialNo = 'genesis block'
+      await ledgerModule.insertRecord(creditOverall, 'overall')
       await ledgerModule.createTable();
       await ledgerModule.createIndex('projectId');
+      
     } catch(e) {
       console.log('QLDB table does not create') 
     }

@@ -1,7 +1,9 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { BasicResponseDto } from '../dto/basic.response.dto';
+import { dom } from 'ion-js';
+import { generateSerialNumber } from 'serial-number-gen';
 import { ProjectHistoryDto } from '../dto/project.history.dto';
+import { CreditOverall } from '../entities/credit.overall.entity';
 import { Project } from '../entities/project.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
 import { ProjectStatus } from './project-status.enum';
@@ -51,18 +53,71 @@ export class ProjectLedgerService {
         return false
     }
 
-    public async authProjectStatus(projectId: string, serialNo: string): Promise<boolean> {
-        this.logger.log(`Authorizing project ${projectId} serialNo ${serialNo}`)
-        const affected = (await this.ledger.updateRecords({
-            'status': ProjectStatus.AUTHORIZED.valueOf(),
-            'serialNo': serialNo
-        }, {
+    public async authProjectStatus(projectId: string, countryCodeA2: string): Promise<boolean> {
+        this.logger.log(`Authorizing project ${projectId}`)
+
+        const getQueries = {}
+        getQueries[this.ledger.tableName] = {
             'projectId': projectId,
-            'status': ProjectStatus.REGISTERED.valueOf()
-        }));
-        if (affected && affected.length > 0) {
-            return true;
+            'status': ProjectStatus.REGISTERED
+        };
+        getQueries[this.ledger.overallTableName] = {
+            'countryCodeA2': countryCodeA2
         }
-        return false;
+
+        let updatedProject = undefined;
+        const resp = await this.ledger.multiGetAndUpdate(
+            getQueries,
+            (results: Record<string, dom.Value[]>) => {
+                const projects: Project[] = results[this.ledger.tableName].map(domValue => {
+                    return plainToClass(Project, JSON.parse(JSON.stringify(domValue)));
+                });
+                if (projects.length <= 0) {
+                    throw new HttpException("Project does not exist", HttpStatus.BAD_REQUEST) 
+                }
+
+                const creditOveralls = results[this.ledger.overallTableName].map(domValue => {
+                    return plainToClass(CreditOverall, JSON.parse(JSON.stringify(domValue)));
+                });
+                if (creditOveralls.length <= 0) {
+                    throw new HttpException(`Overall credit does not found for the country code ${countryCodeA2}`, HttpStatus.BAD_REQUEST) 
+                }
+                const project = projects[0];
+                const overall = creditOveralls[0];
+                const year = new Date(project.startTime*1000).getFullYear()
+                const startBlock = overall.ITMO + 1
+                const endBlock = overall.ITMO + project.numberOfITMO
+                const serialNo = generateSerialNumber(project.countryCodeA2, project.sectoralScope, project.projectId, year, startBlock, endBlock);
+                project.serialNo = serialNo;
+                project.status = ProjectStatus.AUTHORIZED
+                updatedProject = project;
+
+                let updateMap = {}
+                let updateWhereMap = {}
+                updateMap[this.ledger.tableName] = {
+                    'status': ProjectStatus.AUTHORIZED.valueOf(),
+                    'serialNo': serialNo
+                }
+                updateWhereMap[this.ledger.tableName] = {
+                    'projectId': projectId,
+                    'status': ProjectStatus.REGISTERED.valueOf()
+                }
+
+                updateMap[this.ledger.overallTableName] = {
+                    'ITMO': endBlock,
+                    'serialNo': serialNo
+                }
+                updateWhereMap[this.ledger.overallTableName] = {
+                    'countryCodeA2': countryCodeA2
+                }
+                return [ updateMap, updateWhereMap ];
+            }
+        );
+
+        const affected = resp[this.ledger.tableName];
+        if (affected && affected.length > 0) {
+            return updatedProject;
+        }
+        return updatedProject;
     }
 }
