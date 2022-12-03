@@ -14,7 +14,7 @@ export class Project implements EntitySubject {
     @PrimaryColumn()
     projectId: string;
 
-    @Column()
+    @Column({nullable: true})
     serialNo: string;
 
     @Column()

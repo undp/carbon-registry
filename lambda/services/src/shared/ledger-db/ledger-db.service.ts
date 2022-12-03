@@ -45,7 +45,7 @@ export class LedgerDbService {
         await (await this.execute(`INSERT INTO ${this.tableName} ?`, document));
     }
     
-    public async fetchRecords<T extends Record<string, any>>(where: Record<string, any>): Promise<dom.Value[]> {
+    public async fetchRecords(where: Record<string, any>): Promise<dom.Value[]> {
         const whereClause = Object.keys(where).map(k => (`${k} = ?`)).join(' and ')
         return (await this.execute(`SELECT * FROM ${this.tableName} WHERE ${whereClause}`, ...Object.values(where)))?.getResultList();
     }

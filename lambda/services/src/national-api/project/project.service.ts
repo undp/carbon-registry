@@ -66,9 +66,7 @@ export class ProjectService {
         this.logger.verbose('ProjectDTO received', projectDto)
         const project: Project = this.toProject(projectDto);
         this.logger.verbose('Project create', project)
-        project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 4))
-        const year = new Date(projectDto.startTime*1000).getFullYear()
-        const startBlock = await this.counterService.getCount(CounterType.ITMO) + 1
+        project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 3))
 
         const constants = await this.getLatestConstant(projectDto.subSector)
 
@@ -79,8 +77,6 @@ export class ProjectService {
             throw new HttpException("Not enough credits to create the project", HttpStatus.BAD_REQUEST)
         }
         project.constantVersion = constants ? String(constants.version): "default"
-        const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
-        project.serialNo = generateSerialNumber(projectDto.countryCodeA2, projectDto.sectoralScope, project.projectId, year, startBlock, endBlock);
         project.status = ProjectStatus.REGISTERED;
         return await this.projectLedger.createProject(project);
     }
@@ -145,6 +141,22 @@ export class ProjectService {
 
     async updateProjectStatus(req: ProjectApprove, status: ProjectStatus, expectedCurrentStatus: ProjectStatus) {
         this.logger.log(`Project ${req.projectId} status updating to ${status}. Comment: ${req.comment}`)
-        return await this.projectLedger.updateProjectStatus(req.projectId, status, expectedCurrentStatus)
+
+        if (status == ProjectStatus.AUTHORIZED) {
+            const project = await this.projectLedger.getProject(req.projectId);
+            if (!project) {
+                throw new HttpException("Project does not exist", HttpStatus.BAD_REQUEST)
+            }
+            const year = new Date(project.startTime*1000).getFullYear()
+            const startBlock = await this.counterService.getCount(CounterType.ITMO) + 1
+
+            // TODO: Fix this, endblock should be in a transaction
+            const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
+            const serialNo = generateSerialNumber(project.countryCodeA2, project.sectoralScope, project.projectId, year, startBlock, endBlock);
+            return await this.projectLedger.authProjectStatus(req.projectId, serialNo)
+        } else {
+            return await this.projectLedger.updateProjectStatus(req.projectId, status, expectedCurrentStatus)
+        }
+        
     }
 }
