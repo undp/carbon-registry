@@ -18,6 +18,7 @@ import { DataResponseDto } from '../../shared/dto/data.response.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
 import { ProjectApprove } from '../../shared/dto/project.approve';
 import { DataListResponseDto } from '../../shared/dto/data.list.response';
+import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -143,7 +144,7 @@ export class ProjectService {
         this.logger.log(`Project ${req.projectId} status updating to ${status}. Comment: ${req.comment}`)
 
         if (status == ProjectStatus.AUTHORIZED) {
-            const project = await this.projectLedger.getProject(req.projectId);
+            let project = await this.projectLedger.getProjectById(req.projectId);
             if (!project) {
                 throw new HttpException("Project does not exist", HttpStatus.BAD_REQUEST)
             }
@@ -153,9 +154,19 @@ export class ProjectService {
             // TODO: Fix this, endblock should be in a transaction
             const endBlock = parseInt(await this.counterService.incrementCount(CounterType.ITMO, 0, project.numberOfITMO))
             const serialNo = generateSerialNumber(project.countryCodeA2, project.sectoralScope, project.projectId, year, startBlock, endBlock);
-            return await this.projectLedger.authProjectStatus(req.projectId, serialNo)
+            const updated = await this.projectLedger.authProjectStatus(req.projectId, serialNo)
+            if (!updated) {
+                return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${expectedCurrentStatus} status for the given project id ${req.projectId}`)
+            }
+            project.serialNo = serialNo;
+            project.status = ProjectStatus.AUTHORIZED
+            return new DataResponseDto(HttpStatus.OK, project)
         } else {
-            return await this.projectLedger.updateProjectStatus(req.projectId, status, expectedCurrentStatus)
+            const updated = await this.projectLedger.updateProjectStatus(req.projectId, status, expectedCurrentStatus)
+            if (!updated) {
+                return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${expectedCurrentStatus} status for the given project id ${req.projectId}`)
+            }
+            return new BasicResponseDto(HttpStatus.OK, "Successfully updated")
         }
         
     }

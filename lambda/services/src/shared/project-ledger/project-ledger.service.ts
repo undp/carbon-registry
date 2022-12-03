@@ -37,17 +37,7 @@ export class ProjectLedgerService {
         )
     }
 
-    public async getProject(projectId: string): Promise<Project> {
-        const results = await this.ledger.fetchRecords({
-            'projectId': projectId
-        })
-        if (results.length <= 0) {
-            return null
-        }
-        return plainToClass(Project, results[0])
-    }
-
-    public async updateProjectStatus(projectId: string, status: ProjectStatus, currentExpectedStatus: ProjectStatus): Promise<BasicResponseDto> {
+    public async updateProjectStatus(projectId: string, status: ProjectStatus, currentExpectedStatus: ProjectStatus): Promise<boolean> {
         this.logger.log(`Updating project ${projectId} status ${status}`)
         const affected = (await this.ledger.updateRecords({
             'status': status.valueOf()
@@ -56,12 +46,12 @@ export class ProjectLedgerService {
             'status': currentExpectedStatus.valueOf()
         }));
         if (affected && affected.length > 0) {
-            return new BasicResponseDto(HttpStatus.OK, "Successfully updated")
+            return true
         }
-        return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${currentExpectedStatus} status for the given project id ${projectId}`)
+        return false
     }
 
-    public async authProjectStatus(projectId: string, serialNo: string): Promise<BasicResponseDto> {
+    public async authProjectStatus(projectId: string, serialNo: string): Promise<boolean> {
         this.logger.log(`Authorizing project ${projectId} serialNo ${serialNo}`)
         const affected = (await this.ledger.updateRecords({
             'status': ProjectStatus.AUTHORIZED.valueOf(),
@@ -71,8 +61,8 @@ export class ProjectLedgerService {
             'status': ProjectStatus.REGISTERED.valueOf()
         }));
         if (affected && affected.length > 0) {
-            return new BasicResponseDto(HttpStatus.OK, "Successfully updated")
+            return true;
         }
-        return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in Registered status for the given project id ${projectId}`)
+        return false;
     }
 }
