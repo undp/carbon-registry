@@ -4,8 +4,8 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { AgricultureProperties } from '../dto/agriculture.properties';
 import { ProjectProperties } from '../dto/project.properties';
 import { SolarProperties } from '../dto/solar.properties';
-import { SubSector } from '../enum/subsector.enum';
-import { ProjectStatus } from '../project-ledger/project-status.enum';
+import { Sector } from '../enum/sector.enum';
+import { ProjectStage } from '../project-ledger/project-status.enum';
 import { EntitySubject } from './entity.subject';
 
 @Entity()
@@ -20,12 +20,6 @@ export class Project implements EntitySubject {
     @Column()
     title: string;
 
-    @Column()
-    countryCodeA2: string;
-
-    @Column()
-    expectedLifeTime: number;
-
     @Column({
         type: "enum",
         enum: SectoralScope,
@@ -33,23 +27,20 @@ export class Project implements EntitySubject {
     })
     sectoralScope: SectoralScope;
 
-    @Column({
-        type: "enum",
-        enum: SubSector,
-        array: false
-    })
-    subSector: SubSector;
+    @Column()
+    sector: Sector;
 
     @Column()
-    sector: string;
+    countryCodeA2: string;
+
 
     @Column({
         type: "enum",
-        enum: ProjectStatus,
+        enum: ProjectStage,
         array: false,
-        default: ProjectStatus.REGISTERED
+        default: ProjectStage.AWAITING_AUTHORIZATION
     })
-    status: ProjectStatus;
+    currentStage: ProjectStage;
 
     @Column()
     startTime: number;
@@ -58,7 +49,16 @@ export class Project implements EntitySubject {
     endTime: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
-    numberOfITMO: number;
+    ITMOsChange: number;
+
+    @Column({type: "decimal", precision: 10, scale: PRECISION})
+    ITMOsIssued: number;
+
+    @Column({type: "decimal", precision: 10, scale: PRECISION})
+    ITMOsBalance: number;
+
+    @Column({type: "decimal", precision: 10, scale: PRECISION, default: 0})
+    ITMOsTransferred: number;
 
     @Column({nullable: true})
     constantVersion: string;

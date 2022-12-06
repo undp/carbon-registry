@@ -1,14 +1,12 @@
 import { Logger, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../../shared/entities/user.entity';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
+import { Company } from '../../shared/entities/company.entity';
 import { CaslModule } from '../../shared/casl/casl.module';
+import configuration from '../../shared/configuration';
 import { EmailModule } from '../../shared/email/email.module';
 import { TypeOrmConfigService } from '../../shared/typeorm.config.service';
-import configuration from '../../shared/configuration';
-import { ConfigModule } from '@nestjs/config';
-import { CompanyModule } from '../company/company.module';
+import { CompanyService } from './company.service';
 
 @Module({
   imports: [
@@ -20,13 +18,11 @@ import { CompanyModule } from '../company/company.module';
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Company]),
     CaslModule,
-    EmailModule,
-    CompanyModule
+    EmailModule
   ],
-  providers: [UserService, Logger],
-  exports: [UserService],
-  controllers: [UserController]
+  providers: [CompanyService, Logger],
+  exports: [CompanyService]
 })
-export class UserModule {}
+export class CompanyModule {}

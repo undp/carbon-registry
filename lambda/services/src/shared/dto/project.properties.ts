@@ -1,61 +1,68 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsEmail } from "class-validator";
+import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength } from "class-validator";
+import { GHGs } from "../enum/ghgs.enum";
+import { SourceOfFunding } from "../enum/sourceoffinding.enum";
 
 export class ProjectProperties {
+
+    @ApiProperty()
+    @IsString()
+    maxInternationalTransferAmount: string;
+
+    @ApiProperty()
+    @IsPositive()
+    @IsInt()
+    creditingPeriodInYears: number;
+
+    @ApiProperty()
+    @IsPositive()
+    @IsNumber()
+    @IsNotEmpty()
+    projectCostUSD: number;
+    
+    @ApiProperty({ enum: SourceOfFunding })
+    @IsEnum(SourceOfFunding, {
+        message: 'Invalid source of funding. Supported following values:' + Object.values(SourceOfFunding)
+    })
+    @IsNotEmpty()
+    sourceOfFunding: SourceOfFunding;
+
+    @ApiProperty()
+    @IsPositive()
+    @IsNumber()
+    grantEquivalentAmount: number;
+
+    @ApiProperty()
+    @IsPositive()
+    @IsNumber()
+    carbonPriceUSDPerTon: number;
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    proponentName: string;
-
-    @ApiProperty()
-    @IsEmail()
-    proponentEmail: string;
+    proponentTaxVatId: string;
 
     @ApiProperty()
     @IsString()
-    proponentPhone: string;
+    proponentPercentage: string;
 
     @ApiProperty()
     @IsString()
-    proponentCompany: string;
+    buyerCountryEligibility: string;
 
     @ApiProperty()
     @IsString()
-    currentStage: string;
+    @MaxLength(100)
+    @IsNotEmpty()
+    geographicalLocation:string;
 
-    @ApiProperty()
-    @IsString()
-    bilateralName: string;
+    @ApiProperty({ enum: GHGs, isArray: true })
+    @IsEnum(GHGs, {
+        message: 'Invalid green house gas. Supported following values:' + Object.values(GHGs),
+        each: true
+    })
+    @IsNotEmpty()
+    greenHouseGasses: GHGs[];
 
-    @ApiProperty()
-    @IsEmail()
-    bilateralEmail: string;
-
-    @ApiProperty()
-    @IsString()
-    bilateralPhone: string;
-
-    @ApiProperty()
-    @IsString()
-    typeOfMitigationAction: string;
-
-    @ApiProperty()
-    @IsString()
-    subTimeMitigationActivity: string;
-
-    @ApiProperty()
-    @IsString()
-    mitigationTypeCalculation: string;
-
-    @ApiProperty()
-    @IsString()
-    contactPersonName: string;
-
-    @ApiProperty()
-    @IsString()
-    contactPersonEmail: string;
-
-    @ApiProperty()
-    @IsString()
-    contactPersonNo: string;
+    ITMOYear: number
 }

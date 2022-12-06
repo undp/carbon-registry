@@ -1,11 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, Length, ValidateIf } from "class-validator";
 import { SectoralScope } from 'serial-number-gen'
-import { SubSector } from "../enum/subsector.enum";
+import { TypeOfMitigation } from "../enum/typeofmitigation.enum";
 import { AgricultureProperties } from "./agriculture.properties";
 import { SolarProperties } from "./solar.properties";
 import { ProjectProperties } from "./project.properties";
 import { IsValidCountry } from "../util/validcountry.decorator";
+import { Sector } from "../enum/sector.enum";
 
 export class ProjectDto {
 
@@ -14,21 +15,6 @@ export class ProjectDto {
     @IsString()
     title: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsString()
-    @Length(2, 2)
-    @IsValidCountry({
-        message: 'Not a valid country alpha 2 country code',
-    })
-    countryCodeA2: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsPositive()
-    @IsInt()
-    expectedLifeTime: number;
-
     @ApiProperty({ enum: SectoralScope })
     @IsNotEmpty()
     @IsEnum(SectoralScope, {
@@ -36,17 +22,19 @@ export class ProjectDto {
     })
     sectoralScope: SectoralScope;
 
-    @ApiProperty({ enum: SubSector })
-    @IsEnum(SubSector, {
-        message: 'Invalid sub sector. Supported following values:' + Object.values(SubSector)
+    @ApiProperty({ enum: Sector })
+    @IsNotEmpty()
+    @IsEnum(Sector, {
+        message: 'Invalid sector. Supported following sector:' + Object.values(Sector)
+    })
+    sector: Sector;
+
+    @ApiProperty({ enum: TypeOfMitigation })
+    @IsEnum(TypeOfMitigation, {
+        message: 'Invalid mitigation type. Supported following values:' + Object.values(TypeOfMitigation)
     })
     @IsNotEmpty()
-    subSector: SubSector;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsString()
-    sector: string;
+    typeOfMitigation: TypeOfMitigation;
 
     @ApiProperty()
     @IsNotEmpty()
@@ -65,12 +53,12 @@ export class ProjectDto {
     projectProperties: ProjectProperties;
 
     @ApiProperty()
-    @ValidateIf(o => o.subSector === SubSector.AGRICULTURE)
+    @ValidateIf(o => o.subSector === TypeOfMitigation.AGRICULTURE)
     @IsNotEmptyObject()
     agricultureProperties: AgricultureProperties;
 
     @ApiProperty()
-    @ValidateIf(o => o.subSector === SubSector.SOLAR)
+    @ValidateIf(o => o.subSector === TypeOfMitigation.SOLAR)
     @IsNotEmptyObject()
     solarProperties: SolarProperties;
 }

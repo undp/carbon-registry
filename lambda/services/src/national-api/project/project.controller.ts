@@ -10,7 +10,7 @@ import { ProjectService } from './project.service';
 import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
-import { ProjectStatus } from '../../shared/project-ledger/project-status.enum';
+import { ProjectStage } from '../../shared/project-ledger/project-status.enum';
 import { ProjectApprove } from '../../shared/dto/project.approve';
 import { ProjectReject } from '../../shared/dto/project.reject';
 import { ProjectRetire } from '../../shared/dto/project.retire';
@@ -65,7 +65,7 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
     @Put('authorize')
     async projectApprove(@Body() body: ProjectApprove) {
-        return this.projectService.updateProjectStatus(body, ProjectStatus.AUTHORIZED, ProjectStatus.REGISTERED)
+        return this.projectService.updateProjectStatus(body, ProjectStage.ISSUED, ProjectStage.AWAITING_AUTHORIZATION)
     }
 
     @ApiBearerAuth('api_key')
@@ -73,7 +73,7 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
     @Put('reject')
     async projectReject(@Body() body: ProjectReject) {
-        return this.projectService.updateProjectStatus(body, ProjectStatus.REJECTED, ProjectStatus.REGISTERED)
+        return this.projectService.updateProjectStatus(body, ProjectStage.REJECTED, ProjectStage.AWAITING_AUTHORIZATION)
     }
 
     @ApiBearerAuth('api_key')
@@ -81,6 +81,6 @@ export class ProjectController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Project))
     @Put('retire')
     async projectRetire(@Body() body: ProjectRetire) {
-        return this.projectService.updateProjectStatus(body, ProjectStatus.RETIRED, ProjectStatus.AUTHORIZED)
+        return this.projectService.updateProjectStatus(body, ProjectStage.RETIRED, ProjectStage.ISSUED)
     }
 }

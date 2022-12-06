@@ -2,9 +2,8 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ProjectDto } from '../../shared/dto/project.dto';
 import { Project } from '../../shared/entities/project.entity';
 import { ProjectLedgerService } from '../../shared/project-ledger/project-ledger.service';
-import { generateSerialNumber } from 'serial-number-gen';
 import { instanceToPlain, plainToClass } from 'class-transformer';
-import { ProjectStatus } from '../../shared/project-ledger/project-status.enum';
+import { ProjectStage } from '../../shared/project-ledger/project-status.enum';
 import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest } from 'carbon-credit-calculator';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,7 +11,6 @@ import { Repository } from 'typeorm';
 import { PrimaryGeneratedColumnType } from 'typeorm/driver/types/ColumnTypes';
 import { CounterService } from '../../shared/util/counter.service';
 import { CounterType } from '../../shared/util/counter.type.enum';
-import { SubSector } from '../../shared/enum/subsector.enum';
 import { ConstantEntity } from '../../shared/entities/constants.entity';
 import { DataResponseDto } from '../../shared/dto/data.response.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
@@ -20,6 +18,7 @@ import { ProjectApprove } from '../../shared/dto/project.approve';
 import { DataListResponseDto } from '../../shared/dto/data.list.response';
 import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
 import { ConfigService } from '@nestjs/config';
+import { TypeOfMitigation } from '../../shared/enum/typeofmitigation.enum';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -41,8 +40,8 @@ export class ProjectService {
     }
 
     private async getCreditRequest(projectDto: ProjectDto, constants: ConstantEntity) {
-        switch(projectDto.subSector) {
-            case SubSector.AGRICULTURE:
+        switch(projectDto.typeOfMitigation) {
+            case TypeOfMitigation.AGRICULTURE:
                 const ar = new AgricultureCreationRequest()
                 ar.duration = (projectDto.endTime - projectDto.startTime)
                 ar.durationUnit = "s"
@@ -52,7 +51,7 @@ export class ProjectService {
                     ar.agricultureConstants = constants.data as AgricultureConstants
                 } 
                 return ar;
-            case SubSector.SOLAR:
+            case TypeOfMitigation.SOLAR:
                 const sr = new SolarCreationRequest()
                 sr.buildingType = projectDto.solarProperties.consumerGroup;
                 sr.energyGeneration = projectDto.solarProperties.energyGeneration;
@@ -62,7 +61,7 @@ export class ProjectService {
                 } 
                 return sr;
         }
-        throw Error("Unknown sub sector " + projectDto.subSector)
+        throw Error("Not implemented for mitigation type " + projectDto.typeOfMitigation)
     }
 
     async create(projectDto: ProjectDto): Promise<Project | undefined> {
@@ -71,16 +70,24 @@ export class ProjectService {
         this.logger.verbose('Project create', project)
         project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 3))
 
-        const constants = await this.getLatestConstant(projectDto.subSector)
+        const constants = await this.getLatestConstant(projectDto.typeOfMitigation)
 
         const req = await this.getCreditRequest(projectDto, constants);
-        console.log(typeof(req), req)
-        project.numberOfITMO = Math.round(await calculateCredit(req));
-        if (project.numberOfITMO <= 0) {
+        try {
+            project.ITMOsIssued = Math.round(await calculateCredit(req));
+        } catch(err) {
+            this.logger.log(`Credit calculate failed ${err.message}`)
+            throw new HttpException(err.message, HttpStatus.BAD_REQUEST)
+        }
+        
+        if (project.ITMOsIssued <= 0) {
             throw new HttpException("Not enough credits to create the project", HttpStatus.BAD_REQUEST)
         }
+        project.ITMOsBalance = project.ITMOsIssued;
+        project.ITMOsChange = project.ITMOsIssued;
+        project.projectProperties.ITMOYear = new Date(project.startTime*1000).getFullYear()
         project.constantVersion = constants ? String(constants.version): "default"
-        project.status = ProjectStatus.REGISTERED;
+        project.currentStage = ProjectStage.AWAITING_AUTHORIZATION;
         return await this.projectLedger.createProject(project);
     }
 
@@ -103,9 +110,9 @@ export class ProjectService {
         return resp == null ? []: resp;
     }
 
-    async updateCustomConstants(customConstantType: SubSector, constants: ConstantUpdateDto) {
+    async updateCustomConstants(customConstantType: TypeOfMitigation, constants: ConstantUpdateDto) {
         let config;
-        if (customConstantType == SubSector.AGRICULTURE) {
+        if (customConstantType == TypeOfMitigation.AGRICULTURE) {
             config = new AgricultureConstants()
             const recv = instanceToPlain(constants.agricultureConstants)
             for (const key in recv) {
@@ -114,7 +121,7 @@ export class ProjectService {
                 }
             }
         }
-        else if (customConstantType == SubSector.SOLAR) {
+        else if (customConstantType == TypeOfMitigation.SOLAR) {
             config = new SolarConstants()
             const recv = instanceToPlain(constants.solarConstants)
             for (const key in recv) {
@@ -135,16 +142,16 @@ export class ProjectService {
         return new DataResponseDto(HttpStatus.OK, resp);
     }
 
-    async getLatestConstant(customConstantType: SubSector) {
+    async getLatestConstant(customConstantType: TypeOfMitigation) {
         return await this.constantRepo.findOne({
             where: [ {id : customConstantType}],
             order: { version: 'DESC' }
         });
     }
 
-    async updateProjectStatus(req: ProjectApprove, status: ProjectStatus, expectedCurrentStatus: ProjectStatus) {
+    async updateProjectStatus(req: ProjectApprove, status: ProjectStage, expectedCurrentStatus: ProjectStage) {
         this.logger.log(`Project ${req.projectId} status updating to ${status}. Comment: ${req.comment}`)
-        if (status == ProjectStatus.AUTHORIZED) {
+        if (status == ProjectStage.ISSUED) {
             const updated = await this.projectLedger.authProjectStatus(req.projectId, this.configService.get('systemCountry'))
             if (!updated) {
                 return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${expectedCurrentStatus} status for the given project id ${req.projectId}`)

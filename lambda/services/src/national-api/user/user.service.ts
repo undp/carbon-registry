@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectConnection, InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from '../../shared/dto/user.dto';
-import { QueryFailedError, Repository } from 'typeorm';
+import { Connection, EntityManager, QueryFailedError, Repository } from 'typeorm';
 import { User } from '../../shared/entities/user.entity';
 import { EmailService } from '../../shared/email/email.service';
 import { QueryDto } from '../../shared/dto/query.dto';
@@ -15,11 +15,22 @@ import { nanoid } from 'nanoid';
 import { API_KEY_SEPARATOR } from '../../shared/constants';
 import { DataResponseDto } from '../../shared/dto/data.response.dto';
 import { DataListResponseDto } from '../../shared/dto/data.list.response';
+import { ConfigService } from '@nestjs/config';
+import { CompanyRole } from '../../shared/enum/company.role.enum';
+import { plainToClass } from 'class-transformer';
+import { Company } from '../../shared/entities/company.entity';
+import { CompanyService } from '../company/company.service';
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private userRepo: Repository<User>, private emailService: EmailService, private logger: Logger) { }
+    constructor(@InjectRepository(User) private userRepo: Repository<User>,
+        private emailService: EmailService,
+        private logger: Logger,
+        private configService: ConfigService,
+        @InjectEntityManager() private entityManger: EntityManager,
+        private companyService: CompanyService
+    ) { }
 
     private generateRandomPassword() {
         var pass = '';
@@ -42,7 +53,7 @@ export class UserService {
 
     async getUserCredentials(username: string): Promise<User | undefined> {
         const users = await this.userRepo.find({
-            select: ['id', 'email', 'password', 'role', 'apiKey'],
+            select: ['id', 'email', 'password', 'role', 'apiKey', 'companyId', 'companyRole'],
             where: {
                 email: username,
             }
@@ -72,7 +83,7 @@ export class UserService {
         const result = await this.userRepo.createQueryBuilder()
             .update(User)
             .set(update)
-            .where(`id = ${id} ${abilityCondition ? (' AND ' + abilityCondition) : "" }`)
+            .where(`id = ${id} ${abilityCondition ? (' AND ' + abilityCondition) : ""}`)
             .execute().catch((err: any) => {
                 this.logger.error(err)
                 return err;
@@ -86,7 +97,7 @@ export class UserService {
     async resetPassword(id: number, passwordResetDto: PasswordUpdateDto, abilityCondition: string) {
         this.logger.verbose('User password reset received', id)
 
-        const user = await this.userRepo.createQueryBuilder().where(`id = '${id}' ${abilityCondition ? ' AND ' + abilityCondition: ""}`).addSelect(["User.password"]).getOne()
+        const user = await this.userRepo.createQueryBuilder().where(`id = '${id}' ${abilityCondition ? ' AND ' + abilityCondition : ""}`).addSelect(["User.password"]).getOne()
         if (!user || user.password != passwordResetDto.oldPassword) {
             throw new HttpException("Password mismatched", HttpStatus.UNAUTHORIZED)
         }
@@ -106,7 +117,7 @@ export class UserService {
 
     async regenerateApiKey(email, abilityCondition) {
         this.logger.verbose('Regenerated api key received', email)
-        const user = await this.userRepo.createQueryBuilder().where(`email = '${email}' ${abilityCondition ? ' AND ' + abilityCondition: ""}`).getOne()
+        const user = await this.userRepo.createQueryBuilder().where(`email = '${email}' ${abilityCondition ? ' AND ' + abilityCondition : ""}`).getOne()
         if (!user) {
             throw new HttpException("No visible user found", HttpStatus.UNAUTHORIZED)
         }
@@ -128,52 +139,96 @@ export class UserService {
                     "name": user.name,
                     "apiKey": apiKey
                 });
-    
+
             return new BasicResponseDto(HttpStatus.OK, "Successfully updated");
         }
         throw new HttpException("Password update failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    async create(userDto: UserDto): Promise<User | undefined> {
-        this.logger.verbose('User create received', userDto.email)
+    async create(userDto: UserDto, companyId: number, companyRole: CompanyRole): Promise<User | undefined> {
+        this.logger.verbose(`User create received  ${userDto.email} ${companyId}`)
 
         const user = await this.findOne(userDto.email)
         if (user) {
             throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST)
         }
-        userDto.password = this.generateRandomPassword()
-        if (userDto.role == Role.Api) {
-            userDto.apiKey = await this.generateApiKey(userDto.email)
-        }
-        await this.emailService.sendEmail(
-            userDto.email,
-            EmailTemplates.REGISTER_EMAIL,
-            {
-                "name": userDto.name,
-                "countryName": userDto.country,
-                "password": userDto.password,
-                "apiKeyText":userDto.apiKey? `<br>Api Key: ${userDto.apiKey}`: ""
-            });
 
-        const usr = await this.userRepo.save(userDto).catch((err: any) => {
-            if (err instanceof QueryFailedError) {
-                switch (err.driverError.code) {
-                    case PG_UNIQUE_VIOLATION:
-                        throw new HttpException('Email already exist', HttpStatus.BAD_REQUEST);
+        const { company, ...userFields } = userDto
+        if (company) {
+            company.country = this.configService.get('systemCountry')
+
+            if (company.companyRole == CompanyRole.GOVERNMENT) {
+                const companyGov = await this.companyService.findGovByCountry(company.country);
+                if (companyGov) {
+                    throw new HttpException(`Government already exist for the country code ${company.country}`, HttpStatus.BAD_REQUEST);
                 }
             }
+        }
+        
+        const u = plainToClass(User, userFields);
+        u.country = this.configService.get('systemCountry');
+        if (userDto.company) {
+            u.companyRole = userDto.company.companyRole
+        } else if (u.companyId){
+            const company = await this.companyService.findByCompanyId(u.companyId);
+            u.companyRole = company.companyRole
+        } else {
+            u.companyId = companyId
+            u.companyRole = companyRole
+        }
+
+        u.password = this.generateRandomPassword()   
+        if (userDto.role == Role.Admin && u.companyRole == CompanyRole.MRV) {
+            u.apiKey = await this.generateApiKey(userDto.email)
+        }
+
+        // await this.emailService.sendEmail(
+        //     u.email,
+        //     EmailTemplates.REGISTER_EMAIL,
+        //     {
+        //         "name": u.name,
+        //         "countryName": this.configService.get('systemCountry'),
+        //         "password": u.password,
+        //         "apiKeyText":u.apiKey? `<br>Api Key: ${u.apiKey}`: ""
+        //     });
+
+        
+        const usr = await this.entityManger.transaction(async (em) => {
+            if (company) {
+                const c = await em.save<Company>(plainToClass(Company, company));
+                u.companyId = c.companyId
+                u.companyRole = c.companyRole
+            }
+            const user = await em.save<User>(u);
+            return user;
+        }).catch((err: any) => {
+            if (err instanceof QueryFailedError) {
+                console.log(err)
+                switch (err.driverError.code) {
+                    case PG_UNIQUE_VIOLATION:
+                        if (err.driverError.detail.includes('email')) {
+                            throw new HttpException(`${err.driverError.table == 'company' ? 'Company email' : 'Email'} already exist`, HttpStatus.BAD_REQUEST);
+                        } else if (err.driverError.detail.includes('taxId')) {
+                            throw new HttpException('Company tax id already exist', HttpStatus.BAD_REQUEST);
+                        } 
+                }
+                this.logger.error(`User add error ${err}`)
+            } else {
+                this.logger.error(`User add error ${err}`)
+            }
             return err;
-        });
+        })
+
         const { apiKey, password, ...resp } = usr
         return resp;
     }
 
-    async query(query: QueryDto, abilityCondition: string): Promise<any> {        
-       const resp = (await this.userRepo.createQueryBuilder()
+    async query(query: QueryDto, abilityCondition: string): Promise<any> {
+        const resp = (await this.userRepo.createQueryBuilder()
             .where(abilityCondition ? abilityCondition : "")
             .skip((query.size * query.page) - query.size)
             .take(query.size)
             .getManyAndCount())
-            
+
         return new DataListResponseDto(
             resp.length > 0 ? resp[0] : undefined,
             resp.length > 1 ? resp[1] : undefined

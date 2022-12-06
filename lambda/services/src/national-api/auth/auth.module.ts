@@ -9,6 +9,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { CaslModule } from '../../shared/casl/casl.module';
 import { ApiKeyStrategy } from './strategies/apikey.strategy';
+import { CompanyModule } from '../company/company.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { ApiKeyStrategy } from './strategies/apikey.strategy';
       }),
       inject: [ConfigService],
     }),
-    CaslModule
+    CaslModule,
+    CompanyModule
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, ApiKeyStrategy, Logger],
   exports: [AuthService],

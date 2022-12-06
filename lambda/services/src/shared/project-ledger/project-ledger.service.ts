@@ -6,7 +6,7 @@ import { ProjectHistoryDto } from '../dto/project.history.dto';
 import { CreditOverall } from '../entities/credit.overall.entity';
 import { Project } from '../entities/project.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
-import { ProjectStatus } from './project-status.enum';
+import { ProjectStage } from './project-status.enum';
 
 @Injectable()
 export class ProjectLedgerService {
@@ -39,7 +39,7 @@ export class ProjectLedgerService {
         )
     }
 
-    public async updateProjectStatus(projectId: string, status: ProjectStatus, currentExpectedStatus: ProjectStatus): Promise<boolean> {
+    public async updateProjectStatus(projectId: string, status: ProjectStage, currentExpectedStatus: ProjectStage): Promise<boolean> {
         this.logger.log(`Updating project ${projectId} status ${status}`)
         const affected = (await this.ledger.updateRecords({
             'status': status.valueOf()
@@ -59,7 +59,7 @@ export class ProjectLedgerService {
         const getQueries = {}
         getQueries[this.ledger.tableName] = {
             'projectId': projectId,
-            'status': ProjectStatus.REGISTERED
+            'status': ProjectStage.AWAITING_AUTHORIZATION
         };
         getQueries[this.ledger.overallTableName] = {
             'countryCodeA2': countryCodeA2
@@ -86,21 +86,21 @@ export class ProjectLedgerService {
                 const overall = creditOveralls[0];
                 const year = new Date(project.startTime*1000).getFullYear()
                 const startBlock = overall.ITMO + 1
-                const endBlock = overall.ITMO + project.numberOfITMO
+                const endBlock = overall.ITMO + project.ITMOsIssued
                 const serialNo = generateSerialNumber(project.countryCodeA2, project.sectoralScope, project.projectId, year, startBlock, endBlock);
                 project.serialNo = serialNo;
-                project.status = ProjectStatus.AUTHORIZED
+                project.currentStage = ProjectStage.ISSUED
                 updatedProject = project;
 
                 let updateMap = {}
                 let updateWhereMap = {}
                 updateMap[this.ledger.tableName] = {
-                    'status': ProjectStatus.AUTHORIZED.valueOf(),
+                    'status': ProjectStage.ISSUED.valueOf(),
                     'serialNo': serialNo
                 }
                 updateWhereMap[this.ledger.tableName] = {
                     'projectId': projectId,
-                    'status': ProjectStatus.REGISTERED.valueOf()
+                    'status': ProjectStage.AWAITING_AUTHORIZATION.valueOf()
                 }
 
                 updateMap[this.ledger.overallTableName] = {

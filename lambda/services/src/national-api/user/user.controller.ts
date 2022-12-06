@@ -31,11 +31,11 @@ export class UserController {
     @UseGuards(JwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability, body) => ability.can(Action.Create, Object.assign(new User(), body)))
     @Post('add')
-    addUser(@Body()user: UserDto) {
+    addUser(@Body()user: UserDto, @Request() req) {
       if (user.role == Role.Root) {
         throw new HttpException("Forbidden", HttpStatus.FORBIDDEN)
       }
-      return this.userService.create(user)
+      return this.userService.create(user, req.user.companyId, req.user.companyRole)
     }
 
     @ApiBearerAuth()

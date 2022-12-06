@@ -15,6 +15,7 @@ import { ProjectModule } from './project/project.module';
 import { ProjectLedgerModule } from '../shared/project-ledger/project-ledger.module';
 import { LedgerDbModule } from '../shared/ledger-db/ledger-db.module';
 import { UtilModule } from '../shared/util/util.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { UtilModule } from '../shared/util/util.module';
     AuthModule,
     UserModule,
     CaslModule,
-    ProjectModule
+    ProjectModule,
+    CompanyModule
   ],
   controllers: [NationalAPIController],
   providers: [
