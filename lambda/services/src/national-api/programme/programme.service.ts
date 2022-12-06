@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { ProjectDto } from '../../shared/dto/project.dto';
-import { Project } from '../../shared/entities/project.entity';
-import { ProjectLedgerService } from '../../shared/project-ledger/project-ledger.service';
+import { ProgrammeDto } from '../../shared/dto/programme.dto';
+import { Programme } from '../../shared/entities/programme.entity';
+import { ProgrammeLedgerService } from '../../shared/programme-ledger/programme-ledger.service';
 import { instanceToPlain, plainToClass } from 'class-transformer';
-import { ProjectStage } from '../../shared/project-ledger/project-status.enum';
+import { ProgrammeStage } from '../../shared/programme-ledger/programme-status.enum';
 import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest } from 'carbon-credit-calculator';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,7 +14,7 @@ import { CounterType } from '../../shared/util/counter.type.enum';
 import { ConstantEntity } from '../../shared/entities/constants.entity';
 import { DataResponseDto } from '../../shared/dto/data.response.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
-import { ProjectApprove } from '../../shared/dto/project.approve';
+import { ProgrammeApprove } from '../../shared/dto/programme.approve';
 import { DataListResponseDto } from '../../shared/dto/data.list.response';
 import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
 import { ConfigService } from '@nestjs/config';
@@ -23,77 +23,77 @@ import { TypeOfMitigation } from '../../shared/enum/typeofmitigation.enum';
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
 @Injectable()
-export class ProjectService {
+export class ProgrammeService {
 
     constructor(
-        private projectLedger: ProjectLedgerService, 
+        private programmeLedger: ProgrammeLedgerService, 
         private counterService: CounterService,
         private configService: ConfigService,
-        @InjectRepository(Project) private projectRepo: Repository<Project>, 
+        @InjectRepository(Programme) private programmeRepo: Repository<Programme>, 
         @InjectRepository(ConstantEntity) private constantRepo: Repository<ConstantEntity>,
         private logger: Logger) {}
 
-    private toProject(projectDto: ProjectDto): Project {
-        const data = instanceToPlain(projectDto);
-        this.logger.verbose('Converted project', JSON.stringify(data))
-        return plainToClass(Project, data);
+    private toProgramme(programmeDto: ProgrammeDto): Programme {
+        const data = instanceToPlain(programmeDto);
+        this.logger.verbose('Converted programme', JSON.stringify(data))
+        return plainToClass(Programme, data);
     }
 
-    private async getCreditRequest(projectDto: ProjectDto, constants: ConstantEntity) {
-        switch(projectDto.typeOfMitigation) {
+    private async getCreditRequest(programmeDto: ProgrammeDto, constants: ConstantEntity) {
+        switch(programmeDto.typeOfMitigation) {
             case TypeOfMitigation.AGRICULTURE:
                 const ar = new AgricultureCreationRequest()
-                ar.duration = (projectDto.endTime - projectDto.startTime)
+                ar.duration = (programmeDto.endTime - programmeDto.startTime)
                 ar.durationUnit = "s"
-                ar.landArea = projectDto.agricultureProperties.landArea;
-                ar.landAreaUnit = projectDto.agricultureProperties.landAreaUnit
+                ar.landArea = programmeDto.agricultureProperties.landArea;
+                ar.landAreaUnit = programmeDto.agricultureProperties.landAreaUnit
                 if (constants) {
                     ar.agricultureConstants = constants.data as AgricultureConstants
                 } 
                 return ar;
             case TypeOfMitigation.SOLAR:
                 const sr = new SolarCreationRequest()
-                sr.buildingType = projectDto.solarProperties.consumerGroup;
-                sr.energyGeneration = projectDto.solarProperties.energyGeneration;
-                sr.energyGenerationUnit = projectDto.solarProperties.energyGenerationUnit
+                sr.buildingType = programmeDto.solarProperties.consumerGroup;
+                sr.energyGeneration = programmeDto.solarProperties.energyGeneration;
+                sr.energyGenerationUnit = programmeDto.solarProperties.energyGenerationUnit
                 if (constants) {
                     sr.solarConstants = constants.data as SolarConstants
                 } 
                 return sr;
         }
-        throw Error("Not implemented for mitigation type " + projectDto.typeOfMitigation)
+        throw Error("Not implemented for mitigation type " + programmeDto.typeOfMitigation)
     }
 
-    async create(projectDto: ProjectDto): Promise<Project | undefined> {
-        this.logger.verbose('ProjectDTO received', projectDto)
-        const project: Project = this.toProject(projectDto);
-        this.logger.verbose('Project create', project)
-        project.projectId = (await this.counterService.incrementCount(CounterType.PROJECT, 3))
+    async create(programmeDto: ProgrammeDto): Promise<Programme | undefined> {
+        this.logger.verbose('ProgrammeDTO received', programmeDto)
+        const programme: Programme = this.toProgramme(programmeDto);
+        this.logger.verbose('Programme create', programme)
+        programme.programmeId = (await this.counterService.incrementCount(CounterType.PROGRAMME, 3))
 
-        const constants = await this.getLatestConstant(projectDto.typeOfMitigation)
+        const constants = await this.getLatestConstant(programmeDto.typeOfMitigation)
 
-        const req = await this.getCreditRequest(projectDto, constants);
+        const req = await this.getCreditRequest(programmeDto, constants);
         try {
-            project.ITMOsIssued = Math.round(await calculateCredit(req));
+            programme.ITMOsIssued = Math.round(await calculateCredit(req));
         } catch(err) {
             this.logger.log(`Credit calculate failed ${err.message}`)
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST)
         }
         
-        if (project.ITMOsIssued <= 0) {
-            throw new HttpException("Not enough credits to create the project", HttpStatus.BAD_REQUEST)
+        if (programme.ITMOsIssued <= 0) {
+            throw new HttpException("Not enough credits to create the programme", HttpStatus.BAD_REQUEST)
         }
-        project.ITMOsBalance = project.ITMOsIssued;
-        project.ITMOsChange = project.ITMOsIssued;
-        project.projectProperties.ITMOYear = new Date(project.startTime*1000).getFullYear()
-        project.constantVersion = constants ? String(constants.version): "default"
-        project.currentStage = ProjectStage.AWAITING_AUTHORIZATION;
-        return await this.projectLedger.createProject(project);
+        programme.ITMOsBalance = programme.ITMOsIssued;
+        programme.ITMOsChange = programme.ITMOsIssued;
+        programme.programmeProperties.ITMOYear = new Date(programme.startTime*1000).getFullYear()
+        programme.constantVersion = constants ? String(constants.version): "default"
+        programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
+        return await this.programmeLedger.createProgramme(programme);
     }
 
     async query(query: QueryDto, abilityCondition: string): Promise<DataListResponseDto> {
         const skip = (query.size * query.page) - query.size;
-        const resp = (await this.projectRepo.createQueryBuilder()
+        const resp = (await this.programmeRepo.createQueryBuilder()
             .where(abilityCondition ? abilityCondition : "")
             .skip(skip)
             .take(query.size)
@@ -105,8 +105,8 @@ export class ProjectService {
         );
     }
 
-    async getProjectEvents(projectId: string): Promise<any> {
-        const resp = await this.projectLedger.getProjectHistory(projectId);
+    async getProgrammeEvents(programmeId: string): Promise<any> {
+        const resp = await this.programmeLedger.getProgrammeHistory(programmeId);
         return resp == null ? []: resp;
     }
 
@@ -149,18 +149,18 @@ export class ProjectService {
         });
     }
 
-    async updateProjectStatus(req: ProjectApprove, status: ProjectStage, expectedCurrentStatus: ProjectStage) {
-        this.logger.log(`Project ${req.projectId} status updating to ${status}. Comment: ${req.comment}`)
-        if (status == ProjectStage.ISSUED) {
-            const updated = await this.projectLedger.authProjectStatus(req.projectId, this.configService.get('systemCountry'))
+    async updateProgrammeStatus(req: ProgrammeApprove, status: ProgrammeStage, expectedCurrentStatus: ProgrammeStage) {
+        this.logger.log(`Programme ${req.programmeId} status updating to ${status}. Comment: ${req.comment}`)
+        if (status == ProgrammeStage.ISSUED) {
+            const updated = await this.programmeLedger.authProgrammeStatus(req.programmeId, this.configService.get('systemCountry'))
             if (!updated) {
-                return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${expectedCurrentStatus} status for the given project id ${req.projectId}`)
+                return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a programme in ${expectedCurrentStatus} status for the given programme id ${req.programmeId}`)
             }
             return new DataResponseDto(HttpStatus.OK, updated)
         } else {
-            const updated = await this.projectLedger.updateProjectStatus(req.projectId, status, expectedCurrentStatus)
+            const updated = await this.programmeLedger.updateProgrammeStatus(req.programmeId, status, expectedCurrentStatus)
             if (!updated) {
-                return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a project in ${expectedCurrentStatus} status for the given project id ${req.projectId}`)
+                return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a programme in ${expectedCurrentStatus} status for the given programme id ${req.programmeId}`)
             }
             return new BasicResponseDto(HttpStatus.OK, "Successfully updated")
         }

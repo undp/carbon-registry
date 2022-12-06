@@ -38,7 +38,7 @@ export class User  implements EntitySubject{
         type: "enum",
         enum: CompanyRole,
         array: false,
-        default: CompanyRole.PROJECT_DEVELOPER
+        default: CompanyRole.PROGRAMME_DEVELOPER
     })
     companyRole: CompanyRole;
 

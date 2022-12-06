@@ -1,25 +1,25 @@
 export const DUmData = [
   {
     value: 220,
-    title: 'Projects Registered',
+    title: 'Programmes Registered',
     updatedDate: 1669788334,
     level: '1',
   },
   {
     value: 220,
-    title: 'Projects Authorized',
+    title: 'Programmes Authorized',
     updatedDate: 1669781334,
     level: '1',
   },
   {
     value: 80,
-    title: 'Projects Rejected',
+    title: 'Programmes Rejected',
     updatedDate: 1669788334,
     level: '1',
   },
   {
     value: 72,
-    title: 'Projects Certified',
+    title: 'Programmes Certified',
     updatedDate: 1669788334,
     level: '2',
   },
@@ -43,13 +43,13 @@ export const DUmData = [
   },
   {
     value: 80,
-    title: 'Projects Rejected',
+    title: 'Programmes Rejected',
     updatedDate: 1669788334,
     level: '4',
   },
   {
     value: 72,
-    title: 'Projects Certified',
+    title: 'Programmes Certified',
     updatedDate: 1669788334,
     level: '5',
   },
@@ -108,7 +108,7 @@ export const options: any = {
   yaxis: {
     show: true,
     title: {
-      text: 'Projects count',
+      text: 'Programmes count',
       rotate: -90,
       offsetX: 0,
       offsetY: 0,
@@ -126,7 +126,7 @@ export const options: any = {
     colors: ['#E83250', '#72B829', '#D7D8DB'],
   },
   title: {
-    text: 'Total Projects',
+    text: 'Total Programmes',
     align: 'left',
     margin: 10,
     offsetX: 0,
@@ -222,7 +222,7 @@ export const optionsX: any = {
   yaxis: {
     show: true,
     title: {
-      text: 'Projects count',
+      text: 'Programmes count',
       rotate: -90,
       offsetX: 0,
       offsetY: 0,
@@ -240,7 +240,7 @@ export const optionsX: any = {
     colors: ['#414487', '#2A788E', '#22A884', '#7AD151', '#FDE725'],
   },
   title: {
-    text: 'Total Projects, Sector wised',
+    text: 'Total Programmes, Sector wised',
     align: 'left',
     margin: 10,
     offsetX: 0,
@@ -336,7 +336,7 @@ export const optionsA: any = {
   yaxis: {
     show: true,
     title: {
-      text: 'Projects count',
+      text: 'Programmes count',
       rotate: -90,
       offsetX: 0,
       offsetY: 0,
@@ -354,7 +354,7 @@ export const optionsA: any = {
     colors: ['#A8006D', '#D3014C', '#FF3701', '#FFAB00', '#FDE725'],
   },
   title: {
-    text: 'Total Projects, Sub Sector wised',
+    text: 'Total Programmes, Sub Sector wised',
     align: 'left',
     margin: 10,
     offsetX: 0,
@@ -740,7 +740,7 @@ export const optionsP: any = {
     height: 400,
   },
   title: {
-    text: 'Overall Approved Projects',
+    text: 'Overall Approved Programmes',
     align: 'left',
     margin: 10,
     offsetX: 0,
@@ -829,7 +829,7 @@ export const optionsQ: any = {
     height: 400,
   },
   title: {
-    text: 'Overall Rejected Projects',
+    text: 'Overall Rejected Programmes',
     align: 'left',
     margin: 10,
     offsetX: 0,
@@ -915,7 +915,7 @@ export const optionsR: any = {
     height: 400,
   },
   title: {
-    text: 'Overall Projects',
+    text: 'Overall Programmes',
     align: 'left',
     margin: 10,
     offsetX: 0,

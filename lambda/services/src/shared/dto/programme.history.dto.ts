@@ -1,10 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { Project } from "../entities/project.entity";
-import { ProjectStage } from "../project-ledger/project-status.enum";
+import { Programme } from "../entities/programme.entity";
+import { ProgrammeStage } from "../programme-ledger/programme-status.enum";
 import { QldbMetadata } from "./qldb.metadata";
 
-export class ProjectHistoryDto {
+export class ProgrammeHistoryDto {
     metadata: QldbMetadata;
-    data: Project
+    data: Programme
 }

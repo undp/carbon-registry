@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength } 
 import { GHGs } from "../enum/ghgs.enum";
 import { SourceOfFunding } from "../enum/sourceoffinding.enum";
 
-export class ProjectProperties {
+export class ProgrammeProperties {
 
     @ApiProperty()
     @IsString()
@@ -18,7 +18,7 @@ export class ProjectProperties {
     @IsPositive()
     @IsNumber()
     @IsNotEmpty()
-    projectCostUSD: number;
+    programmeCostUSD: number;
     
     @ApiProperty({ enum: SourceOfFunding })
     @IsEnum(SourceOfFunding, {

@@ -1,5 +1,5 @@
 # Carbon Registry - Serial Number Generation
-Once carbon project that was added to the system is Authorized, a unique serial number should be generated for every project by the Carbon Registry.
+Once carbon programme that was added to the system is Authorized, a unique serial number should be generated for every programme by the Carbon Registry.
 
 ## Serial Number Standard
 
@@ -12,7 +12,7 @@ Serial Number character length:
 | Country Code (as per ISO 3166) | String | ISO 3166-1 alpha-2 value |
 | Type of Credit/Unit | String | ITMO |
 | Sectoral Scope Number (as per CDM) | Integer | 1-15
-| Unique Project ID | Integer | XXX |
+| Unique Programme ID | Integer | XXX |
 | Year | Integer | 20XX |
 | Blank/ any other | String | 0 |
 | Unit Serial Block - Start | Integer | 1 - X |
@@ -58,26 +58,26 @@ According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identi
 | 14 | Afforestation and reforestation |
 | 15 | Agriculture |
 
-### Unique Project ID
+### Unique Programme ID
 format: XXX, When it is exceed the limit of possibilities it will go beyond 3 digits. 
 
 Contains only numbers
 
 ### Unit Serial Block – Start
-Serial Block Start – Total number of credits before issuing the credits for the project + 1 <br>
+Serial Block Start – Total number of credits before issuing the credits for the programme + 1 <br>
 The start of the serial block will be represented without the decimal point of the credit value. It will be represented as a rounded integer.
 
 ### Unit Serial Block – End
-Serial Block End – Total number of credits after issuing the credits for the project. <br>
+Serial Block End – Total number of credits after issuing the credits for the programme. <br>
 The end of the serial block will be represented without the decimal point of the credit value.
 It will be represented as a rounded integer.
 
 Eg:
 
-| Project Current | Block End | Credit Value | Credit Value (Rounded) | Serial Block Start | Serial Block End |
+| Programme Current | Block End | Credit Value | Credit Value (Rounded) | Serial Block Start | Serial Block End |
 | --- | --- | --- | --- | --- | --- |
-| Project 1 | 25.51 | 26 | 1 | 26 |
-| Project 2 | 26 | 10.000 | 10 | 27 | 36 |
-| Project 3 | 37 | 5.4341 | 5 | 37 | 41 |
-| Project 4 | 41 | 0.1285 | 0 | Project Rejected as credit value is 0. |
-| Project 5 | 41 | 14.7 | 15 | 41 | 55 |
+| Programme 1 | 25.51 | 26 | 1 | 26 |
+| Programme 2 | 26 | 10.000 | 10 | 27 | 36 |
+| Programme 3 | 37 | 5.4341 | 5 | 37 | 41 |
+| Programme 4 | 41 | 0.1285 | 0 | Programme Rejected as credit value is 0. |
+| Programme 5 | 41 | 14.7 | 15 | 41 | 55 |

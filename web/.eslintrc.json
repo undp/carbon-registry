@@ -24,7 +24,7 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "**/tsconfig.json"
+    "programme": "**/tsconfig.json"
   },
   "rules": {
     "linebreak-style": "off",

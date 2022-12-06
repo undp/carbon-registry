@@ -154,8 +154,10 @@ export class UserService {
 
         const { company, ...userFields } = userDto
         if (company) {
-            company.country = this.configService.get('systemCountry')
-
+            if (company.companyRole != CompanyRole.CERTIFIER || !company.country) {
+                company.country = this.configService.get('systemCountry')
+            }
+            
             if (company.companyRole == CompanyRole.GOVERNMENT) {
                 const companyGov = await this.companyService.findGovByCountry(company.country);
                 if (companyGov) {
@@ -165,7 +167,6 @@ export class UserService {
         }
         
         const u = plainToClass(User, userFields);
-        u.country = this.configService.get('systemCountry');
         if (userDto.company) {
             u.companyRole = userDto.company.companyRole
         } else if (u.companyId){
@@ -174,6 +175,10 @@ export class UserService {
         } else {
             u.companyId = companyId
             u.companyRole = companyRole
+        }
+
+        if (u.companyRole != CompanyRole.CERTIFIER || !u.country) {
+            u.country = this.configService.get('systemCountry');
         }
 
         u.password = this.generateRandomPassword()   

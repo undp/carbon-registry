@@ -1,12 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString, Length } from "class-validator";
 
-export class ProjectReject {
+export class ProgrammeReject {
 
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    projectId: string;
+    programmeId: string;
 
     @ApiProperty()
     @IsString()

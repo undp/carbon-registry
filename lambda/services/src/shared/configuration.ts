@@ -17,7 +17,7 @@ export default () => ({
     },
     ledger: {
         name: 'carbon-registry-' + (process.env.NODE_ENV || 'dev'),
-        table: 'projects',
+        table: 'programmes',
         overallTable: 'overall'
     },
     email: {

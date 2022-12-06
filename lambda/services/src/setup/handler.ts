@@ -41,10 +41,10 @@ exports.handler = async (event) => {
       creditOverall.serialNo = 'genesis block'
       await ledgerModule.insertRecord(creditOverall, 'overall')
       await ledgerModule.createTable();
-      await ledgerModule.createIndex('projectId');
-      
+      await ledgerModule.createIndex('programmeId');
+      console.log('QLDB Table created')
     } catch(e) {
-      console.log('QLDB table does not create') 
+      console.log('QLDB table does not create', e) 
     }
 
     try {

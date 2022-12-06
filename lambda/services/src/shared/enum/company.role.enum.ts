@@ -11,7 +11,7 @@ export enum CompanyRole {
     CIVIL_SOCIETY_ORG = 'CivilSocietyOrganization',
     CERTIFIER = 'Certifier',
     INTERNAL_ORGANIZATION = 'InternationalOrganization',
-    PROJECT_DEVELOPER = 'ProjectDeveloper',
+    PROGRAMME_DEVELOPER = 'ProgrammeDeveloper',
     MRV = 'MRV',
     GOVERNMENT = 'Government',
     SYSTEM  = 'System'

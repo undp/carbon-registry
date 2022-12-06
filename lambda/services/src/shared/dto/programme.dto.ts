@@ -4,11 +4,11 @@ import { SectoralScope } from 'serial-number-gen'
 import { TypeOfMitigation } from "../enum/typeofmitigation.enum";
 import { AgricultureProperties } from "./agriculture.properties";
 import { SolarProperties } from "./solar.properties";
-import { ProjectProperties } from "./project.properties";
+import { ProgrammeProperties } from "./programme.properties";
 import { IsValidCountry } from "../util/validcountry.decorator";
 import { Sector } from "../enum/sector.enum";
 
-export class ProjectDto {
+export class ProgrammeDto {
 
     @ApiProperty()
     @IsNotEmpty()
@@ -50,7 +50,7 @@ export class ProjectDto {
 
     @ApiProperty()
     @IsNotEmptyObject()
-    projectProperties: ProjectProperties;
+    programmeProperties: ProgrammeProperties;
 
     @ApiProperty()
     @ValidateIf(o => o.subSector === TypeOfMitigation.AGRICULTURE)

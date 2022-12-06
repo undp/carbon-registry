@@ -2,17 +2,17 @@ import { PRECISION } from 'carbon-credit-calculator/dist/esm/calculator';
 import { SectoralScope } from 'serial-number-gen';
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { AgricultureProperties } from '../dto/agriculture.properties';
-import { ProjectProperties } from '../dto/project.properties';
+import { ProgrammeProperties } from '../dto/programme.properties';
 import { SolarProperties } from '../dto/solar.properties';
 import { Sector } from '../enum/sector.enum';
-import { ProjectStage } from '../project-ledger/project-status.enum';
+import { ProgrammeStage } from '../programme-ledger/programme-status.enum';
 import { EntitySubject } from './entity.subject';
 
 @Entity()
-export class Project implements EntitySubject {
+export class Programme implements EntitySubject {
 
     @PrimaryColumn()
-    projectId: string;
+    programmeId: string;
 
     @Column({nullable: true})
     serialNo: string;
@@ -36,11 +36,11 @@ export class Project implements EntitySubject {
 
     @Column({
         type: "enum",
-        enum: ProjectStage,
+        enum: ProgrammeStage,
         array: false,
-        default: ProjectStage.AWAITING_AUTHORIZATION
+        default: ProgrammeStage.AWAITING_AUTHORIZATION
     })
-    currentStage: ProjectStage;
+    currentStage: ProgrammeStage;
 
     @Column()
     startTime: number;
@@ -67,7 +67,7 @@ export class Project implements EntitySubject {
         type: 'jsonb',
         array: false
     })
-    projectProperties: ProjectProperties;
+    programmeProperties: ProgrammeProperties;
 
     @Column({
         type: 'jsonb',

@@ -31,7 +31,7 @@ const AddUser = () => {
 
   const onSubmitData = async (values: any) => {
     setLoading(true);
-    if (values.role === 'ProjectDeveloper') {
+    if (values.role === 'ProgrammeDeveloper') {
       const logoBase64 = await getBase64(fileList[0].originFileObj as RcFile);
       values.companyLogo = logoBase64;
     }
@@ -197,8 +197,8 @@ const AddUser = () => {
                       label: 'Certifier',
                     },
                     {
-                      value: 'ProjectDeveloper',
-                      label: 'Project Developer',
+                      value: 'ProgrammeDeveloper',
+                      label: 'Programme Developer',
                     },
                     {
                       value: 'General',
@@ -216,7 +216,7 @@ const AddUser = () => {
                 />
               </Form.Item>
             </Col>
-            {userRole === 'ProjectDeveloper' && (
+            {userRole === 'ProgrammeDeveloper' && (
               <Col span={10} offset={1}>
                 <Form.Item
                   name="industry"
@@ -244,7 +244,7 @@ const AddUser = () => {
               </Col>
             )}
           </Row>
-          {userRole === 'ProjectDeveloper' && (
+          {userRole === 'ProgrammeDeveloper' && (
             <Row>
               <Col span={22} offset={1}>
                 <Form.Item
@@ -262,7 +262,7 @@ const AddUser = () => {
               </Col>
             </Row>
           )}
-          {userRole === 'ProjectDeveloper' && (
+          {userRole === 'ProgrammeDeveloper' && (
             <Row>
               <Col span={22} offset={1}>
                 <Form.Item
@@ -280,7 +280,7 @@ const AddUser = () => {
               </Col>
             </Row>
           )}
-          {userRole === 'ProjectDeveloper' && (
+          {userRole === 'ProgrammeDeveloper' && (
             <Row>
               <Col span={22} offset={1}>
                 <Form.Item
@@ -298,7 +298,7 @@ const AddUser = () => {
               </Col>
             </Row>
           )}
-          {userRole === 'ProjectDeveloper' && (
+          {userRole === 'ProgrammeDeveloper' && (
             <Row>
               <Col span={22} offset={1}>
                 <Form.Item

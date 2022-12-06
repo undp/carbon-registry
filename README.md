@@ -23,7 +23,7 @@ UNDP Carbon Registry based on AWS Serverless
             ├── serverless.yml          # AWS Lambda function deployment scripts for services 
     ├── libs
         ├── carbon-credit-calculator    # Node module implementation for the Carbon credit calculation library
-        ├── serial-number-gen           # Node module implementation for the carbon project serial number calculation
+        ├── serial-number-gen           # Node module implementation for the carbon programme serial number calculation
     ├── web                             # System ReactJS web frontend implementation
     ├── .gitignore
     └── README.md

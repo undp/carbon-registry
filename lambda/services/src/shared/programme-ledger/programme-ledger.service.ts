@@ -2,49 +2,49 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { dom } from 'ion-js';
 import { generateSerialNumber } from 'serial-number-gen';
-import { ProjectHistoryDto } from '../dto/project.history.dto';
+import { ProgrammeHistoryDto } from '../dto/programme.history.dto';
 import { CreditOverall } from '../entities/credit.overall.entity';
-import { Project } from '../entities/project.entity';
+import { Programme } from '../entities/programme.entity';
 import { LedgerDbService } from '../ledger-db/ledger-db.service';
-import { ProjectStage } from './project-status.enum';
+import { ProgrammeStage } from './programme-status.enum';
 
 @Injectable()
-export class ProjectLedgerService {
+export class ProgrammeLedgerService {
     constructor(private readonly logger: Logger, private ledger: LedgerDbService) {
 
     }
 
-    public async createProject(project: Project): Promise<Project> {
-        this.logger.debug('Creating project', JSON.stringify(project))
-        await this.ledger.insertRecord(project)
-        return project;
+    public async createProgramme(programme: Programme): Promise<Programme> {
+        this.logger.debug('Creating programme', JSON.stringify(programme))
+        await this.ledger.insertRecord(programme)
+        return programme;
     }
 
-    public async getProjectById(projectId: string): Promise<Project> {
+    public async getProgrammeById(programmeId: string): Promise<Programme> {
         const p = (await this.ledger.fetchRecords({
-            'projectId': projectId
+            'programmeId': programmeId
         })).map(domValue => {
-                return plainToClass(Project, JSON.parse(JSON.stringify(domValue)));
+                return plainToClass(Programme, JSON.parse(JSON.stringify(domValue)));
             }
         )
         return (p.length <= 0) ? null: p[0];
     }
 
-    public async getProjectHistory(projectId: string): Promise<ProjectHistoryDto[]> {
+    public async getProgrammeHistory(programmeId: string): Promise<ProgrammeHistoryDto[]> {
         return (await this.ledger.fetchHistory({
-            'projectId': projectId
+            'programmeId': programmeId
         }))?.map(domValue => {
-                return plainToClass(ProjectHistoryDto, JSON.parse(JSON.stringify(domValue)));
+                return plainToClass(ProgrammeHistoryDto, JSON.parse(JSON.stringify(domValue)));
             }
         )
     }
 
-    public async updateProjectStatus(projectId: string, status: ProjectStage, currentExpectedStatus: ProjectStage): Promise<boolean> {
-        this.logger.log(`Updating project ${projectId} status ${status}`)
+    public async updateProgrammeStatus(programmeId: string, status: ProgrammeStage, currentExpectedStatus: ProgrammeStage): Promise<boolean> {
+        this.logger.log(`Updating programme ${programmeId} status ${status}`)
         const affected = (await this.ledger.updateRecords({
             'status': status.valueOf()
         }, {
-            'projectId': projectId,
+            'programmeId': programmeId,
             'status': currentExpectedStatus.valueOf()
         }));
         if (affected && affected.length > 0) {
@@ -53,27 +53,27 @@ export class ProjectLedgerService {
         return false
     }
 
-    public async authProjectStatus(projectId: string, countryCodeA2: string): Promise<boolean> {
-        this.logger.log(`Authorizing project ${projectId}`)
+    public async authProgrammeStatus(programmeId: string, countryCodeA2: string): Promise<boolean> {
+        this.logger.log(`Authorizing programme ${programmeId}`)
 
         const getQueries = {}
         getQueries[this.ledger.tableName] = {
-            'projectId': projectId,
-            'status': ProjectStage.AWAITING_AUTHORIZATION
+            'programmeId': programmeId,
+            'status': ProgrammeStage.AWAITING_AUTHORIZATION
         };
         getQueries[this.ledger.overallTableName] = {
             'countryCodeA2': countryCodeA2
         }
 
-        let updatedProject = undefined;
+        let updatedProgramme = undefined;
         const resp = await this.ledger.multiGetAndUpdate(
             getQueries,
             (results: Record<string, dom.Value[]>) => {
-                const projects: Project[] = results[this.ledger.tableName].map(domValue => {
-                    return plainToClass(Project, JSON.parse(JSON.stringify(domValue)));
+                const programmes: Programme[] = results[this.ledger.tableName].map(domValue => {
+                    return plainToClass(Programme, JSON.parse(JSON.stringify(domValue)));
                 });
-                if (projects.length <= 0) {
-                    throw new HttpException("Project does not exist", HttpStatus.BAD_REQUEST) 
+                if (programmes.length <= 0) {
+                    throw new HttpException("Programme does not exist", HttpStatus.BAD_REQUEST) 
                 }
 
                 const creditOveralls = results[this.ledger.overallTableName].map(domValue => {
@@ -82,25 +82,25 @@ export class ProjectLedgerService {
                 if (creditOveralls.length <= 0) {
                     throw new HttpException(`Overall credit does not found for the country code ${countryCodeA2}`, HttpStatus.BAD_REQUEST) 
                 }
-                const project = projects[0];
+                const programme = programmes[0];
                 const overall = creditOveralls[0];
-                const year = new Date(project.startTime*1000).getFullYear()
+                const year = new Date(programme.startTime*1000).getFullYear()
                 const startBlock = overall.ITMO + 1
-                const endBlock = overall.ITMO + project.ITMOsIssued
-                const serialNo = generateSerialNumber(project.countryCodeA2, project.sectoralScope, project.projectId, year, startBlock, endBlock);
-                project.serialNo = serialNo;
-                project.currentStage = ProjectStage.ISSUED
-                updatedProject = project;
+                const endBlock = overall.ITMO + programme.ITMOsIssued
+                const serialNo = generateSerialNumber(programme.countryCodeA2, programme.sectoralScope, programme.programmeId, year, startBlock, endBlock);
+                programme.serialNo = serialNo;
+                programme.currentStage = ProgrammeStage.ISSUED
+                updatedProgramme = programme;
 
                 let updateMap = {}
                 let updateWhereMap = {}
                 updateMap[this.ledger.tableName] = {
-                    'status': ProjectStage.ISSUED.valueOf(),
+                    'status': ProgrammeStage.ISSUED.valueOf(),
                     'serialNo': serialNo
                 }
                 updateWhereMap[this.ledger.tableName] = {
-                    'projectId': projectId,
-                    'status': ProjectStage.AWAITING_AUTHORIZATION.valueOf()
+                    'programmeId': programmeId,
+                    'status': ProgrammeStage.AWAITING_AUTHORIZATION.valueOf()
                 }
 
                 updateMap[this.ledger.overallTableName] = {
@@ -116,8 +116,8 @@ export class ProjectLedgerService {
 
         const affected = resp[this.ledger.tableName];
         if (affected && affected.length > 0) {
-            return updatedProject;
+            return updatedProgramme;
         }
-        return updatedProject;
+        return updatedProgramme;
     }
 }

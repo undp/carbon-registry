@@ -59,10 +59,10 @@ export const PoliciesGuardEx = (injectQuery: boolean, action?: Action, subject?:
             return this.parseMongoQueryToSQL(mongoQuery["$not"], !isNot)
           } else if (operator == "$eq") {
             const value = (typeof mongoQuery["$eq"] === "number") ? String(mongoQuery["$eq"]) : `'${mongoQuery["$eq"]}'`
-            return `${key} ${ isNot ? "!=" : "=" } ${value}`
+            return `"${key}" ${ isNot ? "!=" : "=" } ${value}`
           } else if (operator == "$ne") {
             const value = (typeof mongoQuery["$ne"] === "number") ? String(mongoQuery["$ne"]) : `'${mongoQuery["$ne"]}'`
-            return `${key} ${ isNot ? "=" : "!=" } ${value}`
+            return `"${key}" ${ isNot ? "=" : "!=" } ${value}`
           }
         } else {
           return this.parseMongoQueryToSQL(mongoQuery[operator], isNot, operator)
@@ -87,6 +87,7 @@ export const PoliciesGuardEx = (injectQuery: boolean, action?: Action, subject?:
         const mongoQuery = JSON.stringify(rulesToQuery(ability, action, subject, rule => {
           return rule.inverted ? { $not: rule.conditions } : rule.conditions
         }))
+        console.log(JSON.stringify(mongoQuery))
       
         if (mongoQuery && mongoQuery != "" && mongoQuery != "{}" && mongoQuery != '{"$or":[{}]}') {
           const whereQuery = this.parseMongoQueryToSQL(JSON.parse(mongoQuery));
