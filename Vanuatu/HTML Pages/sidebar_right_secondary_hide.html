@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="../../../../global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="../../../../global_assets/js/main/jquery.min.js"></script>
+	<script src="../../../../global_assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="../../../../global_assets/js/plugins/ui/prism.min.js"></script>
+
+	<script src="assets/js/app.js"></script>
+	<!-- /theme JS files -->
+
+</head>
+
+<body class="sidebar-xs">
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-expand-md navbar-dark">
+		<div class="navbar-brand wmin-200">
+			<a href="index.html" class="d-inline-block">
+				<img src="../../../../global_assets/images/logo_light.png" alt="">
+			</a>
+		</div>
+
+		<div class="d-md-none">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+				<i class="icon-tree5"></i>
+			</button>
+			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+				<i class="icon-paragraph-justify3"></i>
+			</button>
+			<button class="navbar-toggler sidebar-mobile-secondary-toggle" type="button">
+				<i class="icon-transmission"></i>
+			</button>
+			<button class="navbar-toggler sidebar-mobile-right-toggle" type="button">
+				<i class="icon-more"></i>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbar-mobile">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+						<i class="icon-paragraph-justify3"></i>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link sidebar-control sidebar-secondary-toggle d-none d-md-block">
+						<i class="icon-transmission"></i>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="#" class="navbar-nav-link sidebar-control sidebar-right-secondary-toggle d-none d-md-block" data-popup="tooltip-demo" title="Show - hide secondary" data-placement="bottom" data-container="body" data-trigger="hover">
+						<i class="icon-indent-decrease2"></i>
+					</a>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
+						<i class="icon-bell2"></i>
+						<span class="d-md-none ml-2">Activity</span>
+						<span class="badge badge-pill badge-mark bg-orange-400 border-orange-400 ml-auto ml-md-0"></span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-content wmin-md-350">
+						<div class="dropdown-content-header">
+							<span class="font-weight-semibold">Latest activity</span>
+							<a href="#" class="text-default"><i class="icon-search4 font-size-base"></i></a>
+						</div>
+
+						<div class="dropdown-content-body dropdown-scrollable">
+							<ul class="media-list">
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-success-400 rounded-round btn-icon"><i class="icon-mention"></i></a>
+									</div>
+
+									<div class="media-body">
+										<a href="#">Taylor Swift</a> mentioned you in a post "Angular JS. Tips and tricks"
+										<div class="font-size-sm text-muted mt-1">4 minutes ago</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-pink-400 rounded-round btn-icon"><i class="icon-paperplane"></i></a>
+									</div>
+									
+									<div class="media-body">
+										Special offers have been sent to subscribed users by <a href="#">Donna Gordon</a>
+										<div class="font-size-sm text-muted mt-1">36 minutes ago</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-blue rounded-round btn-icon"><i class="icon-plus3"></i></a>
+									</div>
+									
+									<div class="media-body">
+										<a href="#">Chris Arney</a> created a new <span class="font-weight-semibold">Design</span> branch in <span class="font-weight-semibold">Limitless</span> repository
+										<div class="font-size-sm text-muted mt-1">2 hours ago</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-purple-300 rounded-round btn-icon"><i class="icon-truck"></i></a>
+									</div>
+									
+									<div class="media-body">
+										Shipping cost to the Netherlands has been reduced, database updated
+										<div class="font-size-sm text-muted mt-1">Feb 8, 11:30</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-warning-400 rounded-round btn-icon"><i class="icon-comment"></i></a>
+									</div>
+									
+									<div class="media-body">
+										New review received on <a href="#">Server side integration</a> services
+										<div class="font-size-sm text-muted mt-1">Feb 2, 10:20</div>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<a href="#" class="btn bg-teal-400 rounded-round btn-icon"><i class="icon-spinner11"></i></a>
+									</div>
+									
+									<div class="media-body">
+										<strong>January, 2018</strong> - 1320 new users, 3284 orders, $49,390 revenue
+										<div class="font-size-sm text-muted mt-1">Feb 1, 05:46</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+						<div class="dropdown-content-footer bg-light">
+							<a href="#" class="text-grey mr-auto">All activity</a>
+							<div>
+								<a href="#" class="text-grey" data-popup="tooltip" title="Clear list"><i class="icon-checkmark3"></i></a>
+								<a href="#" class="text-grey ml-2" data-popup="tooltip" title="Settings"><i class="icon-gear"></i></a>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<span class="badge bg-success-400 ml-md-auto mr-md-3">Active</span>
+
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown">
+					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
+						<i class="icon-bubbles5"></i>
+						<span class="d-md-none ml-2">Messages</span>
+						<span class="badge badge-pill badge-mark bg-orange-400 border-orange-400 ml-auto ml-md-0"></span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350">
+						<div class="dropdown-content-header">
+							<span class="font-weight-semibold">Messages</span>
+							<a href="#" class="text-default"><i class="icon-compose"></i></a>
+						</div>
+
+						<div class="dropdown-content-body dropdown-scrollable">
+							<ul class="media-list">
+								<li class="media">
+									<div class="mr-3 position-relative">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">James Alexander</span>
+												<span class="text-muted float-right font-size-sm">04:58</span>
+											</a>
+										</div>
+
+										<span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3 position-relative">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Margo Baker</span>
+												<span class="text-muted float-right font-size-sm">12:16</span>
+											</a>
+										</div>
+
+										<span class="text-muted">That was something he was unable to do because...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Jeremy Victorino</span>
+												<span class="text-muted float-right font-size-sm">22:48</span>
+											</a>
+										</div>
+
+										<span class="text-muted">But that would be extremely strained and suspicious...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Beatrix Diaz</span>
+												<span class="text-muted float-right font-size-sm">Tue</span>
+											</a>
+										</div>
+
+										<span class="text-muted">What a strenuous career it is that I've chosen...</span>
+									</div>
+								</li>
+
+								<li class="media">
+									<div class="mr-3">
+										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-title">
+											<a href="#">
+												<span class="font-weight-semibold">Richard Vango</span>
+												<span class="text-muted float-right font-size-sm">Mon</span>
+											</a>
+										</div>
+										
+										<span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+						<div class="dropdown-content-footer justify-content-center p-0">
+							<a href="#" class="bg-light text-grey w-100 py-2" data-popup="tooltip" title="Load more"><i class="icon-menu7 d-block top-0"></i></a>
+						</div>
+					</div>
+				</li>
+
+				<li class="nav-item dropdown dropdown-user">
+					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+						<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
+						<span>Victoria</span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
+						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+						<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page header -->
+	<div class="page-header">
+		<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb">
+					<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+					<a href="#" class="breadcrumb-item">Sidebars</a>
+					<span class="breadcrumb-item active">Right, hide secondary</span>
+				</div>
+
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+			<div class="header-elements d-none">
+				<div class="breadcrumb justify-content-center">
+					<a href="#" class="breadcrumb-elements-item">
+						<i class="icon-comment-discussion mr-2"></i>
+						Support
+					</a>
+
+					<div class="breadcrumb-elements-item dropdown p-0">
+						<a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-gear mr-2"></i>
+							Settings
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-right">
+							<a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+							<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+							<a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-header-content header-elements-md-inline">
+			<div class="page-title d-flex">
+				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Sidebars</span> - Right, Hide Secondary</h4>
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+			<div class="header-elements d-none mb-3 mb-md-0">
+				<div class="d-flex justify-content-center">
+					<a href="#" class="btn btn-link btn-float text-default"><i class="icon-bars-alt text-indigo-400"></i> <span>Statistics</span></a>
+					<a href="#" class="btn btn-link btn-float text-default"><i class="icon-calculator text-indigo-400"></i> <span>Invoices</span></a>
+					<a href="#" class="btn btn-link btn-float text-default"><i class="icon-calendar5 text-indigo-400"></i> <span>Schedule</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page header -->
+		
+
+	<!-- Page content -->
+	<div class="page-content pt-0">
+
+		<!-- Main sidebar -->
+		<div class="sidebar sidebar-light sidebar-main sidebar-expand-md align-self-start">
+
+			<!-- Sidebar mobile toggler -->
+			<div class="sidebar-mobile-toggler text-center">
+				<a href="#" class="sidebar-mobile-main-toggle">
+					<i class="icon-arrow-left8"></i>
+				</a>
+				<span class="font-weight-semibold">Main sidebar</span>
+				<a href="#" class="sidebar-mobile-expand">
+					<i class="icon-screen-full"></i>
+					<i class="icon-screen-normal"></i>
+				</a>
+			</div>
+			<!-- /sidebar mobile toggler -->
+
+
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+				<div class="card card-sidebar-mobile">
+
+					<!-- Header -->
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Navigation</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+								<a class="list-icons-item" data-action="collapse"></a>
+							</div>
+						</div>
+					</div>
+					
+					<!-- User menu -->
+					<div class="sidebar-user">
+						<div class="card-body">
+							<div class="media">
+								<div class="mr-3">
+									<a href="#"><img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+								</div>
+
+								<div class="media-body">
+									<div class="media-title font-weight-semibold">Victoria Baker</div>
+									<div class="font-size-xs opacity-50">
+										<i class="icon-pin font-size-sm"></i> &nbsp;Santa Ana, CA
+									</div>
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<a href="#" class="text-white"><i class="icon-cog3"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /user menu -->
+
+					
+					<!-- Main navigation -->
+					<div class="card-body p-0">
+						<ul class="nav nav-sidebar" data-nav-type="accordion">
+
+							<!-- Main -->
+							<li class="nav-item-header mt-0"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
+							<li class="nav-item">
+								<a href="index.html" class="nav-link">
+									<i class="icon-home4"></i>
+									<span>
+										Dashboard
+										<span class="d-block font-weight-normal opacity-50">No active orders</span>
+									</span>
+								</a>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Layouts</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+									<li class="nav-item"><a href="../../../../layout_1/LTR/default/full/index.html" class="nav-link">Default layout</a></li>
+									<li class="nav-item"><a href="../../../../layout_2/LTR/default/full/index.html" class="nav-link">Layout 2</a></li>
+									<li class="nav-item"><a href="index.html" class="nav-link active">Layout 3</a></li>
+									<li class="nav-item"><a href="../../../../layout_4/LTR/default/full/index.html" class="nav-link">Layout 4</a></li>
+									<li class="nav-item"><a href="../../../../layout_5/LTR/default/full/index.html" class="nav-link">Layout 5</a></li>
+									<li class="nav-item"><a href="../../../../layout_6/LTR/default/full/index.html" class="nav-link disabled">Layout 6 <span class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Themes</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Themes">
+									<li class="nav-item"><a href="index.html" class="nav-link active">Default</a></li>
+									<li class="nav-item"><a href="../../../LTR/material/full/index.html" class="nav-link">Material</a></li>
+									<li class="nav-item"><a href="../../../LTR/dark/full/index.html" class="nav-link">Dark</a></li>
+									<li class="nav-item"><a href="../../../LTR/clean/full/index.html" class="nav-link disabled">Clean <span class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-stack"></i> <span>Starter kit</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item"><a href="../seed/layout_nav_horizontal.html" class="nav-link">Horizontal navigation</a></li>
+									<li class="nav-item"><a href="../seed/sidebar_none.html" class="nav-link">No sidebar</a></li>
+									<li class="nav-item"><a href="../seed/sidebar_main.html" class="nav-link">1 sidebar</a></li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">2 sidebars</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="../seed/sidebar_secondary.html" class="nav-link">Secondary sidebar</a></li>
+											<li class="nav-item"><a href="../seed/sidebar_right.html" class="nav-link">Right sidebar</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">3 sidebars</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="../seed/sidebar_right_hidden.html" class="nav-link">Right sidebar hidden</a></li>
+											<li class="nav-item"><a href="../seed/sidebar_right_visible.html" class="nav-link">Right sidebar visible</a></li>
+										</ul>
+									</li>
+									<li class="nav-item"><a href="../seed/sidebar_sections.html" class="nav-link">Sectioned sidebar</a></li>
+									<li class="nav-item"><a href="../seed/sidebar_stretched.html" class="nav-link">Stretched sidebar</a></li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="../seed/navbar_fixed_main.html" class="nav-link">Fixed main navbar</a></li>
+									<li class="nav-item"><a href="../seed/navbar_fixed_secondary.html" class="nav-link">Fixed secondary navbar</a></li>
+									<li class="nav-item"><a href="../seed/navbar_fixed_both.html" class="nav-link">Both navbars fixed</a></li>
+									<li class="nav-item"><a href="../seed/layout_boxed.html" class="nav-link">Boxed layout</a></li>
+								</ul>
+							</li>
+							<li class="nav-item"><a href="../../../RTL/default/full/index.html" class="nav-link"><i class="icon-width"></i> <span>RTL version</span></a></li>
+							<!-- /main -->
+
+							<!-- Layout -->
+							<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Layout</div> <i class="icon-menu" title="Layout options"></i></li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-stack2"></i> <span>Page layouts</span></a>
+
+								<ul class="nav nav-group-sub" data-submenu-title="Page layouts">
+									<li class="nav-item"><a href="layout_navbar_fixed_main.html" class="nav-link">Fixed main navbar</a></li>
+									<li class="nav-item"><a href="layout_navbar_sticky_secondary.html" class="nav-link">Sticky secondary navbar</a></li>
+									<li class="nav-item"><a href="layout_navbar_hideable_main.html" class="nav-link">Hideable main navbar</a></li>
+									<li class="nav-item"><a href="layout_navbar_hideable_secondary.html" class="nav-link">Hideable secondary navbar</a></li>
+									<li class="nav-item"><a href="layout_footer_fixed.html" class="nav-link">Fixed footer</a></li>
+									<li class="nav-item"><a href="layout_footer_hideable.html" class="nav-link">Hideable footer</a></li>
+									<li class="nav-item"><a href="layout_sidebar_stretched.html" class="nav-link">Stretched sidebar</a></li>
+									<li class="nav-item"><a href="layout_without_header.html" class="nav-link">Without page header</a></li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="layout_boxed_default.html" class="nav-link">Boxed with default sidebar</a></li>
+									<li class="nav-item"><a href="layout_boxed_mini.html" class="nav-link">Boxed with mini sidebar</a></li>
+									<li class="nav-item"><a href="layout_boxed_full.html" class="nav-link">Boxed full width</a></li>
+									<li class="nav-item"><a href="layout_boxed_content.html" class="nav-link">Boxed content</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-page-break2"></i> <span>Headers &amp; footers</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Content styling">
+									<li class="nav-item"><a href="content_page_header.html" class="nav-link">Page header</a></li>
+									<li class="nav-item"><a href="content_page_footer.html" class="nav-link disabled">Page footer <span class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+								<a href="#" class="nav-link"><i class="icon-indent-decrease2"></i> <span>Sidebars</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Sidebars">
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Main sidebar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="sidebar_default_collapse.html" class="nav-link">Default collapsible</a></li>
+											<li class="nav-item"><a href="sidebar_default_hide.html" class="nav-link">Default hideable</a></li>
+											<li class="nav-item"><a href="sidebar_default_hidden.html" class="nav-link">Default hidden</a></li>
+											<li class="nav-item"><a href="sidebar_mini_collapse.html" class="nav-link">Mini collapsible</a></li>
+											<li class="nav-item"><a href="sidebar_mini_hide.html" class="nav-link">Mini hideable</a></li>
+											<li class="nav-item"><a href="sidebar_mini_hidden.html" class="nav-link">Mini hidden</a></li>
+											<li class="nav-item-divider"></li>
+											<li class="nav-item"><a href="sidebar_default_sections.html" class="nav-link">Sectioned sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_default_stretched.html" class="nav-link">Stretched sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_default_color_dark.html" class="nav-link">Dark color</a></li>
+											<li class="nav-item"><a href="sidebar_default_color_custom.html" class="nav-link">Custom color</a></li>
+											<li class="nav-item"><a href="sidebar_default_color_sections_custom.html" class="nav-link">Custom sections color</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Secondary sidebar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="sidebar_secondary_after.html" class="nav-link">After default</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_before.html" class="nav-link">Before default</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_hidden.html" class="nav-link">Hidden by default</a></li>
+											<li class="nav-item-divider"></li>
+											<li class="nav-item"><a href="sidebar_secondary_sections.html" class="nav-link">Sectioned sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_stretched.html" class="nav-link">Stretched sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_color_dark.html" class="nav-link">Dark color</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_color_custom.html" class="nav-link">Custom color</a></li>
+											<li class="nav-item"><a href="sidebar_secondary_color_sections_custom.html" class="nav-link">Custom sections color</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+										<a href="#" class="nav-link">Right sidebar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="sidebar_right_default_collapse.html" class="nav-link">Show - collapse main</a></li>
+											<li class="nav-item"><a href="sidebar_right_default_hide.html" class="nav-link">Show - hide main</a></li>
+											<li class="nav-item"><a href="sidebar_right_default_toggle.html" class="nav-link">Show - fix default width</a></li>
+											<li class="nav-item"><a href="sidebar_right_mini_toggle.html" class="nav-link">Show - fix mini width</a></li>
+											<li class="nav-item"><a href="sidebar_right_secondary_hide.html" class="nav-link active">Show - hide secondary</a></li>
+											<li class="nav-item"><a href="sidebar_right_visible.html" class="nav-link">Visible by default</a></li>
+											<li class="nav-item-divider"></li>
+											<li class="nav-item"><a href="sidebar_right_sections.html" class="nav-link">Sectioned sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_right_stretched.html" class="nav-link">Stretched sidebar</a></li>
+											<li class="nav-item"><a href="sidebar_right_color_dark.html" class="nav-link">Dark color</a></li>
+											<li class="nav-item"><a href="sidebar_right_color_custom.html" class="nav-link">Custom color</a></li>
+											<li class="nav-item"><a href="sidebar_right_color_sections_custom.html" class="nav-link">Custom sections color</a></li>
+										</ul>
+									</li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="sidebar_components.html" class="nav-link">Sidebar components</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-menu3"></i> <span>Navbars</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Navbars">
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Single navbar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="navbar_single_top_static.html" class="nav-link">Single top static</a></li>
+											<li class="nav-item"><a href="navbar_single_top_fixed.html" class="nav-link">Single top fixed</a></li>
+											<li class="nav-item"><a href="navbar_single_bottom_static.html" class="nav-link">Single bottom static</a></li>
+											<li class="nav-item"><a href="navbar_single_bottom_fixed.html" class="nav-link">Single bottom fixed</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Multiple navbars</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="navbar_multiple_top_static.html" class="nav-link">Multiple top static</a></li>
+											<li class="nav-item"><a href="navbar_multiple_top_fixed.html" class="nav-link">Multiple top fixed</a></li>
+											<li class="nav-item"><a href="navbar_multiple_bottom_static.html" class="nav-link">Multiple bottom static</a></li>
+											<li class="nav-item"><a href="navbar_multiple_bottom_fixed.html" class="nav-link">Multiple bottom fixed</a></li>
+											<li class="nav-item"><a href="navbar_multiple_top_bottom.html" class="nav-link">Multiple - top and bottom</a></li>
+											<li class="nav-item"><a href="navbar_multiple_secondary_sticky.html" class="nav-link">Multiple - secondary sticky</a></li>
+										</ul>
+									</li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link">Content navbar</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="navbar_component_single.html" class="nav-link">Single navbar</a></li>
+											<li class="nav-item"><a href="navbar_component_multiple.html" class="nav-link">Multiple navbars</a></li>
+										</ul>
+									</li>
+									<li class="nav-item-divider"></li>
+									<li class="nav-item"><a href="navbar_colors.html" class="nav-link">Color options</a></li>
+									<li class="nav-item"><a href="navbar_sizes.html" class="nav-link">Sizing options</a></li>
+									<li class="nav-item"><a href="navbar_hideable.html" class="nav-link">Hide on scroll</a></li>
+									<li class="nav-item"><a href="navbar_components.html" class="nav-link">Navbar components</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-sort"></i> <span>Vertical navigation</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Vertical navigation">
+									<li class="nav-item"><a href="navigation_vertical_collapsible.html" class="nav-link">Collapsible menu</a></li>
+									<li class="nav-item"><a href="navigation_vertical_accordion.html" class="nav-link">Accordion menu</a></li>
+									<li class="nav-item"><a href="navigation_vertical_bordered.html" class="nav-link">Bordered navigation</a></li>
+									<li class="nav-item"><a href="navigation_vertical_right_icons.html" class="nav-link">Right icons</a></li>
+									<li class="nav-item"><a href="navigation_vertical_badges.html" class="nav-link">Badges</a></li>
+									<li class="nav-item"><a href="navigation_vertical_disabled.html" class="nav-link">Disabled items</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-transmission"></i> <span>Horizontal navigation</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Horizontal navigation">
+									<li class="nav-item"><a href="navigation_horizontal_click.html" class="nav-link">Submenu on click</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_hover.html" class="nav-link">Submenu on hover</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_elements.html" class="nav-link">With custom elements</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_tabs.html" class="nav-link">Tabbed navigation</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_disabled.html" class="nav-link">Disabled navigation links</a></li>
+									<li class="nav-item"><a href="navigation_horizontal_mega.html" class="nav-link">Horizontal mega menu</a></li>
+								</ul>
+							</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link"><i class="icon-tree5"></i> <span>Menu levels</span></a>
+								<ul class="nav nav-group-sub" data-submenu-title="Menu levels">
+									<li class="nav-item"><a href="#" class="nav-link"><i class="icon-IE"></i> Second level</a></li>
+									<li class="nav-item nav-item-submenu">
+										<a href="#" class="nav-link"><i class="icon-firefox"></i> Second level with child</a>
+										<ul class="nav nav-group-sub">
+											<li class="nav-item"><a href="#" class="nav-link"><i class="icon-android"></i> Third level</a></li>
+											<li class="nav-item nav-item-submenu">
+												<a href="#" class="nav-link"><i class="icon-apple2"></i> Third level with child</a>
+												<ul class="nav nav-group-sub">
+													<li class="nav-item"><a href="#" class="nav-link"><i class="icon-html5"></i> Fourth level</a></li>
+													<li class="nav-item"><a href="#" class="nav-link"><i class="icon-css3"></i> Fourth level</a></li>
+												</ul>
+											</li>
+											<li class="nav-item"><a href="#" class="nav-link"><i class="icon-windows"></i> Third level</a></li>
+										</ul>
+									</li>
+									<li class="nav-item"><a href="#" class="nav-link"><i class="icon-chrome"></i> Second level</a></li>
+								</ul>
+							</li>
+							<!-- /layout -->
+								
+						</ul>
+					</div>
+					<!-- /main navigation -->
+
+				</div>
+			</div>
+			<!-- /sidebar content -->
+			
+		</div>
+		<!-- /main sidebar -->
+
+
+		<!-- Secondary sidebar -->
+		<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-md align-self-start">
+
+			<!-- Sidebar mobile toggler -->
+			<div class="sidebar-mobile-toggler text-center">
+				<a href="#" class="sidebar-mobile-secondary-toggle">
+					<i class="icon-arrow-left8"></i>
+				</a>
+				<span class="font-weight-semibold">Secondary sidebar</span>
+				<a href="#" class="sidebar-mobile-expand">
+					<i class="icon-screen-full"></i>
+					<i class="icon-screen-normal"></i>
+				</a>
+			</div>
+			<!-- /sidebar mobile toggler -->
+
+
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+
+				<!-- Sidebar search -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Sidebar search</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body">
+						<form action="#">
+							<div class="form-group-feedback form-group-feedback-right">
+								<input type="search" class="form-control" placeholder="Search">
+								<div class="form-control-feedback">
+									<i class="icon-search4 font-size-base text-muted"></i>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- /sidebar search -->
+
+
+				<!-- Actions -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Actions</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body">
+						<div class="row row-tile no-gutters">
+							<div class="col-6">
+								<button type="button" class="btn btn-light btn-block btn-float m-0">
+									<i class="icon-github4 icon-2x"></i>
+									<span>Github</span>
+								</button>
+
+								<button type="button" class="btn btn-light btn-block btn-float m-0">
+									<i class="icon-dropbox text-blue-400 icon-2x"></i>
+									<span>Dropbox</span>
+								</button>
+							</div>
+							
+							<div class="col-6">
+								<button type="button" class="btn btn-light btn-block btn-float m-0">
+									<i class="icon-dribbble3 text-pink-400 icon-2x"></i>
+									<span>Dribbble</span>
+								</button>
+
+								<button type="button" class="btn btn-light btn-block btn-float m-0">
+									<i class="icon-google-drive text-success-400 icon-2x"></i>
+									<span>Google Drive</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /actions -->
+
+
+				<!-- Sub navigation -->
+				<div class="card mb-2">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Navigation</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body p-0">
+						<ul class="nav nav-sidebar" data-nav-type="accordion">
+							<li class="nav-item-header mt-0 pt-0">Actions</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-googleplus5"></i> Create task</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-portfolio"></i> Create project</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-compose"></i> Edit task list</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="icon-user-plus"></i>
+									Assign users
+									<span class="badge bg-primary badge-pill ml-auto">94 online</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-collaboration"></i> Create team</a>
+							</li>
+							<li class="nav-item-header">Navigate</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-files-empty"></i> All tasks</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="icon-file-plus"></i>
+									Active tasks
+									<span class="badge bg-dark badge-pill ml-auto">28</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-file-check"></i> Closed tasks</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="icon-reading"></i>
+									Assigned to me
+									<span class="badge bg-info badge-pill ml-auto">86</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="icon-make-group"></i>
+									Assigned to my team
+									<span class="badge bg-danger badge-pill ml-auto">47</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link"><i class="icon-cog3"></i> Settings</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /sub navigation -->
+
+
+				<!-- Online users -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Online users</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body">
+						<ul class="media-list">
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body">
+									<a href="#" class="media-title font-weight-semibold">James Alexander</a>
+									<span class="font-size-xs text-muted d-block">Santa Ana, CA.</span>
+								</div>
+								<div class="ml-3 align-self-center">
+									<span class="badge badge-mark border-success"></span>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body">
+									<a href="#" class="media-title font-weight-semibold">Jeremy Victorino</a>
+									<span class="font-size-xs text-muted d-block">Dowagiac, MI.</span>
+								</div>
+								<div class="ml-3 align-self-center">
+									<span class="badge badge-mark border-danger"></span>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body">
+									<a href="#" class="media-title font-weight-semibold">Margo Baker</a>
+									<span class="font-size-xs text-muted d-block">Kasaan, AK.</span>
+								</div>
+								<div class="ml-3 align-self-center">
+									<span class="badge badge-mark border-success"></span>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body">
+									<a href="#" class="media-title font-weight-semibold">Beatrix Diaz</a>
+									<span class="font-size-xs text-muted d-block">Neenah, WI.</span>
+								</div>
+								<div class="ml-3 align-self-center">
+									<span class="badge badge-mark border-warning"></span>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body">
+									<a href="#" class="media-title font-weight-semibold">Richard Vango</a>
+									<span class="font-size-xs text-muted d-block">Grapevine, TX.</span>
+								</div>
+								<div class="ml-3 align-self-center">
+									<span class="badge badge-mark border-grey-400"></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /online-users -->
+
+
+				<!-- Latest updates -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Latest updates</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body">
+						<ul class="media-list">
+							<li class="media">
+								<div class="mr-3">
+									<a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
+										<i class="icon-git-pull-request"></i>
+									</a>
+								</div>
+
+								<div class="media-body">
+									Drop the IE <a href="#">specific hacks</a> for temporal inputs
+									<div class="text-muted font-size-sm">4 minutes ago</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="mr-3">
+									<a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon">
+										<i class="icon-git-commit"></i>
+									</a>
+								</div>
+								
+								<div class="media-body">
+									Add full font overrides for popovers and tooltips
+									<div class="text-muted font-size-sm">36 minutes ago</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="mr-3">
+									<a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon">
+										<i class="icon-git-branch"></i>
+									</a>
+								</div>
+								
+								<div class="media-body">
+									<a href="#">Chris Arney</a> created a new <span class="font-weight-semibold">Design</span> branch
+									<div class="text-muted font-size-sm">2 hours ago</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="mr-3">
+									<a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon">
+										<i class="icon-git-merge"></i>
+									</a>
+								</div>
+								
+								<div class="media-body">
+									<a href="#">Eugene Kopyov</a> merged <span class="font-weight-semibold">Master</span> and <span class="font-weight-semibold">Dev</span> branches
+									<div class="text-muted font-size-sm">Dec 18, 18:36</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="mr-3">
+									<a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
+										<i class="icon-git-pull-request"></i>
+									</a>
+								</div>
+								
+								<div class="media-body">
+									Have Carousel ignore keyboard events
+									<div class="text-muted font-size-sm">Dec 12, 05:46</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /latest updates -->
+
+
+				<!-- Contacts -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Contacts</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body">
+						<ul class="media-list">
+							<li class="media">
+								<a href="#" class="mr-3 position-relative">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									<span class="badge badge-info badge-pill badge-float">6</span>
+								</a>
+
+								<div class="media-body align-self-center">
+									Rebecca Jameson
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3 position-relative">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									<span class="badge badge-info badge-pill badge-float">9</span>
+								</a>
+
+								<div class="media-body align-self-center">
+									Walter Sommers
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body align-self-center">
+									Otto Gerwald
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body align-self-center">
+									Vince Satmann
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body align-self-center">
+									Jason Leroy
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /contacts -->
+
+			</div>
+			<!-- /sidebar content -->
+
+		</div>
+		<!-- /secondary sidebar -->
+
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content">
+
+				<!-- Info alert -->
+				<div class="alert alert-info bg-white alert-styled-left alert-arrow-left alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+					<h6 class="alert-heading font-weight-semibold mb-1">Show right - hide secondary</h6>
+					If you add <code>.sidebar-right-secondary-toggle</code> class to sidebar control button, secondary sidebar will get hidden when right sidebar is shown. This class doesn't affect main and content sidebars.
+			    </div>
+			    <!-- /info alert -->
+
+
+				<!-- Sidebars overview -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Sidebars overview</h5>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                		<a class="list-icons-item" data-action="remove"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						<p class="mb-3">Sidebar - vertical area that displays onscreen and presents widget components and website navigation menu in a text-based hierarchical form. All sidebars are css-driven - just add one of css classes to the <code>body</code> tag and/or <code>.sidebar</code> container, and sidebar will change its width and color. No js, css only. Although sidebar type is based on css, buttons do their job with JS - they switch necessary classes in <code>&lt;body></code> tag. Below you'll find summarized tables with all available <code>button</code> and <code>sidebar</code> container classes. By default, the template includes 6 different sidebar types and combinations:</p>
+
+						<div class="mb-3">
+							<h6 class="font-weight-semibold">1. Default sidebar</h6>
+							<p>Default template sidebar has <code>270px</code> (~16.88rem) width, aligned to the left (to the right in RTL version) and has dark blue background color. All navigation levels are based on accordion <strong>or</strong> collapsible functionality, open on click. Supports 2 versions: static and fixed. Fixed version can be used with native or custom scrollbars.</p>
+						</div>
+
+						<div class="mb-3">
+							<h6 class="font-weight-semibold">2. Mini sidebar</h6>
+							<p>Mini sidebar has <code>56px</code> width, which is calculated dynamically. No text in parent level of menu items, aligned to the left (to the right in RTL version) and has dark blue background color. Second navigation level opens on parent level hover, absolute positioned, other children levels are based on accordion or collapsible functionality, open on click. It is <strong>required</strong> to add <code>.sidebar-xs</code> class to the <code>&lt;body></code> tag. This class is responsible for sidebar width and main navigation. By default all components except main navigation are hidden in mini sidebar. Can be used with main sidebar only.</p>
+						</div>
+
+						<div class="mb-3">
+							<h6 class="font-weight-semibold">3. Secondary sidebar</h6>
+							<p>Main sidebar has <code>270px</code> width or <code>56px</code> (if <code>.sidebar-xs</code> class added). Secondary sidebar has fixed width of <code>270px</code>, which is similar to default and right sidebars, so different sidebar components can be placed to all sidebar types. Main and secondary sidebars can contain any content - menu, navigation, buttons, lists, tabs etc. Only main sidebar is collapsible.</p>
+						</div>
+
+						<div class="mb-3">
+							<h6 class="font-weight-semibold">4. Right sidebar</h6>
+							<p>Right sidebar includes additional sidebar displayed on the right (left in RTL direction) side. It has a static position, appears as an additional component with 100% height and pushes content left/right. There are 2 different ways of displaying alternative sidebar: first - when it collapses main sidebar from default to mini width and second - when it hides the main sidebar. For these actions are responsible 2 different buttons - <code>.sidebar-right-main-toggle</code> and <code>.sidebar-right-main-hide</code>.</p>
+						</div>
+
+						<div class="mb-3">
+							<h6 class="font-weight-semibold">5. Right/Secondary sidebars</h6>
+							<p>Secondary and Right sidebars can be used together, so basically it is a 4 column layout. When right sidebar is shown, additional options are available: hide main sidebar, hide secondary sidebar or collapse main sidebar width. Since right sidebar is hidden by default, you can display all 4 sidebars at once by manipulating classes. Options are accessible via proper button and/or body classes.</p>
+						</div>
+					</div>
+				</div>
+				<!-- /sidebars overview -->
+
+
+				<!-- Button classes -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Button classes</h5>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                		<a class="list-icons-item" data-action="remove"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						<h6 class="font-weight-semibold">Overview</h6>
+						<p class="mb-3">This table displays all optional <code>button</code> classes, responsible for the sidebar appearance. Depending on the sidebar type, add one of these classes to any button or link and this element will handle sidebar control. Multiple controls are also available - add as many sidebar controls as you wish. Please note: these classes don't change sidebar markup, only CSS rules.</p>
+						<div class="table-responsive mb-4">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th style="width: 300px;">Button class</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>.sidebar-main-toggle</code></td>
+										<td>Collapsible sidebar. Changes main sidebar width from default to mini. This button is added to all pages by default.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-main-hide</code></td>
+										<td>Hides and shows <code>main</code> sidebar. Used mostly in dual sidebar type to hide main sidebar. In other layouts this button does the same job as <code>.sidebar-hide-all</code> button.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-right-toggle</code></td>
+										<td>Toggles right sidebar - if right sidebar is shown, main sidebar width remains the same, whether it's in default or mini mode.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-right-main-toggle</code></td>
+										<td>Toggles right sidebar - if right sidebar is shown, main sidebar changes its width from default to mini and vice versa. Works with all sidebar layouts - main and main/secondary.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-right-main-hide</code></td>
+										<td>Hides and shows <code>main</code> sidebar in layout with right sidebar. If right sidebar is shown, main sidebar is hidden despite current width.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-secondary-toggle</code></td>
+										<td>Hides/shows <code>secondary</code> sidebar. Secondary sidebar supports only toggle functionality and always has fixed width of <code>270px</code>.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-right-secondary-hide</code></td>
+										<td>Hides/shows <code>secondary</code> sidebar - if right sidebar is shown, secondary sidebar is hidden. This works only in the layout with right sidebar.</td>
+									</tr>
+									<tr class="table-border-solid">
+										<td><code>.sidebar-mobile-main-toggle</code></td>
+										<td>Toggles <code>main</code> sidebar on mobile - slides from left to right.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-mobile-secondary-toggle</code></td>
+										<td>Toggles <code>secondary</code> sidebar on mobile - slides from left to right.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-mobile-right-toggle</code></td>
+										<td>Toggles <code>right</code> sidebar on mobile - slides from right to left.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-mobile-expand</code></td>
+										<td>Expands sidebar to full width - changes fullscreen icons when expanded</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h6 class="font-weight-semibold">Example Markup</h6>
+						<div class="row">
+							<div class="col-md-6">
+								<p>Default placement of sidebar control buttons is top navbar:</p>
+								<pre class="language-markup mb-3" data-line="7-9"><code>&lt;!-- Navbar placement -->
+&lt;div class="navbar navbar-expand navbar-dark">
+	&lt;div class="navbar-brand">...&lt;/div>
+
+	&lt;ul class="navbar-nav">
+		&lt;li class="nav-item">
+			&lt;a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle">
+				&lt;i class="icon-menu">&lt;/i>
+			&lt;/a>
+		&lt;/li>
+		...
+	&lt;/ul>
+&lt;/div>
+&lt;!-- /navbar placement -->
+</code></pre>
+							</div>
+
+							<div class="col-md-6">
+								<p>Here is an example of button inside card header:</p>
+								<pre class="language-markup mb-3" data-line="6-9"><code>&lt;!-- Card header placement -->
+&lt;div class="card">
+	&lt;div class="card-header header-element-inline">
+		&lt;h5 class="card-title">Card title&lt;/h5>
+		&lt;div class="header-elements">
+			&lt;button type="button" class="sidebar-main-toggle">
+				&lt;i class="icon-menu">&lt;/i>
+				Collapse sidebar
+			&lt;/button>
+		&lt;/div>
+	&lt;/div>
+	&lt;div class="card-body">...&lt;/div>
+&lt;/div>
+&lt;!-- /card header placement -->
+</code></pre>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- /button classes -->
+
+
+				<!-- Sidebar classes -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Sidebar classes</h5>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                		<a class="list-icons-item" data-action="reload"></a>
+		                		<a class="list-icons-item" data-action="remove"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						<h6 class="font-weight-semibold">Overview</h6>
+						<p class="mb-3">This table demonstrates all classes for <code>sidebar</code> container, responsible for the sidebar width and color. Almost all of these classes are mandatory, some of them are responsible for proper styling or have a specific code attached to this class (like <code>.sidebar-main</code> class, which has collapsible functionality). All classes can be combined depending on the type of sidebar:</p>
+						<div class="table-responsive mb-4">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th style="width: 300px">Body class</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>.sidebar</code></td>
+										<td>Default sidebar class, should be added in all layout types.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-main</code></td>
+										<td>Defines <strong>main</strong> sidebar. Mini sidebar (<code>.sidebar-xs</code> class) takes effect only if sidebar has <code>.sidebar-main</code> class. By default, all components except main navigation are hidden in mini sidebar.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-secondary</code></td>
+										<td>Defines <strong>secondary</strong> sidebar. Has fixed <code>270px</code> width and usually comes after main sidebar.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-right</code></td>
+										<td>Defines <strong>right</strong> sidebar. Has fixed <code>270px</code> width and appears on the right side from the main sidebar.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-light</code></td>
+										<td>Defines <strong>light</strong> sidebar. This class can be applied to all sidebar types and positions.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-dark</code></td>
+										<td>Defines <strong>dark</strong> sidebar. This class can be applied to all sidebar types and positions. This class is also required for custom colors (see below).</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-dark.bg-*</code></td>
+										<td>Defines sidebar background color. According to the custom color system, sidebar background color can be changed to one of the available colors by adding a proper class to the main sidebar container.</td>
+									</tr>
+									<tr>
+										<td><code>.sidebar-expand-[breakpoint]</code></td>
+										<td>This class specifies when sidebar needs to be collapsed, basically when sidebar switches to mobile mode. Breakpoint should always be similar to <strong>navbar</strong> breakpoint for proper matching. Available breakpoints are: xl, lg, md and sm. This class is required.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h6 class="font-weight-semibold">Example Markup</h6>
+						<div class="row">
+							<div class="col-md-6">
+								<p>Default left aligned sidebar markup:</p>
+								<pre class="language-markup mb-3" data-line="2"><code>&lt;!-- Default sidebar layout -->
+&lt;body>
+
+	&lt;!-- Navbar -->
+	&lt;div class="navbar navbar-dark navbar-expand-md">
+		...
+	&lt;/div>
+	&lt;!-- /navbar -->
+
+
+	&lt;!-- Page header -->
+	&lt;div class="page-header">
+		...
+	&lt;/div>
+	&lt;!-- /page header -->
+
+
+	&lt;!-- Page container -->
+	&lt;div class="page-content pt-0">
+
+		&lt;!-- Main sidebar -->
+		&lt;div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+			&lt;div class="sidebar-content">
+				...
+			&lt;/div>
+		&lt;/div>
+		&lt;!-- /main sidebar -->
+
+		&lt;!-- Main content -->
+		&lt;div class="content-wrapper">
+			...
+		&lt;/div>
+		&lt;!-- /main content -->
+
+	&lt;/div>
+	&lt;!-- /page content -->
+
+&lt;/body>
+&lt;!-- /default sidebar layout -->
+</code></pre>
+							</div>
+
+							<div class="col-md-6">
+								<p>Mini sidebar markup. The only difference is <code>&lt;body></code> class:</p>
+								<pre class="language-markup mb-3" data-line="2"><code>&lt;!-- Mini sidebar layout -->
+&lt;body class="sidebar-xs">
+
+	&lt;!-- Navbar -->
+	&lt;div class="navbar navbar-dark navbar-expand-md">
+		...
+	&lt;/div>
+	&lt;!-- /navbar -->
+
+
+	&lt;!-- Page header -->
+	&lt;div class="page-header">
+		...
+	&lt;/div>
+	&lt;!-- /page header -->
+
+
+	&lt;!-- Page container -->
+	&lt;div class="page-content pt-0">
+
+		&lt;!-- Main sidebar -->
+		&lt;div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+			&lt;div class="sidebar-content">
+				...
+			&lt;/div>
+		&lt;/div>
+		&lt;!-- /main sidebar -->
+
+		&lt;!-- Main content -->
+		&lt;div class="content-wrapper">
+			...
+		&lt;/div>
+		&lt;!-- /main content -->
+
+	&lt;/div>
+	&lt;!-- /page content -->
+
+&lt;/body>
+&lt;!-- /mini sidebar layout -->
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /sidebar classes -->
+
+			</div>
+			<!-- /content area -->
+
+		</div>
+		<!-- /main content -->
+
+
+		<!-- Right sidebar -->
+		<div class="sidebar sidebar-light sidebar-right sidebar-expand-md align-self-start">
+
+			<!-- Sidebar mobile toggler -->
+			<div class="sidebar-mobile-toggler text-center">
+				<a href="#" class="sidebar-mobile-expand">
+					<i class="icon-screen-full"></i>
+					<i class="icon-screen-normal"></i>
+				</a>
+				<span class="font-weight-semibold">Right sidebar</span>
+				<a href="#" class="sidebar-mobile-right-toggle">
+					<i class="icon-arrow-right8"></i>
+				</a>
+			</div>
+			<!-- /sidebar mobile toggler -->
+
+
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+
+				<!-- User info -->
+				<div class="card card-body bg-blue text-center" style="background-image: url(../../../../global_assets/images/backgrounds/panel_bg.png); background-size: contain;">
+					<div class="mb-3">
+						<h5 class="mb-0 mt-1">
+							Victoria Davidson
+						</h5>
+
+						<span class="d-block">Head of UX</span>
+					</div>
+
+					<a href="#" class="d-inline-block mb-3">
+						<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-round" width="110" height="110" alt="">
+					</a>
+
+					<ul class="list-inline mb-0">
+						<li class="list-inline-item"><a href="#" class="btn btn-outline btn-icon text-white btn-lg border-white rounded-round">
+							<i class="icon-graph"></i></a>
+						</li>
+						<li class="list-inline-item"><a href="#" class="btn btn-outline btn-icon text-white btn-lg border-white rounded-round">
+							<i class="icon-bubble2"></i></a>
+						</li>
+						<li class="list-inline-item"><a href="#" class="btn btn-outline btn-icon text-white btn-lg border-white rounded-round">
+							<i class="icon-switch"></i></a>
+						</li>
+					</ul>
+				</div>
+				<!-- /user info -->
+
+
+				<!-- Date stamp -->
+				<div class="card">
+					<div class="card-body pb-0">
+						<h4 class="font-weight-light mb-0">
+							Thursday
+							<span class="d-block">14<sup>th</sup> December</span>
+						</h4>
+					</div>
+				</div>
+				<!-- /date stamp -->
+
+
+				<!-- Sub navigation -->
+				<div class="card mb-2">
+					<ul class="nav nav-sidebar" data-nav-type="accordion">
+						<li class="nav-item-header">Profile</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link"><i class="icon-reading"></i> My profile</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link"><i class="icon-coins"></i> Balance</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="icon-bubble2"></i>
+								Messages
+								<span class="badge bg-primary badge-pill ml-auto">28</span>
+							</a>
+						</li>
+						<li class="nav-item-header">Billing</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="icon-home4"></i>
+								Addresses
+								<span class="badge bg-dark badge-pill ml-auto">4</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="icon-credit-card"></i>
+								My cards
+								<span class="badge bg-dark badge-pill ml-auto">4</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="icon-wallet"></i>
+								My bank accounts
+								<span class="badge bg-dark badge-pill ml-auto">6</span>
+							</a>
+						</li>
+						<li class="nav-item-header">Security</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="icon-phone"></i>
+								Phone number
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="icon-user-lock"></i>
+								Password
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link"><i class="icon-cog3"></i> Settings</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /sub navigation -->
+
+
+				<!-- Contacts -->
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">Contacts</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+	                		</div>
+                		</div>
+					</div>
+
+					<div class="card-body">
+						<ul class="media-list">
+							<li class="media">
+								<a href="#" class="mr-3 position-relative">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									<span class="badge badge-info badge-pill badge-float">6</span>
+								</a>
+
+								<div class="media-body align-self-center">
+									Rebecca Jameson
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3 position-relative">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+									<span class="badge badge-info badge-pill badge-float">9</span>
+								</a>
+
+								<div class="media-body align-self-center">
+									Walter Sommers
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body align-self-center">
+									Otto Gerwald
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body align-self-center">
+									Vince Satmann
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body align-self-center">
+									Jason Leroy
+								</div>
+
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body align-self-center">
+									James Alexander
+								</div>
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body align-self-center">
+									Jeremy Victorino
+								</div>
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+								<div class="media-body align-self-center">
+									Margo Baker
+								</div>
+								<div class="ml-3 align-self-center">
+									<div class="dropdown">
+										<a href="#" class="text-default dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-more2"></i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Start chat</a>
+											<a href="#" class="dropdown-item"><i class="icon-phone2"></i> Make a call</a>
+											<a href="#" class="dropdown-item"><i class="icon-mail5"></i> Send mail</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item"><i class="icon-statistics"></i> Statistics</a>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div class="card-footer d-flex align-items-center border-bottom-0 py-2">
+						<a href="#" class="d-inline-block text-grey">All contacts</a>
+						<a href="#" class="d-inline-block text-grey ml-auto"><i class="icon-gear"></i></a>
+					</div>
+				</div>
+				<!-- /contacts -->
+
+			</div>
+			<!-- /sidebar content -->
+
+		</div>
+		<!-- /right sidebar -->
+
+	</div>
+	<!-- /page content -->
+
+
+	<!-- Footer -->
+	<div class="navbar navbar-expand-lg navbar-light">
+		<div class="text-center d-lg-none w-100">
+			<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
+				<i class="icon-unfold mr-2"></i>
+				Footer
+			</button>
+		</div>
+
+		<div class="navbar-collapse collapse" id="navbar-footer">
+			<span class="navbar-text">
+				&copy; 2015 - 2018. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+			</span>
+
+			<ul class="navbar-nav ml-lg-auto">
+				<li class="nav-item"><a href="https://kopyov.ticksy.com/" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
+				<li class="nav-item"><a href="http://demo.interface.club/limitless/docs/" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
+				<li class="nav-item"><a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="navbar-nav-link font-weight-semibold"><span class="text-pink-400"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+		
+</body>
+</html>

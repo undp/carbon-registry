@@ -1,0 +1,80 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Page header
+ *
+ *  Page header components and color options
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Base
+.page-header {
+    border-bottom: $page-header-border-width solid $page-header-border-color;
+}
+
+// Page title
+.page-title {
+    padding: $page-header-padding-y 0;
+    position: relative;
+
+    // Subtitle
+    small {
+        display: inline-block;
+        margin-left: $element-spacer-x;
+
+        // Divider
+        &:before {
+            content: '/';
+            margin-right: ($element-spacer-x + 0.25rem);
+        }
+
+        // On a new line
+        &.d-block {
+            margin-left: 0;
+            
+            &:before {
+                content: none;
+            }
+        }
+    }
+
+    // Add left spacing to align with text
+    small.d-block,
+    .breadcrumb {
+        margin-left: ($icon-font-size + $element-spacer-x + 0.25rem);
+    }
+
+    // Remove margin from headings
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+    }
+}
+
+// Page header content
+.page-header-content {
+    position: relative;
+    padding: 0 $page-header-padding-x;
+}
+
+
+//
+// Page header colors
+//
+
+// Light
+.page-header-light {
+    background-color: $page-header-light-bg;
+}
+
+// Dark
+.page-header-dark {
+    background-color: $page-header-dark-bg;
+}
+
+// Image background
+.page-header-cover-light {
+    background: url(#{$img-path}/backgrounds/seamless.png); // feel free to change
+}
+.page-header-cover-dark {
+    background: url(#{$img-path}/login_cover.jpg); // feel free to change
+    background-size: cover;
+}

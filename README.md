@@ -1,6 +1,10 @@
-# UNDP Carbon Registry
 
-UNDP Carbon Registry based on AWS Serverless 
+# Carbon Registry
+carbon credit initiative for ExO and HQ/GEF from Vanuatu Carbon Registry.
+
+## Standard
+This codebase aims to fullfill the digital public goods standard:
+https://digitalpublicgoods.net/standard/
 
 ## System Architecture
 ![alt text](./documention/imgs/System%20Architecture.svg)
