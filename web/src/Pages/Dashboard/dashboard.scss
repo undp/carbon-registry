@@ -1,0 +1,201 @@
+@import '../Common/colors.dashboard.scss';
+
+.dashboard-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 5px;
+
+  .header-and-title {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 15px 0 15px;
+    font-family: 'Proxima-Nova-Regular';
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .stastics-cards-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px 10px 10px 15px;
+
+    .stastic-card-row {
+      width: 100%;
+
+      .stastic-card-col {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+    }
+  }
+
+  .stastics-charts-container-total-programmes {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 60px 10px 25px 15px;
+
+    .stastic-charts-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      .stastic-charts-col {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .chart-card {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 400px;
+          background: #f6f6f6;
+          box-shadow: rgba(106, 106, 106, 0.2) 0px 8px 24px;
+          border-radius: 10px;
+          padding: 10px 10px 10px 10px;
+        }
+
+        .chart-card:hover {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          background: #f1f1f1;
+          box-shadow: rgba(124, 124, 124, 0.2) 0px 8px 24px;
+          border-radius: 10px;
+          padding: 10px 10px 10px 10px;
+        }
+      }
+    }
+  }
+
+  .stastics-charts-container-certified-programmes {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 5px 10px 25px 15px;
+    .stastic-charts-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      .stastic-charts-col {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .chart-card {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 400px;
+          background: #f6f6f6;
+          box-shadow: rgba(106, 106, 106, 0.2) 0px 8px 24px;
+          border-radius: 10px;
+          padding: 10px 10px 10px 10px;
+        }
+
+        .chart-card:hover {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          background: #f1f1f1;
+          box-shadow: rgba(124, 124, 124, 0.2) 0px 8px 24px;
+          border-radius: 10px;
+          padding: 10px 10px 10px 10px;
+        }
+      }
+    }
+  }
+
+  .stastics-pie-charts-container {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 5px 10px 25px 15px;
+    .stastic-charts-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      .stastic-charts-col {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .chart-card {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 400px;
+          background: #f6f6f6;
+          box-shadow: rgba(106, 106, 106, 0.2) 0px 8px 24px;
+          border-radius: 10px;
+          padding: 10px 10px 10px 10px;
+        }
+
+        .chart-card:hover {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          background: #f1f1f1;
+          box-shadow: rgba(124, 124, 124, 0.2) 0px 8px 24px;
+          border-radius: 10px;
+          padding: 10px 10px 10px 10px;
+        }
+      }
+    }
+  }
+
+  .maps-container {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    margin: 25px 20px 25px 15px;
+    height: auto;
+    .maps-container-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      .maps-container-col {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}
