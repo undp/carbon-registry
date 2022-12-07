@@ -152,7 +152,7 @@ export class UserService {
             throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST)
         }
 
-        const { company, ...userFields } = userDto
+        let { company, ...userFields } = userDto
         if (company) {
             if (company.companyRole != CompanyRole.CERTIFIER || !company.country) {
                 company.country = this.configService.get('systemCountry')
@@ -163,7 +163,13 @@ export class UserService {
                 if (companyGov) {
                     throw new HttpException(`Government already exist for the country code ${company.country}`, HttpStatus.BAD_REQUEST);
                 }
+            } else {
+                throw new HttpException("Company create does not permitted for your company role", HttpStatus.FORBIDDEN)
             }
+        }
+
+        if (!([ CompanyRole.GOVERNMENT, CompanyRole.SYSTEM ].includes(companyRole)) && userDto.companyId && userDto.companyId != companyId) {
+            throw new HttpException("Company create does not permitted for your company role", HttpStatus.FORBIDDEN)
         }
         
         const u = plainToClass(User, userFields);

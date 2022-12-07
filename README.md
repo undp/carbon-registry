@@ -42,7 +42,7 @@ UNDP Carbon Registry based on AWS Serverless
     - DB_PASSWORD
     - DB_NAME (Default carbondbdev)
 - Move to folder `cd lambda/service`
-- Run `yarn install  --frozen-lockfile`
+- Run `yarn run sls:install `
 - Initial user data setup `serverless invoke local --stage=local --function setup --data '{"rootEmail":"<root user email>", "systemCountryCode": "NG"}'`
 - Start all the services by executing `sls offline --stage=local`
 - Now all the system services are up and running. Swagger documentation will be available on `http://localhost:3000/local/api/national/docs#/`
