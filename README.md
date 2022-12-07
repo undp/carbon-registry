@@ -1,12 +1,13 @@
 
 # Carbon Registry
-carbon credit initiative for ExO and HQ/GEF from Vanuatu Carbon Registry.
+Carbon credit initiative for ExO and HQ/GEF from Vanuatu Carbon Registry.
 
 ## Standard
 This codebase aims to fullfill the digital public goods standard:
 https://digitalpublicgoods.net/standard/
 
 ## System Architecture
+UNDP Carbon Registry based on AWS Serverless
 ![alt text](./documention/imgs/System%20Architecture.svg)
 
 ## Project Structure
