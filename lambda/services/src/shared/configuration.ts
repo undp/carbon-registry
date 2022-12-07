@@ -1,5 +1,5 @@
 export default () => ({
-    stage: process.env.STAGE || 'NONE',
+    stage: process.env.STAGE || 'local',
     systemCountry: process.env.systemCountryCode || 'NG',
     database: {
         type: 'postgres',

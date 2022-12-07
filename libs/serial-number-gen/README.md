@@ -36,7 +36,7 @@ Eg.
 ### Type of Credit/ Unit
 Carbon credit measurement unit: ITMO
 
-### Sectoral Scope Number (as per CDM)
+### Sectoral Scope Number
 According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identified Sectors and Sectoral scope numbers are as follows:
 
 
@@ -81,3 +81,22 @@ Eg:
 | Programme 3 | 37 | 5.4341 | 5 | 37 | 41 |
 | Programme 4 | 41 | 0.1285 | 0 | Programme Rejected as credit value is 0. |
 | Programme 5 | 41 | 14.7 | 15 | 41 | 55 |
+
+
+## Usage
+```
+import { generateSerialNumber } from 'serial-number-gen';
+
+const serialNo = generateSerialNumber(countryCodeA2, sectoralScope, programmeId, year, startBlock, endBlock);
+
+```
+
+### Parameters
+| Block Name | Description |
+| --- | --- |
+| countryCodeA2 | Country Code (as per ISO 3166) |
+| sectoralScope | Sectoral Scope Number ([as per CDM](###sectoral-scope-number)) (1-15)
+| programmeId | Unique Programme ID |
+| Year | Year in format XXXX |
+| startBlock | Current ledger credit value (inclusive)|
+| endBlock | Credit value with the current program  (inclusive)|
