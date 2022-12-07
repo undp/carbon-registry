@@ -1,6 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNumber, IsString, ValidateIf } from "class-validator";
+import { Type } from "class-transformer";
+import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNotEmptyObject, IsNumber, IsObject, IsOptional, IsString, ValidateIf, ValidateNested } from "class-validator";
 import { Role } from "../casl/role.enum";
+import MutuallyExclusive from "../util/mutualexclusive.decorator";
+import { CompanyDto } from "./company.dto";
 
 export class UserDto {
 
@@ -24,57 +27,22 @@ export class UserDto {
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
-    city: string;
+    phoneNo: string;
 
-    @IsNotEmpty()
-    @IsString()
+    @IsNotEmptyObject()
     @ApiProperty()
-    zipCode: string;
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => CompanyDto)
+    @MutuallyExclusive('company')
+    company: CompanyDto;
 
-    @IsNotEmpty()
-    @IsString()
+    @IsNumber()
     @ApiProperty()
-    state: string;
+    @IsOptional()
+    @MutuallyExclusive('company')
+    companyId: number;
 
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    country: string;
-
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    contactNo: string;
-
-    @ValidateIf(o => o.role === Role.ProjectDeveloper)
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    companyName: string;
-
-    @ValidateIf(o => o.role === Role.ProjectDeveloper)
-    @IsNotEmpty()
-    @ApiProperty()
-    companyLogo: string;
-
-    @ValidateIf(o => o.role === Role.ProjectDeveloper)
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    companyLocation: string;
-
-    @ValidateIf(o => o.role === Role.ProjectDeveloper)
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    registrationNo: string;
-
-    @ValidateIf(o => o.role === Role.ProjectDeveloper)
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty()
-    industry: string;
-    
     password: string;
 
     apiKey?: string;

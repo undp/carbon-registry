@@ -55,8 +55,8 @@ export class CounterService {
             if (o) {
                 return o.counter;
             } else {
-                await this.counterRepo.save({ id: type, counter: 1 })
-                return 1;
+                await this.counterRepo.save({ id: type, counter: 0 })
+                return 0;
             }
             
         });

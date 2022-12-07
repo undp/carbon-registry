@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Project } from '../shared/entities/project.entity';
+import { Programme } from '../shared/entities/programme.entity';
 import { dom } from "ion-js";
 import { plainToClass } from 'class-transformer';
 
@@ -12,7 +12,7 @@ const deagg = require('aws-kinesis-agg');
 @Injectable()
 export class LedgerReplicatorService {
 
-    constructor(@InjectRepository(Project) private projectRepo: Repository<Project>, private logger: Logger) {
+    constructor(@InjectRepository(Programme) private programmeRepo: Repository<Programme>, private logger: Logger) {
 
     }
 
@@ -30,9 +30,9 @@ export class LedgerReplicatorService {
                 } else {
                     this.logger.log('ION Record', JSON.stringify(ionRecord))
                     const payload = ionRecord.get("payload").get("revision").get("data");
-                    const project: Project = plainToClass(Project, JSON.parse(JSON.stringify(payload)));
-                    this.logger.debug(JSON.stringify(project));
-                    return await this.projectRepo.save(project);
+                    const programme: Programme = plainToClass(Programme, JSON.parse(JSON.stringify(payload)));
+                    this.logger.debug(JSON.stringify(programme));
+                    return await this.programmeRepo.save(programme);
                 }
             })
         );

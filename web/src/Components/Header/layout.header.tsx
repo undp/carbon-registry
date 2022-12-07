@@ -37,12 +37,7 @@ const LayoutHeader = (props: HeaderProps) => {
             <img src={countryLogo} alt="country-logo" />
           </div>
         </Col>
-        <Col span={8}>
-          <div className="header-title-container">
-            <span className="header-title-txt">{title}</span>
-          </div>
-        </Col>
-        <Col span={8}>
+        <Col span={8} offset={8}>
           <Row>
             <Col offset={14} span={10}>
               <div className="header-menu-container">

@@ -5,16 +5,17 @@ import { NationalAPIService } from './national.api.service';
 import configuration from '../shared/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from '../shared/typeorm.config.service';
-// import { Project } from './entities/project.entity';
+// import { Programme } from './entities/programme.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from '../shared/rbac/roles.guard';
 import { CaslModule } from '../shared/casl/casl.module';
-import { ProjectModule } from './project/project.module';
-import { ProjectLedgerModule } from '../shared/project-ledger/project-ledger.module';
+import { ProgrammeModule } from './programme/programme.module';
+import { ProgrammeLedgerModule } from '../shared/programme-ledger/programme-ledger.module';
 import { LedgerDbModule } from '../shared/ledger-db/ledger-db.module';
 import { UtilModule } from '../shared/util/util.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { UtilModule } from '../shared/util/util.module';
     AuthModule,
     UserModule,
     CaslModule,
-    ProjectModule
+    ProgrammeModule,
+    CompanyModule
   ],
   controllers: [NationalAPIController],
   providers: [

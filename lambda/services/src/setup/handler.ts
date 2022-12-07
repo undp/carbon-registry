@@ -9,6 +9,11 @@ import { getLogger } from "../shared/server";
 import { UtilModule } from "../shared/util/util.module";
 import { Country } from "../shared/entities/country.entity";
 import { CountryService } from "../shared/util/country.service";
+import { CreditOverall } from "../shared/entities/credit.overall.entity";
+import { CompanyModule } from "../national-api/company/company.module";
+import { CompanyDto } from "../shared/dto/company.dto";
+import { CompanyRole } from "../shared/enum/company.role.enum";
+import { CompanyService } from "../national-api/company/company.service";
 const fs = require('fs')
 
 exports.handler = async (event) => {
@@ -21,7 +26,6 @@ exports.handler = async (event) => {
     const u = await userService.findOne(event['rootEmail']);
     if (u != undefined) {
       console.log('Root user already created and setup is completed')
-      return;
     }
 
     const app = await NestFactory.createApplicationContext(LedgerDbModule, {
@@ -29,25 +33,30 @@ exports.handler = async (event) => {
     });
     try {
       const ledgerModule = app.get(LedgerDbService)
+      await ledgerModule.createTable('overall');
+      await ledgerModule.createIndex('countryCodeA2', 'overall');
+      const creditOverall = new CreditOverall()
+      creditOverall.ITMO = 0;
+      creditOverall.countryCodeA2 = event['systemCountryCode']
+      creditOverall.serialNo = 'genesis block'
+      await ledgerModule.insertRecord(creditOverall, 'overall')
       await ledgerModule.createTable();
-      await ledgerModule.createIndex('projectId');
+      await ledgerModule.createIndex('programmeId');
+      console.log('QLDB Table created')
     } catch(e) {
-      console.log('QLDB table does not create') 
+      console.log('QLDB table does not create', e) 
     }
-    
+
     try {
       const user = new UserDto()
       user.email = event['rootEmail']
       user.name = "Root"
       user.role = Role.Root;
-      user.city = "-"
-      user.contactNo = "-"
-      user.country = " "
-      user.state = "-"
-      user.zipCode = "-"
-      await userService.create(user)
+      user.phoneNo = '-'
+      
+      await userService.create(user, -1, CompanyRole.SYSTEM)
     } catch (e) {
-      console.log(`User ${event['rootEmail']} does not create`, e) 
+      console.log(`User ${event['rootEmail']} failed to create`, e) 
     }
 
     console.log('Creating countries')

@@ -20,6 +20,7 @@ export class AuthController {
     async login(@Body() login: LoginDto) {
       const user = await this.authService.validateUser(login.username, login.password);
       if (user != null) {
+        
         return this.authService.login(user);
       }
       throw new UnauthorizedException();

@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
+import { plainToClass } from 'class-transformer';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { JWTPayload } from '../../../shared/dto/jwt.payload';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,6 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(payload: any) {
-        return { id: payload.sub, username: payload.username, role: payload.role };
+        const jwtPayload: JWTPayload = plainToClass(JWTPayload, payload)
+        return { id: jwtPayload.sub, username: jwtPayload.u, role: jwtPayload.r, companyId: jwtPayload.cid, companyRole: jwtPayload.cr };
     }
 }

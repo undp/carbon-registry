@@ -1,5 +1,6 @@
 export default () => ({
-    stage: process.env.STAGE || 'NONE',
+    stage: process.env.STAGE || 'local',
+    systemCountry: process.env.systemCountryCode || 'NG',
     database: {
         type: 'postgres',
         host: process.env.DB_HOST || 'localhost',
@@ -16,7 +17,8 @@ export default () => ({
     },
     ledger: {
         name: 'carbon-registry-' + (process.env.NODE_ENV || 'dev'),
-        table: 'projects'
+        table: 'programmes',
+        overallTable: 'overall'
     },
     email: {
         source: process.env.SOURCE_EMAIL || 'info@xeptagon.com',

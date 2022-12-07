@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { JWTPayload } from '../../shared/dto/jwt.payload';
+import { CaslAbilityFactory } from '../../shared/casl/casl-ability.factory';
 import { API_KEY_SEPARATOR } from '../../shared/constants';
+import { CompanyService } from '../company/company.service';
 import { UserService } from '../user/user.service';
+import { instanceToPlain } from 'class-transformer';
+import { CompanyRole } from 'src/shared/enum/company.role.enum';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userService: UserService,
+        private readonly companyService: CompanyService,
         private readonly jwtService: JwtService,
+        public caslAbilityFactory: CaslAbilityFactory
     ) {}
 
     async validateUser(username: string, pass: string): Promise<any> {
@@ -33,11 +40,15 @@ export class AuthService {
     }
 
     async login(user: any) {
-        const payload = { username: user.email, sub: user.id, role: user.role };
+        const payload = new JWTPayload(user.email, user.id, user.role, user.companyId, user.companyRole)
+        const ability = this.caslAbilityFactory.createForUser(user);
         return {
-            access_token: this.jwtService.sign(payload),
+            access_token: this.jwtService.sign(instanceToPlain(payload)),
             role: user.role,
-            id: user.id
+            id: user.id,
+            companyId: user.companyId,
+            companyRole: user.companyRole,
+            ability: JSON.stringify(ability)
         };
     }
 }

@@ -9,12 +9,14 @@ import i18next from 'i18next';
 import { useUserContext } from '../../Context/UserInformationContext/userInformationContext';
 import { LoginProps } from '../../Definitions/InterfacesAndType/userLogin.definitions';
 import { useNavigate } from 'react-router-dom';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const Login = () => {
-  const { post, updateToken } = useConnection();
+  const { post, updateToken, removeToken } = useConnection();
   const { IsAuthenticated, setUserInfo } = useUserContext();
   const { i18n, t } = useTranslation(['common', 'login']);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleLanguageChange = (lang: string) => {
@@ -26,26 +28,26 @@ const Login = () => {
     try {
       const email = values.email.trim();
       const response = await post('auth/login', {
-        username: email,
-        password: values.password,
+        username: email.trim(),
+        password: values.password.trim(),
       });
       if (response.status === 200 || response.status === 201) {
+        if (showError) setShowError(false);
         updateToken(response.data.access_token);
         setUserInfo({ id: response.data.id, userRole: response.data.role });
-        console.log('Authenticated', IsAuthenticated());
-        return IsAuthenticated()
-          ? navigate('/dashboard', { replace: true })
-          : navigate('/login', { replace: true });
+        removeToken();
+        return IsAuthenticated() ? navigate('/dashboard', { replace: true }) : navigate('/login');
       }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log('Error in Login', error);
+      setShowError(true);
       message.open({
         type: 'error',
-        content: error,
+        content: error.message,
         duration: 2,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
+    } finally {
       setLoading(false);
     }
   };
@@ -103,6 +105,7 @@ const Login = () => {
                 >
                   <Form.Item
                     name="email"
+                    validateTrigger={'onBlur'}
                     rules={[
                       ({ getFieldValue }) => ({
                         validator() {
@@ -121,7 +124,7 @@ const Login = () => {
                       }),
                       {
                         required: true,
-                        message: 'Email can not be empty!',
+                        message: 'Email cannot be empty!',
                       },
                     ]}
                   >
@@ -134,7 +137,7 @@ const Login = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Password can not be empty!',
+                        message: 'Password cannot be empty!',
                       },
                     ]}
                   >
@@ -142,6 +145,14 @@ const Login = () => {
                       <Input.Password type="password" placeholder={`${t('common:pwd')}`} />
                     </div>
                   </Form.Item>
+                  {showError && (
+                    <div className="login-error-message-container">
+                      <ExclamationCircleOutlined
+                        style={{ color: '#d12800', marginRight: '0.5rem', fontSize: '1.1rem' }}
+                      />
+                      <span className="login-error-message-txt">Invalid Login credentials !</span>
+                    </div>
+                  )}
                   <div className="login-forget-pwd-container">
                     <span className="login-forget-pwd-txt">{t('login:forgot-pwd')} ?</span>
                   </div>
@@ -160,44 +171,44 @@ const Login = () => {
                   </span>
                 </div>
               </div>
-              <div className="login-language-selection-container">
-                <span className="login-language-selection-txt">
-                  {t('common:language')} :
-                  <Select
-                    placeholder="Search to Select"
-                    defaultValue={
-                      localStorage.getItem('i18nextLng') !== null
-                        ? localStorage.getItem('i18nextLng')
-                        : 'en'
-                    }
-                    placement="topRight"
-                    onChange={(lan: string) => handleLanguageChange(lan)}
-                    optionFilterProp="children"
-                    filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                    filterSort={(optionA, optionB) =>
-                      (optionA?.label ?? '')
-                        .toLowerCase()
-                        .localeCompare((optionB?.label ?? '').toLowerCase())
-                    }
-                    options={[
-                      {
-                        value: 'en',
-                        label: 'English',
-                      },
-                      {
-                        value: 'es',
-                        label: 'Española',
-                      },
-                      {
-                        value: 'fr',
-                        label: 'française',
-                      },
-                    ]}
-                  />
-                </span>
-              </div>
             </Col>
           </Row>
+          <div className="login-language-selection-container">
+            <span className="login-language-selection-txt">
+              {t('common:language')} :
+              <Select
+                placeholder="Search to Select"
+                defaultValue={
+                  localStorage.getItem('i18nextLng') !== null
+                    ? localStorage.getItem('i18nextLng')
+                    : 'en'
+                }
+                placement="topRight"
+                onChange={(lan: string) => handleLanguageChange(lan)}
+                optionFilterProp="children"
+                filterOption={(input, option) => (option?.label ?? '').includes(input)}
+                filterSort={(optionA, optionB) =>
+                  (optionA?.label ?? '')
+                    .toLowerCase()
+                    .localeCompare((optionB?.label ?? '').toLowerCase())
+                }
+                options={[
+                  {
+                    value: 'en',
+                    label: 'English',
+                  },
+                  {
+                    value: 'es',
+                    label: 'Española',
+                  },
+                  {
+                    value: 'fr',
+                    label: 'française',
+                  },
+                ]}
+              />
+            </span>
+          </div>
         </Col>
       </Row>
     </div>
