@@ -1,7 +1,25 @@
 # Carbon Registry - Serial Number Generation
+
+## Table of Contents
+
+Document Information
+1. Introduction 
+2. Serial Number Generator
+    - 2.1. Serial Number Standard
+    - 2.2. Country Code
+    - 2.3. Type of Credit/ Unit
+    - 2.4. Sectoral Scope Number (as per CDM)
+    - 2.5. Unique Project ID
+    - 2.6. Unit Serial Block – Start
+    - 2.7. Unit Serial Block – End
+3. Usage
+
+# 1. Introduction
 Once carbon programme that was added to the system is Authorized, a unique serial number should be generated for every programme by the Carbon Registry.
 
-## Serial Number Standard
+# 2. Serial Number Generator
+
+## 2.1 Serial Number Standard
 
 ![alt text](./docs/imgs/format.png)
 
@@ -23,7 +41,7 @@ Eg:
 VU-ITMO-11-356-2022-0-27-35
 
 
-### Country Code
+## 2.2 Country Code
 
 Standard needs to be followed `ISO 3166-1 alpha-2` two-letter country codes. 
 
@@ -33,10 +51,10 @@ Eg.
 | Costa Rica | CR |
 | Fiji | FJ |
 
-### Type of Credit/ Unit
+## 2.3 Type of Credit/ Unit
 Carbon credit measurement unit: ITMO
 
-### Sectoral Scope Number
+## 2.4 Sectoral Scope Number
 According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identified Sectors and Sectoral scope numbers are as follows:
 
 
@@ -58,16 +76,16 @@ According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identi
 | 14 | Afforestation and reforestation |
 | 15 | Agriculture |
 
-### Unique Programme ID
+## 2.5 Unique Programme ID
 format: XXX, When it is exceed the limit of possibilities it will go beyond 3 digits. 
 
 Contains only numbers
 
-### Unit Serial Block – Start
+## 2.6 Unit Serial Block – Start
 Serial Block Start – Total number of credits before issuing the credits for the programme + 1 <br>
 The start of the serial block will be represented without the decimal point of the credit value. It will be represented as a rounded integer.
 
-### Unit Serial Block – End
+## 2.7 Unit Serial Block – End
 Serial Block End – Total number of credits after issuing the credits for the programme. <br>
 The end of the serial block will be represented without the decimal point of the credit value.
 It will be represented as a rounded integer.
@@ -83,7 +101,7 @@ Eg:
 | Programme 5 | 41 | 14.7 | 15 | 41 | 55 |
 
 
-## Usage
+# 3. Usage
 ```
 import { generateSerialNumber } from 'serial-number-gen';
 
