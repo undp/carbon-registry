@@ -163,7 +163,9 @@ export class UserService {
                 if (companyGov) {
                     throw new HttpException(`Government already exist for the country code ${company.country}`, HttpStatus.BAD_REQUEST);
                 }
-            } else {
+            }
+            
+            if (companyRole != CompanyRole.GOVERNMENT) {
                 throw new HttpException("Company create does not permitted for your company role", HttpStatus.FORBIDDEN)
             }
         }

@@ -19,6 +19,7 @@ import { DataListResponseDto } from '../../shared/dto/data.list.response';
 import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
 import { ConfigService } from '@nestjs/config';
 import { TypeOfMitigation } from '../../shared/enum/typeofmitigation.enum';
+import { CompanyService } from '../company/company.service';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -29,6 +30,7 @@ export class ProgrammeService {
         private programmeLedger: ProgrammeLedgerService, 
         private counterService: CounterService,
         private configService: ConfigService,
+        private companyService: CompanyService,
         @InjectRepository(Programme) private programmeRepo: Repository<Programme>, 
         @InjectRepository(ConstantEntity) private constantRepo: Repository<ConstantEntity>,
         private logger: Logger) {}
@@ -68,6 +70,12 @@ export class ProgrammeService {
         this.logger.verbose('ProgrammeDTO received', programmeDto)
         const programme: Programme = this.toProgramme(programmeDto);
         this.logger.verbose('Programme create', programme)
+
+        const projectCompany = await this.companyService.findByTaxId(programmeDto.proponentTaxVatId);
+        if (!projectCompany) {
+            throw new HttpException("Programme related to proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
+        }
+
         programme.programmeId = (await this.counterService.incrementCount(CounterType.PROGRAMME, 3))
 
         const constants = await this.getLatestConstant(programmeDto.typeOfMitigation)
@@ -88,6 +96,7 @@ export class ProgrammeService {
         programme.programmeProperties.ITMOYear = new Date(programme.startTime*1000).getFullYear()
         programme.constantVersion = constants ? String(constants.version): "default"
         programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
+        programme.companyId = projectCompany.companyId;
         return await this.programmeLedger.createProgramme(programme);
     }
 

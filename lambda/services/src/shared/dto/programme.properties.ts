@@ -38,11 +38,6 @@ export class ProgrammeProperties {
     carbonPriceUSDPerTon: number;
 
     @ApiProperty()
-    @IsNotEmpty()
-    @IsString()
-    proponentTaxVatId: string;
-
-    @ApiProperty()
     @IsString()
     proponentPercentage: string;
 

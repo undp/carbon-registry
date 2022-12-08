@@ -6,7 +6,6 @@ import { API_KEY_SEPARATOR } from '../../shared/constants';
 import { CompanyService } from '../company/company.service';
 import { UserService } from '../user/user.service';
 import { instanceToPlain } from 'class-transformer';
-import { CompanyRole } from 'src/shared/enum/company.role.enum';
 
 @Injectable()
 export class AuthService {

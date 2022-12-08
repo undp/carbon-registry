@@ -7,9 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Programme } from '../../shared/entities/programme.entity';
 import { UtilModule } from '../../shared/util/util.module';
 import { ConstantEntity } from '../../shared/entities/constants.entity';
+import { CompanyModule } from '../company/company.module';
 
 @Module({
-  imports: [ProgrammeLedgerModule, CaslModule, TypeOrmModule.forFeature([Programme]), TypeOrmModule.forFeature([ConstantEntity]), UtilModule],
+  imports: [ProgrammeLedgerModule, CaslModule, TypeOrmModule.forFeature([Programme]), TypeOrmModule.forFeature([ConstantEntity]), UtilModule, CompanyModule],
   providers: [Logger, ProgrammeService],
   controllers: [ProgrammeController]
 })

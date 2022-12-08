@@ -49,6 +49,11 @@ export class ProgrammeDto {
     endTime: number;
 
     @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    proponentTaxVatId: string;
+
+    @ApiProperty()
     @IsNotEmptyObject()
     programmeProperties: ProgrammeProperties;
 

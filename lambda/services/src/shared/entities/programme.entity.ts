@@ -63,6 +63,12 @@ export class Programme implements EntitySubject {
     @Column({nullable: true})
     constantVersion: string;
 
+    @Column()
+    proponentTaxVatId: string;
+
+    @Column()
+    companyId: number;
+
     @Column({
         type: 'jsonb',
         array: false
