@@ -77,7 +77,7 @@ According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identi
 | 15 | Agriculture |
 
 ## 2.5 Unique Programme ID
-format: XXX, When it is exceed the limit of possibilities it will go beyond 3 digits. 
+format: XXX, When it exceeds the limit of possibilities it will go beyond 3 digits. 
 
 Contains only numbers
 
@@ -94,11 +94,11 @@ Eg:
 
 | Programme Current | Block End | Credit Value | Credit Value (Rounded) | Serial Block Start | Serial Block End |
 | --- | --- | --- | --- | --- | --- |
-| Programme 1 | 25.51 | 26 | 1 | 26 |
+| Programme 1 | | 25.51 | 26 | 1 | 26 |
 | Programme 2 | 26 | 10.000 | 10 | 27 | 36 |
-| Programme 3 | 37 | 5.4341 | 5 | 37 | 41 |
+| Programme 3 | 36 | 5.4341 | 5 | 37 | 41 |
 | Programme 4 | 41 | 0.1285 | 0 | Programme Rejected as credit value is 0. |
-| Programme 5 | 41 | 14.7 | 15 | 41 | 55 |
+| Programme 5 | 41 | 14.7 | 15 | 42 | 56 |
 
 
 # 3. Usage

@@ -96,10 +96,11 @@ System pre-defined user roles as follows,
 
 All the CRUD operations can perform as per the following table,
 
-| Company Role | User Role | Authorized User Roles (Company) |
+| Company Role | New User Role | Authorized User Roles (Company) |
 | --- | --- | --- |
-| System | Root | Cannot create new one other than the default system user |
+| System | Root | Cannot create new one other than the default system user and Can manage all the users in the system |
 | Government | Admin<br>Manager<br>View Only | Root<br>Admin(Government) |
 | All other Company Roles | Admin<br>Manager<br>View Only | Root<br>Admin(Government)<br>Admin(Company) |
 
-- All users can edit own user account except Role and Email
+- All users can edit own user account except Role and Email.
+- Users are not allowed to delete the own account from the system.
