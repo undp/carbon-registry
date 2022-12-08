@@ -1,0 +1,1252 @@
+[
+  {
+    "Country or Area": "Algeria",
+    "ISO-alpha2 Code": "DZ",
+    "ISO-alpha3 Code": "DZA"
+  },
+  {
+    "Country or Area": "Egypt",
+    "ISO-alpha2 Code": "EG",
+    "ISO-alpha3 Code": "EGY"
+  },
+  {
+    "Country or Area": "Libya",
+    "ISO-alpha2 Code": "LY",
+    "ISO-alpha3 Code": "LBY"
+  },
+  {
+    "Country or Area": "Morocco",
+    "ISO-alpha2 Code": "MA",
+    "ISO-alpha3 Code": "MAR"
+  },
+  {
+    "Country or Area": "Sudan (the)",
+    "ISO-alpha2 Code": "SD",
+    "ISO-alpha3 Code": "SDN"
+  },
+  {
+    "Country or Area": "Tunisia",
+    "ISO-alpha2 Code": "TN",
+    "ISO-alpha3 Code": "TUN"
+  },
+  {
+    "Country or Area": "Western Sahara",
+    "ISO-alpha2 Code": "EH",
+    "ISO-alpha3 Code": "ESH"
+  },
+  {
+    "Country or Area": "British Indian Ocean Territory",
+    "ISO-alpha2 Code": "IO",
+    "ISO-alpha3 Code": "IOT"
+  },
+  {
+    "Country or Area": "Burundi",
+    "ISO-alpha2 Code": "BI",
+    "ISO-alpha3 Code": "BDI"
+  },
+  {
+    "Country or Area": "Comoros (the)",
+    "ISO-alpha2 Code": "KM",
+    "ISO-alpha3 Code": "COM"
+  },
+  {
+    "Country or Area": "Djibouti",
+    "ISO-alpha2 Code": "DJ",
+    "ISO-alpha3 Code": "DJI"
+  },
+  {
+    "Country or Area": "Eritrea",
+    "ISO-alpha2 Code": "ER",
+    "ISO-alpha3 Code": "ERI"
+  },
+  {
+    "Country or Area": "Ethiopia",
+    "ISO-alpha2 Code": "ET",
+    "ISO-alpha3 Code": "ETH"
+  },
+  {
+    "Country or Area": "French Southern Territories",
+    "ISO-alpha2 Code": "TF",
+    "ISO-alpha3 Code": "ATF"
+  },
+  {
+    "Country or Area": "Kenya",
+    "ISO-alpha2 Code": "KE",
+    "ISO-alpha3 Code": "KEN"
+  },
+  {
+    "Country or Area": "Madagascar",
+    "ISO-alpha2 Code": "MG",
+    "ISO-alpha3 Code": "MDG"
+  },
+  {
+    "Country or Area": "Malawi",
+    "ISO-alpha2 Code": "MW",
+    "ISO-alpha3 Code": "MWI"
+  },
+  {
+    "Country or Area": "Mauritius",
+    "ISO-alpha2 Code": "MU",
+    "ISO-alpha3 Code": "MUS"
+  },
+  {
+    "Country or Area": "Mayotte",
+    "ISO-alpha2 Code": "YT",
+    "ISO-alpha3 Code": "MYT"
+  },
+  {
+    "Country or Area": "Mozambique",
+    "ISO-alpha2 Code": "MZ",
+    "ISO-alpha3 Code": "MOZ"
+  },
+  {
+    "Country or Area": "Réunion",
+    "ISO-alpha2 Code": "RE",
+    "ISO-alpha3 Code": "REU"
+  },
+  {
+    "Country or Area": "Rwanda",
+    "ISO-alpha2 Code": "RW",
+    "ISO-alpha3 Code": "RWA"
+  },
+  {
+    "Country or Area": "Seychelles",
+    "ISO-alpha2 Code": "SC",
+    "ISO-alpha3 Code": "SYC"
+  },
+  {
+    "Country or Area": "Somalia",
+    "ISO-alpha2 Code": "SO",
+    "ISO-alpha3 Code": "SOM"
+  },
+  {
+    "Country or Area": "South Sudan",
+    "ISO-alpha2 Code": "SS",
+    "ISO-alpha3 Code": "SSD"
+  },
+  {
+    "Country or Area": "Uganda",
+    "ISO-alpha2 Code": "UG",
+    "ISO-alpha3 Code": "UGA"
+  },
+  {
+    "Country or Area": "United Republic of Tanzania (the)",
+    "ISO-alpha2 Code": "TZ",
+    "ISO-alpha3 Code": "TZA"
+  },
+  {
+    "Country or Area": "Zambia",
+    "ISO-alpha2 Code": "ZM",
+    "ISO-alpha3 Code": "ZMB"
+  },
+  {
+    "Country or Area": "Zimbabwe",
+    "ISO-alpha2 Code": "ZW",
+    "ISO-alpha3 Code": "ZWE"
+  },
+  {
+    "Country or Area": "Angola",
+    "ISO-alpha2 Code": "AO",
+    "ISO-alpha3 Code": "AGO"
+  },
+  {
+    "Country or Area": "Cameroon",
+    "ISO-alpha2 Code": "CM",
+    "ISO-alpha3 Code": "CMR"
+  },
+  {
+    "Country or Area": "Central African Republic (the)",
+    "ISO-alpha2 Code": "CF",
+    "ISO-alpha3 Code": "CAF"
+  },
+  {
+    "Country or Area": "Chad",
+    "ISO-alpha2 Code": "TD",
+    "ISO-alpha3 Code": "TCD"
+  },
+  {
+    "Country or Area": "Congo (the)",
+    "ISO-alpha2 Code": "CG",
+    "ISO-alpha3 Code": "COG"
+  },
+  {
+    "Country or Area": "Democratic Republic of the Congo (the)",
+    "ISO-alpha2 Code": "CD",
+    "ISO-alpha3 Code": "COD"
+  },
+  {
+    "Country or Area": "Equatorial Guinea",
+    "ISO-alpha2 Code": "GQ",
+    "ISO-alpha3 Code": "GNQ"
+  },
+  {
+    "Country or Area": "Gabon",
+    "ISO-alpha2 Code": "GA",
+    "ISO-alpha3 Code": "GAB"
+  },
+  {
+    "Country or Area": "Sao Tome and Principe",
+    "ISO-alpha2 Code": "ST",
+    "ISO-alpha3 Code": "STP"
+  },
+  {
+    "Country or Area": "Botswana",
+    "ISO-alpha2 Code": "BW",
+    "ISO-alpha3 Code": "BWA"
+  },
+  {
+    "Country or Area": "Eswatini",
+    "ISO-alpha2 Code": "SZ",
+    "ISO-alpha3 Code": "SWZ"
+  },
+  {
+    "Country or Area": "Lesotho",
+    "ISO-alpha2 Code": "LS",
+    "ISO-alpha3 Code": "LSO"
+  },
+  {
+    "Country or Area": "Namibia",
+    "ISO-alpha2 Code": "",
+    "ISO-alpha3 Code": "NAM"
+  },
+  {
+    "Country or Area": "South Africa",
+    "ISO-alpha2 Code": "ZA",
+    "ISO-alpha3 Code": "ZAF"
+  },
+  {
+    "Country or Area": "Benin",
+    "ISO-alpha2 Code": "BJ",
+    "ISO-alpha3 Code": "BEN"
+  },
+  {
+    "Country or Area": "Burkina Faso",
+    "ISO-alpha2 Code": "BF",
+    "ISO-alpha3 Code": "BFA"
+  },
+  {
+    "Country or Area": "Cabo Verde",
+    "ISO-alpha2 Code": "CV",
+    "ISO-alpha3 Code": "CPV"
+  },
+  {
+    "Country or Area": "Côte d'Ivoire",
+    "ISO-alpha2 Code": "CI",
+    "ISO-alpha3 Code": "CIV"
+  },
+  {
+    "Country or Area": "Gambia (the)",
+    "ISO-alpha2 Code": "GM",
+    "ISO-alpha3 Code": "GMB"
+  },
+  {
+    "Country or Area": "Ghana",
+    "ISO-alpha2 Code": "GH",
+    "ISO-alpha3 Code": "GHA"
+  },
+  {
+    "Country or Area": "Guinea",
+    "ISO-alpha2 Code": "GN",
+    "ISO-alpha3 Code": "GIN"
+  },
+  {
+    "Country or Area": "Guinea-Bissau",
+    "ISO-alpha2 Code": "GW",
+    "ISO-alpha3 Code": "GNB"
+  },
+  {
+    "Country or Area": "Liberia",
+    "ISO-alpha2 Code": "LR",
+    "ISO-alpha3 Code": "LBR"
+  },
+  {
+    "Country or Area": "Mali",
+    "ISO-alpha2 Code": "ML",
+    "ISO-alpha3 Code": "MLI"
+  },
+  {
+    "Country or Area": "Mauritania",
+    "ISO-alpha2 Code": "MR",
+    "ISO-alpha3 Code": "MRT"
+  },
+  {
+    "Country or Area": "Niger (the)",
+    "ISO-alpha2 Code": "NE",
+    "ISO-alpha3 Code": "NER"
+  },
+  {
+    "Country or Area": "Nigeria",
+    "ISO-alpha2 Code": "NG",
+    "ISO-alpha3 Code": "NGA"
+  },
+  {
+    "Country or Area": "Saint Helena",
+    "ISO-alpha2 Code": "SH",
+    "ISO-alpha3 Code": "SHN"
+  },
+  {
+    "Country or Area": "Senegal",
+    "ISO-alpha2 Code": "SN",
+    "ISO-alpha3 Code": "SEN"
+  },
+  {
+    "Country or Area": "Sierra Leone",
+    "ISO-alpha2 Code": "SL",
+    "ISO-alpha3 Code": "SLE"
+  },
+  {
+    "Country or Area": "Togo",
+    "ISO-alpha2 Code": "TG",
+    "ISO-alpha3 Code": "TGO"
+  },
+  {
+    "Country or Area": "Anguilla",
+    "ISO-alpha2 Code": "AI",
+    "ISO-alpha3 Code": "AIA"
+  },
+  {
+    "Country or Area": "Antigua and Barbuda",
+    "ISO-alpha2 Code": "AG",
+    "ISO-alpha3 Code": "ATG"
+  },
+  {
+    "Country or Area": "Aruba",
+    "ISO-alpha2 Code": "AW",
+    "ISO-alpha3 Code": "ABW"
+  },
+  {
+    "Country or Area": "Bahamas (the)",
+    "ISO-alpha2 Code": "BS",
+    "ISO-alpha3 Code": "BHS"
+  },
+  {
+    "Country or Area": "Barbados",
+    "ISO-alpha2 Code": "BB",
+    "ISO-alpha3 Code": "BRB"
+  },
+  {
+    "Country or Area": "Bonaire, Sint Eustatius and Saba",
+    "ISO-alpha2 Code": "BQ",
+    "ISO-alpha3 Code": "BES"
+  },
+  {
+    "Country or Area": "British Virgin Islands",
+    "ISO-alpha2 Code": "VG",
+    "ISO-alpha3 Code": "VGB"
+  },
+  {
+    "Country or Area": "Cayman Islands",
+    "ISO-alpha2 Code": "KY",
+    "ISO-alpha3 Code": "CYM"
+  },
+  {
+    "Country or Area": "Cuba",
+    "ISO-alpha2 Code": "CU",
+    "ISO-alpha3 Code": "CUB"
+  },
+  {
+    "Country or Area": "Curaçao",
+    "ISO-alpha2 Code": "CW",
+    "ISO-alpha3 Code": "CUW"
+  },
+  {
+    "Country or Area": "Dominica",
+    "ISO-alpha2 Code": "DM",
+    "ISO-alpha3 Code": "DMA"
+  },
+  {
+    "Country or Area": "Dominican Republic (the)",
+    "ISO-alpha2 Code": "DO",
+    "ISO-alpha3 Code": "DOM"
+  },
+  {
+    "Country or Area": "Grenada",
+    "ISO-alpha2 Code": "GD",
+    "ISO-alpha3 Code": "GRD"
+  },
+  {
+    "Country or Area": "Guadeloupe",
+    "ISO-alpha2 Code": "GP",
+    "ISO-alpha3 Code": "GLP"
+  },
+  {
+    "Country or Area": "Haiti",
+    "ISO-alpha2 Code": "HT",
+    "ISO-alpha3 Code": "HTI"
+  },
+  {
+    "Country or Area": "Jamaica",
+    "ISO-alpha2 Code": "JM",
+    "ISO-alpha3 Code": "JAM"
+  },
+  {
+    "Country or Area": "Martinique",
+    "ISO-alpha2 Code": "MQ",
+    "ISO-alpha3 Code": "MTQ"
+  },
+  {
+    "Country or Area": "Montserrat",
+    "ISO-alpha2 Code": "MS",
+    "ISO-alpha3 Code": "MSR"
+  },
+  {
+    "Country or Area": "Puerto Rico",
+    "ISO-alpha2 Code": "PR",
+    "ISO-alpha3 Code": "PRI"
+  },
+  {
+    "Country or Area": "Saint Barthélemy",
+    "ISO-alpha2 Code": "BL",
+    "ISO-alpha3 Code": "BLM"
+  },
+  {
+    "Country or Area": "Saint Kitts and Nevis",
+    "ISO-alpha2 Code": "KN",
+    "ISO-alpha3 Code": "KNA"
+  },
+  {
+    "Country or Area": "Saint Lucia",
+    "ISO-alpha2 Code": "LC",
+    "ISO-alpha3 Code": "LCA"
+  },
+  {
+    "Country or Area": "Saint Martin (French Part)",
+    "ISO-alpha2 Code": "MF",
+    "ISO-alpha3 Code": "MAF"
+  },
+  {
+    "Country or Area": "Saint Vincent and the Grenadines",
+    "ISO-alpha2 Code": "VC",
+    "ISO-alpha3 Code": "VCT"
+  },
+  {
+    "Country or Area": "Sint Maarten (Dutch part)",
+    "ISO-alpha2 Code": "SX",
+    "ISO-alpha3 Code": "SXM"
+  },
+  {
+    "Country or Area": "Trinidad and Tobago",
+    "ISO-alpha2 Code": "TT",
+    "ISO-alpha3 Code": "TTO"
+  },
+  {
+    "Country or Area": "Turks and Caicos Islands",
+    "ISO-alpha2 Code": "TC",
+    "ISO-alpha3 Code": "TCA"
+  },
+  {
+    "Country or Area": "United States Virgin Islands",
+    "ISO-alpha2 Code": "VI",
+    "ISO-alpha3 Code": "VIR"
+  },
+  {
+    "Country or Area": "Belize",
+    "ISO-alpha2 Code": "BZ",
+    "ISO-alpha3 Code": "BLZ"
+  },
+  {
+    "Country or Area": "Costa Rica",
+    "ISO-alpha2 Code": "CR",
+    "ISO-alpha3 Code": "CRI"
+  },
+  {
+    "Country or Area": "El Salvador",
+    "ISO-alpha2 Code": "SV",
+    "ISO-alpha3 Code": "SLV"
+  },
+  {
+    "Country or Area": "Guatemala",
+    "ISO-alpha2 Code": "GT",
+    "ISO-alpha3 Code": "GTM"
+  },
+  {
+    "Country or Area": "Honduras",
+    "ISO-alpha2 Code": "HN",
+    "ISO-alpha3 Code": "HND"
+  },
+  {
+    "Country or Area": "Mexico",
+    "ISO-alpha2 Code": "MX",
+    "ISO-alpha3 Code": "MEX"
+  },
+  {
+    "Country or Area": "Nicaragua",
+    "ISO-alpha2 Code": "NI",
+    "ISO-alpha3 Code": "NIC"
+  },
+  {
+    "Country or Area": "Panama",
+    "ISO-alpha2 Code": "PA",
+    "ISO-alpha3 Code": "PAN"
+  },
+  {
+    "Country or Area": "Argentina",
+    "ISO-alpha2 Code": "AR",
+    "ISO-alpha3 Code": "ARG"
+  },
+  {
+    "Country or Area": "Bolivia (Plurinational State of)",
+    "ISO-alpha2 Code": "BO",
+    "ISO-alpha3 Code": "BOL"
+  },
+  {
+    "Country or Area": "Bouvet Island",
+    "ISO-alpha2 Code": "BV",
+    "ISO-alpha3 Code": "BVT"
+  },
+  {
+    "Country or Area": "Brazil",
+    "ISO-alpha2 Code": "BR",
+    "ISO-alpha3 Code": "BRA"
+  },
+  {
+    "Country or Area": "Chile",
+    "ISO-alpha2 Code": "CL",
+    "ISO-alpha3 Code": "CHL"
+  },
+  {
+    "Country or Area": "Colombia",
+    "ISO-alpha2 Code": "CO",
+    "ISO-alpha3 Code": "COL"
+  },
+  {
+    "Country or Area": "Ecuador",
+    "ISO-alpha2 Code": "EC",
+    "ISO-alpha3 Code": "ECU"
+  },
+  {
+    "Country or Area": "Falkland Islands (Malvinas)",
+    "ISO-alpha2 Code": "FK",
+    "ISO-alpha3 Code": "FLK"
+  },
+  {
+    "Country or Area": "French Guiana",
+    "ISO-alpha2 Code": "GF",
+    "ISO-alpha3 Code": "GUF"
+  },
+  {
+    "Country or Area": "Guyana",
+    "ISO-alpha2 Code": "GY",
+    "ISO-alpha3 Code": "GUY"
+  },
+  {
+    "Country or Area": "Paraguay",
+    "ISO-alpha2 Code": "PY",
+    "ISO-alpha3 Code": "PRY"
+  },
+  {
+    "Country or Area": "Peru",
+    "ISO-alpha2 Code": "PE",
+    "ISO-alpha3 Code": "PER"
+  },
+  {
+    "Country or Area": "South Georgia and the South Sandwich Islands",
+    "ISO-alpha2 Code": "GS",
+    "ISO-alpha3 Code": "SGS"
+  },
+  {
+    "Country or Area": "Suriname",
+    "ISO-alpha2 Code": "SR",
+    "ISO-alpha3 Code": "SUR"
+  },
+  {
+    "Country or Area": "Uruguay",
+    "ISO-alpha2 Code": "UY",
+    "ISO-alpha3 Code": "URY"
+  },
+  {
+    "Country or Area": "Venezuela (Bolivarian Republic of)",
+    "ISO-alpha2 Code": "VE",
+    "ISO-alpha3 Code": "VEN"
+  },
+  {
+    "Country or Area": "Bermuda",
+    "ISO-alpha2 Code": "BM",
+    "ISO-alpha3 Code": "BMU"
+  },
+  {
+    "Country or Area": "Canada",
+    "ISO-alpha2 Code": "CA",
+    "ISO-alpha3 Code": "CAN"
+  },
+  {
+    "Country or Area": "Greenland",
+    "ISO-alpha2 Code": "GL",
+    "ISO-alpha3 Code": "GRL"
+  },
+  {
+    "Country or Area": "Saint Pierre and Miquelon",
+    "ISO-alpha2 Code": "PM",
+    "ISO-alpha3 Code": "SPM"
+  },
+  {
+    "Country or Area": "United States of America (the)",
+    "ISO-alpha2 Code": "US",
+    "ISO-alpha3 Code": "USA"
+  },
+  {
+    "Country or Area": "Antarctica",
+    "ISO-alpha2 Code": "AQ",
+    "ISO-alpha3 Code": "ATA"
+  },
+  {
+    "Country or Area": "Kazakhstan",
+    "ISO-alpha2 Code": "KZ",
+    "ISO-alpha3 Code": "KAZ"
+  },
+  {
+    "Country or Area": "Kyrgyzstan",
+    "ISO-alpha2 Code": "KG",
+    "ISO-alpha3 Code": "KGZ"
+  },
+  {
+    "Country or Area": "Tajikistan",
+    "ISO-alpha2 Code": "TJ",
+    "ISO-alpha3 Code": "TJK"
+  },
+  {
+    "Country or Area": "Turkmenistan",
+    "ISO-alpha2 Code": "TM",
+    "ISO-alpha3 Code": "TKM"
+  },
+  {
+    "Country or Area": "Uzbekistan",
+    "ISO-alpha2 Code": "UZ",
+    "ISO-alpha3 Code": "UZB"
+  },
+  {
+    "Country or Area": "China",
+    "ISO-alpha2 Code": "CN",
+    "ISO-alpha3 Code": "CHN"
+  },
+  {
+    "Country or Area": "China, Hong Kong Special Administrative Region",
+    "ISO-alpha2 Code": "HK",
+    "ISO-alpha3 Code": "HKG"
+  },
+  {
+    "Country or Area": "China, Macao Special Administrative Region",
+    "ISO-alpha2 Code": "MO",
+    "ISO-alpha3 Code": "MAC"
+  },
+  {
+    "Country or Area": "Democratic People's Republic of Korea (the)",
+    "ISO-alpha2 Code": "KP",
+    "ISO-alpha3 Code": "PRK"
+  },
+  {
+    "Country or Area": "Japan",
+    "ISO-alpha2 Code": "JP",
+    "ISO-alpha3 Code": "JPN"
+  },
+  {
+    "Country or Area": "Mongolia",
+    "ISO-alpha2 Code": "MN",
+    "ISO-alpha3 Code": "MNG"
+  },
+  {
+    "Country or Area": "Republic of Korea (the)",
+    "ISO-alpha2 Code": "KR",
+    "ISO-alpha3 Code": "KOR"
+  },
+  {
+    "Country or Area": "Brunei Darussalam",
+    "ISO-alpha2 Code": "BN",
+    "ISO-alpha3 Code": "BRN"
+  },
+  {
+    "Country or Area": "Cambodia",
+    "ISO-alpha2 Code": "KH",
+    "ISO-alpha3 Code": "KHM"
+  },
+  {
+    "Country or Area": "Indonesia",
+    "ISO-alpha2 Code": "ID",
+    "ISO-alpha3 Code": "IDN"
+  },
+  {
+    "Country or Area": "Lao People's Democratic Republic (the)",
+    "ISO-alpha2 Code": "LA",
+    "ISO-alpha3 Code": "LAO"
+  },
+  {
+    "Country or Area": "Malaysia",
+    "ISO-alpha2 Code": "MY",
+    "ISO-alpha3 Code": "MYS"
+  },
+  {
+    "Country or Area": "Myanmar",
+    "ISO-alpha2 Code": "MM",
+    "ISO-alpha3 Code": "MMR"
+  },
+  {
+    "Country or Area": "Philippines (the)",
+    "ISO-alpha2 Code": "PH",
+    "ISO-alpha3 Code": "PHL"
+  },
+  {
+    "Country or Area": "Singapore",
+    "ISO-alpha2 Code": "SG",
+    "ISO-alpha3 Code": "SGP"
+  },
+  {
+    "Country or Area": "Thailand",
+    "ISO-alpha2 Code": "TH",
+    "ISO-alpha3 Code": "THA"
+  },
+  {
+    "Country or Area": "Timor-Leste",
+    "ISO-alpha2 Code": "TL",
+    "ISO-alpha3 Code": "TLS"
+  },
+  {
+    "Country or Area": "Viet Nam",
+    "ISO-alpha2 Code": "VN",
+    "ISO-alpha3 Code": "VNM"
+  },
+  {
+    "Country or Area": "Afghanistan",
+    "ISO-alpha2 Code": "AF",
+    "ISO-alpha3 Code": "AFG"
+  },
+  {
+    "Country or Area": "Bangladesh",
+    "ISO-alpha2 Code": "BD",
+    "ISO-alpha3 Code": "BGD"
+  },
+  {
+    "Country or Area": "Bhutan",
+    "ISO-alpha2 Code": "BT",
+    "ISO-alpha3 Code": "BTN"
+  },
+  {
+    "Country or Area": "India",
+    "ISO-alpha2 Code": "IN",
+    "ISO-alpha3 Code": "IND"
+  },
+  {
+    "Country or Area": "Iran (Islamic Republic of)",
+    "ISO-alpha2 Code": "IR",
+    "ISO-alpha3 Code": "IRN"
+  },
+  {
+    "Country or Area": "Maldives",
+    "ISO-alpha2 Code": "MV",
+    "ISO-alpha3 Code": "MDV"
+  },
+  {
+    "Country or Area": "Nepal",
+    "ISO-alpha2 Code": "NP",
+    "ISO-alpha3 Code": "NPL"
+  },
+  {
+    "Country or Area": "Pakistan",
+    "ISO-alpha2 Code": "PK",
+    "ISO-alpha3 Code": "PAK"
+  },
+  {
+    "Country or Area": "Sri Lanka",
+    "ISO-alpha2 Code": "LK",
+    "ISO-alpha3 Code": "LKA"
+  },
+  {
+    "Country or Area": "Armenia",
+    "ISO-alpha2 Code": "AM",
+    "ISO-alpha3 Code": "ARM"
+  },
+  {
+    "Country or Area": "Azerbaijan",
+    "ISO-alpha2 Code": "AZ",
+    "ISO-alpha3 Code": "AZE"
+  },
+  {
+    "Country or Area": "Bahrain",
+    "ISO-alpha2 Code": "BH",
+    "ISO-alpha3 Code": "BHR"
+  },
+  {
+    "Country or Area": "Cyprus",
+    "ISO-alpha2 Code": "CY",
+    "ISO-alpha3 Code": "CYP"
+  },
+  {
+    "Country or Area": "Georgia",
+    "ISO-alpha2 Code": "GE",
+    "ISO-alpha3 Code": "GEO"
+  },
+  {
+    "Country or Area": "Iraq",
+    "ISO-alpha2 Code": "IQ",
+    "ISO-alpha3 Code": "IRQ"
+  },
+  {
+    "Country or Area": "Israel",
+    "ISO-alpha2 Code": "IL",
+    "ISO-alpha3 Code": "ISR"
+  },
+  {
+    "Country or Area": "Jordan",
+    "ISO-alpha2 Code": "JO",
+    "ISO-alpha3 Code": "JOR"
+  },
+  {
+    "Country or Area": "Kuwait",
+    "ISO-alpha2 Code": "KW",
+    "ISO-alpha3 Code": "KWT"
+  },
+  {
+    "Country or Area": "Lebanon",
+    "ISO-alpha2 Code": "LB",
+    "ISO-alpha3 Code": "LBN"
+  },
+  {
+    "Country or Area": "Oman",
+    "ISO-alpha2 Code": "OM",
+    "ISO-alpha3 Code": "OMN"
+  },
+  {
+    "Country or Area": "Qatar",
+    "ISO-alpha2 Code": "QA",
+    "ISO-alpha3 Code": "QAT"
+  },
+  {
+    "Country or Area": "Saudi Arabia",
+    "ISO-alpha2 Code": "SA",
+    "ISO-alpha3 Code": "SAU"
+  },
+  {
+    "Country or Area": "State of Palestine (the)",
+    "ISO-alpha2 Code": "PS",
+    "ISO-alpha3 Code": "PSE"
+  },
+  {
+    "Country or Area": "Syrian Arab Republic (the)",
+    "ISO-alpha2 Code": "SY",
+    "ISO-alpha3 Code": "SYR"
+  },
+  {
+    "Country or Area": "Turkey",
+    "ISO-alpha2 Code": "TR",
+    "ISO-alpha3 Code": "TUR"
+  },
+  {
+    "Country or Area": "United Arab Emirates (the)",
+    "ISO-alpha2 Code": "AE",
+    "ISO-alpha3 Code": "ARE"
+  },
+  {
+    "Country or Area": "Yemen",
+    "ISO-alpha2 Code": "YE",
+    "ISO-alpha3 Code": "YEM"
+  },
+  {
+    "Country or Area": "Belarus",
+    "ISO-alpha2 Code": "BY",
+    "ISO-alpha3 Code": "BLR"
+  },
+  {
+    "Country or Area": "Bulgaria",
+    "ISO-alpha2 Code": "BG",
+    "ISO-alpha3 Code": "BGR"
+  },
+  {
+    "Country or Area": "Czechia",
+    "ISO-alpha2 Code": "CZ",
+    "ISO-alpha3 Code": "CZE"
+  },
+  {
+    "Country or Area": "Hungary",
+    "ISO-alpha2 Code": "HU",
+    "ISO-alpha3 Code": "HUN"
+  },
+  {
+    "Country or Area": "Poland",
+    "ISO-alpha2 Code": "PL",
+    "ISO-alpha3 Code": "POL"
+  },
+  {
+    "Country or Area": "Republic of Moldova (the)",
+    "ISO-alpha2 Code": "MD",
+    "ISO-alpha3 Code": "MDA"
+  },
+  {
+    "Country or Area": "Romania",
+    "ISO-alpha2 Code": "RO",
+    "ISO-alpha3 Code": "ROU"
+  },
+  {
+    "Country or Area": "Russian Federation (the)",
+    "ISO-alpha2 Code": "RU",
+    "ISO-alpha3 Code": "RUS"
+  },
+  {
+    "Country or Area": "Slovakia",
+    "ISO-alpha2 Code": "SK",
+    "ISO-alpha3 Code": "SVK"
+  },
+  {
+    "Country or Area": "Ukraine",
+    "ISO-alpha2 Code": "UA",
+    "ISO-alpha3 Code": "UKR"
+  },
+  {
+    "Country or Area": "Åland Islands",
+    "ISO-alpha2 Code": "AX",
+    "ISO-alpha3 Code": "ALA"
+  },
+  {
+    "Country or Area": "Guernsey",
+    "ISO-alpha2 Code": "GG",
+    "ISO-alpha3 Code": "GGY"
+  },
+  {
+    "Country or Area": "Jersey",
+    "ISO-alpha2 Code": "JE",
+    "ISO-alpha3 Code": "JEY"
+  },
+  {
+    "Country or Area": "Sark",
+    "ISO-alpha2 Code": "",
+    "ISO-alpha3 Code": ""
+  },
+  {
+    "Country or Area": "Denmark",
+    "ISO-alpha2 Code": "DK",
+    "ISO-alpha3 Code": "DNK"
+  },
+  {
+    "Country or Area": "Estonia",
+    "ISO-alpha2 Code": "EE",
+    "ISO-alpha3 Code": "EST"
+  },
+  {
+    "Country or Area": "Faroe Islands",
+    "ISO-alpha2 Code": "FO",
+    "ISO-alpha3 Code": "FRO"
+  },
+  {
+    "Country or Area": "Finland",
+    "ISO-alpha2 Code": "FI",
+    "ISO-alpha3 Code": "FIN"
+  },
+  {
+    "Country or Area": "Iceland",
+    "ISO-alpha2 Code": "IS",
+    "ISO-alpha3 Code": "ISL"
+  },
+  {
+    "Country or Area": "Ireland",
+    "ISO-alpha2 Code": "IE",
+    "ISO-alpha3 Code": "IRL"
+  },
+  {
+    "Country or Area": "Isle of Man",
+    "ISO-alpha2 Code": "IM",
+    "ISO-alpha3 Code": "IMN"
+  },
+  {
+    "Country or Area": "Latvia",
+    "ISO-alpha2 Code": "LV",
+    "ISO-alpha3 Code": "LVA"
+  },
+  {
+    "Country or Area": "Lithuania",
+    "ISO-alpha2 Code": "LT",
+    "ISO-alpha3 Code": "LTU"
+  },
+  {
+    "Country or Area": "Norway",
+    "ISO-alpha2 Code": "NO",
+    "ISO-alpha3 Code": "NOR"
+  },
+  {
+    "Country or Area": "Svalbard and Jan Mayen Islands",
+    "ISO-alpha2 Code": "SJ",
+    "ISO-alpha3 Code": "SJM"
+  },
+  {
+    "Country or Area": "Sweden",
+    "ISO-alpha2 Code": "SE",
+    "ISO-alpha3 Code": "SWE"
+  },
+  {
+    "Country or Area": "United Kingdom of Great Britain and Northern Ireland (the)",
+    "ISO-alpha2 Code": "GB",
+    "ISO-alpha3 Code": "GBR"
+  },
+  {
+    "Country or Area": "Albania",
+    "ISO-alpha2 Code": "AL",
+    "ISO-alpha3 Code": "ALB"
+  },
+  {
+    "Country or Area": "Andorra",
+    "ISO-alpha2 Code": "AD",
+    "ISO-alpha3 Code": "AND"
+  },
+  {
+    "Country or Area": "Bosnia and Herzegovina",
+    "ISO-alpha2 Code": "BA",
+    "ISO-alpha3 Code": "BIH"
+  },
+  {
+    "Country or Area": "Croatia",
+    "ISO-alpha2 Code": "HR",
+    "ISO-alpha3 Code": "HRV"
+  },
+  {
+    "Country or Area": "Gibraltar",
+    "ISO-alpha2 Code": "GI",
+    "ISO-alpha3 Code": "GIB"
+  },
+  {
+    "Country or Area": "Greece",
+    "ISO-alpha2 Code": "GR",
+    "ISO-alpha3 Code": "GRC"
+  },
+  {
+    "Country or Area": "Holy See (the)",
+    "ISO-alpha2 Code": "VA",
+    "ISO-alpha3 Code": "VAT"
+  },
+  {
+    "Country or Area": "Italy",
+    "ISO-alpha2 Code": "IT",
+    "ISO-alpha3 Code": "ITA"
+  },
+  {
+    "Country or Area": "Kosovo (UNSCR 1244)",
+    "ISO-alpha2 Code": "XK",
+    "ISO-alpha3 Code": "XKK"
+  },
+  {
+    "Country or Area": "Malta",
+    "ISO-alpha2 Code": "MT",
+    "ISO-alpha3 Code": "MLT"
+  },
+  {
+    "Country or Area": "Montenegro",
+    "ISO-alpha2 Code": "ME",
+    "ISO-alpha3 Code": "MNE"
+  },
+  {
+    "Country or Area": "North Macedonia",
+    "ISO-alpha2 Code": "MK",
+    "ISO-alpha3 Code": "MKD"
+  },
+  {
+    "Country or Area": "Portugal",
+    "ISO-alpha2 Code": "PT",
+    "ISO-alpha3 Code": "PRT"
+  },
+  {
+    "Country or Area": "San Marino",
+    "ISO-alpha2 Code": "SM",
+    "ISO-alpha3 Code": "SMR"
+  },
+  {
+    "Country or Area": "Serbia",
+    "ISO-alpha2 Code": "RS",
+    "ISO-alpha3 Code": "SRB"
+  },
+  {
+    "Country or Area": "Slovenia",
+    "ISO-alpha2 Code": "SI",
+    "ISO-alpha3 Code": "SVN"
+  },
+  {
+    "Country or Area": "Spain",
+    "ISO-alpha2 Code": "ES",
+    "ISO-alpha3 Code": "ESP"
+  },
+  {
+    "Country or Area": "Austria",
+    "ISO-alpha2 Code": "AT",
+    "ISO-alpha3 Code": "AUT"
+  },
+  {
+    "Country or Area": "Belgium",
+    "ISO-alpha2 Code": "BE",
+    "ISO-alpha3 Code": "BEL"
+  },
+  {
+    "Country or Area": "France",
+    "ISO-alpha2 Code": "FR",
+    "ISO-alpha3 Code": "FRA"
+  },
+  {
+    "Country or Area": "Germany",
+    "ISO-alpha2 Code": "DE",
+    "ISO-alpha3 Code": "DEU"
+  },
+  {
+    "Country or Area": "Liechtenstein",
+    "ISO-alpha2 Code": "LI",
+    "ISO-alpha3 Code": "LIE"
+  },
+  {
+    "Country or Area": "Luxembourg",
+    "ISO-alpha2 Code": "LU",
+    "ISO-alpha3 Code": "LUX"
+  },
+  {
+    "Country or Area": "Monaco",
+    "ISO-alpha2 Code": "MC",
+    "ISO-alpha3 Code": "MCO"
+  },
+  {
+    "Country or Area": "Netherlands (the)",
+    "ISO-alpha2 Code": "NL",
+    "ISO-alpha3 Code": "NLD"
+  },
+  {
+    "Country or Area": "Switzerland",
+    "ISO-alpha2 Code": "CH",
+    "ISO-alpha3 Code": "CHE"
+  },
+  {
+    "Country or Area": "Australia",
+    "ISO-alpha2 Code": "AU",
+    "ISO-alpha3 Code": "AUS"
+  },
+  {
+    "Country or Area": "Christmas Island",
+    "ISO-alpha2 Code": "CX",
+    "ISO-alpha3 Code": "CXR"
+  },
+  {
+    "Country or Area": "Cocos (Keeling) Islands",
+    "ISO-alpha2 Code": "CC",
+    "ISO-alpha3 Code": "CCK"
+  },
+  {
+    "Country or Area": "Heard Island and McDonald Islands",
+    "ISO-alpha2 Code": "HM",
+    "ISO-alpha3 Code": "HMD"
+  },
+  {
+    "Country or Area": "New Zealand",
+    "ISO-alpha2 Code": "NZ",
+    "ISO-alpha3 Code": "NZL"
+  },
+  {
+    "Country or Area": "Norfolk Island",
+    "ISO-alpha2 Code": "NF",
+    "ISO-alpha3 Code": "NFK"
+  },
+  {
+    "Country or Area": "Fiji",
+    "ISO-alpha2 Code": "FJ",
+    "ISO-alpha3 Code": "FJI"
+  },
+  {
+    "Country or Area": "New Caledonia",
+    "ISO-alpha2 Code": "NC",
+    "ISO-alpha3 Code": "NCL"
+  },
+  {
+    "Country or Area": "Papua New Guinea",
+    "ISO-alpha2 Code": "PG",
+    "ISO-alpha3 Code": "PNG"
+  },
+  {
+    "Country or Area": "Solomon Islands",
+    "ISO-alpha2 Code": "SB",
+    "ISO-alpha3 Code": "SLB"
+  },
+  {
+    "Country or Area": "Vanuatu",
+    "ISO-alpha2 Code": "VU",
+    "ISO-alpha3 Code": "VUT"
+  },
+  {
+    "Country or Area": "Guam",
+    "ISO-alpha2 Code": "GU",
+    "ISO-alpha3 Code": "GUM"
+  },
+  {
+    "Country or Area": "Kiribati",
+    "ISO-alpha2 Code": "KI",
+    "ISO-alpha3 Code": "KIR"
+  },
+  {
+    "Country or Area": "Marshall Islands (the)",
+    "ISO-alpha2 Code": "MH",
+    "ISO-alpha3 Code": "MHL"
+  },
+  {
+    "Country or Area": "Micronesia (Federated States of)",
+    "ISO-alpha2 Code": "FM",
+    "ISO-alpha3 Code": "FSM"
+  },
+  {
+    "Country or Area": "Nauru",
+    "ISO-alpha2 Code": "NR",
+    "ISO-alpha3 Code": "NRU"
+  },
+  {
+    "Country or Area": "Northern Mariana Islands",
+    "ISO-alpha2 Code": "MP",
+    "ISO-alpha3 Code": "MNP"
+  },
+  {
+    "Country or Area": "Palau",
+    "ISO-alpha2 Code": "PW",
+    "ISO-alpha3 Code": "PLW"
+  },
+  {
+    "Country or Area": "United States Minor Outlying Islands",
+    "ISO-alpha2 Code": "UM",
+    "ISO-alpha3 Code": "UMI"
+  },
+  {
+    "Country or Area": "American Samoa",
+    "ISO-alpha2 Code": "AS",
+    "ISO-alpha3 Code": "ASM"
+  },
+  {
+    "Country or Area": "Cook Islands (the)",
+    "ISO-alpha2 Code": "CK",
+    "ISO-alpha3 Code": "COK"
+  },
+  {
+    "Country or Area": "French Polynesia",
+    "ISO-alpha2 Code": "PF",
+    "ISO-alpha3 Code": "PYF"
+  },
+  {
+    "Country or Area": "Niue",
+    "ISO-alpha2 Code": "NU",
+    "ISO-alpha3 Code": "NIU"
+  },
+  {
+    "Country or Area": "Pitcairn",
+    "ISO-alpha2 Code": "PN",
+    "ISO-alpha3 Code": "PCN"
+  },
+  {
+    "Country or Area": "Samoa",
+    "ISO-alpha2 Code": "WS",
+    "ISO-alpha3 Code": "WSM"
+  },
+  {
+    "Country or Area": "Tokelau",
+    "ISO-alpha2 Code": "TK",
+    "ISO-alpha3 Code": "TKL"
+  },
+  {
+    "Country or Area": "Tonga",
+    "ISO-alpha2 Code": "TO",
+    "ISO-alpha3 Code": "TON"
+  },
+  {
+    "Country or Area": "Tuvalu",
+    "ISO-alpha2 Code": "TV",
+    "ISO-alpha3 Code": "TUV"
+  },
+  {
+    "Country or Area": "Wallis and Futuna Islands",
+    "ISO-alpha2 Code": "WF",
+    "ISO-alpha3 Code": "WLF"
+  }
+]

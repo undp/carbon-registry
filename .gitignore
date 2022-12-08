@@ -1,0 +1,7 @@
+**/node_modules/
+**/.serverless/
+**/dist/
+**/.build/
+lambda/services/.env.local
+**/yarn-error.log
+**/coverage
