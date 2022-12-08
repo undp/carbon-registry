@@ -1,1 +1,0 @@
-exports.passport = require("./passport");

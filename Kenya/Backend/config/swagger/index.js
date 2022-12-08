@@ -1,1 +1,0 @@
-exports.config = require("./swagger-config");
