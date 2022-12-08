@@ -101,7 +101,5 @@ All the CRUD operations can perform as per the following table,
 | System | Root | Cannot create new one other than the default system user |
 | Government | Admin<br>Manager<br>View Only | Root<br>Admin(Government) |
 | All other Company Roles | Admin<br>Manager<br>View Only | Root<br>Admin(Government)<br>Admin(Company) |
-| Government | Admin<br>Manager<br>View Only | Root<br>Admin(Government) |
-| All other Company Roles | Admin<br>Manager<br>View Only | Root<br>Admin(Government)<br>Admin(Company) |
 
 - All users can edit own user account except Role and Email
