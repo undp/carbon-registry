@@ -42,10 +42,10 @@ export class ProgrammeLedgerService {
     public async updateProgrammeStatus(programmeId: string, status: ProgrammeStage, currentExpectedStatus: ProgrammeStage): Promise<boolean> {
         this.logger.log(`Updating programme ${programmeId} status ${status}`)
         const affected = (await this.ledger.updateRecords({
-            'status': status.valueOf()
+            'currentStage': status.valueOf()
         }, {
             'programmeId': programmeId,
-            'status': currentExpectedStatus.valueOf()
+            'currentStage': currentExpectedStatus.valueOf()
         }));
         if (affected && affected.length > 0) {
             return true
@@ -59,7 +59,7 @@ export class ProgrammeLedgerService {
         const getQueries = {}
         getQueries[this.ledger.tableName] = {
             'programmeId': programmeId,
-            'status': ProgrammeStage.AWAITING_AUTHORIZATION
+            'currentStage': ProgrammeStage.AWAITING_AUTHORIZATION
         };
         getQueries[this.ledger.overallTableName] = {
             'countryCodeA2': countryCodeA2
@@ -95,12 +95,12 @@ export class ProgrammeLedgerService {
                 let updateMap = {}
                 let updateWhereMap = {}
                 updateMap[this.ledger.tableName] = {
-                    'status': ProgrammeStage.ISSUED.valueOf(),
+                    'currentStage': ProgrammeStage.ISSUED.valueOf(),
                     'serialNo': serialNo
                 }
                 updateWhereMap[this.ledger.tableName] = {
                     'programmeId': programmeId,
-                    'status': ProgrammeStage.AWAITING_AUTHORIZATION.valueOf()
+                    'currentStage': ProgrammeStage.AWAITING_AUTHORIZATION.valueOf()
                 }
 
                 updateMap[this.ledger.overallTableName] = {

@@ -6,7 +6,7 @@ import { IsValidCountry } from "../util/validcountry.decorator";
 
 export class CompanyDto {
 
-    @ValidateIf( c => c.companyRole != CompanyRole.GOVERNMENT)
+    @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
@@ -17,23 +17,23 @@ export class CompanyDto {
     @ApiProperty()
     name: string;
 
-    @ValidateIf( c => c.companyRole != CompanyRole.GOVERNMENT)
+    @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsNotEmpty()
     @IsEmail()
     @ApiProperty()
     email: string;
 
-    @ValidateIf( c => c.companyRole != CompanyRole.GOVERNMENT)
+    @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsString()
     @ApiProperty()
     phoneNo: string;
 
-    @ValidateIf( c => c.companyRole != CompanyRole.GOVERNMENT)
+    @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsUrl()
     @ApiProperty()
     website: string;
 
-    @ValidateIf( c => c.companyRole != CompanyRole.GOVERNMENT)
+    @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsString()
     @ApiProperty()
     address: string;

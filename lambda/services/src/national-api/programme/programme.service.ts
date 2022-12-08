@@ -73,11 +73,11 @@ export class ProgrammeService {
 
         const projectCompany = await this.companyService.findByTaxId(programmeDto.proponentTaxVatId);
         if (!projectCompany) {
-            throw new HttpException("Programme related to proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
+            throw new HttpException("Proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
         }
 
         programme.programmeId = (await this.counterService.incrementCount(CounterType.PROGRAMME, 3))
-
+        programme.countryCodeA2 = this.configService.get('systemCountry');
         const constants = await this.getLatestConstant(programmeDto.typeOfMitigation)
 
         const req = await this.getCreditRequest(programmeDto, constants);
