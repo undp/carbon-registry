@@ -48,13 +48,21 @@ exports.handler = async (event) => {
     }
 
     try {
+
+      const company = new CompanyDto()
+      company.country = event['systemCountryCode']
+      company.name = event['name']
+      company.logo = event['logoBase64']
+      company.companyRole = CompanyRole.GOVERNMENT
+
       const user = new UserDto()
       user.email = event['rootEmail']
       user.name = "Root"
       user.role = Role.Root;
-      user.phoneNo = '-'
+      user.phoneNo = '-';
+      user.company = company;
       
-      await userService.create(user, -1, CompanyRole.SYSTEM)
+      await userService.create(user, -1, CompanyRole.GOVERNMENT)
     } catch (e) {
       console.log(`User ${event['rootEmail']} failed to create`, e) 
     }

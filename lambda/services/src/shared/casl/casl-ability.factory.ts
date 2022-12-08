@@ -36,6 +36,14 @@ export class CaslAbilityFactory {
         can([Action.Update, Action.Read], User, { id: { $eq: user.id } })
         cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password', 'companyId', 'companyRole']);
       }
+
+      if (user.role == Role.Admin && user.companyRole == CompanyRole.MRV) {
+        can([Action.Create, Action.Read], Programme);
+      } else if (user.companyRole == CompanyRole.CERTIFIER) {
+        can(Action.Read, Programme, { currentStage: { $in: [ ProgrammeStage.ISSUED, ProgrammeStage.RETIRED ]}});
+      } else if (user.companyRole == CompanyRole.PROGRAMME_DEVELOPER) {
+        can(Action.Read, Programme, { currentStage: { $eq: ProgrammeStage.ISSUED }});
+      }
       // case Role.Api:
       //   can([Action.Create, Action.Read], Programme);
       //   cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password']);
@@ -61,7 +69,6 @@ export class CaslAbilityFactory {
       // }
       cannot(Action.Delete, User, { id: { $eq: user.id } })
       cannot(Action.Update, User, ['companyId', 'companyRole'])
-      cannot(Action.Create, User, { companyId: { $eq: -1 } })
     }
 
     return build({

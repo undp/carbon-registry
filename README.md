@@ -43,7 +43,7 @@ UNDP Carbon Registry based on AWS Serverless
     - DB_NAME (Default carbondbdev)
 - Move to folder `cd lambda/service`
 - Run `yarn run sls:install `
-- Initial user data setup `serverless invoke local --stage=local --function setup --data '{"rootEmail":"<root user email>", "systemCountryCode": "NG"}'`
+- Initial user data setup `serverless invoke local --stage=local --function setup --data '{"rootEmail": "<Root user email>","systemCountryCode": "<System country Alpha 2 code>", "name": "<System country name>", "logoBase64": "<System country logo base64>"}'`
 - Start all the services by executing `sls offline --stage=local`
 - Now all the system services are up and running. Swagger documentation will be available on `http://localhost:3000/local/api/national/docs#/`
 
@@ -63,9 +63,11 @@ UNDP Carbon Registry based on AWS Serverless
     ```
     aws lambda invoke \
         --function-name carbon-registry-services-dev-setup --cli-binary-format raw-in-base64-out\
-        --payload '{"rootEmail": "<Root user email>","systemCountryCode": "<System country Alpha 2 code>"}' \
+        --payload '{"rootEmail": "<Root user email>","systemCountryCode": "<System country Alpha 2 code>", "name": "<System country name>", "logoBase64": "<System country logo base64>"}' \
         response.json
     ```
+
+    
 ### Carbon Credit Calculator
 Carbon credit calculation implemented in a separate node module. [Please refer this](./libs/carbon-credit-calculator/README.md) for more information.
 
@@ -98,7 +100,7 @@ All the CRUD operations can perform as per the following table,
 
 | Company Role | New User Role | Authorized User Roles (Company) |
 | --- | --- | --- |
-| System | Root | Cannot create new one other than the default system user and Can manage all the users in the system |
+| Government | Root | Cannot create new one other than the default system user and Can manage all the users in the system |
 | Government | Admin<br>Manager<br>View Only | Root<br>Admin(Government) |
 | All other Company Roles | Admin<br>Manager<br>View Only | Root<br>Admin(Government)<br>Admin(Company) |
 

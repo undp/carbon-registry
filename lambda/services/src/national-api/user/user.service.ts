@@ -168,7 +168,7 @@ export class UserService {
             }
         }
 
-        if (!([ CompanyRole.GOVERNMENT, CompanyRole.SYSTEM ].includes(companyRole)) && userDto.companyId && userDto.companyId != companyId) {
+        if (CompanyRole.GOVERNMENT != companyRole && userDto.companyId && userDto.companyId != companyId) {
             throw new HttpException("Company create does not permitted for your company role", HttpStatus.FORBIDDEN)
         }
         
