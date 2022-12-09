@@ -16,7 +16,6 @@ import { ProgrammeReject } from '../../shared/dto/programme.reject';
 import { ProgrammeRetire } from '../../shared/dto/programme.retire';
 
 @ApiTags('Programme')
-@ApiBearerAuth('api_key')
 @ApiBearerAuth()
 @Controller('programme')
 export class ProgrammeController {
@@ -34,7 +33,6 @@ export class ProgrammeController {
       return this.programmeService.create(programme)
     }
 
-    @ApiBearerAuth('api_key')
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Programme, true))
     // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
@@ -52,7 +50,6 @@ export class ProgrammeController {
         return this.programmeService.getProgrammeEvents(programmeId)
     }
 
-    @ApiBearerAuth('api_key')
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Programme))
     @Post('updateConfigs')
@@ -60,7 +57,6 @@ export class ProgrammeController {
         return this.programmeService.updateCustomConstants(config.type, config);
     }
 
-    @ApiBearerAuth('api_key')
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Programme))
     @Put('authorize')
@@ -68,7 +64,6 @@ export class ProgrammeController {
         return this.programmeService.updateProgrammeStatus(body, ProgrammeStage.ISSUED, ProgrammeStage.AWAITING_AUTHORIZATION)
     }
 
-    @ApiBearerAuth('api_key')
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Programme))
     @Put('reject')
@@ -76,7 +71,6 @@ export class ProgrammeController {
         return this.programmeService.updateProgrammeStatus(body, ProgrammeStage.REJECTED, ProgrammeStage.AWAITING_AUTHORIZATION)
     }
 
-    @ApiBearerAuth('api_key')
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Programme))
     @Put('retire')

@@ -177,8 +177,11 @@ export class UserService {
         const u = plainToClass(User, userFields);
         if (userDto.company) {
             u.companyRole = userDto.company.companyRole
-        } else if (u.companyId){
+        } else if (u.companyId) {
             const company = await this.companyService.findByCompanyId(u.companyId);
+            if (!company) {
+                throw new HttpException("Invalid programme id", HttpStatus.BAD_REQUEST)
+            }
             u.companyRole = company.companyRole
         } else {
             u.companyId = companyId
