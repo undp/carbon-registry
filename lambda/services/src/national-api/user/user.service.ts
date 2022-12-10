@@ -264,12 +264,13 @@ export class UserService {
 
         if (result[0].role == Role.Root) {
             throw new HttpException("Root user cannot be deleted", HttpStatus.FORBIDDEN)
+        } else if (result[0].role == Role.Admin) {
+            const admins = await this.userRepo.createQueryBuilder().where(`"companyId" = '${result[0].companyId}' and role = '${Role.Admin}'`).getMany()
+            if (admins.length <= 1) {
+                throw new HttpException("Company must have at-least one admin user", HttpStatus.FORBIDDEN)
+            }
         }
 
-        const admins = await this.userRepo.createQueryBuilder().where(`"companyId" = '${result[0].companyId}' and role = '${Role.Admin}'`).getMany()
-        if (admins.length <= 1) {
-            throw new HttpException("Company must have at-least one admin user", HttpStatus.FORBIDDEN)
-        }
         const result2 = await this.userRepo.delete({ email: username });
         if (result2.affected > 0) {
             return new BasicResponseDto(HttpStatus.OK, "Successfully deleted");
