@@ -266,7 +266,7 @@ export class UserService {
             throw new HttpException("Root user cannot be deleted", HttpStatus.FORBIDDEN)
         }
 
-        const admins = await this.userRepo.createQueryBuilder().where(`companyId = '${result[0].companyId}' and role = '${Role.Admin}'`).getMany()
+        const admins = await this.userRepo.createQueryBuilder().where(`"companyId" = '${result[0].companyId}' and role = '${Role.Admin}'`).getMany()
         if (admins.length <= 1) {
             throw new HttpException("Company must have at-least one admin user", HttpStatus.FORBIDDEN)
         }
