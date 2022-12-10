@@ -7,6 +7,7 @@ import configuration from '../../shared/configuration';
 import { EmailModule } from '../../shared/email/email.module';
 import { TypeOrmConfigService } from '../../shared/typeorm.config.service';
 import { CompanyService } from './company.service';
+import { CompanyController } from './company.controller';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CompanyService } from './company.service';
     EmailModule
   ],
   providers: [CompanyService, Logger],
-  exports: [CompanyService]
+  exports: [CompanyService],
+  controllers: [CompanyController]
 })
 export class CompanyModule {}

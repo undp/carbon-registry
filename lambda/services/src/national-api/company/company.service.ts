@@ -6,6 +6,8 @@ import { CompanyDto } from '../../shared/dto/company.dto';
 import { QueryFailedError, Repository } from 'typeorm';
 import { Company } from '../../shared/entities/company.entity';
 import { CompanyRole } from '../../shared/enum/company.role.enum';
+import { QueryDto } from '../../shared/dto/query.dto';
+import { DataListResponseDto } from '../../shared/dto/data.list.response';
 
 @Injectable()
 export class CompanyService {
@@ -13,6 +15,19 @@ export class CompanyService {
         
     }
 
+    async query(query: QueryDto, abilityCondition: string): Promise<any> {
+        const resp = (await this.companyRepo.createQueryBuilder()
+            .where(abilityCondition ? abilityCondition : "")
+            .skip((query.size * query.page) - query.size)
+            .take(query.size)
+            .getManyAndCount())
+
+        return new DataListResponseDto(
+            resp.length > 0 ? resp[0] : undefined,
+            resp.length > 1 ? resp[1] : undefined
+        );
+    }
+    
     async findByTaxId(taxId: string): Promise<Company | undefined> {
         const companies = await this.companyRepo.find({
             where: {

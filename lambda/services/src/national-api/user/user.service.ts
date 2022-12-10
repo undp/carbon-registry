@@ -255,9 +255,20 @@ export class UserService {
 
     async delete(username: string, ability: string): Promise<BasicResponseDto> {
         this.logger.verbose('User delete received', username)
+
+        
         const result = await this.userRepo.createQueryBuilder().where(`email = '${username}'`).andWhere(ability ? ability : "").getMany()
         if (result.length <= 0) {
             throw new HttpException("No visible user found", HttpStatus.NOT_FOUND)
+        }
+
+        if (result[0].role == Role.Root) {
+            throw new HttpException("Root user cannot be deleted", HttpStatus.FORBIDDEN)
+        }
+
+        const admins = await this.userRepo.createQueryBuilder().where(`companyId = '${result[0].companyId}' and role = '${Role.Admin}'`).getMany()
+        if (admins.length <= 1) {
+            throw new HttpException("Company must have at-least one admin user", HttpStatus.FORBIDDEN)
         }
         const result2 = await this.userRepo.delete({ email: username });
         if (result2.affected > 0) {
