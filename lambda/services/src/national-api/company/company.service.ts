@@ -8,11 +8,56 @@ import { Company } from '../../shared/entities/company.entity';
 import { CompanyRole } from '../../shared/enum/company.role.enum';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { DataListResponseDto } from '../../shared/dto/data.list.response';
+import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
+import { CompanyState } from '../../shared/enum/company.state.enum';
 
 @Injectable()
 export class CompanyService {
     constructor(@InjectRepository(Company) private companyRepo: Repository<Company>, private logger: Logger, private configService: ConfigService) {
         
+    }
+
+    async suspend(companyId: number, abilityCondition: string): Promise<any> {
+
+        this.logger.verbose('Suspend company', companyId)
+        const company = await this.companyRepo.createQueryBuilder().where(`"companyId" = '${companyId}' and state = '1' ${abilityCondition ? ' AND ' + abilityCondition : ""}`).getOne()
+        if (!company) {
+            throw new HttpException("No active company found", HttpStatus.UNAUTHORIZED)
+        }
+        const result = await this.companyRepo.update({
+            companyId: companyId
+        }, {
+            state: CompanyState.SUSPENDED
+        }).catch((err: any) => {
+            this.logger.error(err)
+            return err;
+        });
+
+        if (result.affected > 0) {
+            return new BasicResponseDto(HttpStatus.OK, "Successfully suspended company");
+        }
+        throw new HttpException("Company suspend failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    async activate(companyId: number, abilityCondition: string): Promise<any> {
+        this.logger.verbose('revoke company', companyId)
+        const company = await this.companyRepo.createQueryBuilder().where(`"companyId" = '${companyId}' and state = '0' ${abilityCondition ? ' AND ' + abilityCondition : ""}`).getOne()
+        if (!company) {
+            throw new HttpException("No suspended company found", HttpStatus.UNAUTHORIZED)
+        }
+        const result = await this.companyRepo.update({
+            companyId: companyId
+        }, {
+            state: CompanyState.ACTIVE
+        }).catch((err: any) => {
+            this.logger.error(err)
+            return err;
+        });
+
+        if (result.affected > 0) {
+            return new BasicResponseDto(HttpStatus.OK, "Successfully activated company");
+        }
+        throw new HttpException("Company activate failed. Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     async query(query: QueryDto, abilityCondition: string): Promise<any> {
