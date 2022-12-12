@@ -61,14 +61,14 @@ export class ProgrammeDto {
     programmeProperties: ProgrammeProperties;
 
     @ApiProperty()
-    @ValidateIf(o => o.subSector === TypeOfMitigation.AGRICULTURE)
+    @ValidateIf(o => o.typeOfMitigation === TypeOfMitigation.AGRICULTURE)
     @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => AgricultureProperties)
     agricultureProperties: AgricultureProperties;
 
     @ApiProperty()
-    @ValidateIf(o => o.subSector === TypeOfMitigation.SOLAR)
+    @ValidateIf(o => o.typeOfMitigation === TypeOfMitigation.SOLAR)
     @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => SolarProperties)
