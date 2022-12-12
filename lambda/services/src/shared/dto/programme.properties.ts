@@ -29,6 +29,7 @@ export class ProgrammeProperties {
         message: 'Invalid source of funding. Supported following values:' + Object.values(SourceOfFunding)
     })
     @IsNotEmpty()
+    @IsOptional()
     sourceOfFunding: SourceOfFunding;
 
     @ApiPropertyOptional()
