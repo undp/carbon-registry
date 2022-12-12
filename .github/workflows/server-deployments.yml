@@ -115,16 +115,16 @@ jobs:
           args: -c "cd ./lambda/services && serverless deploy --stage prod"
           entrypoint: /bin/sh
 
-  automated-api-tests:
-    runs-on: ubuntu-latest
-    needs: [deploy]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-      - name: Run User onboarding tests
-        run: |
-          postman collection run "20428472-dc42dd58-c64c-4f68-a418-3b8766ef8fc1" -e ./testing/api/carbon.env.json -d ./testing/api/user_onboarding_4.csv
+  # automated-api-tests:
+  #   runs-on: ubuntu-latest
+  #   needs: [deploy]
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Install Postman CLI
+  #       run: |
+  #         curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+  #     - name: Login to Postman CLI
+  #       run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+  #     - name: Run User onboarding tests
+  #       run: |
+  #         postman collection run "20428472-dc42dd58-c64c-4f68-a418-3b8766ef8fc1" -e ./testing/api/carbon.env.json -d ./testing/api/user_onboarding_4.csv

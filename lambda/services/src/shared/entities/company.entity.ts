@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { CompanyRole } from "../enum/company.role.enum";
+import { CompanyState } from "../enum/company.state.enum";
 import { EntitySubject } from "./entity.subject";
 
 @Entity()
@@ -38,5 +39,13 @@ export class Company implements EntitySubject{
         array: false
     })
     companyRole: CompanyRole;
+
+    @Column({
+        type: "enum",
+        enum: CompanyState,
+        array: false,
+        default: CompanyState.ACTIVE
+    })
+    state: CompanyState;
 
 }

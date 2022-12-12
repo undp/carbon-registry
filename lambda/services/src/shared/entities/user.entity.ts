@@ -28,7 +28,7 @@ export class User  implements EntitySubject{
     @Column()
     country: string;
 
-    @Column()
+    @Column({nullable: true})
     phoneNo: string;
 
     @Column({nullable: true})

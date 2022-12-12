@@ -177,8 +177,11 @@ export class UserService {
         const u = plainToClass(User, userFields);
         if (userDto.company) {
             u.companyRole = userDto.company.companyRole
-        } else if (u.companyId){
+        } else if (u.companyId) {
             const company = await this.companyService.findByCompanyId(u.companyId);
+            if (!company) {
+                throw new HttpException("Invalid programme id", HttpStatus.BAD_REQUEST)
+            }
             u.companyRole = company.companyRole
         } else {
             u.companyId = companyId
@@ -252,10 +255,22 @@ export class UserService {
 
     async delete(username: string, ability: string): Promise<BasicResponseDto> {
         this.logger.verbose('User delete received', username)
+
+        
         const result = await this.userRepo.createQueryBuilder().where(`email = '${username}'`).andWhere(ability ? ability : "").getMany()
         if (result.length <= 0) {
             throw new HttpException("No visible user found", HttpStatus.NOT_FOUND)
         }
+
+        if (result[0].role == Role.Root) {
+            throw new HttpException("Root user cannot be deleted", HttpStatus.FORBIDDEN)
+        } else if (result[0].role == Role.Admin) {
+            const admins = await this.userRepo.createQueryBuilder().where(`"companyId" = '${result[0].companyId}' and role = '${Role.Admin}'`).getMany()
+            if (admins.length <= 1) {
+                throw new HttpException("Company must have at-least one admin user", HttpStatus.FORBIDDEN)
+            }
+        }
+
         const result2 = await this.userRepo.delete({ email: username });
         if (result2.affected > 0) {
             return new BasicResponseDto(HttpStatus.OK, "Successfully deleted");

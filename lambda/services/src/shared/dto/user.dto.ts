@@ -24,7 +24,6 @@ export class UserDto {
     @ApiProperty()
     name: string;
 
-    @IsNotEmpty()
     @IsString()
     @ApiProperty()
     phoneNo: string;
