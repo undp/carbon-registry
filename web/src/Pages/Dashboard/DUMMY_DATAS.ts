@@ -240,7 +240,7 @@ export const optionsX: any = {
     colors: ['#414487', '#2A788E', '#22A884', '#7AD151', '#FDE725'],
   },
   title: {
-    text: 'Total Programmes, Sector wised',
+    text: 'Total Programmes, Sector Wise',
     align: 'left',
     margin: 10,
     offsetX: 0,
@@ -354,7 +354,7 @@ export const optionsA: any = {
     colors: ['#A8006D', '#D3014C', '#FF3701', '#FFAB00', '#FDE725'],
   },
   title: {
-    text: 'Total Programmes, Sub Sector wised',
+    text: 'Total Programmes, Sub Sector Wise',
     align: 'left',
     margin: 10,
     offsetX: 0,
