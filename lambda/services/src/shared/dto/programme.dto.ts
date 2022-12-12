@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, Length, ValidateIf } from "class-validator";
+import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, Length, ValidateIf, ValidateNested } from "class-validator";
 import { SectoralScope } from 'serial-number-gen'
 import { TypeOfMitigation } from "../enum/typeofmitigation.enum";
 import { AgricultureProperties } from "./agriculture.properties";
@@ -7,6 +7,7 @@ import { SolarProperties } from "./solar.properties";
 import { ProgrammeProperties } from "./programme.properties";
 import { IsValidCountry } from "../util/validcountry.decorator";
 import { Sector } from "../enum/sector.enum";
+import { Type } from "class-transformer";
 
 export class ProgrammeDto {
 
@@ -55,15 +56,21 @@ export class ProgrammeDto {
 
     @ApiProperty()
     @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => ProgrammeProperties)
     programmeProperties: ProgrammeProperties;
 
     @ApiProperty()
     @ValidateIf(o => o.subSector === TypeOfMitigation.AGRICULTURE)
     @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => AgricultureProperties)
     agricultureProperties: AgricultureProperties;
 
     @ApiProperty()
     @ValidateIf(o => o.subSector === TypeOfMitigation.SOLAR)
     @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => SolarProperties)
     solarProperties: SolarProperties;
 }
