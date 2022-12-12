@@ -63,7 +63,7 @@ export class Programme implements EntitySubject {
     @Column({nullable: true})
     constantVersion: string;
 
-    @Column()
+    @Column("string", { array: true })
     proponentTaxVatId: string;
 
     @Column()

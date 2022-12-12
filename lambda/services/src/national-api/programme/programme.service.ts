@@ -71,10 +71,17 @@ export class ProgrammeService {
         const programme: Programme = this.toProgramme(programmeDto);
         this.logger.verbose('Programme create', programme)
 
-        const projectCompany = await this.companyService.findByTaxId(programmeDto.proponentTaxVatId);
-        if (!projectCompany) {
-            throw new HttpException("Proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
+        if (programmeDto.proponentTaxVatId.length > 1 && ( !programmeDto.proponentPercentage || programmeDto.proponentPercentage.length != programmeDto.proponentTaxVatId.length)) {
+            throw new HttpException("Proponent percentage must defined for each proponent tax id", HttpStatus.BAD_REQUEST)
         }
+
+        const projectCompanies = await programmeDto.proponentTaxVatId.map( async taxId => {
+            const projectCompany = await this.companyService.findByTaxId(taxId);
+            if (!projectCompany) {
+                throw new HttpException("Proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
+            }
+            return projectCompany;
+        });
 
         programme.programmeId = (await this.counterService.incrementCount(CounterType.PROGRAMME, 3))
         programme.countryCodeA2 = this.configService.get('systemCountry');

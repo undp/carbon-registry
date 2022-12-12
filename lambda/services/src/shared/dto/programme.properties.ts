@@ -48,12 +48,6 @@ export class ProgrammeProperties {
     @IsString()
     @IsOptional()
     @IsNotEmpty()
-    proponentPercentage: string;
-
-    @ApiPropertyOptional()
-    @IsString()
-    @IsOptional()
-    @IsNotEmpty()
     buyerCountryEligibility: string;
 
     @ApiProperty()
