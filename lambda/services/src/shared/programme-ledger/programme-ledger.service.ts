@@ -29,7 +29,7 @@ export class ProgrammeLedgerService {
     //     console.log("create programme in repo -- ", e)
     //   });
     // }
-    await this.ledger.insertRecord(programme)
+    await this.ledger.insertRecord(programme);
     return programme;
   }
 
