@@ -7,13 +7,13 @@ import { CheckPolicies } from '../../shared/casl/policy.decorator';
 import { PoliciesGuard, PoliciesGuardEx } from '../../shared/casl/policy.guard';
 import { ProgrammeDto } from '../../shared/dto/programme.dto';
 import { ProgrammeService } from './programme.service';
-import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
 import { QueryDto } from '../../shared/dto/query.dto';
 import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
 import { ProgrammeStage } from '../../shared/programme-ledger/programme-status.enum';
 import { ProgrammeApprove } from '../../shared/dto/programme.approve';
 import { ProgrammeReject } from '../../shared/dto/programme.reject';
 import { ProgrammeRetire } from '../../shared/dto/programme.retire';
+import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
 
 @ApiTags('Programme')
 @ApiBearerAuth()

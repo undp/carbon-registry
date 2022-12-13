@@ -5,11 +5,10 @@ import { AnalyticsAPIService } from "./analytics.api.service";
 import configuration from "../shared/configuration";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { TypeOrmConfigService } from "../shared/typeorm.config.service";
-// import { Project } from './entities/project.entity';
-import { AuthModule } from "../national-api/auth/auth.module";
-import { UserModule } from "../national-api/user/user.module";
+import { Programme } from "../shared/entities/programme.entity";
+import { ProgrammeLedgerModule } from "../shared/programme-ledger/programme-ledger.module";
 import { CaslModule } from "../shared/casl/casl.module";
-import { ProjectModule } from "../national-api/project/project.module";
+import { AuthModule } from "../national-api/auth/auth.module";
 
 @Module({
   imports: [
@@ -21,10 +20,10 @@ import { ProjectModule } from "../national-api/project/project.module";
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
+    TypeOrmModule.forFeature([Programme]),
     AuthModule,
-    UserModule,
     CaslModule,
-    ProjectModule,
+    ProgrammeLedgerModule,
   ],
   controllers: [AnalyticsAPIController],
   providers: [AnalyticsAPIService, Logger],
