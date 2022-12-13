@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNotEmptyObject, IsNumber, IsObject, IsOptional, IsString, ValidateIf, ValidateNested } from "class-validator";
 import { Role } from "../casl/role.enum";
@@ -25,11 +25,11 @@ export class UserDto {
     name: string;
 
     @IsString()
-    @ApiProperty()
+    @ApiPropertyOptional()
     phoneNo: string;
 
     @IsNotEmptyObject()
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsOptional()
     @ValidateNested()
     @Type(() => CompanyDto)
@@ -37,7 +37,7 @@ export class UserDto {
     company: CompanyDto;
 
     @IsNumber()
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsOptional()
     @MutuallyExclusive('company')
     companyId: number;

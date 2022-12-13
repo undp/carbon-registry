@@ -1,17 +1,21 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength, IsOptional } from "class-validator";
 import { GHGs } from "../enum/ghgs.enum";
 import { SourceOfFunding } from "../enum/sourceoffinding.enum";
 
 export class ProgrammeProperties {
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsString()
+    @IsOptional()
+    @IsNotEmpty()
     maxInternationalTransferAmount: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsPositive()
     @IsInt()
+    @IsOptional()
+    @IsNotEmpty()
     creditingPeriodInYears: number;
 
     @ApiProperty()
@@ -20,29 +24,36 @@ export class ProgrammeProperties {
     @IsNotEmpty()
     programmeCostUSD: number;
     
-    @ApiProperty({ enum: SourceOfFunding })
+    @ApiPropertyOptional({ enum: SourceOfFunding })
     @IsEnum(SourceOfFunding, {
         message: 'Invalid source of funding. Supported following values:' + Object.values(SourceOfFunding)
     })
     @IsNotEmpty()
+    @IsOptional()
     sourceOfFunding: SourceOfFunding;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsPositive()
     @IsNumber()
+    @IsOptional()
     grantEquivalentAmount: number;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsPositive()
     @IsNumber()
+    @IsOptional()
     carbonPriceUSDPerTon: number;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsString()
+    @IsOptional()
+    @IsNotEmpty()
     proponentPercentage: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsString()
+    @IsOptional()
+    @IsNotEmpty()
     buyerCountryEligibility: string;
 
     @ApiProperty()
