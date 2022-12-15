@@ -20,6 +20,11 @@ import { BasicResponseDto } from '../dto/basic.response.dto';
 import { ConfigService } from '@nestjs/config';
 import { TypeOfMitigation } from '../enum/typeofmitigation.enum';
 import { CompanyService } from '../company/company.service';
+import { ProgrammeTransferRequest } from '../dto/programme.transfer.request';
+import { EmailService } from '../email/email.service';
+import { EmailTemplates } from '../email/email.template';
+import { User } from '../entities/user.entity';
+import { ProgrammeTransfer } from '../entities/programme.transfer';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -31,7 +36,9 @@ export class ProgrammeService {
         private counterService: CounterService,
         private configService: ConfigService,
         private companyService: CompanyService,
+        private emailService: EmailService,
         @InjectRepository(Programme) private programmeRepo: Repository<Programme>, 
+        @InjectRepository(ProgrammeTransfer) private programmeTransferRepo: Repository<ProgrammeTransfer>, 
         @InjectRepository(ConstantEntity) private constantRepo: Repository<ConstantEntity>,
         private logger: Logger) {}
 
@@ -66,6 +73,33 @@ export class ProgrammeService {
         throw Error("Not implemented for mitigation type " + programmeDto.typeOfMitigation)
     }
 
+    async transfer(req: ProgrammeTransferRequest, requester: User) {
+        this.logger.log(`Programme transfer request by ${requester.companyId}-${requester.id} received ${JSON.stringify(req)}`)
+        const programme = await this.programmeLedger.getProgrammeById(req.programmeId);
+        if (programme.creditBalance <= 0) {
+            throw new HttpException("Requested programme credit already consumed", HttpStatus.BAD_REQUEST)
+        }
+
+        const requestedCompany = await this.companyService.findByCompanyId(requester.companyId);
+
+        for (const companyId of programme.companyId) {
+            const company = await this.companyService.findByCompanyId(companyId);
+            await this.emailService.sendEmail(
+                company.email,
+                EmailTemplates.TRANSFER_REQUEST,
+                {
+                    "name": company.name,
+                    "requestedCompany": requestedCompany.name,
+                    "credits": req.creditAmount,
+                    "serialNo": programme.serialNo,
+                    "programmeName": programme.title
+                });
+        }
+
+        const result = await this.programmeTransferRepo.save(req);
+
+    }
+
     async create(programmeDto: ProgrammeDto): Promise<Programme | undefined> {
         this.logger.verbose('ProgrammeDTO received', programmeDto)
         const programme: Programme = this.toProgramme(programmeDto);
@@ -75,13 +109,15 @@ export class ProgrammeService {
             throw new HttpException("Proponent percentage must defined for each proponent tax id", HttpStatus.BAD_REQUEST)
         }
 
-        const projectCompanies = await programmeDto.proponentTaxVatId.map( async taxId => {
+        const companyIds = []
+        for (const taxId in programmeDto.proponentTaxVatId) {
             const projectCompany = await this.companyService.findByTaxId(taxId);
             if (!projectCompany) {
                 throw new HttpException("Proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
             }
-            return projectCompany;
-        });
+            companyIds.push(projectCompany.companyId)
+        }
+        
 
         programme.programmeId = (await this.counterService.incrementCount(CounterType.PROGRAMME, 3))
         programme.countryCodeA2 = this.configService.get('systemCountry');
@@ -103,7 +139,7 @@ export class ProgrammeService {
         programme.programmeProperties.creditYear = new Date(programme.startTime*1000).getFullYear()
         programme.constantVersion = constants ? String(constants.version): "default"
         programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
-        programme.companyId = projectCompany.companyId;
+        programme.companyId = companyIds;
         programme.txTime = new Date().getTime();
         programme.createdTime = programme.txTime;
         if (!programme.creditUnit) {

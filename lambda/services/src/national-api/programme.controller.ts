@@ -14,6 +14,7 @@ import { ProgrammeApprove } from '../shared/dto/programme.approve';
 import { ProgrammeReject } from '../shared/dto/programme.reject';
 import { ProgrammeRetire } from '../shared/dto/programme.retire';
 import { ApiKeyJwtAuthGuard } from '../shared/auth/guards/api-jwt-key.guard';
+import { ProgrammeTransferRequest } from '../shared/dto/programme.transfer.request';
 
 @ApiTags('Programme')
 @ApiBearerAuth()
@@ -76,5 +77,12 @@ export class ProgrammeController {
     @Put('retire')
     async programmeRetire(@Body() body: ProgrammeRetire) {
         return this.programmeService.updateProgrammeStatus(body, ProgrammeStage.RETIRED, ProgrammeStage.ISSUED)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Create, ProgrammeTransferRequest))
+    @Post('transferRequest')
+    async transferRequest(@Body() body: ProgrammeTransferRequest, @Request() req) {
+        return this.programmeService.transfer(body, req.user)
     }
 }

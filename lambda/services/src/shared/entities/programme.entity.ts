@@ -64,10 +64,16 @@ export class Programme implements EntitySubject {
     constantVersion: string;
 
     @Column("string", { array: true })
-    proponentTaxVatId: string;
+    proponentTaxVatId: string[];
 
-    @Column()
-    companyId: number;
+    @Column({ array: true })
+    companyId: number[];
+
+    @Column({ array: true })
+    proponentPercentage: number[];
+
+    @Column({ array: true })
+    certifierId: number[];
 
     @Column()
     creditUnit: string;
