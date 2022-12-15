@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { CompanyService } from "../../national-api/company/company.service";
-import { UserService } from "../../national-api/user/user.service";
+import { CompanyService } from "../company/company.service";
 import { instanceToPlain } from "class-transformer";
-import { CaslAbilityFactory } from "../../shared/casl/casl-ability.factory";
-import { API_KEY_SEPARATOR } from "../../shared/constants";
-import { JWTPayload } from "../../shared/dto/jwt.payload";
+import { CaslAbilityFactory } from "../casl/casl-ability.factory";
+import { API_KEY_SEPARATOR } from "../constants";
+import { JWTPayload } from "../dto/jwt.payload";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class AuthService {

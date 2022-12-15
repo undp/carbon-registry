@@ -68,6 +68,7 @@ export class ProgrammeLedgerService {
     const affected = await this.ledger.updateRecords(
       {
         currentStage: status.valueOf(),
+        txTime: new Date().getTime()
       },
       {
         programmeId: programmeId,
@@ -131,17 +132,19 @@ export class ProgrammeLedgerService {
         const programme = programmes[0];
         const overall = creditOveralls[0];
         const year = new Date(programme.startTime * 1000).getFullYear();
-        const startBlock = overall.ITMO + 1;
-        const endBlock = overall.ITMO + programme.ITMOsIssued;
+        const startBlock = overall.credit + 1;
+        const endBlock = overall.credit + programme.creditIssued;
         const serialNo = generateSerialNumber(
           programme.countryCodeA2,
           programme.sectoralScope,
           programme.programmeId,
           year,
           startBlock,
-          endBlock
+          endBlock,
+          programme.creditUnit
         );
         programme.serialNo = serialNo;
+        programme.txTime = new Date().getTime();
         programme.currentStage = ProgrammeStage.ISSUED;
         updatedProgramme = programme;
 
@@ -157,7 +160,7 @@ export class ProgrammeLedgerService {
         };
 
         updateMap[this.ledger.overallTableName] = {
-          ITMO: endBlock,
+          credit: endBlock,
           serialNo: serialNo,
         };
         updateWhereMap[this.ledger.overallTableName] = {

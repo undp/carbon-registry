@@ -2,14 +2,13 @@ import { Logger, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
-import { UserModule } from "../../national-api/user/user.module";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
-import { AuthController } from "./auth.controller";
-import { CaslModule } from "../../shared/casl/casl.module";
+import { CaslModule } from "../casl/casl.module";
 import { ApiKeyStrategy } from "./strategies/apikey.strategy";
-import { CompanyModule } from "../../national-api/company/company.module";
+import { CompanyModule } from "../company/company.module";
+import { UserModule } from "../user/user.module";
 
 @Module({
   imports: [
@@ -23,12 +22,12 @@ import { CompanyModule } from "../../national-api/company/company.module";
         },
       }),
       inject: [ConfigService],
+      imports: undefined
     }),
     CaslModule,
     CompanyModule,
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, ApiKeyStrategy, Logger],
-  exports: [AuthService],
-  controllers: [AuthController],
+  exports: [AuthService]
 })
 export class AuthModule {}

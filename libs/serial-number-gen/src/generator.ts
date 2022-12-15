@@ -6,7 +6,8 @@ export const generateSerialNumber = (
     programmeId: string,
     year: number,
     blockStartCredit: number,
-    blockEndCredit: number
+    blockEndCredit: number,
+    creditUnit: string
     ): string => {
-        return `${countryISO2Code}-ITMO-${sectoralScope}-${programmeId}-${year}-0-${blockStartCredit}-${blockEndCredit}`
+        return `${countryISO2Code}-${creditUnit}-${sectoralScope}-${programmeId}-${year}-0-${blockStartCredit}-${blockEndCredit}`
 }

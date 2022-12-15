@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, Length, ValidateIf, ValidateNested } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsOptional, IsPositive, IsString, Length, ValidateIf, ValidateNested } from "class-validator";
 import { SectoralScope } from 'serial-number-gen'
 import { TypeOfMitigation } from "../enum/typeofmitigation.enum";
 import { AgricultureProperties } from "./agriculture.properties";
@@ -53,6 +53,12 @@ export class ProgrammeDto {
     @IsNotEmpty()
     @IsString()
     proponentTaxVatId: string;
+
+    @ApiPropertyOptional()
+    @IsNotEmpty()
+    @IsOptional()
+    @IsString()
+    creditUnit: string;
 
     @ApiProperty()
     @IsNotEmptyObject()

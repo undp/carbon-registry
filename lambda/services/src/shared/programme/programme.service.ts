@@ -1,24 +1,24 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { ProgrammeDto } from '../../shared/dto/programme.dto';
-import { Programme } from '../../shared/entities/programme.entity';
-import { ProgrammeLedgerService } from '../../shared/programme-ledger/programme-ledger.service';
+import { ProgrammeDto } from '../dto/programme.dto';
+import { Programme } from '../entities/programme.entity';
+import { ProgrammeLedgerService } from '../programme-ledger/programme-ledger.service';
 import { instanceToPlain, plainToClass } from 'class-transformer';
-import { ProgrammeStage } from '../../shared/programme-ledger/programme-status.enum';
+import { ProgrammeStage } from '../programme-ledger/programme-status.enum';
 import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest } from 'carbon-credit-calculator';
-import { QueryDto } from '../../shared/dto/query.dto';
+import { QueryDto } from '../dto/query.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PrimaryGeneratedColumnType } from 'typeorm/driver/types/ColumnTypes';
-import { CounterService } from '../../shared/util/counter.service';
-import { CounterType } from '../../shared/util/counter.type.enum';
-import { ConstantEntity } from '../../shared/entities/constants.entity';
-import { DataResponseDto } from '../../shared/dto/data.response.dto';
-import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
-import { ProgrammeApprove } from '../../shared/dto/programme.approve';
-import { DataListResponseDto } from '../../shared/dto/data.list.response';
-import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
+import { CounterService } from '../util/counter.service';
+import { CounterType } from '../util/counter.type.enum';
+import { ConstantEntity } from '../entities/constants.entity';
+import { DataResponseDto } from '../dto/data.response.dto';
+import { ConstantUpdateDto } from '../dto/constants.update.dto';
+import { ProgrammeApprove } from '../dto/programme.approve';
+import { DataListResponseDto } from '../dto/data.list.response';
+import { BasicResponseDto } from '../dto/basic.response.dto';
 import { ConfigService } from '@nestjs/config';
-import { TypeOfMitigation } from '../../shared/enum/typeofmitigation.enum';
+import { TypeOfMitigation } from '../enum/typeofmitigation.enum';
 import { CompanyService } from '../company/company.service';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
@@ -82,21 +82,27 @@ export class ProgrammeService {
 
         const req = await this.getCreditRequest(programmeDto, constants);
         try {
-            programme.ITMOsIssued = Math.round(await calculateCredit(req));
+            programme.creditIssued = Math.round(await calculateCredit(req));
         } catch(err) {
             this.logger.log(`Credit calculate failed ${err.message}`)
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST)
         }
         
-        if (programme.ITMOsIssued <= 0) {
+        if (programme.creditIssued <= 0) {
             throw new HttpException("Not enough credits to create the programme", HttpStatus.BAD_REQUEST)
         }
-        programme.ITMOsBalance = programme.ITMOsIssued;
-        programme.ITMOsChange = programme.ITMOsIssued;
-        programme.programmeProperties.ITMOYear = new Date(programme.startTime*1000).getFullYear()
+        programme.creditBalance = programme.creditIssued;
+        programme.creditChange = programme.creditIssued;
+        programme.programmeProperties.creditYear = new Date(programme.startTime*1000).getFullYear()
         programme.constantVersion = constants ? String(constants.version): "default"
         programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
         programme.companyId = projectCompany.companyId;
+        programme.txTime = new Date().getTime();
+        programme.createdTime = programme.txTime;
+        if (!programme.creditUnit) {
+            programme.creditUnit = this.configService.get('defaultCreditUnit')
+        }
+
         return await this.programmeLedger.createProgramme(programme);
     }
 

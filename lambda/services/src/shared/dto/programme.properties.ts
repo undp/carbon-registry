@@ -70,5 +70,5 @@ export class ProgrammeProperties {
     @IsNotEmpty()
     greenHouseGasses: GHGs[];
 
-    ITMOYear: number
+    creditYear: number
 }

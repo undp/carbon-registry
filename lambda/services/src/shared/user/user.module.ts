@@ -2,7 +2,6 @@ import { Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../../shared/entities/user.entity';
 import { UserService } from './user.service';
-import { UserController } from './user.controller';
 import { CaslModule } from '../../shared/casl/casl.module';
 import { EmailModule } from '../../shared/email/email.module';
 import { TypeOrmConfigService } from '../../shared/typeorm.config.service';
@@ -19,6 +18,7 @@ import { CompanyModule } from '../company/company.module';
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
+      imports: undefined
     }),
     TypeOrmModule.forFeature([User]),
     CaslModule,
@@ -26,7 +26,6 @@ import { CompanyModule } from '../company/company.module';
     CompanyModule
   ],
   providers: [UserService, Logger],
-  exports: [UserService],
-  controllers: [UserController]
+  exports: [UserService]
 })
 export class UserModule {}

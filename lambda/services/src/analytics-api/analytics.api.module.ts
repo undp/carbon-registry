@@ -1,6 +1,6 @@
 import { Logger, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { AnalyticsAPIController } from "./analytics.api.controller";
+import { ProgrammeController } from "./programme.controller";
 import { AnalyticsAPIService } from "./analytics.api.service";
 import configuration from "../shared/configuration";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -8,7 +8,7 @@ import { TypeOrmConfigService } from "../shared/typeorm.config.service";
 import { Programme } from "../shared/entities/programme.entity";
 import { ProgrammeLedgerModule } from "../shared/programme-ledger/programme-ledger.module";
 import { CaslModule } from "../shared/casl/casl.module";
-import { AuthModule } from "../national-api/auth/auth.module";
+import { AuthModule } from "../shared/auth/auth.module";
 
 @Module({
   imports: [
@@ -19,13 +19,14 @@ import { AuthModule } from "../national-api/auth/auth.module";
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
+      imports: undefined
     }),
     TypeOrmModule.forFeature([Programme]),
     AuthModule,
     CaslModule,
     ProgrammeLedgerModule,
   ],
-  controllers: [AnalyticsAPIController],
+  controllers: [ProgrammeController],
   providers: [AnalyticsAPIService, Logger],
 })
 export class AnalyticsAPIModule {}

@@ -1,19 +1,19 @@
 import { Body, Controller, Get, Post, Put, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Programme } from '../../shared/entities/programme.entity';
-import { Action } from '../../shared/casl/action.enum';
-import { AppAbility } from '../../shared/casl/casl-ability.factory';
-import { CheckPolicies } from '../../shared/casl/policy.decorator';
-import { PoliciesGuard, PoliciesGuardEx } from '../../shared/casl/policy.guard';
-import { ProgrammeDto } from '../../shared/dto/programme.dto';
-import { ProgrammeService } from './programme.service';
-import { QueryDto } from '../../shared/dto/query.dto';
-import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
-import { ProgrammeStage } from '../../shared/programme-ledger/programme-status.enum';
-import { ProgrammeApprove } from '../../shared/dto/programme.approve';
-import { ProgrammeReject } from '../../shared/dto/programme.reject';
-import { ProgrammeRetire } from '../../shared/dto/programme.retire';
-import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
+import { Programme } from '../shared/entities/programme.entity';
+import { Action } from '../shared/casl/action.enum';
+import { AppAbility } from '../shared/casl/casl-ability.factory';
+import { CheckPolicies } from '../shared/casl/policy.decorator';
+import { PoliciesGuard, PoliciesGuardEx } from '../shared/casl/policy.guard';
+import { ProgrammeDto } from '../shared/dto/programme.dto';
+import { ProgrammeService } from '../shared/programme/programme.service';
+import { QueryDto } from '../shared/dto/query.dto';
+import { ConstantUpdateDto } from '../shared/dto/constants.update.dto';
+import { ProgrammeStage } from '../shared/programme-ledger/programme-status.enum';
+import { ProgrammeApprove } from '../shared/dto/programme.approve';
+import { ProgrammeReject } from '../shared/dto/programme.reject';
+import { ProgrammeRetire } from '../shared/dto/programme.retire';
+import { ApiKeyJwtAuthGuard } from '../shared/auth/guards/api-jwt-key.guard';
 
 @ApiTags('Programme')
 @ApiBearerAuth()

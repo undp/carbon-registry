@@ -1,9 +1,9 @@
 import { Controller, Get, Post, UseGuards, Request, Logger, Body, ValidationPipe, UnauthorizedException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { LoginDto } from '../../shared/dto/login.dto';
-import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { LoginDto } from '../shared/dto/login.dto';
+import { AuthService } from '../shared/auth/auth.service';
+import { JwtAuthGuard } from '../shared/auth/guards/jwt-auth.guard';
+import { LocalAuthGuard } from '../shared/auth/guards/local-auth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
