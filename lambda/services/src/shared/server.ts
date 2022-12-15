@@ -71,7 +71,7 @@ export async function bootstrapServer(cachedServer: Server, module: any, httpBas
     if (!cachedServer) {
         const expressApp = express();
         const nestApp = await NestFactory.create(module, new ExpressAdapter(expressApp), {
-            // logger: getLogger(module),
+            logger: getLogger(module),
           })
         useContainer(nestApp.select(UtilModule), { fallbackOnErrors: true });
         nestApp.setGlobalPrefix(httpBase)
