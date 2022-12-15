@@ -24,7 +24,7 @@ According to the UNFCCC - CDM (Clean Development Mechanism) methodologies, ident
 
 ## Calculation - Sector Agriculture 
 ```
-Numner of ITMOs = #hectares * #days * #tCO2e/ha/day 
+Number of Credits = #hectares * #days * #tCO2e/ha/day 
 ```
 
 | **Input Field** | **Data Type** | **Mandatory/Optional** | **Default Value** | **Possible values if any** | **Validations** |

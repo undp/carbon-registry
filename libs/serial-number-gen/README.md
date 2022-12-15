@@ -105,7 +105,7 @@ Eg:
 ```
 import { generateSerialNumber } from 'serial-number-gen';
 
-const serialNo = generateSerialNumber(countryCodeA2, sectoralScope, programmeId, year, startBlock, endBlock);
+const serialNo = generateSerialNumber(countryCodeA2, sectoralScope, programmeId, year, startBlock, endBlock, creditUnit);
 
 ```
 
@@ -118,3 +118,4 @@ const serialNo = generateSerialNumber(countryCodeA2, sectoralScope, programmeId,
 | Year | Year in format XXXX |
 | startBlock | Current ledger credit value (inclusive)|
 | endBlock | Credit value with the current program  (inclusive)|
+| creditUnit | Carbon credit unit (Eg: ITMO)

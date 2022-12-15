@@ -7414,7 +7414,7 @@ json-stable-stringify@~0.0.0:
   dependencies:
     jsonify "~0.0.0"
 
-json5@^2.1.3, json5@^2.2.1:
+json5@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
@@ -8144,19 +8144,6 @@ module-deps@^6.2.3:
     subarg "^1.0.0"
     through2 "^2.0.0"
     xtend "^4.0.0"
-
-mongo-parse@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/mongo-parse/-/mongo-parse-2.1.0.tgz#66422e83074dc21c3448f873631c9501d8ccb493"
-  integrity sha512-QmPliJQpAjceKZe/K77FonhHzYIRre3qo9mqnALI8i4Df6FRd/ZJNSNGfrakS5mahpqd4KsRhLqLxv3Q/7g6zg==
-
-mongo-to-sql-converter@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/mongo-to-sql-converter/-/mongo-to-sql-converter-1.1.2.tgz#f13547f73f8047570a4ce0c2ac06d4971393451c"
-  integrity sha512-BW/vNiKuhsKi9yak78QHVMHdRAHcxr2WAjHE74oLzn1FrN1/99jhqe1rEZGesB3b6gPUbNAsxoEBkIeglQbUkg==
-  dependencies:
-    json5 "^2.1.3"
-    mongo-parse "^2.1.0"
 
 ms@2.0.0:
   version "2.0.0"
