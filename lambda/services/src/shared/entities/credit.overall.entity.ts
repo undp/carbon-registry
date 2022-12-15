@@ -12,5 +12,5 @@ export class CreditOverall implements EntitySubject {
     serialNo: string;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
-    ITMO: number;
+    credit: number;
 }

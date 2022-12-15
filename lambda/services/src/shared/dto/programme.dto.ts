@@ -1,11 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { ArrayMinSize, IsArray, IsEnum, IsIn, IsInt, IsNotEmpty, IsNotEmptyObject, IsNumber, IsOptional, IsPositive, IsString, Length, ValidateIf, ValidateNested } from "class-validator";
+import { ArrayMinSize, IsArray, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsOptional, IsPositive, IsString, ValidateIf, ValidateNested } from "class-validator";
 import { SectoralScope } from 'serial-number-gen'
 import { TypeOfMitigation } from "../enum/typeofmitigation.enum";
 import { AgricultureProperties } from "./agriculture.properties";
 import { SolarProperties } from "./solar.properties";
 import { ProgrammeProperties } from "./programme.properties";
-import { IsValidCountry } from "../util/validcountry.decorator";
 import { Sector } from "../enum/sector.enum";
 import { Type } from "class-transformer";
 
@@ -64,7 +63,11 @@ export class ProgrammeDto {
     @ArrayMinSize(1)
     proponentPercentage: number[];
 
-    
+    @IsNotEmpty()
+    @IsOptional()
+    @IsString()
+    creditUnit: string;
+
     @ApiProperty()
     @IsNotEmptyObject()
     @ValidateNested()

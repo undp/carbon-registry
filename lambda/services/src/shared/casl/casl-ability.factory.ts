@@ -8,6 +8,8 @@ import { Programme } from "../entities/programme.entity";
 import { ProgrammeStage } from "../programme-ledger/programme-status.enum";
 import { CompanyRole } from "../enum/company.role.enum";
 import { Company } from "../entities/company.entity";
+import { Stat } from "../dto/stat.dto";
+import { StatType } from "../enum/stat.type.enum";
 
 type Subjects = InferSubjects<typeof EntitySubject> | 'all';
 
@@ -58,6 +60,12 @@ export class CaslAbilityFactory {
         can(Action.Read, Programme, { currentStage: { $in: [ ProgrammeStage.ISSUED, ProgrammeStage.RETIRED ]}});
       } else if (user.companyRole == CompanyRole.PROGRAMME_DEVELOPER) {
         can(Action.Read, Programme, { currentStage: { $eq: ProgrammeStage.ISSUED }});
+      }
+
+      if (user.companyRole == CompanyRole.CERTIFIER) {
+        can(Action.Read, Stat, { type: { $nin: [ StatType.TOTAL_PROGRAMS, StatType.PROGRAMS_BY_STATUS]}})
+      } else {
+        can(Action.Read, Stat, { type: { $nin: [ ]}})
       }
       // cannot(Action.Delete, User, { id: { $eq: user.id } })
       cannot(Action.Update, User, ['companyId', 'companyRole'])
