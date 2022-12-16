@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ConnectionContextProvider } from './Context/ConnectionContext/connectionContext';
 import 'antd/dist/antd.css';
+import './app.scss';
 import Login from './Pages/Login/login';
 // import DashboardLayout from './Pages/Dashboard/dashboard.layout';
 // import UserManagementLayout from './Pages/UserManagement/userManagement.layout';
@@ -15,6 +16,7 @@ import AddUser from './Pages/AddUser/addUser';
 import UpdateUser from './Pages/UpdateUser/updateUser';
 import UserManagement from './Pages/UserManagement/userManagement';
 import Dashboard from './Pages/Dashboard/dashboard';
+import AddNewCompany from './Pages/Company/addNewCompany';
 
 const App = () => {
   useEffect(() => {
@@ -26,7 +28,7 @@ const App = () => {
         serverURL={
           process.env.REACT_APP_BACKEND
             ? process.env.REACT_APP_BACKEND
-            : 'http://localhost:3000/local/api/national'
+            : 'https://ck5kt5uaw1.execute-api.us-east-1.amazonaws.com/dev/api/national'
         }
       >
         <UserInformationContextProvider>
@@ -38,6 +40,10 @@ const App = () => {
                 <Route path="/dashboard" element={<CustomLayout selectedKey="dashboard" />}>
                   <Route index element={<Dashboard />} />
                 </Route>
+                <Route path="/companyManagement" element={<CustomLayout selectedKey="company" />}>
+                  <Route path="addCompany" element={<AddNewCompany />} />
+                </Route>
+
                 <Route
                   path="/userManagement"
                   element={<CustomLayout selectedKey="userManagement" />}
