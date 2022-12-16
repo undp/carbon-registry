@@ -125,6 +125,6 @@ jobs:
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-      - name: Run User onboarding tests
+      - name: Run API tests
         run: |
-          postman collection run "20428472-dc42dd58-c64c-4f68-a418-3b8766ef8fc1" -e ./testing/api/carbon.env.json -d ./testing/api/user_onboarding_4.csv
+          postman collection run "20428472-75359d8a-c676-453d-a2b0-5a193644f5a6" -e "20428472-778eb1c8-aac1-4484-a217-bcfd9a8d0df0"  -d ./testing/api/create_project_6.csv

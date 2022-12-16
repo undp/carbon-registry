@@ -1,17 +1,21 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength, IsOptional, ArrayMinSize, IsArray } from "class-validator";
 import { GHGs } from "../enum/ghgs.enum";
 import { SourceOfFunding } from "../enum/sourceoffinding.enum";
 
 export class ProgrammeProperties {
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsString()
+    @IsOptional()
+    @IsNotEmpty()
     maxInternationalTransferAmount: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsPositive()
     @IsInt()
+    @IsOptional()
+    @IsNotEmpty()
     creditingPeriodInYears: number;
 
     @ApiProperty()
@@ -20,36 +24,38 @@ export class ProgrammeProperties {
     @IsNotEmpty()
     programmeCostUSD: number;
     
-    @ApiProperty({ enum: SourceOfFunding })
+    @ApiPropertyOptional({ enum: SourceOfFunding })
     @IsEnum(SourceOfFunding, {
         message: 'Invalid source of funding. Supported following values:' + Object.values(SourceOfFunding)
     })
     @IsNotEmpty()
+    @IsOptional()
     sourceOfFunding: SourceOfFunding;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsPositive()
     @IsNumber()
+    @IsOptional()
     grantEquivalentAmount: number;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsPositive()
     @IsNumber()
+    @IsOptional()
     carbonPriceUSDPerTon: number;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @IsString()
-    proponentPercentage: string;
-
-    @ApiProperty()
-    @IsString()
+    @IsOptional()
+    @IsNotEmpty()
     buyerCountryEligibility: string;
 
     @ApiProperty()
-    @IsString()
-    @MaxLength(100)
-    @IsNotEmpty()
-    geographicalLocation:string;
+    @IsArray()
+    @ArrayMinSize(1)
+    @MaxLength(100, { each: true })
+    @IsNotEmpty({ each: true })
+    geographicalLocation: string[];
 
     @ApiProperty({ enum: GHGs, isArray: true })
     @IsEnum(GHGs, {
@@ -59,5 +65,5 @@ export class ProgrammeProperties {
     @IsNotEmpty()
     greenHouseGasses: GHGs[];
 
-    ITMOYear: number
+    creditYear: number
 }

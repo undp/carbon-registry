@@ -1,6 +1,4 @@
 import { NestFactory } from "@nestjs/core";
-import { UserService } from "../national-api/user/user.service";
-import { UserModule } from "../national-api/user/user.module";
 import { Role } from "../shared/casl/role.enum";
 import { UserDto } from "../shared/dto/user.dto";
 import { LedgerDbModule } from "../shared/ledger-db/ledger-db.module";
@@ -10,10 +8,13 @@ import { UtilModule } from "../shared/util/util.module";
 import { Country } from "../shared/entities/country.entity";
 import { CountryService } from "../shared/util/country.service";
 import { CreditOverall } from "../shared/entities/credit.overall.entity";
-import { CompanyModule } from "../national-api/company/company.module";
+import { CompanyModule } from "../shared/company/company.module";
 import { CompanyDto } from "../shared/dto/company.dto";
 import { CompanyRole } from "../shared/enum/company.role.enum";
-import { CompanyService } from "../national-api/company/company.service";
+import { CompanyService } from "../shared/company/company.service";
+import { UserModule } from "../shared/user/user.module";
+import { UserService } from "../shared/user/user.service";
+import { TxType } from "../shared/enum/txtype.enum";
 const fs = require('fs')
 
 exports.handler = async (event) => {
@@ -33,12 +34,17 @@ exports.handler = async (event) => {
     });
     try {
       const ledgerModule = app.get(LedgerDbService)
+
+      await ledgerModule.createTable('company');
+      await ledgerModule.createIndex('txId', 'company');
+
       await ledgerModule.createTable('overall');
-      await ledgerModule.createIndex('countryCodeA2', 'overall');
+      await ledgerModule.createIndex('txId', 'overall');
       const creditOverall = new CreditOverall()
-      creditOverall.ITMO = 0;
-      creditOverall.countryCodeA2 = event['systemCountryCode']
-      creditOverall.serialNo = 'genesis block'
+      creditOverall.credit = 0;
+      creditOverall.txId = event['systemCountryCode']
+      creditOverall.txRef = 'genesis block'
+      creditOverall.txType = TxType.ISSUE;
       await ledgerModule.insertRecord(creditOverall, 'overall')
       await ledgerModule.createTable();
       await ledgerModule.createIndex('programmeId');
