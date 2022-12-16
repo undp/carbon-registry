@@ -180,6 +180,7 @@ export class ProgrammeService {
         transfer.status = TransferStatus.PENDING;
         transfer.txTime = new Date().getTime()
         transfer.requesterId = requester.id;
+        transfer.companyId = programme.companyId;
         return await this.programmeTransferRepo.save(transfer);
     }
 
@@ -228,6 +229,7 @@ export class ProgrammeService {
         programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
         programme.companyId = companyIds;
         programme.txTime = new Date().getTime();
+        programme.creditOwnerPercentage = programme.proponentPercentage
         programme.createdTime = programme.txTime;
         if (!programme.creditUnit) {
             programme.creditUnit = this.configService.get('defaultCreditUnit')
@@ -297,7 +299,11 @@ export class ProgrammeService {
     async updateProgrammeStatus(req: ProgrammeApprove, status: ProgrammeStage, expectedCurrentStatus: ProgrammeStage) {
         this.logger.log(`Programme ${req.programmeId} status updating to ${status}. Comment: ${req.comment}`)
         if (status == ProgrammeStage.ISSUED) {
-            const updated = await this.programmeLedger.authProgrammeStatus(req.programmeId, this.configService.get('systemCountry'))
+            const program = await this.programmeLedger.getProgrammeById(req.programmeId);
+            if (!program) {
+                throw new HttpException("Programme does not exist", HttpStatus.BAD_REQUEST);
+            }
+            const updated = await this.programmeLedger.authProgrammeStatus(req.programmeId, this.configService.get('systemCountry'), program.companyId)
             if (!updated) {
                 return new BasicResponseDto(HttpStatus.BAD_REQUEST, `Does not found a programme in ${expectedCurrentStatus} status for the given programme id ${req.programmeId}`)
             }

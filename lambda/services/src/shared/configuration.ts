@@ -19,7 +19,8 @@ export default () => ({
     ledger: {
         name: 'carbon-registry-' + (process.env.NODE_ENV || 'dev'),
         table: 'programmes',
-        overallTable: 'overall'
+        overallTable: 'overall',
+        companyTable: 'company'
     },
     email: {
         source: process.env.SOURCE_EMAIL || 'info@xeptagon.com',
