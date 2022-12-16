@@ -30,6 +30,9 @@ export class ProgrammeTransfer implements EntitySubject {
     @Column({type: "bigint"})
     txTime: number;
 
+    @Column("bigint", { array: true })
+    companyId: number[];
+
     @Column({
         type: "enum",
         enum: TransferStatus,

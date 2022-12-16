@@ -8,6 +8,7 @@ export class LedgerDbService {
 
     public tableName: string;
     public overallTableName: string;
+    public companyTableName: string;
     private ledgerName: string;
     private driver: QldbDriver;
 
@@ -15,6 +16,7 @@ export class LedgerDbService {
         this.ledgerName = configService.get<string>('ledger.name')
         this.tableName = configService.get<string>('ledger.table')
         this.overallTableName = configService.get<string>('ledger.overallTable')
+        this.companyTableName = configService.get<string>('ledger.companyTable')
         logger.log("Ledger init ", this.ledgerName)
     }
 
@@ -65,27 +67,42 @@ export class LedgerDbService {
         return (await this.execute(`UPDATE ${this.tableName} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update), ...Object.values(where)))?.getResultList();
     };
 
-    public async getAndUpdateTx<TM>(getQueries: Record<string, Record<string, any>>, processGetFn: (results: Record<string, dom.Value[]>) => [Record<string, any>, Record<string, any>]): Promise<Record<string, dom.Value[]>> {
+    public async getAndUpdateTx<TM>(getQueries: Record<string, Record<string, any>>, processGetFn: (results: Record<string, dom.Value[]>) => [Record<string, any>, Record<string, any>, Record<string, any>]): Promise<Record<string, dom.Value[]>> {
         this.logger.debug(``)
         this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
             const getResults = {}
             for (const t in getQueries) {
                 if (getQueries.hasOwnProperty(t)) {
-                    const wc = Object.keys(getQueries[t]).map(k => (`${k} = ?`)).join(' and ')
+                    const wc = Object.keys(getQueries[t]).map(k => {
+                        if (getQueries[t][k] instanceof Array) {
+                            return (`${k} in ?`)
+                        }
+                        return (`${k} = ?`)
+                    }).join(' and ')
                     const r = (await this.execute(`SELECT * FROM ${t} WHERE ${wc}`, ...Object.values(getQueries[t])))?.getResultList();
                     getResults[t] = r;
                 }
             }
-            const [update,  updateWhere] = processGetFn(getResults);
+            const [update,  updateWhere, insert] = processGetFn(getResults);
             const updateResults = {}
-            for (const t in update) {
-                if (update.hasOwnProperty(t) && updateWhere.hasOwnProperty(t)) {
-                    const whereClause = Object.keys(updateWhere[t]).map(k => (`${k} = ?`)).join(' and ')
-                    const updateClause = Object.keys(update[t]).map(k => (`${k} = ?`)).join(',')
-                    updateResults[t] = (await this.execute(`UPDATE ${t} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update[t]), ...Object.values(updateWhere[t])))?.getResultList();
+            for (const qk in update) {
+                const tableName = qk.split('#')[0]
+                if (update.hasOwnProperty(qk) && updateWhere.hasOwnProperty(qk)) {
+                    const whereClause = Object.keys(updateWhere[qk]).map(k => (`${k} = ?`)).join(' and ')
+                    const updateClause = Object.keys(update[qk]).map(k => (`${k} = ?`)).join(',')
+                    updateResults[qk] = (await this.execute(`UPDATE ${tableName} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update[qk]), ...Object.values(updateWhere[qk])))?.getResultList();
                 }
             }
+
+            this.logger.verbose(`Insert queries`, insert)
+            for (const qk in insert) {
+                const tableName = qk.split('#')[0]
+                if (insert.hasOwnProperty(qk)) {
+                    updateResults[qk] = (await this.execute(`INSERT INTO ${tableName ? tableName : this.tableName} ?`, insert[qk]))?.getResultList();
+                }
+            }
+
             return updateResults;
         });
         this.logger.debug('Response', JSON.stringify(resp))

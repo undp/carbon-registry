@@ -72,6 +72,9 @@ export class Programme implements EntitySubject {
     proponentPercentage: number[];
 
     @Column("bigint", { array: true, nullable: true })
+    creditOwnerPercentage: number[];
+
+    @Column("bigint", { array: true, nullable: true })
     certifierId: number[];
 
     @Column()
