@@ -229,7 +229,9 @@ export class ProgrammeService {
         programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
         programme.companyId = companyIds;
         programme.txTime = new Date().getTime();
-        programme.creditOwnerPercentage = programme.proponentPercentage
+        if (programme.proponentPercentage){
+            programme.creditOwnerPercentage = programme.proponentPercentage
+        }
         programme.createdTime = programme.txTime;
         if (!programme.creditUnit) {
             programme.creditUnit = this.configService.get('defaultCreditUnit')
