@@ -1,19 +1,23 @@
 import { Body, Controller, Get, Post, Put, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Programme } from '../../shared/entities/programme.entity';
-import { Action } from '../../shared/casl/action.enum';
-import { AppAbility } from '../../shared/casl/casl-ability.factory';
-import { CheckPolicies } from '../../shared/casl/policy.decorator';
-import { PoliciesGuard, PoliciesGuardEx } from '../../shared/casl/policy.guard';
-import { ProgrammeDto } from '../../shared/dto/programme.dto';
-import { ProgrammeService } from './programme.service';
-import { ApiKeyJwtAuthGuard } from '../auth/guards/api-jwt-key.guard';
-import { QueryDto } from '../../shared/dto/query.dto';
-import { ConstantUpdateDto } from '../../shared/dto/constants.update.dto';
-import { ProgrammeStage } from '../../shared/programme-ledger/programme-status.enum';
-import { ProgrammeApprove } from '../../shared/dto/programme.approve';
-import { ProgrammeReject } from '../../shared/dto/programme.reject';
-import { ProgrammeRetire } from '../../shared/dto/programme.retire';
+import { Programme } from '../shared/entities/programme.entity';
+import { Action } from '../shared/casl/action.enum';
+import { AppAbility } from '../shared/casl/casl-ability.factory';
+import { CheckPolicies } from '../shared/casl/policy.decorator';
+import { PoliciesGuard, PoliciesGuardEx } from '../shared/casl/policy.guard';
+import { ProgrammeDto } from '../shared/dto/programme.dto';
+import { ProgrammeService } from '../shared/programme/programme.service';
+import { QueryDto } from '../shared/dto/query.dto';
+import { ConstantUpdateDto } from '../shared/dto/constants.update.dto';
+import { ProgrammeStage } from '../shared/programme-ledger/programme-status.enum';
+import { ProgrammeApprove } from '../shared/dto/programme.approve';
+import { ProgrammeReject } from '../shared/dto/programme.reject';
+import { ProgrammeRetire } from '../shared/dto/programme.retire';
+import { ApiKeyJwtAuthGuard } from '../shared/auth/guards/api-jwt-key.guard';
+import { ProgrammeTransferRequest } from '../shared/dto/programme.transfer.request';
+import { ProgrammeTransfer } from '../shared/entities/programme.transfer';
+import { ProgrammeTransferApprove } from '../shared/dto/programme.transfer.approve';
+import { ProgrammeTransferReject } from '../shared/dto/programme.transfer.reject';
 
 @ApiTags('Programme')
 @ApiBearerAuth()
@@ -76,5 +80,26 @@ export class ProgrammeController {
     @Put('retire')
     async programmeRetire(@Body() body: ProgrammeRetire) {
         return this.programmeService.updateProgrammeStatus(body, ProgrammeStage.RETIRED, ProgrammeStage.ISSUED)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Create, ProgrammeTransfer))
+    @Post('transferRequest')
+    async transferRequest(@Body() body: ProgrammeTransferRequest, @Request() req) {
+        return this.programmeService.transferRequest(body, req.user)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, ProgrammeTransfer))
+    @Post('transferApprove')
+    async transferApprove(@Body() body: ProgrammeTransferApprove, @Request() req) {
+        return this.programmeService.transferApprove(body)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, ProgrammeTransfer))
+    @Post('transferReject')
+    async transferReject(@Body() body: ProgrammeTransferReject) {
+        return this.programmeService.transferReject(body)
     }
 }

@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsEmail, IsEnum, isNotEmpty, IsNotEmpty, IsNumber, IsString, IsUrl, ValidateIf } from "class-validator";
 import { Role } from "../casl/role.enum";
 import { CompanyRole } from "../enum/company.role.enum";
@@ -25,25 +25,25 @@ export class CompanyDto {
 
     @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsString()
-    @ApiProperty()
+    @ApiPropertyOptional()
     phoneNo: string;
 
     @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsUrl()
-    @ApiProperty()
+    @ApiPropertyOptional()
     website: string;
 
     @ValidateIf( c => ![CompanyRole.GOVERNMENT, CompanyRole.MRV].includes(c.companyRole))
     @IsString()
-    @ApiProperty()
+    @ApiPropertyOptional()
     address: string;
 
     @IsString()
-    @ApiProperty()
+    @ApiPropertyOptional()
     logo: string;
 
     @IsValidCountry()
-    @ApiProperty()
+    @ApiPropertyOptional()
     country: string;
 
     @IsNotEmpty()

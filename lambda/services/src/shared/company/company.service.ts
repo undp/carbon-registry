@@ -2,14 +2,14 @@ import { PG_UNIQUE_VIOLATION } from '@drdgvhbh/postgres-error-codes';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyDto } from '../../shared/dto/company.dto';
+import { CompanyDto } from '../dto/company.dto';
 import { QueryFailedError, Repository } from 'typeorm';
-import { Company } from '../../shared/entities/company.entity';
-import { CompanyRole } from '../../shared/enum/company.role.enum';
-import { QueryDto } from '../../shared/dto/query.dto';
-import { DataListResponseDto } from '../../shared/dto/data.list.response';
-import { BasicResponseDto } from '../../shared/dto/basic.response.dto';
-import { CompanyState } from '../../shared/enum/company.state.enum';
+import { Company } from '../entities/company.entity';
+import { CompanyRole } from '../enum/company.role.enum';
+import { QueryDto } from '../dto/query.dto';
+import { DataListResponseDto } from '../dto/data.list.response';
+import { BasicResponseDto } from '../dto/basic.response.dto';
+import { CompanyState } from '../enum/company.state.enum';
 
 @Injectable()
 export class CompanyService {

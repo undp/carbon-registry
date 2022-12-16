@@ -1,12 +1,12 @@
 import { Controller, Get, Query, UseGuards, Request, Post, Put, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Company } from '../../shared/entities/company.entity';
-import { Action } from '../../shared/casl/action.enum';
-import { PoliciesGuardEx } from '../../shared/casl/policy.guard';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { QueryDto } from '../../shared/dto/query.dto';
-import { CompanyService } from './company.service';
-import { CaslAbilityFactory } from '../../shared/casl/casl-ability.factory';
+import { Company } from '../shared/entities/company.entity';
+import { Action } from '../shared/casl/action.enum';
+import { PoliciesGuardEx } from '../shared/casl/policy.guard';
+import { QueryDto } from '../shared/dto/query.dto';
+import { CompanyService } from '../shared/company/company.service';
+import { CaslAbilityFactory } from '../shared/casl/casl-ability.factory';
+import { JwtAuthGuard } from '../shared/auth/guards/jwt-auth.guard';
 
 @ApiTags('Company')
 @ApiBearerAuth()

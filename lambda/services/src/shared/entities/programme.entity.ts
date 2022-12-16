@@ -33,7 +33,6 @@ export class Programme implements EntitySubject {
     @Column()
     countryCodeA2: string;
 
-
     @Column({
         type: "enum",
         enum: ProgrammeStage,
@@ -49,25 +48,37 @@ export class Programme implements EntitySubject {
     endTime: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
-    ITMOsChange: number;
+    creditChange: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
-    ITMOsIssued: number;
+    creditIssued: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
-    ITMOsBalance: number;
+    creditBalance: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION, default: 0})
-    ITMOsTransferred: number;
+    creditTransferred: number;
 
     @Column({nullable: true})
     constantVersion: string;
 
-    @Column()
-    proponentTaxVatId: string;
+    @Column("varchar", { array: true })
+    proponentTaxVatId: string[];
+
+    @Column("bigint", { array: true })
+    companyId: number[];
+
+    @Column("bigint", { array: true, nullable: true })
+    proponentPercentage: number[];
+
+    @Column("bigint", { array: true, nullable: true })
+    creditOwnerPercentage: number[];
+
+    @Column("bigint", { array: true, nullable: true })
+    certifierId: number[];
 
     @Column()
-    companyId: number;
+    creditUnit: string;
 
     @Column({
         type: 'jsonb',
@@ -88,4 +99,14 @@ export class Programme implements EntitySubject {
         nullable: true
     })
     solarProperties: SolarProperties;
+
+    @Column({type: "bigint"})
+    txTime: number;
+
+    @Column({type: "bigint"})
+    createdTime: number;
+
+    @Column({nullable: true})
+    txRef: string;
+    
 }

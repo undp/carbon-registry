@@ -1,11 +1,12 @@
 export default () => ({
     stage: process.env.STAGE || 'local',
     systemCountry: process.env.systemCountryCode || 'NG',
+    defaultCreditUnit: process.env.defaultCreditUnit || 'ITMO',
     database: {
         type: 'postgres',
         host: process.env.DB_HOST || 'localhost',
         port: parseInt(process.env.DB_PORT) || 5432,
-        username: process.env.DB_USER || 'root',
+        username: process.env.DB_USER || 'hquser',
         password: process.env.DB_PASSWORD || '',
         database: (process.env.DB_NAME || 'carbondev'),
         synchronize: process.env.NODE_ENV == 'prod' ? true : true,
@@ -18,7 +19,8 @@ export default () => ({
     ledger: {
         name: 'carbon-registry-' + (process.env.NODE_ENV || 'dev'),
         table: 'programmes',
-        overallTable: 'overall'
+        overallTable: 'overall',
+        companyTable: 'company'
     },
     email: {
         source: process.env.SOURCE_EMAIL || 'info@xeptagon.com',

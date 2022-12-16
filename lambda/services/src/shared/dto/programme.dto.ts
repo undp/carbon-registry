@@ -1,11 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsPositive, IsString, Length, ValidateIf, ValidateNested } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { ArrayMinSize, IsArray, IsEnum, IsInt, IsNotEmpty, IsNotEmptyObject, IsOptional, IsPositive, IsString, ValidateIf, ValidateNested } from "class-validator";
 import { SectoralScope } from 'serial-number-gen'
 import { TypeOfMitigation } from "../enum/typeofmitigation.enum";
 import { AgricultureProperties } from "./agriculture.properties";
 import { SolarProperties } from "./solar.properties";
 import { ProgrammeProperties } from "./programme.properties";
-import { IsValidCountry } from "../util/validcountry.decorator";
 import { Sector } from "../enum/sector.enum";
 import { Type } from "class-transformer";
 
@@ -50,9 +49,24 @@ export class ProgrammeDto {
     endTime: number;
 
     @ApiProperty()
+    @IsNotEmpty({ each: true })
+    @IsArray()
+    @IsString({ each: true })
+    @ArrayMinSize(1)
+    proponentTaxVatId: string[];
+
+    @ApiPropertyOptional()
+    @IsOptional()
+    @IsNotEmpty({ each: true })
+    @IsArray()
+    @IsPositive({ each: true })
+    @ArrayMinSize(1)
+    proponentPercentage: number[];
+
     @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    proponentTaxVatId: string;
+    creditUnit: string;
 
     @ApiProperty()
     @IsNotEmptyObject()
@@ -61,14 +75,14 @@ export class ProgrammeDto {
     programmeProperties: ProgrammeProperties;
 
     @ApiProperty()
-    @ValidateIf(o => o.subSector === TypeOfMitigation.AGRICULTURE)
+    @ValidateIf(o => o.typeOfMitigation === TypeOfMitigation.AGRICULTURE)
     @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => AgricultureProperties)
     agricultureProperties: AgricultureProperties;
 
     @ApiProperty()
-    @ValidateIf(o => o.subSector === TypeOfMitigation.SOLAR)
+    @ValidateIf(o => o.typeOfMitigation === TypeOfMitigation.SOLAR)
     @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => SolarProperties)
