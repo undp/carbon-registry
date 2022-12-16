@@ -404,7 +404,7 @@ export class ProgrammeLedgerService {
               txType: TxType.ISSUE
             };
             updateWhereMap[this.ledger.companyTableName + "#" + com] = {
-              txId: countryCodeA2,
+              txId: com,
             };
           } else {
             insertMap[this.ledger.companyTableName + "#" + com] = {
