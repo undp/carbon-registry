@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength, IsOptional } from "class-validator";
+import { IsNotEmpty, IsString, IsPositive, IsInt, IsNumber, IsEnum, MaxLength, IsOptional, ArrayMinSize, IsArray } from "class-validator";
 import { GHGs } from "../enum/ghgs.enum";
 import { SourceOfFunding } from "../enum/sourceoffinding.enum";
 
@@ -51,10 +51,11 @@ export class ProgrammeProperties {
     buyerCountryEligibility: string;
 
     @ApiProperty()
-    @IsString()
-    @MaxLength(100)
-    @IsNotEmpty()
-    geographicalLocation:string;
+    @IsArray()
+    @ArrayMinSize(1)
+    @MaxLength(100, { each: true })
+    @IsNotEmpty({ each: true })
+    geographicalLocation: string[];
 
     @ApiProperty({ enum: GHGs, isArray: true })
     @IsEnum(GHGs, {

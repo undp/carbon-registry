@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
-import { InjectEntityManager } from "@nestjs/typeorm";
 import { plainToClass } from "class-transformer";
 import { dom } from "ion-js";
 import { generateSerialNumber } from "serial-number-gen";
-import { EntityManager } from "typeorm";
 import { ProgrammeHistoryDto } from "../dto/programme.history.dto";
+import { ProgrammeTransferApprove } from "../dto/programme.transfer.approve";
 import { CreditOverall } from "../entities/credit.overall.entity";
 import { Programme } from "../entities/programme.entity";
+import { ProgrammeTransfer } from "../entities/programme.transfer";
 import { LedgerDbService } from "../ledger-db/ledger-db.service";
 import { ProgrammeStage } from "./programme-status.enum";
 
@@ -14,9 +14,7 @@ import { ProgrammeStage } from "./programme-status.enum";
 export class ProgrammeLedgerService {
   constructor(
     private readonly logger: Logger,
-    private ledger: LedgerDbService,
-    @InjectEntityManager() private entityManger: EntityManager
-  ) {}
+    private ledger: LedgerDbService  ) {}
 
   public async createProgramme(programme: Programme): Promise<Programme> {
     this.logger.debug("Creating programme", JSON.stringify(programme));
@@ -31,6 +29,142 @@ export class ProgrammeLedgerService {
     // }
     await this.ledger.insertRecord(programme);
     return programme;
+  }
+
+  public async transferProgramme(transfer: ProgrammeTransfer, approve: ProgrammeTransferApprove) {
+    this.logger.log(`Transfer programme ${JSON.stringify(transfer)} ${JSON.stringify(approve)}`);
+
+    const getQueries = {};
+    getQueries[`history(${this.ledger.tableName})`] = {
+      'data.programmeId': transfer.programmeId,
+      'data.txRef': transfer.requestId,
+    };
+    getQueries[this.ledger.tableName] = {
+      programmeId: transfer.programmeId,
+    };
+
+    let updatedProgramme = undefined;
+    const resp = await this.ledger.getAndUpdateTx(
+      getQueries,
+      (results: Record<string, dom.Value[]>) => {
+
+        const alreadyProcessed = results[`history(${this.ledger.tableName})`];
+        if (alreadyProcessed.length > 0) {
+          throw new HttpException(
+            "Programme transfer request already processed",
+            HttpStatus.BAD_REQUEST
+          );
+        }
+        const programmes: Programme[] = results[this.ledger.tableName].map(
+          (domValue) => {
+            return plainToClass(
+              Programme,
+              JSON.parse(JSON.stringify(domValue))
+            );
+          }
+        );
+        if (programmes.length <= 0) {
+          throw new HttpException(
+            "Programme does not exist",
+            HttpStatus.BAD_REQUEST
+          );
+        }
+
+        if (programmes.length <= 0) {
+          throw new HttpException(
+            `Project does not exist ${transfer.programmeId}`,
+            HttpStatus.BAD_REQUEST
+          );
+        }
+        const programme = programmes[0];
+
+        if (programme.proponentPercentage && !approve.companyCredit) {
+          throw new HttpException(`Must define each company credit since the programme owned by multiple companies`, HttpStatus.BAD_REQUEST);
+        }
+
+        if (programme.creditBalance < transfer.creditAmount) {
+          throw new HttpException(
+            `Not enough credits to full fill the transfer request in project ${transfer.programmeId}. Requests: ${transfer.creditAmount} Available: ${programme.creditBalance}`,
+            HttpStatus.BAD_REQUEST
+          );
+        }
+        
+
+        if (approve.companyCredit && programme.proponentPercentage) {
+          if (programme.companyId.length != approve.companyIds.length) {
+            throw new HttpException(
+              `Does not defined percentages for all companies`,
+              HttpStatus.BAD_REQUEST
+            );
+          }
+
+          const companyIds = []
+          const percentages = []
+
+          const currentCredit = {}
+          for (const i in programme.proponentPercentage) {
+            currentCredit[programme.companyId[i]] = programme.creditBalance * programme.proponentPercentage[i]/100
+          }
+          for (const i in approve.companyCredit) {
+            const changeCredit = approve.companyCredit[i];
+            if (!currentCredit[approve.companyIds[i]] || currentCredit[approve.companyIds[i]] < changeCredit){
+              throw new HttpException(
+                `Company ${approve.companyIds[i]} is not an owner company of the programme`,
+                HttpStatus.BAD_REQUEST
+              );
+            }
+            companyIds.push(approve.companyIds[i])
+            percentages.push((currentCredit[approve.companyIds[i]] - changeCredit)*100/(programme.creditBalance - transfer.creditAmount))
+          }
+
+          programme.proponentPercentage = percentages;
+          programme.companyId = companyIds;
+        }
+       
+        programme.txTime = new Date().getTime();
+        programme.txRef = `${transfer.requestId}`;
+        programme.creditChange = transfer.creditAmount;
+        programme.creditBalance -= transfer.creditAmount;
+
+        if (!programme.creditTransferred) {
+          programme.creditTransferred = 0
+        }
+        programme.creditTransferred += transfer.creditAmount;
+
+        if (programme.creditBalance <= 0) {
+          programme.currentStage = ProgrammeStage.TRANSFERRED;
+        }
+        
+        updatedProgramme = programme;
+        const uPayload  = {
+          txTime: programme.txTime,
+          txRef: programme.txRef,
+          creditChange: programme.creditChange,
+          creditBalance: programme.creditBalance,
+          companyId: programme.companyId,
+          currentStage: programme.currentStage
+        }
+
+        if (programme.proponentPercentage) {
+          uPayload['proponentPercentage'] = programme.proponentPercentage
+        }
+
+        let updateMap = {};
+        let updateWhereMap = {};
+        updateMap[this.ledger.tableName] = uPayload;
+        updateWhereMap[this.ledger.tableName] = {
+          programmeId: programme.programmeId,
+          currentStage: ProgrammeStage.ISSUED.valueOf(),
+        };
+        return [updateMap, updateWhereMap];
+      }
+    );
+
+    const affected = resp[this.ledger.tableName];
+    if (affected && affected.length > 0) {
+      return updatedProgramme;
+    }
+    return updatedProgramme;
   }
 
   public async getProgrammeById(programmeId: string): Promise<Programme> {
@@ -97,7 +231,7 @@ export class ProgrammeLedgerService {
     };
 
     let updatedProgramme = undefined;
-    const resp = await this.ledger.multiGetAndUpdate(
+    const resp = await this.ledger.getAndUpdateTx(
       getQueries,
       (results: Record<string, dom.Value[]>) => {
         const programmes: Programme[] = results[this.ledger.tableName].map(
@@ -146,6 +280,7 @@ export class ProgrammeLedgerService {
         programme.serialNo = serialNo;
         programme.txTime = new Date().getTime();
         programme.currentStage = ProgrammeStage.ISSUED;
+        programme.creditTransferred = 0
         updatedProgramme = programme;
 
         let updateMap = {};
@@ -162,6 +297,7 @@ export class ProgrammeLedgerService {
         updateMap[this.ledger.overallTableName] = {
           credit: endBlock,
           serialNo: serialNo,
+          creditTransferred: 0
         };
         updateWhereMap[this.ledger.overallTableName] = {
           countryCodeA2: countryCodeA2,

@@ -33,7 +33,6 @@ export class Programme implements EntitySubject {
     @Column()
     countryCodeA2: string;
 
-
     @Column({
         type: "enum",
         enum: ProgrammeStage,
@@ -63,16 +62,16 @@ export class Programme implements EntitySubject {
     @Column({nullable: true})
     constantVersion: string;
 
-    @Column("string", { array: true })
+    @Column("varchar", { array: true })
     proponentTaxVatId: string[];
 
-    @Column({ array: true })
+    @Column("bigint", { array: true })
     companyId: number[];
 
-    @Column({ array: true })
+    @Column("bigint", { array: true, nullable: true })
     proponentPercentage: number[];
 
-    @Column({ array: true })
+    @Column("bigint", { array: true, nullable: true })
     certifierId: number[];
 
     @Column()
@@ -104,4 +103,7 @@ export class Programme implements EntitySubject {
     @Column({type: "bigint"})
     createdTime: number;
 
+    @Column({nullable: true})
+    txRef: string;
+    
 }
