@@ -197,18 +197,15 @@ export class UserService {
             u.apiKey = await this.generateApiKey(userDto.email)
         }
 
-        if (this.configService.get('stage') != 'local') {
-            await this.emailService.sendEmail(
-                u.email,
-                EmailTemplates.REGISTER_EMAIL,
-                {
-                    "name": u.name,
-                    "countryName": this.configService.get('systemCountry'),
-                    "password": u.password,
-                    "apiKeyText":u.apiKey? `<br>Api Key: ${u.apiKey}`: ""
-                });
-        }
-
+        await this.emailService.sendEmail(
+            u.email,
+            EmailTemplates.REGISTER_EMAIL,
+            {
+                "name": u.name,
+                "countryName": this.configService.get('systemCountry'),
+                "password": u.password,
+                "apiKeyText":u.apiKey? `<br>Api Key: ${u.apiKey}`: ""
+            });
         
         const usr = await this.entityManger.transaction(async (em) => {
             if (company) {
@@ -237,7 +234,7 @@ export class UserService {
         })
 
         const { apiKey, password, ...resp } = usr
-        return this.configService.get('stage') != 'local' ? resp : usr;
+        return resp;
     }
 
     async query(query: QueryDto, abilityCondition: string): Promise<any> {

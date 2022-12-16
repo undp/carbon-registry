@@ -65,7 +65,7 @@ export class LedgerDbService {
         return (await this.execute(`UPDATE ${this.tableName} SET ${updateClause} WHERE ${whereClause}`, ...Object.values(update), ...Object.values(where)))?.getResultList();
     };
 
-    public async multiGetAndUpdate<TM>(getQueries: Record<string, Record<string, any>>, processGetFn: (results: Record<string, dom.Value[]>) => [Record<string, any>, Record<string, any>]): Promise<Record<string, dom.Value[]>> {
+    public async getAndUpdateTx<TM>(getQueries: Record<string, Record<string, any>>, processGetFn: (results: Record<string, dom.Value[]>) => [Record<string, any>, Record<string, any>]): Promise<Record<string, dom.Value[]>> {
         this.logger.debug(``)
         this.driver = new QldbDriver(this.ledgerName);
         const resp = await this.driver.executeLambda(async (txn: TransactionExecutor) => {
@@ -92,4 +92,5 @@ export class LedgerDbService {
         this.driver.close()
         return resp;
     }
+
 }
