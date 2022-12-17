@@ -1,7 +1,7 @@
 @import '../Common/colors.addCompany.scss';
 
 .step-title {
-    font-family: Proxima-Nova-Bold;
+    font-family: Inter-Bold;
     font-size: 1.1rem;
 }
 
@@ -19,13 +19,13 @@
     .main {
       font-size: 1.2rem;
       color: $title-main;
-      font-family: 'Proxima-Nova-Bold';
+      font-family: 'Inter-Bold';
     }
 
     .sub {
       font-size: 0.8rem;
       color: $title-sub;
-      font-family: 'Proxima-Nova-Regular';
+      font-family: 'Inter-Regular';
     }
   }
 

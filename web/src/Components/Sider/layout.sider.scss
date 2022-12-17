@@ -17,7 +17,7 @@
       padding: 0rem 2rem 0 2rem;
       cursor: pointer;
       .title {
-        font-family: 'Proxima-Nova-Bold';
+        font-family: 'Inter-Bold';
         font-size: 1.2rem;
         color: $layout-sider-menu-txt;
         font-weight: 800;
@@ -26,7 +26,7 @@
 
       .title-sub {
         font-weight: lighter !important;
-        font-family: 'Proxima-Nova-Regular';
+        font-family: 'Inter-Regular';
         font-size: 1.2rem;
         color: $layout-sider-menu-txt;
         padding-bottom: 3px;
@@ -51,7 +51,7 @@
       .ant-menu {
         background-color: $layout-bg;
         .ant-menu-title-content {
-          font-family: 'Proxima-Nova-Regular';
+          font-family: 'Inter-Regular';
           font-size: 0.9rem;
           color: $layout-sider-menu-txt;
         }
@@ -60,7 +60,7 @@
           border-radius: 0.5vw;
           // border-bottom-left-radius: 0.5vw;
           .ant-menu-title-content {
-            font-family: 'Proxima-Nova-Regular';
+            font-family: 'Inter-Regular';
             font-size: 1rem;
             color: $layout-sider-menu-txt;
           }

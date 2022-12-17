@@ -1,13 +1,14 @@
 @font-face {
-  font-family: 'Proxima-Nova-Black';
-  src: url('FontsFree-Net-Proxima-Nova-Black.otf') format('opentype');
-  font-weight: bold;
+  font-family: 'Inter';
+  src: url('Inter-SemiBold.ttf') format('truetype');
+  font-weight: semibold;
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
-  font-family: 'Proxima-Nova-Bold';
-  src: url('FontsFree-Net-Proxima-Nova-Bold.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('Inter-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -20,9 +21,17 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'Proxima-Nova-Regular';
-  src: url('FontsFree-Net-ProximaNova-Regular.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Inter';
+  src: url('Inter-Regular.ttf') format('truetype');
+  font-weight: regular;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('Inter-Medium.ttf') format('truetype');
+  font-weight: medium;
   font-style: normal;
   font-display: swap;
 }

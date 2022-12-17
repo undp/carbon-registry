@@ -61,7 +61,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <Row>
-        <Col span={15}>
+        <Col md={24} lg={15}>
           <div className="login-img-container">
             <span>
               {t('login:carbon')} <br /> {t('login:credit')} <br />
@@ -71,7 +71,7 @@ const Login = () => {
         </Col>
         <Col span={9}>
           <Row>
-            <Col span={18} offset={3}>
+            <Col span={18} offset={4}>
               <Row>
                 <Col span={9} offset={15}>
                   <div className="login-country-logo">
