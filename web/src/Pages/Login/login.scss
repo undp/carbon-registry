@@ -46,6 +46,7 @@
       font-size: 4rem;
       color: $outside-background-color;
       line-height: 1.2em;
+      text-transform: uppercase;
 
       @media (max-width: $lg-size) {
         font-size: 2.2rem;
