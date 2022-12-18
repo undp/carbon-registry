@@ -72,7 +72,7 @@ const UserManagement = () => {
 
   const getRoleComponent = (item: string) => {
     return (
-      <span>
+      <div style={{ display: 'flex' }}>
         {item === 'Admin' ? (
           <RoleIcon icon={<StarOutlined />} bg={AdminBGColor} color={AdminColor} />
         ) : item === 'Root' ? (
@@ -82,14 +82,14 @@ const UserManagement = () => {
         ) : (
           <RoleIcon icon={<EyeOutlined />} bg={ViewBGColor} color={ViewColor} />
         )}
-        <span>{item}</span>
-      </span>
+        <div>{item}</div>
+      </div>
     );
   };
 
   const getCompanyRoleComponent = (item: string) => {
     return (
-      <span>
+      <div style={{ display: 'flex' }}>
         {item === 'Government' ? (
           <RoleIcon icon={<BankOutlined />} bg={GovBGColor} color={GovColor} />
         ) : item === 'Certifier' ? (
@@ -97,8 +97,8 @@ const UserManagement = () => {
         ) : (
           <RoleIcon icon={<ExperimentOutlined />} bg={DevBGColor} color={DevColor} />
         )}
-        <span>{item}</span>
-      </span>
+        {item === 'ProgrammeDeveloper' ? <div>{'Developer'}</div> : <div>{item}</div>}
+      </div>
     );
   };
 
@@ -240,10 +240,10 @@ const UserManagement = () => {
       align: 'left' as const,
       render: (item: any, itemObj: any) => {
         return (
-          <span>
+          <div style={{ display: 'flex' }}>
             <ProfileIcon icon={undefined} bg={getCompanyBgColor(itemObj.companyRole)} name={item} />
-            <span style={{ fontWeight: 600 }}>{item}</span>
-          </span>
+            <div style={{ fontWeight: 600 }}>{item}</div>
+          </div>
         );
       },
     },
