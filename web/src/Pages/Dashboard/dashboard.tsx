@@ -35,7 +35,7 @@ const Map = ReactMapboxGl({
 const Dashboard = () => {
   return (
     <div className="dashboard-main-container">
-      <div className="header-and-title">Overall</div>
+      {/* <div className="header-and-title">Overall</div>
       <div className="stastics-cards-container">
         <Row gutter={[16, 40]} className="stastic-card-row">
           {DUmData?.map((cardItem: any, index: number) => {
@@ -117,7 +117,7 @@ const Dashboard = () => {
             <MapCard title="Transfer by Entity">&nbsp;</MapCard>
           </Col>
         </Row>
-      </div>
+      </div> */}
     </div>
   );
 };

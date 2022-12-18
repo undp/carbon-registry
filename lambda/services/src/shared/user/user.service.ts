@@ -174,7 +174,7 @@ export class UserService {
             throw new HttpException("Company create does not permitted for your company role", HttpStatus.FORBIDDEN)
         }
         
-        const u = plainToClass(User, userFields);
+        const u: User = plainToClass(User, userFields);
         if (userDto.company) {
             u.companyRole = userDto.company.companyRole
         } else if (u.companyId) {
@@ -209,13 +209,14 @@ export class UserService {
         
         const usr = await this.entityManger.transaction(async (em) => {
             if (company) {
-                const c = await em.save<Company>(plainToClass(Company, company));
+                const c: Company = await em.save<Company>(plainToClass(Company, company));
                 u.companyId = c.companyId
-                u.companyRole = c.companyRole
+                u.companyRole = company.companyRole
             }
             const user = await em.save<User>(u);
             return user;
         }).catch((err: any) => {
+            console.log(err)
             if (err instanceof QueryFailedError) {
                 console.log(err)
                 switch (err.driverError.code) {
@@ -238,10 +239,13 @@ export class UserService {
     }
 
     async query(query: QueryDto, abilityCondition: string): Promise<any> {
-        const resp = (await this.userRepo.createQueryBuilder()
+
+        const resp = (await this.userRepo.createQueryBuilder("user")
             .where(abilityCondition ? abilityCondition : "")
+            // .leftJoinAndSelect("user.companyId", "company")
             .skip((query.size * query.page) - query.size)
             .take(query.size)
+            .leftJoinAndMapOne('user.company', Company, 'company', 'company.companyId = user.companyId')
             .getManyAndCount())
 
         return new DataListResponseDto(

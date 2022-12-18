@@ -1,0 +1,55 @@
+@import '../Common/colors.addCompany.scss';
+
+.step-title {
+    font-family: Inter-Bold;
+    font-size: 1.1rem;
+}
+
+.add-company-main-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 0 2rem 0 2rem;
+
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+
+    .main {
+      font-size: 1.2rem;
+      color: $title-main;
+      font-family: 'Inter-Bold';
+    }
+
+    .sub {
+      font-size: 0.8rem;
+      color: $title-sub;
+      font-family: 'Inter-Regular';
+    }
+  }
+
+  .adding-section {
+    display: flex;
+    flex-direction: column;
+    background-color: $common-form-white;
+    margin: 1rem 0 1rem 0;
+    border-radius: 10px;
+    padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+
+    .form-section {
+      display: flex;
+      margin-bottom: 2rem;
+      .steps {
+        width: 15%;
+      }
+
+      .steps-content {
+        width: 85%;
+      }
+    }
+
+    .steps-action {
+    }
+  }
+}

@@ -1,27 +1,2 @@
-@import '../Common/colors.userManagement.scss';
+@import '../../Styles/variables.scss';
 
-.userManagement-container {
-  overflow: hidden;
-  padding: 2rem;
-  background-color: $layout-bg;
-  // height: 200vh; //TODO to check the scrolling with the fixed header and sider
-  margin-bottom: 2rem; //NOTE need to add this to all main containers
-
-  .ant-btn-primary {
-    background-color: $usr-mgt-btn-bg;
-    color: $usr-mgt-btn-txt;
-    font-family: 'Proxima-Nova-Regular';
-    border: none;
-    height: 40px;
-    font-size: 0.9rem;
-    border-radius: 0.3rem;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
-    min-width: 170px;
-  }
-
-  .ant-col-24 {
-    .userManagement-table-container {
-      margin-top: 3rem;
-    }
-  }
-}
