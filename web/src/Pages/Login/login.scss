@@ -166,7 +166,7 @@
 
       .login-forget-pwd-txt {
         font-size: 0.8rem;
-        color: $body-text-color;
+        color: $title-text-color;
         cursor: pointer;
       }
     }
@@ -197,7 +197,7 @@
 
     .ant-form-item-label {
       label {
-        color: $body-text-color;
+        color: $title-text-color;
       }
     }
 
@@ -208,13 +208,13 @@
         font-size: 1rem;
         border: 1px solid $line-colors;
         padding-left: 1.5rem;
-        color: $body-text-color;
+        color: $title-text-color;
       }
 
       input[type='username']:-webkit-autofill,
       input[type='username']:-webkit-autofill:hover,
       input[type='username']:-webkit-autofill:focus {
-        -webkit-text-fill-color: $body-text-color;
+        -webkit-text-fill-color: $title-text-color;
         -webkit-box-shadow: 0 0 0 30px $outside-background-color inset !important;
       }
 
@@ -242,7 +242,7 @@
       input[type='password']:-webkit-autofill,
       input[type='password']:-webkit-autofill:hover,
       input[type='password']:-webkit-autofill:focus {
-        -webkit-text-fill-color: $body-text-color;
+        -webkit-text-fill-color: $title-text-color;
         -webkit-box-shadow: 0 0 0 30px $outside-background-color inset !important;
       }
     }
