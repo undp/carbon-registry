@@ -5,3 +5,28 @@ body {
   font-family: $primary-font-family;
   font-weight: regular;
 }
+
+.ant-menu {
+  background-color: $background-color;
+}
+
+.ant-layout-header {
+  background-color: $background-color;
+}
+
+.ant-layout {
+  background-color: $background-color;
+}
+
+.ant-menu-submenu {
+  .ant-menu {
+    background-color: $background-color;
+  }
+}
+.ant-menu-item {
+  background-color: $background-color;
+}
+
+.ant-menu-sub {
+  background-color: $background-color;
+}

@@ -256,7 +256,7 @@
   .ant-btn-primary {
     // background-color: $login-red;
     // color: $login-white;
-    background: linear-gradient(to right, #6ACDFF, rgba(#16B1FF, 0.94));
+    background: linear-gradient(to right, $gradient-background-start, $gradient-background-end);
     border: none;
     height: 2.4rem;
     font-size: 1rem;

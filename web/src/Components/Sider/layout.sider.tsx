@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { Menu } from 'antd';
-import Sider from 'antd/lib/layout/Sider';
+import { useState } from 'react';
+import { Menu, Layout } from 'antd';
 import sliderLogo from '../../Assets/Images/logo-slider.png';
-import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './layout.sider.scss';
 import {
   AppstoreOutlined,
-  CodeSandboxOutlined,
   DashboardOutlined,
   HomeOutlined,
   ShopOutlined,
@@ -14,7 +12,9 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { LayoutSiderProps } from '../../Definitions/InterfacesAndType/layout.sider.definitions';
-import SubMenu from 'antd/lib/menu/SubMenu';
+
+const { Sider } = Layout;
+const { SubMenu } = Menu;
 
 const LayoutSider = (props: LayoutSiderProps) => {
   const { selectedKey } = props;
@@ -22,10 +22,10 @@ const LayoutSider = (props: LayoutSiderProps) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Sider
-      width={310}
+      width={280}
       className="layout-sider-container"
       breakpoint="lg"
-      collapsedWidth="70"
+      // collapsedWidth="70"
       onCollapse={(col) => {
         setCollapsed(col);
       }}
@@ -39,18 +39,18 @@ const LayoutSider = (props: LayoutSiderProps) => {
             <img src={sliderLogo} alt="slider-logo" />
           </div>
           <div className="title">{collapsed ? '' : 'CARBON'}</div>
-          <div className="title-sub">{collapsed ? '' : 'REGISTORY'}</div>
+          <div className="title-sub">{collapsed ? '' : 'REGISTRY'}</div>
         </div>
         <div className="layout-sider-menu-container">
           <Menu theme="light" mode="inline" defaultSelectedKeys={[selectedKey ?? 'dashboard']}>
-            <Menu.Item
+            {/* <Menu.Item
               key="home"
               icon={!collapsed ? <HomeOutlined style={{ fontSize: '1.2rem' }} /> : ''}
             >
               <Link to="/dashboard">
                 {collapsed ? <HomeOutlined style={{ fontSize: '2rem' }} /> : 'Home'}
               </Link>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item
               key="dashboard"
               icon={!collapsed ? <DashboardOutlined style={{ fontSize: '1.2rem' }} /> : ''}
@@ -78,7 +78,23 @@ const LayoutSider = (props: LayoutSiderProps) => {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item
+            <SubMenu
+              key="users"
+              icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
+              title="Users"
+            >
+              <Menu.Item key="add-user">
+                <Link to="/userManagement/addUser">
+                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'Add new'}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="view-user">
+                <Link to="/userManagement/viewAll">
+                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'View All'}
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+            {/* <Menu.Item
               style={{ marginTop: '25px' }}
               key="userManagement"
               icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
@@ -86,7 +102,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
               <Link to="/userManagement">
                 {collapsed ? <UserOutlined style={{ fontSize: '2rem' }} /> : 'User Management'}
               </Link>
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
         </div>
       </div>

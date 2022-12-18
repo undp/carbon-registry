@@ -39,15 +39,19 @@ const App = () => {
                 <Route path="/companyManagement" element={<CustomLayout selectedKey="company" />}>
                   <Route path="addCompany" element={<AddNewCompany />} />
                 </Route>
+                <Route path="/userManagement" element={<CustomLayout selectedKey="user" />}>
+                  <Route path="viewAll" element={<UserManagement />} />
+                  <Route path="addUser" element={<AddUser />} />
+                </Route>
 
-                <Route
+                {/* <Route
                   path="/userManagement"
                   element={<CustomLayout selectedKey="userManagement" />}
                 >
                   <Route index element={<UserManagement />} />
                   <Route path="addUser" element={<AddUser />} />
                   <Route path="updateUser" element={<UpdateUser />} />
-                </Route>
+                </Route> */}
               </Route>
               <Route path="/*" element={<Navigate to="login" replace />} />
             </Routes>

@@ -35,3 +35,19 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'MuseoSans';
+  src: url('MuseoSans-100.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MuseoSans';
+  src: url('MuseoSans_700.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
