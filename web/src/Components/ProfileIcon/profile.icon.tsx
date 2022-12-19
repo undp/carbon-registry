@@ -13,7 +13,7 @@ const ProfileIcon: FC<ProfileIconProps> = (props: ProfileIconProps) => {
 
   return (
     <span className="profile-icon" style={{ backgroundColor: bg }}>
-      {name.charAt(0).toUpperCase()}
+      {name ? name.charAt(0).toUpperCase() : 'A'}
     </span>
   );
 };
