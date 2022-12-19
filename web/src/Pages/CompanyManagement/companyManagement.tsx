@@ -27,7 +27,7 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { PencilSquare, Trash } from 'react-bootstrap-icons';
-import './userManagement.scss';
+import './companyManagement.scss';
 import '../Common/common.table.scss';
 import { useNavigate } from 'react-router-dom';
 import type { ColumnsType } from 'antd/es/table';
@@ -52,10 +52,10 @@ import {
 } from '../Common/role.color.constants';
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
 
-const UserManagement = () => {
+const CompanyManagement = () => {
   const navigate = useNavigate();
   const { get, delete: del } = useConnection();
-  const [totalUser, setTotalUser] = useState<number>();
+  const [totalCompany, setTotalCompany] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const [tableData, setTableData] = useState<TableDataType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -112,7 +112,7 @@ const UserManagement = () => {
             text: 'Edit',
             icon: <EditOutlined />,
             click: () => {
-              navigate('/userManagement/updateUser', { state: { record } });
+              navigate('/companyManagement/updateCompany', { state: { record } });
             },
           },
           { text: 'Delete', icon: <DeleteOutlined />, click: () => {} },
@@ -127,114 +127,9 @@ const UserManagement = () => {
     );
   };
 
-  const deleteUser = async (email: string) => {
-    setLoading(true);
-    try {
-      const response = await del(`user/delete?email=${email}`);
-      if (response.status === 200) {
-        message.open({
-          type: 'success',
-          content: response.message,
-          duration: 3,
-          style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
-        });
-        const temp = [...tableData];
-        const index = temp.findIndex((value) => value.email === email);
-        if (index > -1) {
-          temp.splice(index, 1);
-          setTableData(temp);
-        }
-        setLoading(false);
-      }
-    } catch (error: any) {
-      console.log('Error in getting users', error);
-      message.open({
-        type: 'error',
-        content: error.message,
-        duration: 3,
-        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
-      });
-      setLoading(false);
-    }
-  };
-
-  // if (localStorage.getItem('userRole') === 'Root' || localStorage.getItem('userRole') === 'Admin') {
-  //   columns = [
-  //     {
-  //       title: 'User ID',
-  //       dataIndex: 'id',
-  //       key: 'id',
-  //     },
-  //     {
-  //       title: 'Username',
-  //       dataIndex: 'name',
-  //       key: 'name',
-  //     },
-  //     {
-  //       title: 'Contact Number',
-  //       dataIndex: 'contactNo',
-  //       key: 'contactNo',
-  //       responsive: ['lg', 'md', 'sm'],
-  //     },
-  //     {
-  //       title: 'Email',
-  //       dataIndex: 'email',
-  //       key: 'email',
-  //     },
-  //     {
-  //       title: 'Role',
-  //       dataIndex: 'role',
-  //       key: 'role',
-  //     },
-  //     {
-  //       title: 'Company Name',
-  //       dataIndex: 'companyName',
-  //       key: 'companyName',
-  //       responsive: ['lg', 'md'],
-  //     },
-  //     {
-  //       title: 'Country',
-  //       dataIndex: 'country',
-  //       key: 'country',
-  //       responsive: ['lg', 'md'],
-  //     },
-  //     {
-  //       title: 'State',
-  //       dataIndex: 'state',
-  //       key: 'state',
-  //       responsive: ['lg', 'md'],
-  //     },
-  //     {
-  //       title: 'Action',
-  //       render: (_, record: TableDataType) => (
-  //         <Space size={'middle'}>
-  //           <PencilSquare
-  //             color="#0468B1"
-  //             style={{ cursor: 'pointer' }}
-  //             onClick={() => {
-  //               navigate('updateUser', { state: { record } });
-  //             }}
-  //           />
-  // <Popconfirm
-  //   title={`Are you sure to delete the user`}
-  //   placement="topLeft"
-  //   onConfirm={() => deleteUser(record.email)}
-  //   icon={<WarningOutlined style={{ fontSize: '1.2vw' }} color="#eec335" />}
-  //   okText="Yes"
-  //   okButtonProps={{ danger: true }}
-  //   cancelText="No"
-  //   cancelButtonProps={{ type: 'primary' }}
-  // >
-  //   <Trash color="#D12800" style={{ cursor: 'pointer' }} />
-  // </Popconfirm>
-  //         </Space>
-  //       ),
-  //     },
-  //   ];
-  // } else {
   const columns = [
     {
-      title: 'NAME',
+      title: 'COMPANY NAME',
       dataIndex: 'name',
       key: 'name',
       align: 'left' as const,
@@ -242,9 +137,9 @@ const UserManagement = () => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <ProfileIcon
-              icon={itemObj.company.logo}
+              icon={itemObj.logo}
               bg={getCompanyBgColor(itemObj.companyRole)}
-              name={itemObj.company.name}
+              name={itemObj.name}
             />
             <div style={{ fontWeight: 600 }}>{item}</div>
           </div>
@@ -252,22 +147,9 @@ const UserManagement = () => {
       },
     },
     {
-      title: 'EMAIL',
-      dataIndex: 'email',
-      key: 'email',
-      align: 'left' as const,
-    },
-    {
-      title: 'PHONE',
-      dataIndex: 'phoneNo',
-      key: 'phoneNo',
-      align: 'left' as const,
-    },
-    {
-      title: 'COMPANY',
-      dataIndex: 'company',
-      key: 'companyName',
-      render: (x: any) => x.name,
+      title: 'TAX ID',
+      dataIndex: 'taxId',
+      key: 'taxId',
       align: 'left' as const,
     },
     {
@@ -277,15 +159,6 @@ const UserManagement = () => {
       align: 'left' as const,
       render: (item: any) => {
         return getCompanyRoleComponent(item);
-      },
-    },
-    {
-      title: 'ROLE',
-      dataIndex: 'role',
-      key: 'role',
-      align: 'left' as const,
-      render: (item: any) => {
-        return getRoleComponent(item);
       },
     },
     {
@@ -306,20 +179,20 @@ const UserManagement = () => {
   ];
   // }
 
-  const getAllUser = async () => {
+  const getAllCompany = async () => {
     setLoading(true);
     try {
-      const response: any = await get('user/query', {
+      const response: any = await get('company/query', {
         params: {
           page: currentPage,
           size: pageSize,
         },
       });
       setTableData(response.data);
-      setTotalUser(response.response.data.total);
+      setTotalCompany(response.response.data.total);
       setLoading(false);
     } catch (error: any) {
-      console.log('Error in getting users', error);
+      console.log('Error in getting company', error);
       message.open({
         type: 'error',
         content: error.message,
@@ -331,7 +204,7 @@ const UserManagement = () => {
   };
 
   useEffect(() => {
-    getAllUser();
+    getAllCompany();
   }, [currentPage, pageSize]);
 
   const onChange: PaginationProps['onChange'] = (page, size) => {
@@ -342,9 +215,9 @@ const UserManagement = () => {
   return (
     <div className="content-container">
       <div className="title-bar">
-        <div className="body-title">View Users</div>
+        <div className="body-title">View Companies</div>
         <div className="body-sub-title">
-          View all the visible users in the system based on your permissions
+          View all the visible companies in the system based on your permissions
         </div>
       </div>
       <div className="content-card">
@@ -357,7 +230,7 @@ const UserManagement = () => {
               icon={<PlusOutlined />}
               onClick={() => navigate('/userManagement/addUser')}
             >
-              Add User
+              Add Company
             </Button>
           </div>
         </Row>
@@ -372,7 +245,7 @@ const UserManagement = () => {
                 pagination={{
                   current: currentPage,
                   pageSize: pageSize,
-                  total: totalUser,
+                  total: totalCompany,
                   showQuickJumper: true,
                   showSizeChanger: true,
                   onChange: onChange,
@@ -382,7 +255,7 @@ const UserManagement = () => {
                   emptyText: (
                     <Empty
                       image={Empty.PRESENTED_IMAGE_SIMPLE}
-                      description={tableData.length === 0 ? 'No Users' : null}
+                      description={tableData.length === 0 ? 'No Companies' : null}
                     />
                   ),
                 }}
@@ -395,4 +268,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default CompanyManagement;

@@ -72,6 +72,11 @@ const LayoutSider = (props: LayoutSiderProps) => {
               icon={!collapsed ? <ShopOutlined style={{ fontSize: '1.2rem' }} /> : ''}
               title="Companies"
             >
+              <Menu.Item key="view-company">
+                <Link to="/companyManagement/viewAll">
+                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'View All'}
+                </Link>
+              </Menu.Item>
               <Menu.Item key="add-company">
                 <Link to="/companyManagement/addCompany">
                   {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'Add new'}
@@ -83,14 +88,14 @@ const LayoutSider = (props: LayoutSiderProps) => {
               icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
               title="Users"
             >
-              <Menu.Item key="add-user">
-                <Link to="/userManagement/addUser">
-                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'Add new'}
-                </Link>
-              </Menu.Item>
               <Menu.Item key="view-user">
                 <Link to="/userManagement/viewAll">
                   {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'View All'}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="add-user">
+                <Link to="/userManagement/addUser">
+                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'Add new'}
                 </Link>
               </Menu.Item>
             </SubMenu>
