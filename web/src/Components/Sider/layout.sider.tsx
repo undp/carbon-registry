@@ -63,7 +63,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
               key="programmes"
               icon={!collapsed ? <AppstoreOutlined style={{ fontSize: '1.2rem' }} /> : ''}
             >
-              <Link to="/dashboard">
+              <Link to="/programmeManagement/viewAll">
                 {collapsed ? <AppstoreOutlined style={{ fontSize: '2rem' }} /> : 'Programmes'}
               </Link>
             </Menu.Item>
