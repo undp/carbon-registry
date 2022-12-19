@@ -242,7 +242,7 @@ const UserManagement = () => {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <ProfileIcon
-              icon={undefined}
+              icon={itemObj.company.logo}
               bg={getCompanyBgColor(itemObj.companyRole)}
               name={itemObj.company.name}
             />
