@@ -70,23 +70,6 @@ const CompanyManagement = () => {
     return DevBGColor;
   };
 
-  const getRoleComponent = (item: string) => {
-    return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        {item === 'Admin' ? (
-          <RoleIcon icon={<StarOutlined />} bg={AdminBGColor} color={AdminColor} />
-        ) : item === 'Root' ? (
-          <RoleIcon icon={<SearchOutlined />} bg={RootBGColor} color={RootColor} />
-        ) : item === 'Manager' ? (
-          <RoleIcon icon={<ToolOutlined />} bg={ManagerBGColor} color={ManagerColor} />
-        ) : (
-          <RoleIcon icon={<EyeOutlined />} bg={ViewBGColor} color={ViewColor} />
-        )}
-        <div>{item}</div>
-      </div>
-    );
-  };
-
   const getCompanyRoleComponent = (item: string) => {
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>
