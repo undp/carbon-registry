@@ -18,3 +18,5 @@ export const DevColor = '#FFA070';
 
 export const CertBGColor = 'rgb(128, 255, 0, 0.12)';
 export const CertColor = '#519E4F';
+
+export const TooltipColor = '#6ACDFF';

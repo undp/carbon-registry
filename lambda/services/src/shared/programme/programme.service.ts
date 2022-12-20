@@ -28,6 +28,7 @@ import { ProgrammeTransfer } from '../entities/programme.transfer';
 import { TransferStatus } from '../enum/transform.status.enum';
 import { ProgrammeTransferApprove } from '../dto/programme.transfer.approve';
 import { ProgrammeTransferReject } from '../dto/programme.transfer.reject';
+import { Company } from '../entities/company.entity';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -238,10 +239,20 @@ export class ProgrammeService {
 
     async query(query: QueryDto, abilityCondition: string): Promise<DataListResponseDto> {
         const skip = (query.size * query.page) - query.size;
-        const resp = (await this.programmeRepo.createQueryBuilder()
+
+        const sql = (await this.programmeRepo.createQueryBuilder("programme")
             .where(abilityCondition ? abilityCondition : "")
             .skip(skip)
             .take(query.size)
+            .leftJoinAndMapMany('programme.companyId', Company, 'company', 'company.companyId in programme.companyId')
+            .getSql())
+        console.log(sql)
+
+        const resp = (await this.programmeRepo.createQueryBuilder("programme")
+            .where(abilityCondition ? abilityCondition : "")
+            .skip(skip)
+            .take(query.size)
+            .leftJoinAndMapMany('programme.companyId', Company, 'company', 'company.companyId = ANY(programme.companyId)')
             .getManyAndCount())
 
         return new DataListResponseDto(

@@ -1,11 +1,12 @@
-import { Col, Empty, message, PaginationProps, Row, Table } from 'antd';
+import { Checkbox, Col, Empty, message, PaginationProps, Row, Table, Tag, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import './programmeManagement.scss';
 import '../Common/common.table.scss';
 import { useNavigate } from 'react-router-dom';
 import { TableDataType } from '../../Definitions/InterfacesAndType/userManagement.definitions';
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
-import { CertBGColor, DevBGColor, GovBGColor } from '../Common/role.color.constants';
+import { CertBGColor, DevBGColor, GovBGColor, TooltipColor } from '../Common/role.color.constants';
+import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
 
 const ProgrammeManagement = () => {
   const navigate = useNavigate();
@@ -37,18 +38,22 @@ const ProgrammeManagement = () => {
       dataIndex: 'companyId',
       key: 'companyId',
       align: 'left' as const,
-      // render: (item: any, itemObj: any) => {
-      //   return (
-      //     <div style={{ display: 'flex', alignItems: 'center' }}>
-      //       <ProfileIcon
-      //         icon={itemObj.logo}
-      //         bg={getCompanyBgColor(itemObj.companyRole)}
-      //         name={itemObj.name}
-      //       />
-      //       <div style={{ fontWeight: 600 }}>{item}</div>
-      //     </div>
-      //   );
-      // },
+      render: (item: any, itemObj: any) => {
+        const elements = item.map((obj: any) => {
+          return (
+            <Tooltip title="ddd" color={TooltipColor} key={TooltipColor}>
+              <div>
+                <ProfileIcon
+                  icon={obj.logo}
+                  bg={getCompanyBgColor(obj.companyRole)}
+                  name={obj.name}
+                />
+              </div>
+            </Tooltip>
+          );
+        });
+        return <div style={{ display: 'flex', alignItems: 'center' }}>{elements}</div>;
+      },
     },
     {
       title: 'SECTOR',
@@ -61,6 +66,17 @@ const ProgrammeManagement = () => {
       dataIndex: 'currentStage',
       key: 'currentStage',
       align: 'center' as const,
+      render: (item: any) => {
+        return item === 'AwaitingAuthorization' ? (
+          <Tag color="error">Pending</Tag>
+        ) : item === 'Issued' ? (
+          <Tag color="processing">Issued</Tag>
+        ) : item === 'Transferred' ? (
+          <Tag color="success">item</Tag>
+        ) : (
+          <Tag color="default">item</Tag>
+        );
+      },
     },
     {
       title: 'CREDITS ISSUED',
@@ -68,7 +84,11 @@ const ProgrammeManagement = () => {
       key: 'creditIssued',
       align: 'right' as const,
       render: (item: any) => {
-        return item ? item.toLocaleString(undefined, { maximumFractionDigits: 2 }) : '-';
+        return item
+          ? Number(item)
+              .toFixed(0)
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          : '-';
       },
     },
     {
@@ -77,7 +97,11 @@ const ProgrammeManagement = () => {
       key: 'creditBalance',
       align: 'right' as const,
       render: (item: any) => {
-        return item ? item.toLocaleString(undefined, { maximumFractionDigits: 2 }) : '-';
+        return item
+          ? Number(item)
+              .toFixed(0)
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          : '-';
       },
     },
     {
@@ -86,7 +110,11 @@ const ProgrammeManagement = () => {
       key: 'creditTransferred',
       align: 'right' as const,
       render: (item: any) => {
-        return item ? item.toLocaleString(undefined, { maximumFractionDigits: 2 }) : '-';
+        return item
+          ? Number(item)
+              .toFixed(0)
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          : '-';
       },
     },
     {
@@ -97,6 +125,15 @@ const ProgrammeManagement = () => {
     },
   ];
   // }
+  const statusOptions = [
+    { label: 'Pending', value: 'AwaitingAuthorization' },
+    { label: 'Issued', value: 'Issued' },
+    { label: 'Transferred', value: 'Transferred' },
+    { label: 'Retired', value: 'Retired' },
+    { label: 'Rejected', value: 'Rejected' },
+  ];
+
+  const onStatusQuery = async () => {};
 
   const getAllProgramme = async () => {
     setLoading(true);
@@ -141,7 +178,13 @@ const ProgrammeManagement = () => {
       </div>
       <div className="content-card">
         <Row>
-          <div className="action-bar"></div>
+          <div className="action-bar">
+            <Checkbox.Group
+              options={statusOptions}
+              defaultValue={statusOptions.map((e) => e.value)}
+              onChange={onStatusQuery}
+            />
+          </div>
         </Row>
         <Row>
           <Col span={24}>
