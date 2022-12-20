@@ -13,6 +13,8 @@ import UpdateUser from './Pages/UpdateUser/updateUser';
 import UserManagement from './Pages/UserManagement/userManagement';
 import Dashboard from './Pages/Dashboard/dashboard';
 import AddNewCompany from './Pages/Company/addNewCompany';
+import CompanyManagement from './Pages/CompanyManagement/companyManagement';
+import ProgrammeManagement from './Pages/ProgrammeManagement/programmeManagement';
 
 const App = () => {
   useEffect(() => {
@@ -36,7 +38,14 @@ const App = () => {
                 <Route path="/dashboard" element={<CustomLayout selectedKey="dashboard" />}>
                   <Route index element={<Dashboard />} />
                 </Route>
+                <Route
+                  path="/programmeManagement"
+                  element={<CustomLayout selectedKey="programme" />}
+                >
+                  <Route path="viewAll" element={<ProgrammeManagement />} />
+                </Route>
                 <Route path="/companyManagement" element={<CustomLayout selectedKey="company" />}>
+                  <Route path="viewAll" element={<CompanyManagement />} />
                   <Route path="addCompany" element={<AddNewCompany />} />
                 </Route>
                 <Route path="/userManagement" element={<CustomLayout selectedKey="user" />}>

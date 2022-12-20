@@ -34,34 +34,16 @@
     border-radius: 5px !important;
   }
 
-  .company-details-form {
-    .ant-input {
-      border-radius: 5px !important;
-    }
-    .ant-btn {
-      border-radius: 5px !important;
-    }
-    .ant-input-group-addon:first-child {
-      border-radius: 5px !important;
+  .user-details-form {
+    .actions {
+      display: flex;
+      flex-direction: row-reverse;
     }
     .row {
       .details-part-one {
       }
       .details-part-two {
         .role-group {
-          .ant-radio-group {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-          }
-
-          .ant-radio-group-large .ant-radio-button-wrapper {
-            font-size: 0.8rem;
-            width: 25%;
-            border-radius: 5px !important;
-          }
-
           .dev {
             width: 40% !important;
           }

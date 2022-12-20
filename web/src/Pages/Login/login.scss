@@ -228,6 +228,7 @@
       .ant-input {
         height: 2.8rem;
         font-size: 1rem;
+        border-radius: 0.3rem;
         // border: 1px solid $line-colors;
         padding-left: 0.8rem;
         box-shadow: none;
@@ -235,7 +236,8 @@
 
       .ant-input-password {
         border: 1px solid $line-colors;
-        box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.06);
+        border-radius: 0.3rem;
+        box-shadow: none;
         background-color: $outside-background-color !important;
         padding: 0px 11px;
       }

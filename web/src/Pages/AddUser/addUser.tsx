@@ -13,6 +13,8 @@ import {
   EyeOutlined,
   PlusOutlined,
   SafetyOutlined,
+  StarOutlined,
+  ToolOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
 import type { RcFile, UploadProps } from 'antd/lib/upload';
@@ -120,8 +122,8 @@ const AddUser = () => {
       </div>
       <div className="content-card">
         <Form
-          name="company-details"
-          className="company-details-form"
+          name="user-details"
+          className="user-details-form"
           layout="vertical"
           requiredMark={false}
         >
@@ -149,11 +151,11 @@ const AddUser = () => {
                 <Form.Item className="role-group" label="Role" name="role">
                   <Radio.Group size="large">
                     <Radio.Button className="certifier" value="optional">
-                      <SafetyOutlined className="role-icons" />
+                      <StarOutlined className="role-icons" />
                       Admin
                     </Radio.Button>
                     <Radio.Button className="dev" value>
-                      <ExperimentOutlined className="role-icons" />
+                      <ToolOutlined className="role-icons" />
                       Manager
                     </Radio.Button>
                     <Radio.Button className="observer" value={false}>
@@ -184,6 +186,15 @@ const AddUser = () => {
               </div>
             </Col>
           </Row>
+          <div className="actions">
+            <Form.Item>
+              <div className="create-user-btn-container">
+                <Button type="primary" htmlType="submit" loading={loading}>
+                  Create User
+                </Button>
+              </div>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     </div>
