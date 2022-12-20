@@ -19,6 +19,16 @@ const ProgrammeManagement = () => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [filter, setFilter] = useState<any>([]);
 
+  const statusOptions = [
+    { label: 'Pending', value: 'AwaitingAuthorization' },
+    { label: 'Issued', value: 'Issued' },
+    { label: 'Transferred', value: 'Transferred' },
+    { label: 'Retired', value: 'Retired' },
+    { label: 'Rejected', value: 'Rejected' },
+  ];
+
+  const [selectedStatus, setSelectedStatus] = useState<any>(statusOptions.map((e) => e.value));
+
   const getCompanyBgColor = (item: string) => {
     if (item === 'Government') {
       return GovBGColor;
@@ -26,6 +36,20 @@ const ProgrammeManagement = () => {
       return CertBGColor;
     }
     return DevBGColor;
+  };
+
+  const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
+    console.log(checkedValues);
+    if (checkedValues !== selectedStatus) {
+      setSelectedStatus(checkedValues);
+    }
+    setFilter([
+      {
+        key: 'currentStage',
+        operation: 'in',
+        value: checkedValues,
+      },
+    ]);
   };
 
   const columns = [
@@ -70,14 +94,30 @@ const ProgrammeManagement = () => {
       align: 'center' as const,
       render: (item: any) => {
         return item === 'AwaitingAuthorization' ? (
-          <Tag color="error">Pending</Tag>
+          <Tag className="clickable" color="error">
+            Pending
+          </Tag>
         ) : item === 'Issued' ? (
-          <Tag color="processing">Issued</Tag>
+          <Tag className="clickable" color="processing">
+            Issued
+          </Tag>
         ) : item === 'Transferred' ? (
-          <Tag color="success">item</Tag>
+          <Tag className="clickable" color="success">
+            item
+          </Tag>
         ) : (
-          <Tag color="default">item</Tag>
+          <Tag className="clickable" color="default">
+            item
+          </Tag>
         );
+      },
+      onCell: (record: any, rowIndex: any) => {
+        return {
+          onClick: (ev: any) => {
+            setSelectedStatus([record.currentStage]);
+            onStatusQuery([record.currentStage]);
+          },
+        };
       },
     },
     {
@@ -127,13 +167,6 @@ const ProgrammeManagement = () => {
     },
   ];
   // }
-  const statusOptions = [
-    { label: 'Pending', value: 'AwaitingAuthorization' },
-    { label: 'Issued', value: 'Issued' },
-    { label: 'Transferred', value: 'Transferred' },
-    { label: 'Retired', value: 'Retired' },
-    { label: 'Rejected', value: 'Rejected' },
-  ];
 
   const getAllProgramme = async () => {
     setLoading(true);
@@ -156,17 +189,6 @@ const ProgrammeManagement = () => {
       });
       setLoading(false);
     }
-  };
-
-  const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
-    console.log(checkedValues);
-    setFilter([
-      {
-        key: 'currentStage',
-        operation: 'in',
-        value: checkedValues,
-      },
-    ]);
   };
 
   useEffect(() => {
@@ -192,6 +214,7 @@ const ProgrammeManagement = () => {
             <Checkbox.Group
               options={statusOptions}
               defaultValue={statusOptions.map((e) => e.value)}
+              value={selectedStatus}
               onChange={onStatusQuery}
             />
           </div>
