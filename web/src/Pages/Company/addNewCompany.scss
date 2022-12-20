@@ -1,8 +1,8 @@
 @import '../Common/colors.addCompany.scss';
 
 .step-title {
-    font-family: Inter-Bold;
     font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .add-company-main-container {
@@ -17,15 +17,14 @@
     border-radius: 5px;
 
     .main {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      font-weight: 800;
       color: $title-main;
-      font-family: 'Inter-Bold';
     }
 
     .sub {
       font-size: 0.8rem;
       color: $title-sub;
-      font-family: 'Inter-Regular';
     }
   }
 

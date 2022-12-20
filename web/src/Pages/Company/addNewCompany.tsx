@@ -4,26 +4,33 @@ import { Button, Steps, message } from 'antd';
 import CompanyDetailsForm from './CompanyDetailsForm';
 import CompanyAdminDetailsForm from './CompanyAdminDetailsForm';
 
-const steps = [
-  {
-    title: <div className="step-title">Comapny Details</div>,
-    description: <CompanyDetailsForm />,
-  },
-  {
-    title: <div className="step-title">Comapny Admin Details</div>,
-    description: <CompanyAdminDetailsForm />,
-  },
-];
-
 const AddNewCompany = () => {
   const [current, setCurrent] = useState(0);
+  const [companyDetailsFormVisible, setCompanyDetailsFormVisible] = useState<boolean>(true);
+  const [companyAdminDetailsFormVisible, setCompanyAdminDetailsFormVisible] =
+    useState<boolean>(false);
+
+  const steps = [
+    {
+      title: <div className="step-title">Comapny Details</div>,
+      description: companyDetailsFormVisible && <CompanyDetailsForm />,
+    },
+    {
+      title: <div className="step-title">Comapny Admin Details</div>,
+      description: companyAdminDetailsFormVisible && <CompanyAdminDetailsForm />,
+    },
+  ];
 
   const next = () => {
     setCurrent(current + 1);
+    setCompanyDetailsFormVisible(false);
+    setCompanyAdminDetailsFormVisible(true);
   };
 
   const prev = () => {
     setCurrent(current - 1);
+    setCompanyDetailsFormVisible(true);
+    setCompanyAdminDetailsFormVisible(false);
   };
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
   return (
