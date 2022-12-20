@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './companyDetailsForm.scss';
+import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input';
 import { Button, Col, Form, Input, InputNumber, Radio, Row, Select, Upload } from 'antd';
 import {
   ExperimentOutlined,
@@ -12,6 +13,7 @@ import {
 const { Option } = Select;
 
 const CompanyDetailsForm: React.FC = () => {
+  const [contactNoInput, setContactNoInput] = useState<any>();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
@@ -106,11 +108,23 @@ const CompanyDetailsForm: React.FC = () => {
                 </Radio.Group>
               </Form.Item>
               <Form.Item
-                name="phone"
-                label="Phone Number"
-                rules={[{ required: true, message: 'Please input your phone number!' }]}
+                name="contactNo"
+                label="Contact Number"
+                rules={[
+                  {
+                    required: true,
+                    message: "Contact Number can't be empty!",
+                  },
+                ]}
               >
-                <Input size="large" addonBefore={prefixSelector} style={{ width: '100%' }} />
+                <PhoneInput
+                  placeholder="Contact number"
+                  international
+                  value={formatPhoneNumberIntl(contactNoInput)}
+                  defaultCountry="LK"
+                  countryCallingCodeEditable={false}
+                  onChange={(v) => setContactNoInput(v)}
+                />
               </Form.Item>
               <Form.Item
                 name="address"

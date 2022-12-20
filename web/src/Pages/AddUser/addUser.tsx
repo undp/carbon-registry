@@ -42,12 +42,9 @@ const AddUser = () => {
 
   const onSubmitData = async (values: any) => {
     setLoading(true);
-    if (values.role === 'ProgrammeDeveloper') {
-      const logoBase64 = await getBase64(fileList[0].originFileObj as RcFile);
-      values.companyLogo = logoBase64;
-    }
+    console.log({ ...values });
     try {
-      values.contactNo = formatPhoneNumberIntl(values.contactNo);
+      values.phoneNo = formatPhoneNumberIntl(values.phoneNo);
       const response = await post('user/add', values);
       if (response.status === 200 || response.status === 201) {
         message.open({
@@ -67,42 +64,10 @@ const AddUser = () => {
         duration: 3,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
+    } finally {
       setLoading(false);
+      navigate('/userManagement/viewAll', { replace: true });
     }
-  };
-
-  const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    if (!isJpgOrPng || !isLt2M) {
-      return Upload.LIST_IGNORE;
-    } else {
-      return false;
-    }
-  };
-
-  const handleCancel = () => setPreviewOpen(false);
-
-  const handlePreview = async (file: UploadFile) => {
-    console.log(file, '2');
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as RcFile);
-      console.log(file, '3');
-    }
-    console.log(file, '4');
-    setPreviewImage(file.url || (file.preview as string));
-    setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-  };
-
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
   };
 
   const prefixSelector = (
@@ -126,6 +91,7 @@ const AddUser = () => {
           className="user-details-form"
           layout="vertical"
           requiredMark={false}
+          onFinish={onSubmitData}
         >
           <Row className="row" gutter={[16, 16]}>
             <Col xl={12} md={24}>
@@ -150,23 +116,23 @@ const AddUser = () => {
               <div className="details-part-two">
                 <Form.Item className="role-group" label="Role" name="role">
                   <Radio.Group size="large">
-                    <Radio.Button className="certifier" value="optional">
+                    <Radio.Button className="admin" value="Admin">
                       <StarOutlined className="role-icons" />
                       Admin
                     </Radio.Button>
-                    <Radio.Button className="dev" value>
+                    <Radio.Button className="manager" value="Manager">
                       <ToolOutlined className="role-icons" />
                       Manager
                     </Radio.Button>
-                    <Radio.Button className="observer" value={false}>
+                    <Radio.Button className="view only" value="ViewOnly">
                       <EyeOutlined className="role-icons" />
                       View Only
                     </Radio.Button>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item
-                  name="contactNo"
-                  label="Contact Number"
+                  name="phoneNo"
+                  label="Phone Number"
                   rules={[
                     {
                       required: true,
@@ -175,7 +141,7 @@ const AddUser = () => {
                   ]}
                 >
                   <PhoneInput
-                    placeholder="Contact number"
+                    placeholder="Phone number"
                     international
                     value={formatPhoneNumberIntl(contactNoInput)}
                     defaultCountry="LK"
@@ -189,7 +155,7 @@ const AddUser = () => {
           <div className="actions">
             <Form.Item>
               <div className="create-user-btn-container">
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button type="primary" htmlType="submit">
                   Create User
                 </Button>
               </div>
@@ -199,8 +165,6 @@ const AddUser = () => {
       </div>
     </div>
   );
-
-  // return (
   //   <div className="create-user-container">
   //     <Spin spinning={loading}>
   //       <Form
