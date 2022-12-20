@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards, Request, Post, Put, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards, Request, Post, Put, HttpException, HttpStatus, Body } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Company } from '../shared/entities/company.entity';
 import { Action } from '../shared/casl/action.enum';
@@ -17,8 +17,8 @@ export class CompanyController {
 
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company, true))
-    @Get('query')
-    queryUser(@Query()query: QueryDto, @Request() req) {
+    @Post('query')
+    queryUser(@Body()query: QueryDto, @Request() req) {
       console.log(req.abilityCondition)
       return this.companyService.query(query, req.abilityCondition)
     }

@@ -40,8 +40,8 @@ export class ProgrammeController {
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Programme, true))
     // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
-    @Get('query')
-    async getAll(@Query()query: QueryDto, @Request() req) {
+    @Post('query')
+    async getAll(@Body()query: QueryDto, @Request() req) {
       return this.programmeService.query(query, req.abilityCondition)
     }
 

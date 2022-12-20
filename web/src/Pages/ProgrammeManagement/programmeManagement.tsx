@@ -7,15 +7,17 @@ import { TableDataType } from '../../Definitions/InterfacesAndType/userManagemen
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import { CertBGColor, DevBGColor, GovBGColor, TooltipColor } from '../Common/role.color.constants';
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
+import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 
 const ProgrammeManagement = () => {
   const navigate = useNavigate();
-  const { get, delete: del } = useConnection();
+  const { get, delete: del, post } = useConnection();
   const [totalProgramme, setTotalProgramme] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const [tableData, setTableData] = useState<TableDataType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
+  const [filter, setFilter] = useState<any>([]);
 
   const getCompanyBgColor = (item: string) => {
     if (item === 'Government') {
@@ -41,7 +43,7 @@ const ProgrammeManagement = () => {
       render: (item: any, itemObj: any) => {
         const elements = item.map((obj: any) => {
           return (
-            <Tooltip title="ddd" color={TooltipColor} key={TooltipColor}>
+            <Tooltip title={obj.name} color={TooltipColor} key={TooltipColor}>
               <div>
                 <ProfileIcon
                   icon={obj.logo}
@@ -133,16 +135,13 @@ const ProgrammeManagement = () => {
     { label: 'Rejected', value: 'Rejected' },
   ];
 
-  const onStatusQuery = async () => {};
-
   const getAllProgramme = async () => {
     setLoading(true);
     try {
-      const response: any = await get('programme/query', {
-        params: {
-          page: currentPage,
-          size: pageSize,
-        },
+      const response: any = await post('programme/query', {
+        page: currentPage,
+        size: pageSize,
+        filterAnd: filter,
       });
       setTableData(response.data);
       setTotalProgramme(response.response.data.total);
@@ -159,9 +158,20 @@ const ProgrammeManagement = () => {
     }
   };
 
+  const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
+    console.log(checkedValues);
+    setFilter([
+      {
+        key: 'currentStage',
+        operation: 'in',
+        value: checkedValues,
+      },
+    ]);
+  };
+
   useEffect(() => {
     getAllProgramme();
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, filter]);
 
   const onChange: PaginationProps['onChange'] = (page, size) => {
     setCurrentPage(page);
