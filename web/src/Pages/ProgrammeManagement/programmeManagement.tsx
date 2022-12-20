@@ -169,7 +169,7 @@ const ProgrammeManagement = () => {
   };
 
   return (
-    <div className="content-container">
+    <div className="content-container programme-management">
       <div className="title-bar">
         <div className="body-title">View Programmes</div>
         <div className="body-sub-title">
