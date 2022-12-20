@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 body {
   background-color: $background-color;
@@ -34,6 +34,47 @@ body {
 .ant-table-content {
   font-family: $primary-font-family;
 }
+
+.ant-input {
+  border-radius: 5px !important;
+}
+.ant-btn {
+  border-radius: 5px !important;
+}
+.ant-input-group-addon:first-child {
+  border-radius: 5px !important;
+}
+
+.ant-radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ant-radio-group-large .ant-radio-button-wrapper {
+  font-size: 0.8rem;
+  width: 25%;
+  border-radius: 5px !important;
+}
+
+.PhoneInputInput {
+  flex: 1 1;
+  min-width: 0;
+  border-radius: 5px !important;
+  height: 40px;
+  border: 1px solid #d9d9d9 !important;
+  .input:focus-visible {
+    flex: 1 1;
+    min-width: 0;
+    border-radius: 5px !important;
+    height: 40px;
+    border: 1px solid #d9d9d9 !important;
+  }
+}
+
+
+
 
 .layout-content-container {
   .ant-btn-primary {
@@ -90,13 +131,12 @@ body {
   }
 
   .anticon-edit {
-    color: #16B1FF;
+    color: #16b1ff;
   }
 
   .anticon-delete {
-    color: #F25A29;
+    color: #f25a29;
   }
-
 }
 
 .ant-popover-inner-content {
@@ -114,3 +154,4 @@ body {
 .ant-tag {
   border-radius: 20px;
 }
+

@@ -54,7 +54,7 @@ import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
 
 const UserManagement = () => {
   const navigate = useNavigate();
-  const { get, delete: del } = useConnection();
+  const { get, post, delete: del } = useConnection();
   const [totalUser, setTotalUser] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const [tableData, setTableData] = useState<TableDataType[]>([]);
@@ -309,11 +309,9 @@ const UserManagement = () => {
   const getAllUser = async () => {
     setLoading(true);
     try {
-      const response: any = await get('user/query', {
-        params: {
-          page: currentPage,
-          size: pageSize,
-        },
+      const response: any = await post('user/query', {
+        page: currentPage,
+        size: pageSize,
       });
       setTableData(response.data);
       setTotalUser(response.response.data.total);

@@ -1,4 +1,60 @@
 @import '../Common/colors.addUser.scss';
+@import '../Common/colors.addCompany.scss';
+
+.add-user-main-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 0 2rem 0 2rem;
+
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+
+    .main {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: $title-main;
+    }
+
+    .sub {
+      font-size: 0.8rem;
+      color: $title-sub;
+    }
+  }
+}
+
+.content-card {
+  width: 100%;
+  padding: 2.5rem 2rem 1rem 2rem;
+  margin-top: 1rem;
+
+  .PhoneInputInput .input {
+    border-radius: 5px !important;
+  }
+
+  .user-details-form {
+    .actions {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .row {
+      .details-part-one {
+      }
+      .details-part-two {
+        .role-group {
+          .dev {
+            width: 40% !important;
+          }
+          .role-icons {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
 
 .create-user-container {
   padding: 30px 10px;
