@@ -259,7 +259,6 @@ export class ProgrammeService {
 
     async query(query: QueryDto, abilityCondition: string): Promise<DataListResponseDto> {
         const skip = (query.size * query.page) - query.size;
-
         const resp = (await this.programmeRepo.createQueryBuilder("programme")
             .where(this.helperService.generateWhereSQL(query, abilityCondition, "programme"))
             .skip(skip)
