@@ -54,7 +54,7 @@ import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
 
 const CompanyManagement = () => {
   const navigate = useNavigate();
-  const { get, delete: del } = useConnection();
+  const { get, delete: del, post } = useConnection();
   const [totalCompany, setTotalCompany] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const [tableData, setTableData] = useState<TableDataType[]>([]);
@@ -165,11 +165,9 @@ const CompanyManagement = () => {
   const getAllCompany = async () => {
     setLoading(true);
     try {
-      const response: any = await get('company/query', {
-        params: {
-          page: currentPage,
-          size: pageSize,
-        },
+      const response: any = await post('company/query', {
+        page: currentPage,
+        size: pageSize,
       });
       setTableData(response.data);
       setTotalCompany(response.response.data.total);

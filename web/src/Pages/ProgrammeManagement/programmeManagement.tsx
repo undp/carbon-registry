@@ -7,15 +7,27 @@ import { TableDataType } from '../../Definitions/InterfacesAndType/userManagemen
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import { CertBGColor, DevBGColor, GovBGColor, TooltipColor } from '../Common/role.color.constants';
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
+import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 
 const ProgrammeManagement = () => {
   const navigate = useNavigate();
-  const { get, delete: del } = useConnection();
+  const { get, delete: del, post } = useConnection();
   const [totalProgramme, setTotalProgramme] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const [tableData, setTableData] = useState<TableDataType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
+  const [filter, setFilter] = useState<any>([]);
+
+  const statusOptions = [
+    { label: 'Pending', value: 'AwaitingAuthorization' },
+    { label: 'Issued', value: 'Issued' },
+    { label: 'Transferred', value: 'Transferred' },
+    { label: 'Retired', value: 'Retired' },
+    { label: 'Rejected', value: 'Rejected' },
+  ];
+
+  const [selectedStatus, setSelectedStatus] = useState<any>(statusOptions.map((e) => e.value));
 
   const getCompanyBgColor = (item: string) => {
     if (item === 'Government') {
@@ -24,6 +36,20 @@ const ProgrammeManagement = () => {
       return CertBGColor;
     }
     return DevBGColor;
+  };
+
+  const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
+    console.log(checkedValues);
+    if (checkedValues !== selectedStatus) {
+      setSelectedStatus(checkedValues);
+    }
+    setFilter([
+      {
+        key: 'currentStage',
+        operation: 'in',
+        value: checkedValues,
+      },
+    ]);
   };
 
   const columns = [
@@ -41,7 +67,7 @@ const ProgrammeManagement = () => {
       render: (item: any, itemObj: any) => {
         const elements = item.map((obj: any) => {
           return (
-            <Tooltip title="ddd" color={TooltipColor} key={TooltipColor}>
+            <Tooltip title={obj.name} color={TooltipColor} key={TooltipColor}>
               <div>
                 <ProfileIcon
                   icon={obj.logo}
@@ -68,14 +94,30 @@ const ProgrammeManagement = () => {
       align: 'center' as const,
       render: (item: any) => {
         return item === 'AwaitingAuthorization' ? (
-          <Tag color="error">Pending</Tag>
+          <Tag className="clickable" color="error">
+            Pending
+          </Tag>
         ) : item === 'Issued' ? (
-          <Tag color="processing">Issued</Tag>
+          <Tag className="clickable" color="processing">
+            Issued
+          </Tag>
         ) : item === 'Transferred' ? (
-          <Tag color="success">item</Tag>
+          <Tag className="clickable" color="success">
+            item
+          </Tag>
         ) : (
-          <Tag color="default">item</Tag>
+          <Tag className="clickable" color="default">
+            item
+          </Tag>
         );
+      },
+      onCell: (record: any, rowIndex: any) => {
+        return {
+          onClick: (ev: any) => {
+            setSelectedStatus([record.currentStage]);
+            onStatusQuery([record.currentStage]);
+          },
+        };
       },
     },
     {
@@ -125,24 +167,14 @@ const ProgrammeManagement = () => {
     },
   ];
   // }
-  const statusOptions = [
-    { label: 'Pending', value: 'AwaitingAuthorization' },
-    { label: 'Issued', value: 'Issued' },
-    { label: 'Transferred', value: 'Transferred' },
-    { label: 'Retired', value: 'Retired' },
-    { label: 'Rejected', value: 'Rejected' },
-  ];
-
-  const onStatusQuery = async () => {};
 
   const getAllProgramme = async () => {
     setLoading(true);
     try {
-      const response: any = await get('programme/query', {
-        params: {
-          page: currentPage,
-          size: pageSize,
-        },
+      const response: any = await post('programme/query', {
+        page: currentPage,
+        size: pageSize,
+        filterAnd: filter,
       });
       setTableData(response.data);
       setTotalProgramme(response.response.data.total);
@@ -161,7 +193,7 @@ const ProgrammeManagement = () => {
 
   useEffect(() => {
     getAllProgramme();
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, filter]);
 
   const onChange: PaginationProps['onChange'] = (page, size) => {
     setCurrentPage(page);
@@ -182,6 +214,7 @@ const ProgrammeManagement = () => {
             <Checkbox.Group
               options={statusOptions}
               defaultValue={statusOptions.map((e) => e.value)}
+              value={selectedStatus}
               onChange={onStatusQuery}
             />
           </div>

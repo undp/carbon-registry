@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger, UseFilters } from '@nestjs/common';
 import { InjectConnection, InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from '../../shared/dto/user.dto';
 import { Connection, EntityManager, QueryFailedError, Repository } from 'typeorm';
@@ -20,6 +20,7 @@ import { CompanyRole } from '../../shared/enum/company.role.enum';
 import { plainToClass } from 'class-transformer';
 import { Company } from '../../shared/entities/company.entity';
 import { CompanyService } from '../company/company.service';
+import { HelperService } from '../util/helpers.service';
 
 @Injectable()
 export class UserService {
@@ -28,6 +29,7 @@ export class UserService {
         private emailService: EmailService,
         private logger: Logger,
         private configService: ConfigService,
+        private helperService: HelperService,
         @InjectEntityManager() private entityManger: EntityManager,
         private companyService: CompanyService
     ) { }
@@ -147,13 +149,20 @@ export class UserService {
     async create(userDto: UserDto, companyId: number, companyRole: CompanyRole): Promise<User | undefined> {
         this.logger.verbose(`User create received  ${userDto.email} ${companyId}`)
 
-        const user = await this.findOne(userDto.email)
+        const user = await this.findOne(userDto.email);
         if (user) {
-            throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST)
+            throw new HttpException("User already exist in the system", HttpStatus.BAD_REQUEST);
         }
 
         let { company, ...userFields } = userDto
         if (company) {
+
+            if (userFields.role && userFields.role != Role.Admin) {
+                throw new HttpException("Company create user should be an Admin user", HttpStatus.BAD_REQUEST)
+            } else if (!userFields.role) {
+                userFields.role = Role.Admin;
+            }
+
             if (company.companyRole != CompanyRole.CERTIFIER || !company.country) {
                 company.country = this.configService.get('systemCountry')
             }
@@ -171,7 +180,7 @@ export class UserService {
         }
 
         if (CompanyRole.GOVERNMENT != companyRole && userDto.companyId && userDto.companyId != companyId) {
-            throw new HttpException("Company create does not permitted for your company role", HttpStatus.FORBIDDEN)
+            throw new HttpException("Not authorized to add users to other companies", HttpStatus.FORBIDDEN)
         }
         
         const u: User = plainToClass(User, userFields);
@@ -241,7 +250,7 @@ export class UserService {
     async query(query: QueryDto, abilityCondition: string): Promise<any> {
 
         const resp = (await this.userRepo.createQueryBuilder("user")
-            .where(abilityCondition ? abilityCondition : "")
+            .where(this.helperService.generateWhereSQL(query, abilityCondition))
             // .leftJoinAndSelect("user.companyId", "company")
             .skip((query.size * query.page) - query.size)
             .take(query.size)

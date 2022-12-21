@@ -10,10 +10,11 @@ import { QueryDto } from '../dto/query.dto';
 import { DataListResponseDto } from '../dto/data.list.response';
 import { BasicResponseDto } from '../dto/basic.response.dto';
 import { CompanyState } from '../enum/company.state.enum';
+import { HelperService } from '../util/helpers.service';
 
 @Injectable()
 export class CompanyService {
-    constructor(@InjectRepository(Company) private companyRepo: Repository<Company>, private logger: Logger, private configService: ConfigService) {
+    constructor(@InjectRepository(Company) private companyRepo: Repository<Company>, private logger: Logger, private configService: ConfigService, private helperService: HelperService,) {
         
     }
 
@@ -62,7 +63,7 @@ export class CompanyService {
 
     async query(query: QueryDto, abilityCondition: string): Promise<any> {
         const resp = (await this.companyRepo.createQueryBuilder()
-            .where(abilityCondition ? abilityCondition : "")
+            .where(this.helperService.generateWhereSQL(query, abilityCondition))
             .skip((query.size * query.page) - query.size)
             .take(query.size)
             .getManyAndCount())

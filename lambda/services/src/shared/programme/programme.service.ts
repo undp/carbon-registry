@@ -29,6 +29,8 @@ import { TransferStatus } from '../enum/transform.status.enum';
 import { ProgrammeTransferApprove } from '../dto/programme.transfer.approve';
 import { ProgrammeTransferReject } from '../dto/programme.transfer.reject';
 import { Company } from '../entities/company.entity';
+import { HelperService } from '../util/helpers.service';
+import { CompanyRole } from '../enum/company.role.enum';
 
 export declare function PrimaryGeneratedColumn(options: PrimaryGeneratedColumnType): Function;
 
@@ -41,6 +43,7 @@ export class ProgrammeService {
         private configService: ConfigService,
         private companyService: CompanyService,
         private emailService: EmailService,
+        private helperService: HelperService,
         @InjectRepository(Programme) private programmeRepo: Repository<Programme>,
         @InjectRepository(ProgrammeTransfer) private programmeTransferRepo: Repository<ProgrammeTransfer>,
         @InjectRepository(ConstantEntity) private constantRepo: Repository<ConstantEntity>,
@@ -194,8 +197,16 @@ export class ProgrammeService {
             throw new HttpException("Proponent percentage must defined for each proponent tax id", HttpStatus.BAD_REQUEST)
         }
 
+        if (programmeDto.proponentPercentage &&  programmeDto.proponentTaxVatId.length != programmeDto.proponentPercentage.length) {
+            throw new HttpException("Proponent percentage and number of tax ids does not match", HttpStatus.BAD_REQUEST)
+        }
+
         if (programmeDto.proponentPercentage &&  programmeDto.proponentPercentage.reduce((a, b) => a + b, 0) != 100) {
             throw new HttpException("Proponent percentage sum must be equals to 100", HttpStatus.BAD_REQUEST)
+        }
+
+        if (programmeDto.proponentTaxVatId.length !== new Set(programmeDto.proponentTaxVatId).size) {
+            throw new HttpException("Proponent tax id cannot be duplicated", HttpStatus.BAD_REQUEST)
         }
 
         const companyIds = []
@@ -204,6 +215,11 @@ export class ProgrammeService {
             if (!projectCompany) {
                 throw new HttpException("Proponent tax id does not exist in the system", HttpStatus.BAD_REQUEST)
             }
+
+            if (projectCompany.companyRole != CompanyRole.PROGRAMME_DEVELOPER) {
+                throw new HttpException("Proponent is not a programme developer", HttpStatus.BAD_REQUEST)
+            }
+
             companyIds.push(projectCompany.companyId)
         }
 
@@ -243,17 +259,8 @@ export class ProgrammeService {
 
     async query(query: QueryDto, abilityCondition: string): Promise<DataListResponseDto> {
         const skip = (query.size * query.page) - query.size;
-
-        const sql = (await this.programmeRepo.createQueryBuilder("programme")
-            .where(abilityCondition ? abilityCondition : "")
-            .skip(skip)
-            .take(query.size)
-            .leftJoinAndMapMany('programme.companyId', Company, 'company', 'company.companyId in programme.companyId')
-            .getSql())
-        console.log(sql)
-
         const resp = (await this.programmeRepo.createQueryBuilder("programme")
-            .where(abilityCondition ? abilityCondition : "")
+            .where(this.helperService.generateWhereSQL(query, abilityCondition, "programme"))
             .skip(skip)
             .take(query.size)
             .leftJoinAndMapMany('programme.companyId', Company, 'company', 'company.companyId = ANY(programme.companyId)')
