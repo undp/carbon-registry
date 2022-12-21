@@ -39,6 +39,10 @@
     .form-section {
       display: flex;
       margin-bottom: 2rem;
+
+      .form-one {
+        width: 100%;
+      }
       .steps {
         width: 15%;
       }
@@ -51,6 +55,11 @@
     .steps-action {
       display: flex;
       flex-direction: row-reverse;
+
+      .mg-left-1 {
+        margin-left: 1rem;
+        border: 1px solid firebrick;
+      }
     }
   }
 }

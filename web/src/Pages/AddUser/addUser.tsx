@@ -85,7 +85,7 @@ const AddUser = () => {
         <div className="main">Add New User</div>
         <div className="sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</div>
       </div>
-      <div className="content-card">
+      <div className="content-card card-padding-marginTop">
         <Form
           name="user-details"
           className="user-details-form"

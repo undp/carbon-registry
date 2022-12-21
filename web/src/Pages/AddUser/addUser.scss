@@ -25,10 +25,12 @@
   }
 }
 
-.content-card {
-  width: 100%;
+.card-padding-marginTop {
   padding: 2.5rem 2rem 1rem 2rem;
   margin-top: 1rem;
+}
+
+.content-card {
 
   .PhoneInputInput .input {
     border-radius: 5px !important;

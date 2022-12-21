@@ -1,70 +1,297 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Input, Radio, Row, Steps, Upload, message } from 'antd';
+import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input';
+import { ExperimentOutlined, EyeOutlined, SafetyOutlined, UploadOutlined } from '@ant-design/icons';
+import './companyDetailsForm.scss';
 import './addNewCompany.scss';
-import { Button, Steps, message } from 'antd';
-import CompanyDetailsForm from './CompanyDetailsForm';
-import CompanyAdminDetailsForm from './CompanyAdminDetailsForm';
-import { AddCompanyContextProvider } from './NewCompanyContext';
+import { useConnection } from '../../Context/ConnectionContext/connectionContext';
+import { useNavigate } from 'react-router-dom';
 
 const AddNewCompany = () => {
-  const [current, setCurrent] = useState(0);
-  const [companyDetailsFormVisible, setCompanyDetailsFormVisible] = useState<boolean>(true);
-  const [companyAdminDetailsFormVisible, setCompanyAdminDetailsFormVisible] =
-    useState<boolean>(false);
+  const { Step } = Steps;
+  const { post } = useConnection();
+  const navigate = useNavigate();
+  const [formOne] = Form.useForm();
+  const [formTwo] = Form.useForm();
+  const [stepOneData, setStepOneData] = useState<any>();
+  const [stepTwoData, setStepTwoData] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [contactNoInput, setContactNoInput] = useState<any>();
+  const [current, setCurrent] = useState<number>(0);
 
-  const steps = [
-    {
-      title: <div className="step-title">Comapny Details</div>,
-      description: companyDetailsFormVisible && <CompanyDetailsForm />,
-    },
-    {
-      title: <div className="step-title">Comapny Admin Details</div>,
-      description: companyAdminDetailsFormVisible && <CompanyAdminDetailsForm />,
-    },
-  ];
+  const normFile = (e: any) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
 
-  const next = () => {
+  const nextOne = (val: any) => {
     setCurrent(current + 1);
-    setCompanyDetailsFormVisible(false);
-    setCompanyAdminDetailsFormVisible(true);
+    setStepOneData(val);
   };
 
-  const prev = () => {
+  const prevOne = () => {
     setCurrent(current - 1);
-    setCompanyDetailsFormVisible(true);
-    setCompanyAdminDetailsFormVisible(false);
   };
-  const items = steps.map((item) => ({ key: item.title, title: item.title }));
-  return (
-    <AddCompanyContextProvider>
-      <div className="add-company-main-container">
-        <div className="title-container">
-          <div className="main">Add New Company</div>
-          <div className="sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</div>
+
+  const onFinishStepOne = (values: any) => {
+    nextOne(values);
+  };
+
+  const onFinishStepTwo = async (values: any) => {
+    const requestData = { ...values, role: 'Admin', company: { ...stepOneData } };
+    setLoading(true);
+    try {
+      requestData.phoneNo = formatPhoneNumberIntl(requestData.phoneNo);
+      requestData.company.phoneNo = formatPhoneNumberIntl(requestData.company.phoneNo);
+      requestData.company.website = 'https://' + requestData.company.website;
+      requestData.company.logo =
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJJxYMar-aROQ3X1nBanP0uKGI7ODpIULjgA&usqp=CAU';
+      console.log(requestData);
+      const response = await post('user/add', requestData);
+      if (response.status === 200 || response.status === 201) {
+        message.open({
+          type: 'success',
+          content: 'Company added Successfully!',
+          duration: 3,
+          style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+        });
+        navigate('/companyManagement', { replace: true });
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log('Error in user creation', error);
+      message.open({
+        type: 'error',
+        content: `Error in adding user! ${error.message}`,
+        duration: 3,
+        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+      });
+    } finally {
+      setLoading(false);
+      navigate('/userManagement/viewAll', { replace: true });
+    }
+  };
+
+  const CompanyDetailsForm = () => {
+    return (
+      <div className="company-details-form-container">
+        <div className="company-details-form">
+          <Form
+            name="company-details"
+            className="company-details-form"
+            layout="vertical"
+            requiredMark={false}
+            form={formOne}
+            onFinish={onFinishStepOne}
+          >
+            <Row className="row" gutter={[16, 16]}>
+              <Col xl={12} md={24}>
+                <div className="details-part-one">
+                  <Form.Item
+                    label="Name"
+                    name="name"
+                    rules={[{ required: true, message: 'Please input your username!' }]}
+                  >
+                    <Input size="large" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Tax ID"
+                    name="taxId"
+                    rules={[{ required: true, message: 'Please input your tax id!' }]}
+                  >
+                    <Input size="large" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[{ required: true, message: 'Please input your tax id!' }]}
+                  >
+                    <Input size="large" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Website"
+                    name="website"
+                    rules={[{ required: true, message: 'Please input your tax id!' }]}
+                  >
+                    <Input addonBefore="https://" size="large" />
+                  </Form.Item>
+                  <Form.Item
+                    name="logo"
+                    label="Company Logo"
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
+                  >
+                    <Upload
+                      className="logo-upload-section"
+                      name="logo"
+                      action="/upload.do"
+                      listType="picture"
+                    >
+                      <Button icon={<UploadOutlined />}>Upload</Button>
+                    </Upload>
+                  </Form.Item>
+                </div>
+              </Col>
+              <Col xl={12} md={24}>
+                <div className="details-part-two">
+                  <Form.Item className="role-group" label="Role" name="companyRole">
+                    <Radio.Group size="large">
+                      <Radio.Button className="certifier" value="Certifier">
+                        <SafetyOutlined className="role-icons" />
+                        Certifier
+                      </Radio.Button>
+                      <Radio.Button className="dev" value="ProgrammeDeveloper">
+                        <ExperimentOutlined className="role-icons" />
+                        Programme Developer
+                      </Radio.Button>
+                      <Radio.Button className="observer" value="Observer">
+                        <EyeOutlined className="role-icons" />
+                        Observer
+                      </Radio.Button>
+                    </Radio.Group>
+                  </Form.Item>
+                  <Form.Item
+                    name="phoneNo"
+                    label="Phone Number"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Contact Number can't be empty!",
+                      },
+                    ]}
+                  >
+                    <PhoneInput
+                      placeholder="Phone number"
+                      international
+                      value={formatPhoneNumberIntl(contactNoInput)}
+                      defaultCountry="LK"
+                      countryCallingCodeEditable={false}
+                      onChange={(v) => setContactNoInput(v)}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="address"
+                    label="Address"
+                    rules={[{ required: true, message: 'Please input Address' }]}
+                  >
+                    <Input.TextArea rows={3} maxLength={100} />
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <div className="steps-actions">
+              {current === 0 && (
+                <Button type="primary" htmlType="submit">
+                  Next
+                </Button>
+              )}
+            </div>
+          </Form>
         </div>
-        <div className="adding-section">
-          <div className="form-section">
-            <Steps progressDot direction="vertical" current={1} items={steps} />
-          </div>
-          <div className="steps-action">
-            {current < steps.length - 1 && (
-              <Button type="primary" onClick={() => next()}>
-                Next
-              </Button>
-            )}
-            {current === steps.length - 1 && (
-              <Button type="primary" onClick={() => message.success('Processing complete!')}>
+      </div>
+    );
+  };
+
+  const CompanyAdminDetailsForm = () => {
+    return (
+      <div className="company-details-form-container">
+        <Form
+          name="company-admin-details"
+          className="company-details-form"
+          layout="vertical"
+          requiredMark={false}
+          form={formTwo}
+          onFinish={onFinishStepTwo}
+        >
+          <Row className="row" gutter={[16, 16]}>
+            <Col xl={12} md={24}>
+              <div className="details-part-one">
+                <Form.Item
+                  label="Name"
+                  name="name"
+                  rules={[{ required: true, message: 'Please input your username!' }]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+                <Form.Item
+                  name="phoneNo"
+                  label="Phone Number"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Contact Number can't be empty!",
+                    },
+                  ]}
+                >
+                  <PhoneInput
+                    placeholder="Phone number"
+                    international
+                    value={formatPhoneNumberIntl(contactNoInput)}
+                    defaultCountry="LK"
+                    countryCallingCodeEditable={false}
+                    onChange={(v) => setContactNoInput(v)}
+                  />
+                </Form.Item>
+              </div>
+            </Col>
+            <Col xl={12} md={24}>
+              <div className="details-part-two">
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[{ required: true, message: 'Please input your username!' }]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </div>
+            </Col>
+          </Row>
+          <div className="steps-actions">
+            {current === 1 && (
+              <Button className="mg-left-1" type="primary" htmlType="submit">
                 Done
               </Button>
             )}
-            {current > 0 && (
-              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+            {current === 1 && (
+              <Button type="primary" onClick={() => prevOne()}>
                 Previous
               </Button>
             )}
           </div>
+        </Form>
+      </div>
+    );
+  };
+
+  return (
+    <div className="add-company-main-container">
+      <div className="title-container">
+        <div className="main">Add New Company</div>
+        <div className="sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</div>
+      </div>
+      <div className="adding-section">
+        <div className="form-section">
+          <Steps
+            progressDot
+            direction="vertical"
+            current={current}
+            items={[
+              {
+                title: <div className="step-title">Company Details</div>,
+                description: current === 0 && <CompanyDetailsForm />,
+              },
+              {
+                title: <div className="step-title">Comapny Admin Details</div>,
+                description: current === 1 && <CompanyAdminDetailsForm />,
+              },
+            ]}
+          />
         </div>
       </div>
-    </AddCompanyContextProvider>
+    </div>
   );
 };
 
