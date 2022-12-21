@@ -41,10 +41,10 @@ export class Programme implements EntitySubject {
     })
     currentStage: ProgrammeStage;
 
-    @Column()
+    @Column({type: 'bigint'})
     startTime: number;
 
-    @Column()
+    @Column({type: 'bigint'})
     endTime: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
