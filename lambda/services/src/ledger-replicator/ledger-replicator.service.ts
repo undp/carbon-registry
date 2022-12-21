@@ -36,7 +36,7 @@ export class LedgerReplicatorService {
                     const columnNames = columns.filter(function (item) {
                         return item.propertyName !== 'programmeId';
                     }).map( e => e.propertyName)
-                    this.logger.debug(`${columns} ${JSON.stringify(programme)}`);
+                    this.logger.debug(`${columnNames} ${JSON.stringify(programme)}`);
                     return await this.programmeRepo.createQueryBuilder()
                         .insert()
                         .values(programme)
