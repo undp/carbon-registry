@@ -31,8 +31,17 @@ export class LedgerReplicatorService {
                     this.logger.log('ION Record', JSON.stringify(ionRecord))
                     const payload = ionRecord.get("payload").get("revision").get("data");
                     const programme: Programme = plainToClass(Programme, JSON.parse(JSON.stringify(payload)));
-                    this.logger.debug(JSON.stringify(programme));
-                    return await this.programmeRepo.save(programme);
+
+                    const columns = this.programmeRepo.manager.connection.getMetadata("Programme").columns;
+                    const columnNames = columns.filter(function (item) {
+                        return item.propertyName !== 'programmeId';
+                    }).map( e => e.propertyName)
+                    this.logger.debug(`${columns} ${JSON.stringify(programme)}`);
+                    return await this.programmeRepo.createQueryBuilder()
+                        .insert()
+                        .values(programme)
+                        .orUpdate(columnNames, ['programmeId'])
+                        .execute();
                 }
             })
         );
