@@ -10,6 +10,7 @@ import { CompanyRole } from "../enum/company.role.enum";
 import { Company } from "../entities/company.entity";
 import { Stat } from "../dto/stat.dto";
 import { StatType } from "../enum/stat.type.enum";
+import { ProgrammeTransfer } from "../entities/programme.transfer";
 
 type Subjects = InferSubjects<typeof EntitySubject> | 'all';
 
@@ -52,6 +53,10 @@ export class CaslAbilityFactory {
         cannot(Action.Update, User, ['email', 'role', 'apiKey', 'password', 'companyId', 'companyRole']);
 
         can(Action.Read, Company);
+      }
+
+      if (user.role != Role.ViewOnly && user.companyRole == CompanyRole.PROGRAMME_DEVELOPER) {
+        can(Action.Manage, ProgrammeTransfer);
       }
 
       if (user.role == Role.Admin && user.companyRole == CompanyRole.MRV) {
