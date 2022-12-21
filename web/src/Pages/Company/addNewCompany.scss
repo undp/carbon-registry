@@ -1,5 +1,33 @@
 @import '../Common/colors.addCompany.scss';
 
+.company-details-form-container {
+  width: 100%;
+
+  .company-details-form {
+    .steps-actions {
+      display: flex;
+      flex-direction: row-reverse;
+      .mg-left-1 {
+        margin-left: 1rem;
+      }
+    }
+    .row {
+      .details-part-one {
+      }
+      .details-part-two {
+        .role-group {
+          .dev {
+            width: 40% !important;
+          }
+          .role-icons {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
 .step-title {
   font-size: 1.1rem;
   font-weight: 600;
@@ -55,11 +83,6 @@
     .steps-action {
       display: flex;
       flex-direction: row-reverse;
-
-      .mg-left-1 {
-        margin-left: 1rem;
-        border: 1px solid firebrick;
-      }
     }
   }
 }

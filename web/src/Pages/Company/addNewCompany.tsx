@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Input, Radio, Row, Steps, Upload, message } from 'antd';
 import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input';
 import { ExperimentOutlined, EyeOutlined, SafetyOutlined, UploadOutlined } from '@ant-design/icons';
-import './companyDetailsForm.scss';
-import './addNewCompany.scss';
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import { useNavigate } from 'react-router-dom';
+import './addNewCompany.scss';
 
 const AddNewCompany = () => {
   const { Step } = Steps;
@@ -14,7 +13,6 @@ const AddNewCompany = () => {
   const [formOne] = Form.useForm();
   const [formTwo] = Form.useForm();
   const [stepOneData, setStepOneData] = useState<any>();
-  const [stepTwoData, setStepTwoData] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
   const [contactNoInput, setContactNoInput] = useState<any>();
   const [current, setCurrent] = useState<number>(0);
@@ -93,28 +91,87 @@ const AddNewCompany = () => {
                   <Form.Item
                     label="Name"
                     name="name"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: '',
+                      },
+                      {
+                        validator: async (rule, value) => {
+                          if (
+                            String(value).trim() === '' ||
+                            String(value).trim() === undefined ||
+                            value === null ||
+                            value === undefined
+                          ) {
+                            throw new Error('Please input the company name!');
+                          }
+                        },
+                      },
+                    ]}
                   >
                     <Input size="large" />
                   </Form.Item>
                   <Form.Item
                     label="Tax ID"
                     name="taxId"
-                    rules={[{ required: true, message: 'Please input your tax id!' }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: '',
+                      },
+                      {
+                        validator: async (rule, value) => {
+                          if (
+                            String(value).trim() === '' ||
+                            String(value).trim() === undefined ||
+                            value === null ||
+                            value === undefined
+                          ) {
+                            throw new Error('Please input the tax id!');
+                          }
+                        },
+                      },
+                    ]}
                   >
                     <Input size="large" />
                   </Form.Item>
                   <Form.Item
                     label="Email"
                     name="email"
-                    rules={[{ required: true, message: 'Please input your tax id!' }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: '',
+                      },
+                      {
+                        validator: async (rule, value) => {
+                          if (
+                            String(value).trim() === '' ||
+                            String(value).trim() === undefined ||
+                            value === null ||
+                            value === undefined
+                          ) {
+                            throw new Error('Please input the E-mail!');
+                          } else {
+                            const val = value.trim();
+                            const reg =
+                              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            const matches = val.match(reg) ? val.match(reg) : [];
+                            if (matches.length === 0) {
+                              throw new Error('Please input a valid E-mail!');
+                            }
+                          }
+                        },
+                      },
+                    ]}
                   >
                     <Input size="large" />
                   </Form.Item>
                   <Form.Item
                     label="Website"
                     name="website"
-                    rules={[{ required: true, message: 'Please input your tax id!' }]}
+                    rules={[{ required: true, message: 'Please input the website url!' }]}
                   >
                     <Input addonBefore="https://" size="large" />
                   </Form.Item>
@@ -159,7 +216,7 @@ const AddNewCompany = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Contact Number can't be empty!",
+                        message: 'Please input the phone number!',
                       },
                     ]}
                   >
@@ -175,7 +232,7 @@ const AddNewCompany = () => {
                   <Form.Item
                     name="address"
                     label="Address"
-                    rules={[{ required: true, message: 'Please input Address' }]}
+                    rules={[{ required: true, message: 'Please input the address!' }]}
                   >
                     <Input.TextArea rows={3} maxLength={100} />
                   </Form.Item>
@@ -212,7 +269,24 @@ const AddNewCompany = () => {
                 <Form.Item
                   label="Name"
                   name="name"
-                  rules={[{ required: true, message: 'Please input your username!' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: '',
+                    },
+                    {
+                      validator: async (rule, value) => {
+                        if (
+                          String(value).trim() === '' ||
+                          String(value).trim() === undefined ||
+                          value === null ||
+                          value === undefined
+                        ) {
+                          throw new Error('Please input the company admin name!');
+                        }
+                      },
+                    },
+                  ]}
                 >
                   <Input size="large" />
                 </Form.Item>
@@ -222,7 +296,7 @@ const AddNewCompany = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Contact Number can't be empty!",
+                      message: 'Please input the phone number!',
                     },
                   ]}
                 >
@@ -242,7 +316,32 @@ const AddNewCompany = () => {
                 <Form.Item
                   label="Email"
                   name="email"
-                  rules={[{ required: true, message: 'Please input your username!' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: '',
+                    },
+                    {
+                      validator: async (rule, value) => {
+                        if (
+                          String(value).trim() === '' ||
+                          String(value).trim() === undefined ||
+                          value === null ||
+                          value === undefined
+                        ) {
+                          throw new Error('Please input the E-mail!');
+                        } else {
+                          const val = value.trim();
+                          const reg =
+                            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                          const matches = val.match(reg) ? val.match(reg) : [];
+                          if (matches.length === 0) {
+                            throw new Error('Please input a valid E-mail!');
+                          }
+                        }
+                      },
+                    },
+                  ]}
                 >
                   <Input size="large" />
                 </Form.Item>
