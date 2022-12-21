@@ -350,12 +350,12 @@ const AddNewCompany = () => {
           </Row>
           <div className="steps-actions">
             {current === 1 && (
-              <Button className="mg-left-1" type="primary" htmlType="submit">
+              <Button className="mg-left-1" type="primary" htmlType="submit" loading={loading}>
                 Done
               </Button>
             )}
             {current === 1 && (
-              <Button type="primary" onClick={() => prevOne()}>
+              <Button type="primary" onClick={() => prevOne()} loading={loading}>
                 Previous
               </Button>
             )}
