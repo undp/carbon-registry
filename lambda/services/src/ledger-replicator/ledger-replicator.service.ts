@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Programme } from '../shared/entities/programme.entity';
 import { dom } from "ion-js";
 import { plainToClass } from 'class-transformer';
+import { ConfigService } from '@nestjs/config';
 
 const computeChecksums = true;
 const REVISION_DETAILS = "REVISION_DETAILS";
@@ -12,7 +13,7 @@ const deagg = require('aws-kinesis-agg');
 @Injectable()
 export class LedgerReplicatorService {
 
-    constructor(@InjectRepository(Programme) private programmeRepo: Repository<Programme>, private logger: Logger) {
+    constructor(@InjectRepository(Programme) private programmeRepo: Repository<Programme>, private logger: Logger, private configService: ConfigService) {
 
     }
 
@@ -29,7 +30,14 @@ export class LedgerReplicatorService {
                     this.logger.log(`Skipping record of type ${ionRecord.get('recordType').stringValue()}`);
                 } else {
                     this.logger.log('ION Record', JSON.stringify(ionRecord))
+
+                    const tableName = ionRecord.get("payload").get("tableInfo").get("tableName");
+                    if (tableName != this.configService.get('ledger.table')) {
+                        return;
+                    }
+                    
                     const payload = ionRecord.get("payload").get("revision").get("data");
+       
                     const programme: Programme = plainToClass(Programme, JSON.parse(JSON.stringify(payload)));
 
                     const columns = this.programmeRepo.manager.connection.getMetadata("Programme").columns;
