@@ -68,10 +68,10 @@ export class Programme implements EntitySubject {
     @Column("bigint", { array: true })
     companyId: number[];
 
-    @Column("bigint", { array: true, nullable: true })
+    @Column("real", { array: true, nullable: true })
     proponentPercentage: number[];
 
-    @Column("bigint", { array: true, nullable: true })
+    @Column("real", { array: true, nullable: true })
     creditOwnerPercentage: number[];
 
     @Column("bigint", { array: true, nullable: true })
