@@ -1,0 +1,60 @@
+@import '../../Styles/variables.scss';
+
+.programme-view {
+  padding: 0px 50px;
+
+  .apexcharts-legend-series {
+    padding-bottom: 5px;
+  }
+
+  .card-container {
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .programme-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: $dev-bg-color;
+    font-size: 50px;
+    color: $dev-color;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .company-info {
+
+    padding: 25px 10px 30px 10px;
+    img {
+      width: 90px;
+    }
+
+    .ant-progress {
+      width: calc(min(150px, 100%));
+    }
+
+    .progress-bar {
+      font-size: 0.8rem;
+      color: $body-text-color;
+      margin-top: 15px;
+    }
+
+    .ant-progress-success-bg, .ant-progress-bg {
+      background-color: $primary-color;
+    }
+  }
+
+  .centered-card {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .programme-name {
+    color: $title-text-color;
+    margin-top: 14px;
+    font-weight: 600;
+  }
+}

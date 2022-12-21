@@ -40,8 +40,15 @@ const ProgrammeManagement = () => {
 
   const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
     console.log(checkedValues);
+
     if (checkedValues !== selectedStatus) {
       setSelectedStatus(checkedValues);
+    }
+
+    if (checkedValues.length === 0) {
+      setTableData([]);
+      setTotalProgramme(0);
+      return;
     }
     setFilter([
       {
@@ -58,6 +65,16 @@ const ProgrammeManagement = () => {
       dataIndex: 'title',
       key: 'title',
       align: 'left' as const,
+      render: (item: any) => {
+        return <span className="clickable">{item}</span>;
+      },
+      onCell: (record: any, rowIndex: any) => {
+        return {
+          onClick: (ev: any) => {
+            navigate('/programmeManagement/view', { state: { record } });
+          },
+        };
+      },
     },
     {
       title: 'COMPANY',
