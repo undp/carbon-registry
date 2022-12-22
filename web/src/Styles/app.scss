@@ -58,6 +58,21 @@ body {
   border-radius: 5px !important;
 }
 
+.ant-upload-list-picture .ant-upload-list-item-error,
+.ant-upload-list-picture-card .ant-upload-list-item-error {
+  border-color: #40a9ff;
+  border-radius: 5px;
+  height: 40px;
+
+  .ant-upload-list-item-name {
+    color: #40a9ff !important;
+  }
+}
+
+.ant-upload-list-item-error .ant-upload-list-item-card-actions .anticon {
+  color: #40a9ff;
+}
+
 .PhoneInput {
   .PhoneInputInput {
     flex: 1 1;
