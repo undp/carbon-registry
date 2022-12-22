@@ -58,23 +58,47 @@ body {
   border-radius: 5px !important;
 }
 
-.PhoneInputInput {
-  flex: 1 1;
-  min-width: 0;
-  border-radius: 5px !important;
+.ant-upload-list-picture .ant-upload-list-item-error,
+.ant-upload-list-picture-card .ant-upload-list-item-error {
+  border-color: #40a9ff;
+  border-radius: 5px;
   height: 40px;
-  border: 1px solid #d9d9d9 !important;
-  .input:focus-visible {
+
+  .ant-upload-list-item-name {
+    color: #40a9ff !important;
+  }
+}
+
+.ant-upload-list-item-error .ant-upload-list-item-card-actions .anticon {
+  color: #40a9ff;
+}
+
+.PhoneInput {
+  .PhoneInputCountry {
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 5px !important;
+    padding: 0 1rem 0 1rem;
+  }
+  .PhoneInputInput {
     flex: 1 1;
     min-width: 0;
     border-radius: 5px !important;
     height: 40px;
     border: 1px solid #d9d9d9 !important;
+    outline: none;
   }
 }
 
-
-
+.PhoneInput {
+  .PhoneInputInput:focus-visible {
+    flex: 1 1;
+    min-width: 0;
+    border-radius: 5px !important;
+    height: 40px;
+    border-right: 1px solid #40a9ff !important;
+    outline: 1px solid #40a9ff;
+  }
+}
 
 .layout-content-container {
   .ant-btn-primary {
@@ -178,4 +202,3 @@ body {
 .apexcharts-legend-text {
   font-family: $primary-font-family !important;
 }
-
