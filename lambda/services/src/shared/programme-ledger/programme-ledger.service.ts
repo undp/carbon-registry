@@ -23,15 +23,15 @@ export class ProgrammeLedgerService {
 
   public async createProgramme(programme: Programme): Promise<Programme> {
     this.logger.debug("Creating programme", JSON.stringify(programme));
-    if (programme) {
-      await this.entityManger.save<Programme>(
-        plainToClass(Programme, programme)
-      ).then((res: any) => {
-        console.log("create programme in repo -- ", res)
-      }).catch((e: any) => {
-        console.log("create programme in repo -- ", e)
-      });
-    }
+    // if (programme) {
+    //   await this.entityManger.save<Programme>(
+    //     plainToClass(Programme, programme)
+    //   ).then((res: any) => {
+    //     console.log("create programme in repo -- ", res)
+    //   }).catch((e: any) => {
+    //     console.log("create programme in repo -- ", e)
+    //   });
+    // }
     await this.ledger.insertRecord(programme);
     return programme;
   }
