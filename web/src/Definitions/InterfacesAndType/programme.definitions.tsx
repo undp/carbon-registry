@@ -1,0 +1,95 @@
+import { DateTime } from 'luxon';
+
+export enum ProgrammeStage {
+  AwaitingAuthorization = 'Pending',
+  Issued = 'Issued',
+  Rejected = 'Rejected',
+  Retired = 'Retired',
+  Transferred = 'Transferred',
+}
+
+export const getStageEnumVal = (value: string) => {
+  const index = Object.keys(ProgrammeStage).indexOf(value);
+  if (index < 0) {
+    return value;
+  }
+  return Object.values(ProgrammeStage)[index];
+};
+
+export const getStageTagType = (stage: ProgrammeStage) => {
+  switch (getStageEnumVal(stage)) {
+    case ProgrammeStage.AwaitingAuthorization:
+      return 'error';
+    case ProgrammeStage.Issued:
+      return 'processing';
+    case ProgrammeStage.Transferred:
+      return 'success';
+    default:
+      return 'default';
+  }
+};
+
+export interface ProgrammeProperties {
+  maxInternationalTransferAmount: string;
+  creditingPeriodInYears: number;
+  programmeCostUSD: number;
+  sourceOfFunding: any;
+  grantEquivalentAmount: number;
+  carbonPriceUSDPerTon: number;
+  buyerCountryEligibility: string;
+  geographicalLocation: string[];
+  greenHouseGasses: any[];
+  creditYear: number;
+}
+
+export interface Programme {
+  programmeId: string;
+  serialNo: string;
+  title: string;
+  sectoralScope: string;
+  sector: string;
+  countryCodeA2: string;
+  currentStage: ProgrammeStage;
+  startTime: number;
+  endTime: number;
+  creditChange: number;
+  creditIssued: number;
+  creditBalance: number;
+  creditTransferred: number;
+  constantVersion: string;
+  proponentTaxVatId: string[];
+  companyId: number[];
+  proponentPercentage: number[];
+  creditOwnerPercentage: number[];
+  certifierId: number[];
+  creditUnit: string;
+  programmeProperties: ProgrammeProperties;
+  agricultureProperties: any;
+  solarProperties: any;
+  txTime: number;
+  createdTime: number;
+  txRef: string;
+}
+
+export const getGeneralFields = (programme: Programme) => {
+  return {
+    title: programme.title,
+    serialNo: programme.serialNo,
+    currentStatus: programme.currentStage,
+    applicationType: 'Programme Developer',
+    sector: programme.sector,
+    sectoralScope: programme.sectoralScope,
+    startDate: DateTime.fromSeconds(Number(programme.startTime)),
+    endDate: DateTime.fromSeconds(Number(programme.endTime)),
+    buyerCountry: programme.programmeProperties.buyerCountryEligibility,
+  };
+};
+
+export const getFinancialFields = (programme: Programme) => {
+  return {
+    programmeCost: programme.programmeProperties.programmeCostUSD,
+    financingType: programme.programmeProperties.sourceOfFunding,
+    grantEquivalent: programme.programmeProperties.grantEquivalentAmount,
+    carbonPrice: programme.programmeProperties.carbonPriceUSDPerTon,
+  };
+};

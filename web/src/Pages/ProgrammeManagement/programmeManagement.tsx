@@ -9,6 +9,11 @@ import { CertBGColor, DevBGColor, GovBGColor, TooltipColor } from '../Common/rol
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import { useTranslation } from 'react-i18next';
+import {
+  getStageEnumVal,
+  getStageTagType,
+  ProgrammeStage,
+} from '../../Definitions/InterfacesAndType/programme.definitions';
 
 const ProgrammeManagement = () => {
   const navigate = useNavigate();
@@ -21,13 +26,10 @@ const ProgrammeManagement = () => {
   const [filter, setFilter] = useState<any>([]);
   const { i18n, t } = useTranslation(['common', 'programme']);
 
-  const statusOptions = [
-    { label: 'Pending', value: 'AwaitingAuthorization' },
-    { label: 'Issued', value: 'Issued' },
-    { label: 'Transferred', value: 'Transferred' },
-    { label: 'Retired', value: 'Retired' },
-    { label: 'Rejected', value: 'Rejected' },
-  ];
+  const statusOptions = Object.keys(ProgrammeStage).map((k, index) => ({
+    label: Object.values(ProgrammeStage)[index],
+    value: k,
+  }));
 
   const [selectedStatus, setSelectedStatus] = useState<any>(statusOptions.map((e) => e.value));
 
@@ -112,21 +114,9 @@ const ProgrammeManagement = () => {
       key: 'currentStage',
       align: 'center' as const,
       render: (item: any) => {
-        return item === 'AwaitingAuthorization' ? (
-          <Tag className="clickable" color="error">
-            Pending
-          </Tag>
-        ) : item === 'Issued' ? (
-          <Tag className="clickable" color="processing">
-            Issued
-          </Tag>
-        ) : item === 'Transferred' ? (
-          <Tag className="clickable" color="success">
-            item
-          </Tag>
-        ) : (
-          <Tag className="clickable" color="default">
-            item
+        return (
+          <Tag className="clickable" color={getStageTagType(item)}>
+            {getStageEnumVal(item)}
           </Tag>
         );
       },

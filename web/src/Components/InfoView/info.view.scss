@@ -1,14 +1,30 @@
-.profile-icon {
-  border-radius: 100%;
-  margin-right: 15px;
-  font-size: 15px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@import '../../Styles/variables.scss';
 
-  img {
-    width: 26px;
+.info-view {
+  .title-icon {
+    padding-right: 10px;
+  }
+
+  .title-text {
+    color: $title-text-color;
+    font-weight: 600;
+  }
+
+  .title {
+    margin-bottom: 5px;
+  }
+
+  .field-key {
+    color: $body-text-color;
+    font-weight: 500;
+  }
+
+  .field-value {
+    color: $body-text-color;
+  }
+
+  .field {
+    margin: 15px 25px;
+    font-size: 0.8rem;
   }
 }
