@@ -209,7 +209,7 @@ const CompanyManagement = () => {
               size="large"
               block
               icon={<PlusOutlined />}
-              onClick={() => navigate('/userManagement/addUser')}
+              onClick={() => navigate('/companyManagement/addCompany')}
             >
               {t('company:addCompany')}
             </Button>
