@@ -14,6 +14,35 @@
       }
     }
     .row {
+      .website {
+        .ant-input {
+          margin-left: 0.3rem;
+        }
+        .ant-input-group-addon {
+          border: 1px solid $common-form-input-border;
+        }
+      }
+      .logo-upload-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .ant-upload {
+          width: 20%;
+        }
+
+        .ant-upload-list {
+          align-items: center;
+          justify-content: center;
+          width: 75%;
+
+          .ant-upload-list-item {
+            margin-top: 0;
+          }
+        }
+      }
       .details-part-one {
       }
       .details-part-two {

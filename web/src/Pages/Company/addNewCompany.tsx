@@ -104,7 +104,7 @@ const AddNewCompany = () => {
                             value === null ||
                             value === undefined
                           ) {
-                            throw new Error('Please input the company name!');
+                            throw new Error('Please input the organisation name!');
                           }
                         },
                       },
@@ -169,6 +169,7 @@ const AddNewCompany = () => {
                     <Input size="large" />
                   </Form.Item>
                   <Form.Item
+                    className="website"
                     label="Website"
                     name="website"
                     rules={[{ required: true, message: 'Please input the website url!' }]}
@@ -177,7 +178,7 @@ const AddNewCompany = () => {
                   </Form.Item>
                   <Form.Item
                     name="logo"
-                    label="Company Logo"
+                    label="Organisation Logo"
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                   >
@@ -187,14 +188,26 @@ const AddNewCompany = () => {
                       action="/upload.do"
                       listType="picture"
                     >
-                      <Button icon={<UploadOutlined />}>Upload</Button>
+                      <Button size="large" icon={<UploadOutlined />}>
+                        Upload
+                      </Button>
                     </Upload>
                   </Form.Item>
                 </div>
               </Col>
               <Col xl={12} md={24}>
                 <div className="details-part-two">
-                  <Form.Item className="role-group" label="Role" name="companyRole">
+                  <Form.Item
+                    className="role-group"
+                    label="Role"
+                    name="companyRole"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select the organisation role!',
+                      },
+                    ]}
+                  >
                     <Radio.Group size="large">
                       <div className="certifier-radio-container">
                         <Radio.Button className="certifier" value="Certifier">
@@ -222,7 +235,20 @@ const AddNewCompany = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input the phone number!',
+                        message: '',
+                      },
+                      {
+                        validator: async (rule, value) => {
+                          console.log('val - phone no --- ', value);
+                          if (
+                            String(value).trim() === '' ||
+                            String(value).trim() === undefined ||
+                            value === null ||
+                            value === undefined
+                          ) {
+                            throw new Error('Please input the phone number!');
+                          }
+                        },
                       },
                     ]}
                   >
@@ -232,7 +258,7 @@ const AddNewCompany = () => {
                       value={formatPhoneNumberIntl(contactNoInput)}
                       defaultCountry="LK"
                       countryCallingCodeEditable={false}
-                      onChange={(v) => setContactNoInput(v)}
+                      onChange={(v) => {}}
                     />
                   </Form.Item>
                   <Form.Item
@@ -288,7 +314,7 @@ const AddNewCompany = () => {
                           value === null ||
                           value === undefined
                         ) {
-                          throw new Error('Please input the company admin name!');
+                          throw new Error('Please input the organisation admin name!');
                         }
                       },
                     },
@@ -312,7 +338,7 @@ const AddNewCompany = () => {
                     value={formatPhoneNumberIntl(contactNoInput)}
                     defaultCountry="LK"
                     countryCallingCodeEditable={false}
-                    onChange={(v) => setContactNoInput(v)}
+                    onChange={(v) => {}}
                   />
                 </Form.Item>
               </div>
@@ -374,8 +400,8 @@ const AddNewCompany = () => {
   return (
     <div className="add-company-main-container">
       <div className="title-container">
-        <div className="main">Add New Company</div>
-        <div className="sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</div>
+        <div className="main">Add New Organisation</div>
+        <div className="sub">Add new organisation to the Carbon Registry</div>
       </div>
       <div className="adding-section">
         <div className="form-section">
@@ -388,7 +414,7 @@ const AddNewCompany = () => {
                 title: (
                   <div className="step-title-container">
                     <div className="step-count">01</div>
-                    <div className="title">Company Details</div>
+                    <div className="title">Organisation Details</div>
                   </div>
                 ),
                 description: current === 0 && <CompanyDetailsForm />,
@@ -397,7 +423,7 @@ const AddNewCompany = () => {
                 title: (
                   <div className="step-title-container">
                     <div className="step-count">02</div>
-                    <div className="title">Company Admin Details</div>
+                    <div className="title">Organisation Admin Details</div>
                   </div>
                 ),
                 description: current === 1 && <CompanyAdminDetailsForm />,
