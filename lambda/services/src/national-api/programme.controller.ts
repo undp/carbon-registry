@@ -93,13 +93,13 @@ export class ProgrammeController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, ProgrammeTransfer))
     @Post('transferApprove')
     async transferApprove(@Body() body: ProgrammeTransferApprove, @Request() req) {
-        return this.programmeService.transferApprove(body)
+        return this.programmeService.transferApprove(body, req.user.companyId)
     }
 
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, ProgrammeTransfer))
     @Post('transferReject')
-    async transferReject(@Body() body: ProgrammeTransferReject) {
-        return this.programmeService.transferReject(body)
+    async transferReject(@Body() body: ProgrammeTransferReject, @Request() req) {
+        return this.programmeService.transferReject(body, req.user.companyId)
     }
 }

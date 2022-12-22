@@ -80,8 +80,16 @@ export class ProgrammeService {
         throw Error("Not implemented for mitigation type " + programmeDto.typeOfMitigation)
     }
 
-    async transferReject(req: ProgrammeTransferReject) {
+    async transferReject(req: ProgrammeTransferReject, approverCompanyId: number) {
+
         this.logger.log('Programme reject');
+
+        const pTransfer = await this.programmeTransferRepo.findOneBy({
+            requestId: req.requestId,
+        })
+        if (!pTransfer.companyId.includes(approverCompanyId)) {
+            throw new HttpException("No ownership to the programme", HttpStatus.FORBIDDEN)
+        }
         const result = await this.programmeTransferRepo.update({
             requestId: req.requestId,
             status: TransferStatus.PENDING
@@ -99,7 +107,7 @@ export class ProgrammeService {
         throw new HttpException("No pending transfer request found", HttpStatus.BAD_REQUEST)
     }
 
-    async transferApprove(req: ProgrammeTransferApprove) {
+    async transferApprove(req: ProgrammeTransferApprove, approverCompanyId: number) {
         // TODO: Handle transaction, can happen 
         const transfer = await this.programmeTransferRepo.findOneBy({
             requestId: req.requestId,
@@ -135,6 +143,11 @@ export class ProgrammeService {
         }
 
         const programme = await this.programmeLedger.transferProgramme(transfer, req);
+
+        if (!programme.companyId.includes(approverCompanyId)) {
+            throw new HttpException("No ownership to the programme", HttpStatus.FORBIDDEN)
+        }
+
         this.logger.log('Programme updated');
         const result = await this.programmeTransferRepo.update({
             requestId: req.requestId

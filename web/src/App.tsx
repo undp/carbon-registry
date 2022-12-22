@@ -15,6 +15,7 @@ import Dashboard from './Pages/Dashboard/dashboard';
 import AddNewCompany from './Pages/Company/addNewCompany';
 import CompanyManagement from './Pages/CompanyManagement/companyManagement';
 import ProgrammeManagement from './Pages/ProgrammeManagement/programmeManagement';
+import ProgrammeView from './Pages/ProgrammeView/programmeView';
 
 const App = () => {
   useEffect(() => {
@@ -43,6 +44,7 @@ const App = () => {
                   element={<CustomLayout selectedKey="programme" />}
                 >
                   <Route path="viewAll" element={<ProgrammeManagement />} />
+                  <Route path="view" element={<ProgrammeView />} />
                 </Route>
                 <Route path="/companyManagement" element={<CustomLayout selectedKey="company" />}>
                   <Route path="viewAll" element={<CompanyManagement />} />
