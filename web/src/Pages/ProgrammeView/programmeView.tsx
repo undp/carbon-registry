@@ -5,12 +5,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './programmeView.scss';
 import { isBase64 } from '../../Components/ProfileIcon/profile.icon';
 import Chart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
+import InfoView from '../../Components/InfoView/info.view';
+import { BulbOutlined } from '@ant-design/icons';
 
 const ProgrammeView = () => {
   const { put } = useConnection();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
+  const { i18n, t } = useTranslation(['common', 'programme']);
 
   useEffect(() => {
     console.log(state);
@@ -47,7 +51,7 @@ const ProgrammeView = () => {
         <div className="text-center programme-name">{ele.company.name}</div>
         <div className="progress-bar">
           <div>
-            <div className="float-left">Ownership</div>
+            <div className="float-left">{t('pview:ownership')}</div>
             <div className="float-right">{ele.percentage}%</div>
           </div>
           <Progress percent={ele.percentage} strokeWidth={7} status="active" showInfo={false} />
@@ -59,10 +63,8 @@ const ProgrammeView = () => {
   return (
     <div className="content-container programme-view">
       <div className="title-bar">
-        <div className="body-title">Programme Details</div>
-        <div className="body-sub-title">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        </div>
+        <div className="body-title">{t('pview:title')}</div>
+        <div className="body-sub-title">{t('pview:desc')}</div>
       </div>
       <div className="content-body">
         <Row gutter={16}>
@@ -121,8 +123,9 @@ const ProgrammeView = () => {
           </Col>
           <Col md={24} lg={15}>
             <Card className="card-container">
-              <div>General</div>
-              <div></div>
+              <div>
+                <InfoView data={[]} title={t('pview:general')} icon={<BulbOutlined />} />
+              </div>
             </Card>
           </Col>
         </Row>

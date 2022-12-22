@@ -51,6 +51,7 @@ import {
   ViewColor,
 } from '../Common/role.color.constants';
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
+import { useTranslation } from 'react-i18next';
 
 const UserManagement = () => {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const UserManagement = () => {
   const [tableData, setTableData] = useState<TableDataType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
+  const { i18n, t } = useTranslation(['user']);
 
   const getCompanyBgColor = (item: string) => {
     if (item === 'Government') {
@@ -158,83 +160,9 @@ const UserManagement = () => {
     }
   };
 
-  // if (localStorage.getItem('userRole') === 'Root' || localStorage.getItem('userRole') === 'Admin') {
-  //   columns = [
-  //     {
-  //       title: 'User ID',
-  //       dataIndex: 'id',
-  //       key: 'id',
-  //     },
-  //     {
-  //       title: 'Username',
-  //       dataIndex: 'name',
-  //       key: 'name',
-  //     },
-  //     {
-  //       title: 'Contact Number',
-  //       dataIndex: 'contactNo',
-  //       key: 'contactNo',
-  //       responsive: ['lg', 'md', 'sm'],
-  //     },
-  //     {
-  //       title: 'Email',
-  //       dataIndex: 'email',
-  //       key: 'email',
-  //     },
-  //     {
-  //       title: 'Role',
-  //       dataIndex: 'role',
-  //       key: 'role',
-  //     },
-  //     {
-  //       title: 'Company Name',
-  //       dataIndex: 'companyName',
-  //       key: 'companyName',
-  //       responsive: ['lg', 'md'],
-  //     },
-  //     {
-  //       title: 'Country',
-  //       dataIndex: 'country',
-  //       key: 'country',
-  //       responsive: ['lg', 'md'],
-  //     },
-  //     {
-  //       title: 'State',
-  //       dataIndex: 'state',
-  //       key: 'state',
-  //       responsive: ['lg', 'md'],
-  //     },
-  //     {
-  //       title: 'Action',
-  //       render: (_, record: TableDataType) => (
-  //         <Space size={'middle'}>
-  //           <PencilSquare
-  //             color="#0468B1"
-  //             style={{ cursor: 'pointer' }}
-  //             onClick={() => {
-  //               navigate('updateUser', { state: { record } });
-  //             }}
-  //           />
-  // <Popconfirm
-  //   title={`Are you sure to delete the user`}
-  //   placement="topLeft"
-  //   onConfirm={() => deleteUser(record.email)}
-  //   icon={<WarningOutlined style={{ fontSize: '1.2vw' }} color="#eec335" />}
-  //   okText="Yes"
-  //   okButtonProps={{ danger: true }}
-  //   cancelText="No"
-  //   cancelButtonProps={{ type: 'primary' }}
-  // >
-  //   <Trash color="#D12800" style={{ cursor: 'pointer' }} />
-  // </Popconfirm>
-  //         </Space>
-  //       ),
-  //     },
-  //   ];
-  // } else {
   const columns = [
     {
-      title: 'NAME',
+      title: t('user:name'),
       dataIndex: 'name',
       key: 'name',
       align: 'left' as const,
@@ -252,26 +180,26 @@ const UserManagement = () => {
       },
     },
     {
-      title: 'EMAIL',
+      title: t('user:email'),
       dataIndex: 'email',
       key: 'email',
       align: 'left' as const,
     },
     {
-      title: 'PHONE',
+      title: t('user:phone'),
       dataIndex: 'phoneNo',
       key: 'phoneNo',
       align: 'left' as const,
     },
     {
-      title: 'COMPANY',
+      title: t('user:company'),
       dataIndex: 'company',
       key: 'companyName',
       render: (x: any) => x.name,
       align: 'left' as const,
     },
     {
-      title: 'COMPANY TYPE',
+      title: t('user:companyRole'),
       dataIndex: 'companyRole',
       key: 'companyRole',
       align: 'left' as const,
@@ -280,7 +208,7 @@ const UserManagement = () => {
       },
     },
     {
-      title: 'ROLE',
+      title: t('user:role'),
       dataIndex: 'role',
       key: 'role',
       align: 'left' as const,
@@ -340,10 +268,8 @@ const UserManagement = () => {
   return (
     <div className="content-container">
       <div className="title-bar">
-        <div className="body-title">View Users</div>
-        <div className="body-sub-title">
-          View all the visible users in the system based on your permissions
-        </div>
+        <div className="body-title">{t('user:viewUsers')}</div>
+        <div className="body-sub-title">{t('user:viewDesc')}</div>
       </div>
       <div className="content-card">
         <Row>
@@ -355,7 +281,7 @@ const UserManagement = () => {
               icon={<PlusOutlined />}
               onClick={() => navigate('/userManagement/addUser')}
             >
-              Add User
+              {t('user:addUser')}
             </Button>
           </div>
         </Row>

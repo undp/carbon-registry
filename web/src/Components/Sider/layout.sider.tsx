@@ -12,6 +12,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { LayoutSiderProps } from '../../Definitions/InterfacesAndType/layout.sider.definitions';
+import { useTranslation } from 'react-i18next';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -20,6 +21,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
   const { selectedKey } = props;
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const { i18n, t } = useTranslation(['nav']);
   return (
     <Sider
       width={280}
@@ -56,7 +58,11 @@ const LayoutSider = (props: LayoutSiderProps) => {
               icon={!collapsed ? <DashboardOutlined style={{ fontSize: '1.2rem' }} /> : ''}
             >
               <Link to="/dashboard">
-                {collapsed ? <DashboardOutlined style={{ fontSize: '2rem' }} /> : 'Dashboard'}
+                {collapsed ? (
+                  <DashboardOutlined style={{ fontSize: '2rem' }} />
+                ) : (
+                  t('nav:dashboard')
+                )}
               </Link>
             </Menu.Item>
             <Menu.Item
@@ -64,38 +70,58 @@ const LayoutSider = (props: LayoutSiderProps) => {
               icon={!collapsed ? <AppstoreOutlined style={{ fontSize: '1.2rem' }} /> : ''}
             >
               <Link to="/programmeManagement/viewAll">
-                {collapsed ? <AppstoreOutlined style={{ fontSize: '2rem' }} /> : 'Programmes'}
+                {collapsed ? (
+                  <AppstoreOutlined style={{ fontSize: '2rem' }} />
+                ) : (
+                  t('nav:programmes')
+                )}
               </Link>
             </Menu.Item>
             <SubMenu
               key="companies"
               icon={!collapsed ? <ShopOutlined style={{ fontSize: '1.2rem' }} /> : ''}
-              title="Companies"
+              title={t('nav:companies')}
             >
               <Menu.Item key="view-company">
                 <Link to="/companyManagement/viewAll">
-                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'View All'}
+                  {collapsed ? (
+                    <UnorderedListOutlined style={{ fontSize: '2rem' }} />
+                  ) : (
+                    t('nav:viewAll')
+                  )}
                 </Link>
               </Menu.Item>
               <Menu.Item key="add-company">
                 <Link to="/companyManagement/addCompany">
-                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'Add new'}
+                  {collapsed ? (
+                    <UnorderedListOutlined style={{ fontSize: '2rem' }} />
+                  ) : (
+                    t('nav:addNew')
+                  )}
                 </Link>
               </Menu.Item>
             </SubMenu>
             <SubMenu
               key="users"
               icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
-              title="Users"
+              title={t('nav:users')}
             >
               <Menu.Item key="view-user">
                 <Link to="/userManagement/viewAll">
-                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'View All'}
+                  {collapsed ? (
+                    <UnorderedListOutlined style={{ fontSize: '2rem' }} />
+                  ) : (
+                    t('nav:viewAll')
+                  )}
                 </Link>
               </Menu.Item>
               <Menu.Item key="add-user">
                 <Link to="/userManagement/addUser">
-                  {collapsed ? <UnorderedListOutlined style={{ fontSize: '2rem' }} /> : 'Add new'}
+                  {collapsed ? (
+                    <UnorderedListOutlined style={{ fontSize: '2rem' }} />
+                  ) : (
+                    t('nav:addNew')
+                  )}
                 </Link>
               </Menu.Item>
             </SubMenu>

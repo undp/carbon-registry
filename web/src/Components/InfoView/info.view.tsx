@@ -1,7 +1,7 @@
+import { Col, Row } from 'antd';
 import React, { FC } from 'react';
-import './profile.icon.scss';
-import { Buffer } from 'buffer';
-import { Table } from 'antd';
+import { useTranslation } from 'react-i18next';
+import './info.view.scss';
 
 export interface InfoViewProps {
   data: any;
@@ -9,14 +9,24 @@ export interface InfoViewProps {
   icon: any;
 }
 
-
 const InfoView: FC<InfoViewProps> = (props: InfoViewProps) => {
   const { title, data, icon } = props;
 
   return (
     <div>
-      <div>{title}</div>
       <div>
+        <span>{icon}</span>
+        {title}
+      </div>
+      <div>
+        {Object.keys(data).map((k: any) => {
+          return (
+            <Row>
+              <Col span={10}>{k}</Col>
+              <Col span={14}>{data[k]}</Col>
+            </Row>
+          );
+        })}
       </div>
     </div>
   );
