@@ -149,18 +149,24 @@ const AddUser = () => {
               <div className="details-part-two">
                 <Form.Item className="role-group" label="Role" name="role">
                   <Radio.Group size="large">
-                    <Radio.Button className="admin" value="Admin">
-                      <StarOutlined className="role-icons" />
-                      Admin
-                    </Radio.Button>
-                    <Radio.Button className="manager" value="Manager">
-                      <ToolOutlined className="role-icons" />
-                      Manager
-                    </Radio.Button>
-                    <Radio.Button className="view only" value="ViewOnly">
-                      <EyeOutlined className="role-icons" />
-                      View Only
-                    </Radio.Button>
+                    <div className="admin-radio-container">
+                      <Radio.Button className="admin" value="Admin">
+                        <StarOutlined className="role-icons" />
+                        Admin
+                      </Radio.Button>
+                    </div>
+                    <div className="manager-radio-container">
+                      <Radio.Button className="manager" value="Manager">
+                        <ToolOutlined className="role-icons" />
+                        Manager
+                      </Radio.Button>
+                    </div>
+                    <div className="view-only-radio-container">
+                      <Radio.Button className="view-only" value="ViewOnly">
+                        <EyeOutlined className="role-icons" />
+                        View Only
+                      </Radio.Button>
+                    </div>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item
@@ -189,7 +195,7 @@ const AddUser = () => {
             <Form.Item>
               <div className="create-user-btn-container">
                 <Button type="primary" htmlType="submit" loading={loading}>
-                  Create User
+                  SUBMIT
                 </Button>
               </div>
             </Form.Item>

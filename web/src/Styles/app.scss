@@ -74,6 +74,11 @@ body {
 }
 
 .PhoneInput {
+  .PhoneInputCountry {
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 5px !important;
+    padding: 0 1rem 0 1rem;
+  }
   .PhoneInputInput {
     flex: 1 1;
     min-width: 0;
@@ -90,7 +95,7 @@ body {
     min-width: 0;
     border-radius: 5px !important;
     height: 40px;
-    border: 1px solid #d9d9d9 !important;
+    border-right: 1px solid #40a9ff !important;
     outline: 1px solid #40a9ff;
   }
 }

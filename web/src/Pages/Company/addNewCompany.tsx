@@ -196,18 +196,24 @@ const AddNewCompany = () => {
                 <div className="details-part-two">
                   <Form.Item className="role-group" label="Role" name="companyRole">
                     <Radio.Group size="large">
-                      <Radio.Button className="certifier" value="Certifier">
-                        <SafetyOutlined className="role-icons" />
-                        Certifier
-                      </Radio.Button>
-                      <Radio.Button className="dev" value="ProgrammeDeveloper">
-                        <ExperimentOutlined className="role-icons" />
-                        Programme Developer
-                      </Radio.Button>
-                      <Radio.Button className="observer" value="Observer">
-                        <EyeOutlined className="role-icons" />
-                        Observer
-                      </Radio.Button>
+                      <div className="certifier-radio-container">
+                        <Radio.Button className="certifier" value="Certifier">
+                          <SafetyOutlined className="role-icons" />
+                          Certifier
+                        </Radio.Button>
+                      </div>
+                      <div className="dev-radio-container">
+                        <Radio.Button className="dev" value="ProgrammeDeveloper">
+                          <ExperimentOutlined className="role-icons" />
+                          Programme Developer
+                        </Radio.Button>
+                      </div>
+                      <div className="observer-radio-container">
+                        <Radio.Button className="observer" value="Observer">
+                          <EyeOutlined className="role-icons" />
+                          Observer
+                        </Radio.Button>
+                      </div>
                     </Radio.Group>
                   </Form.Item>
                   <Form.Item
@@ -351,12 +357,12 @@ const AddNewCompany = () => {
           <div className="steps-actions">
             {current === 1 && (
               <Button className="mg-left-1" type="primary" htmlType="submit" loading={loading}>
-                Done
+                SUBMIT
               </Button>
             )}
             {current === 1 && (
-              <Button type="primary" onClick={() => prevOne()} loading={loading}>
-                Previous
+              <Button onClick={() => prevOne()} loading={loading}>
+                BACK
               </Button>
             )}
           </div>
@@ -379,11 +385,21 @@ const AddNewCompany = () => {
             current={current}
             items={[
               {
-                title: <div className="step-title">Company Details</div>,
+                title: (
+                  <div className="step-title-container">
+                    <div className="step-count">01</div>
+                    <div className="title">Company Details</div>
+                  </div>
+                ),
                 description: current === 0 && <CompanyDetailsForm />,
               },
               {
-                title: <div className="step-title">Comapny Admin Details</div>,
+                title: (
+                  <div className="step-title-container">
+                    <div className="step-count">02</div>
+                    <div className="title">Company Admin Details</div>
+                  </div>
+                ),
                 description: current === 1 && <CompanyAdminDetailsForm />,
               },
             ]}
