@@ -74,7 +74,7 @@ const AddUser = () => {
     <div className="add-user-main-container">
       <div className="title-container">
         <div className="main">Add New User</div>
-        <div className="sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</div>
+        <div className="sub">Add new users to the Carbon Registry for your organisation</div>
       </div>
       <div className="content-card user-content-card">
         <Form
@@ -103,7 +103,7 @@ const AddUser = () => {
                           value === null ||
                           value === undefined
                         ) {
-                          throw new Error('Please input the company name!');
+                          throw new Error('Please input the user name!');
                         }
                       },
                     },
@@ -147,7 +147,17 @@ const AddUser = () => {
             </Col>
             <Col xl={12} md={24}>
               <div className="details-part-two">
-                <Form.Item className="role-group" label="Role" name="role">
+                <Form.Item
+                  className="role-group"
+                  label="Role"
+                  name="role"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please select the user role!',
+                    },
+                  ]}
+                >
                   <Radio.Group size="large">
                     <div className="admin-radio-container">
                       <Radio.Button className="admin" value="Admin">
