@@ -1,0 +1,13 @@
+{
+    "title": "Programme Name",
+    "serialNo": "Credit Issuance Serial Number",
+    "sector": "Sector",
+    "status": "Status",
+    "issued": "Credits Issued",
+    "balance": "Credits Balance",
+    "transferred": "Credits Transferred",
+    "viewProgrammes": "View Programmes",
+    "desc": "View all the visible programmes in the system based on your permissions",
+    "noProgrammes": "No Programmes",
+    "serialNoh": "Serial Number"
+}

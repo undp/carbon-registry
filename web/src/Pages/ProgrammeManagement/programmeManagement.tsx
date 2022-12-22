@@ -8,6 +8,7 @@ import { useConnection } from '../../Context/ConnectionContext/connectionContext
 import { CertBGColor, DevBGColor, GovBGColor, TooltipColor } from '../Common/role.color.constants';
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
+import { useTranslation } from 'react-i18next';
 
 const ProgrammeManagement = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const ProgrammeManagement = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
   const [filter, setFilter] = useState<any>([]);
+  const { i18n, t } = useTranslation(['common', 'programme']);
 
   const statusOptions = [
     { label: 'Pending', value: 'AwaitingAuthorization' },
@@ -61,7 +63,7 @@ const ProgrammeManagement = () => {
 
   const columns = [
     {
-      title: 'PROGRAMME NAME',
+      title: t('programme:title'),
       dataIndex: 'title',
       key: 'title',
       align: 'left' as const,
@@ -77,7 +79,7 @@ const ProgrammeManagement = () => {
       },
     },
     {
-      title: 'COMPANY',
+      title: t('common:company'),
       dataIndex: 'companyId',
       key: 'companyId',
       align: 'left' as const,
@@ -99,13 +101,13 @@ const ProgrammeManagement = () => {
       },
     },
     {
-      title: 'SECTOR',
+      title: t('programme:sector'),
       dataIndex: 'sector',
       key: 'sector',
       align: 'left' as const,
     },
     {
-      title: 'STATUS',
+      title: t('programme:status'),
       dataIndex: 'currentStage',
       key: 'currentStage',
       align: 'center' as const,
@@ -138,7 +140,7 @@ const ProgrammeManagement = () => {
       },
     },
     {
-      title: 'CREDITS ISSUED',
+      title: t('programme:issued'),
       dataIndex: 'creditIssued',
       key: 'creditIssued',
       align: 'right' as const,
@@ -151,7 +153,7 @@ const ProgrammeManagement = () => {
       },
     },
     {
-      title: 'CREDITS BALANCE',
+      title: t('programme:balance'),
       dataIndex: 'creditBalance',
       key: 'creditBalance',
       align: 'right' as const,
@@ -164,7 +166,7 @@ const ProgrammeManagement = () => {
       },
     },
     {
-      title: 'CREDITS TRANSFERRED',
+      title: t('programme:transferred'),
       dataIndex: 'creditTransferred',
       key: 'creditTransferred',
       align: 'right' as const,
@@ -177,7 +179,7 @@ const ProgrammeManagement = () => {
       },
     },
     {
-      title: 'SERIAL NUMBER',
+      title: t('programme:serialNoh'),
       dataIndex: 'serialNo',
       key: 'serialNo',
       align: 'left' as const,
@@ -220,10 +222,8 @@ const ProgrammeManagement = () => {
   return (
     <div className="content-container programme-management">
       <div className="title-bar">
-        <div className="body-title">View Programmes</div>
-        <div className="body-sub-title">
-          View all the visible programmes in the system based on your permissions
-        </div>
+        <div className="body-title">{t('programme:viewProgrammes')}</div>
+        <div className="body-sub-title">{t('programme:desc')}</div>
       </div>
       <div className="content-card">
         <Row>
@@ -257,7 +257,7 @@ const ProgrammeManagement = () => {
                   emptyText: (
                     <Empty
                       image={Empty.PRESENTED_IMAGE_SIMPLE}
-                      description={tableData.length === 0 ? 'No programmes' : null}
+                      description={tableData.length === 0 ? t('programme:noProgrammes') : null}
                     />
                   ),
                 }}
