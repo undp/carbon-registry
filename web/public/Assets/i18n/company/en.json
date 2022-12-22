@@ -1,0 +1,9 @@
+{
+    "developer": "Developer",
+    "name": "ORGANIZATION NAME",
+    "taxId": "TAX ID",
+    "companyRole": "ORGANIZATION ROLE",
+    "viewCompanies": "View Organizations",
+    "viewDesc": "View all the visible organizations in the system based on your permissions",
+    "addCompany": "Add organization"
+}

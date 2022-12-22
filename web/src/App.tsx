@@ -16,6 +16,7 @@ import AddNewCompany from './Pages/Company/addNewCompany';
 import CompanyManagement from './Pages/CompanyManagement/companyManagement';
 import ProgrammeManagement from './Pages/ProgrammeManagement/programmeManagement';
 import ProgrammeView from './Pages/ProgrammeView/programmeView';
+import i18next from 'i18next';
 
 const App = () => {
   useEffect(() => {

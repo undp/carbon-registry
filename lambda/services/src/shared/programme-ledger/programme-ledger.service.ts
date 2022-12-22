@@ -1,8 +1,10 @@
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { InjectEntityManager } from "@nestjs/typeorm";
 import { PRECISION } from "carbon-credit-calculator/dist/esm/calculator";
 import { plainToClass } from "class-transformer";
 import { dom } from "ion-js";
 import { generateSerialNumber } from "serial-number-gen";
+import { EntityManager } from "typeorm";
 import { ProgrammeHistoryDto } from "../dto/programme.history.dto";
 import { ProgrammeTransferApprove } from "../dto/programme.transfer.approve";
 import { CreditOverall } from "../entities/credit.overall.entity";
@@ -16,19 +18,20 @@ import { ProgrammeStage } from "./programme-status.enum";
 export class ProgrammeLedgerService {
   constructor(
     private readonly logger: Logger,
+    @InjectEntityManager() private entityManger: EntityManager,
     private ledger: LedgerDbService  ) {}
 
   public async createProgramme(programme: Programme): Promise<Programme> {
     this.logger.debug("Creating programme", JSON.stringify(programme));
-    // if (programme) {
-    //   await this.entityManger.save<Programme>(
-    //     plainToClass(Programme, programme)
-    //   ).then((res: any) => {
-    //     console.log("create programme in repo -- ", res)
-    //   }).catch((e: any) => {
-    //     console.log("create programme in repo -- ", e)
-    //   });
-    // }
+    if (programme) {
+      await this.entityManger.save<Programme>(
+        plainToClass(Programme, programme)
+      ).then((res: any) => {
+        console.log("create programme in repo -- ", res)
+      }).catch((e: any) => {
+        console.log("create programme in repo -- ", e)
+      });
+    }
     await this.ledger.insertRecord(programme);
     return programme;
   }

@@ -51,6 +51,7 @@ import {
   ViewColor,
 } from '../Common/role.color.constants';
 import ProfileIcon from '../../Components/ProfileIcon/profile.icon';
+import { useTranslation } from 'react-i18next';
 
 const CompanyManagement = () => {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const CompanyManagement = () => {
   const [tableData, setTableData] = useState<TableDataType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
+  const { i18n, t } = useTranslation(['company']);
 
   const getCompanyBgColor = (item: string) => {
     if (item === 'Government') {
@@ -80,7 +82,7 @@ const CompanyManagement = () => {
         ) : (
           <RoleIcon icon={<ExperimentOutlined />} bg={DevBGColor} color={DevColor} />
         )}
-        {item === 'ProgrammeDeveloper' ? <div>{'Developer'}</div> : <div>{item}</div>}
+        {item === 'ProgrammeDeveloper' ? <div>{t('company:developer')}</div> : <div>{item}</div>}
       </div>
     );
   };
@@ -112,7 +114,7 @@ const CompanyManagement = () => {
 
   const columns = [
     {
-      title: 'COMPANY NAME',
+      title: t('company:name'),
       dataIndex: 'name',
       key: 'name',
       align: 'left' as const,
@@ -130,13 +132,13 @@ const CompanyManagement = () => {
       },
     },
     {
-      title: 'TAX ID',
+      title: t('company:taxId'),
       dataIndex: 'taxId',
       key: 'taxId',
       align: 'left' as const,
     },
     {
-      title: 'COMPANY TYPE',
+      title: t('company:companyRole'),
       dataIndex: 'companyRole',
       key: 'companyRole',
       align: 'left' as const,
@@ -196,10 +198,8 @@ const CompanyManagement = () => {
   return (
     <div className="content-container">
       <div className="title-bar">
-        <div className="body-title">View Companies</div>
-        <div className="body-sub-title">
-          View all the visible companies in the system based on your permissions
-        </div>
+        <div className="body-title">{t('company:viewCompanies')}</div>
+        <div className="body-sub-title">{t('company:viewDesc')}</div>
       </div>
       <div className="content-card">
         <Row>
@@ -211,7 +211,7 @@ const CompanyManagement = () => {
               icon={<PlusOutlined />}
               onClick={() => navigate('/userManagement/addUser')}
             >
-              Add Company
+              {t('company:addCompany')}
             </Button>
           </div>
         </Row>
