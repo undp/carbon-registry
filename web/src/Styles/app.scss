@@ -58,22 +58,26 @@ body {
   border-radius: 5px !important;
 }
 
-.PhoneInputInput {
-  flex: 1 1;
-  min-width: 0;
-  border-radius: 5px !important;
-  height: 40px;
-  border: 1px solid #d9d9d9 !important;
+.PhoneInput {
+  .PhoneInputInput {
+    flex: 1 1;
+    min-width: 0;
+    border-radius: 5px !important;
+    height: 40px;
+    border: 1px solid #d9d9d9 !important;
+    outline: none;
+  }
 }
-.PhoneInput:focus-visible,
-.PhoneInput:focus-within,
-.PhoneInput:focus,
-.PhoneInput--focus {
-  flex: 1 1;
-  min-width: 0;
-  border-radius: 5px !important;
-  height: 40px;
-  border: 1px solid #d9d9d9 !important;
+
+.PhoneInput {
+  .PhoneInputInput:focus-visible {
+    flex: 1 1;
+    min-width: 0;
+    border-radius: 5px !important;
+    height: 40px;
+    border: 1px solid #d9d9d9 !important;
+    outline: 1px solid #40a9ff;
+  }
 }
 
 .layout-content-container {

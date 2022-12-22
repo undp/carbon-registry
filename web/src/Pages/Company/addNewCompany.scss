@@ -1,4 +1,5 @@
 @import '../Common/colors.addCompany.scss';
+@import '../Common/colors.role.scss';
 
 .company-details-form-container {
   width: 100%;
@@ -16,6 +17,24 @@
       }
       .details-part-two {
         .role-group {
+          .certifier {
+            .ant-radio-button-checked {
+              background: $cert-bg-color;
+              color: $cert-color;
+            }
+          }
+          .dev {
+            .ant-radio-button-checked {
+              background: $dev-bg-color;
+              color: $dev-color;
+            }
+          }
+          .observer {
+            .ant-radio-button-checked {
+              background: $view-bg-color;
+              color: $view-color;
+            }
+          }
           .dev {
             width: 40% !important;
           }
