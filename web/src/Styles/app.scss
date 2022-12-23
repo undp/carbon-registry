@@ -112,7 +112,8 @@ body {
 }
 
 .PhoneInput {
-  .PhoneInputInput:focus-visible {
+  .PhoneInputInput:focus-visible,
+  .PhoneInputInput:hover {
     flex: 1 1;
     min-width: 0;
     border-radius: 5px !important;
