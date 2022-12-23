@@ -1,9 +1,9 @@
 {
     "developer": "Developer",
-    "name": "ORGANIZATION NAME",
+    "name": "ORGANISATION NAME",
     "taxId": "TAX ID",
-    "companyRole": "ORGANIZATION ROLE",
-    "viewCompanies": "View Organizations",
-    "viewDesc": "View all the visible organizations in the system based on your permissions",
-    "addCompany": "Add organization"
+    "companyRole": "ORGANISATION ROLE",
+    "viewCompanies": "View Organisations",
+    "viewDesc": "View all the visible organisations in the system based on your permissions",
+    "addCompany": "Add organisation"
 }

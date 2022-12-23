@@ -17,5 +17,9 @@
     "financingType": "Financing Type",
     "grantEquivalent": "Grant Equivalent Amount",
     "carbonPrice": "Carbon Price (USD per ton)",
-    "financial": "Financial"
+    "financial": "Financial",
+    "calculation": "Mitigation Type Calculation",
+    "energyGeneration": "Energy Generation",
+    "consumerGroup": "Building Type",
+    "constantVersion": "Standard Version"
 }

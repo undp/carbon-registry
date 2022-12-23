@@ -8,6 +8,12 @@ export enum ProgrammeStage {
   Transferred = 'Transferred',
 }
 
+export enum SectoralScope {
+  'Energy Industry' = '1',
+  'Energy Distribution' = '2',
+  'Agriculture' = '15',
+}
+
 export const getStageEnumVal = (value: string) => {
   const index = Object.keys(ProgrammeStage).indexOf(value);
   if (index < 0) {
@@ -78,7 +84,10 @@ export const getGeneralFields = (programme: Programme) => {
     currentStatus: programme.currentStage,
     applicationType: 'Programme Developer',
     sector: programme.sector,
-    sectoralScope: programme.sectoralScope,
+    sectoralScope:
+      Object.keys(SectoralScope)[
+        Object.values(SectoralScope).indexOf(programme.sectoralScope as SectoralScope)
+      ],
     startDate: DateTime.fromSeconds(Number(programme.startTime)),
     endDate: DateTime.fromSeconds(Number(programme.endTime)),
     buyerCountry: programme.programmeProperties.buyerCountryEligibility,
