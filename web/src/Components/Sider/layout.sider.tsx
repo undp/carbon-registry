@@ -61,7 +61,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
                 {collapsed ? (
                   <DashboardOutlined style={{ fontSize: '2rem' }} />
                 ) : (
-                  t('nav:dashboard')
+                  t('nav:Dashboard')
                 )}
               </Link>
             </Menu.Item>
@@ -73,14 +73,14 @@ const LayoutSider = (props: LayoutSiderProps) => {
                 {collapsed ? (
                   <AppstoreOutlined style={{ fontSize: '2rem' }} />
                 ) : (
-                  t('nav:programmes')
+                  t('nav:Programmes')
                 )}
               </Link>
             </Menu.Item>
             <SubMenu
               key="companies"
               icon={!collapsed ? <ShopOutlined style={{ fontSize: '1.2rem' }} /> : ''}
-              title={t('nav:organisations')}
+              title={t('nav:Organisations')}
             >
               <Menu.Item key="view-company">
                 <Link to="/companyManagement/viewAll">
@@ -104,7 +104,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
             <SubMenu
               key="users"
               icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
-              title={t('nav:users')}
+              title={t('nav:Users')}
             >
               <Menu.Item key="view-user">
                 <Link to="/userManagement/viewAll">
