@@ -80,7 +80,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
             <SubMenu
               key="companies"
               icon={!collapsed ? <ShopOutlined style={{ fontSize: '1.2rem' }} /> : ''}
-              title={t('nav:companies')}
+              title={t('nav:organisations')}
             >
               <Menu.Item key="view-company">
                 <Link to="/companyManagement/viewAll">
