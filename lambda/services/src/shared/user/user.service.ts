@@ -249,15 +249,6 @@ export class UserService {
 
     async query(query: QueryDto, abilityCondition: string): Promise<any> {
 
-        const sql = (await this.userRepo.createQueryBuilder('user')
-        .where(this.helperService.generateWhereSQL(query, abilityCondition, '"user"'))
-        // .leftJoinAndSelect("user.companyId", "company")
-        .skip((query.size * query.page) - query.size)
-        .take(query.size)
-        .leftJoinAndMapOne('user.company', Company, 'company', 'company.companyId = user.companyId')
-        .getSql())
-
-        console.log(sql)
         const resp = (await this.userRepo.createQueryBuilder('user')
             .where(this.helperService.generateWhereSQL(query, abilityCondition, '"user"'))
             // .leftJoinAndSelect("user.companyId", "company")

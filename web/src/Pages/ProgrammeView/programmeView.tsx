@@ -173,7 +173,11 @@ const ProgrammeView = () => {
             </Card>
             <Card className="card-container">
               <div>
-                <InfoView data={generalInfo} title={t('view:calculation')} icon={<BulbOutlined />} />
+                <InfoView
+                  data={generalInfo}
+                  title={t('view:calculation')}
+                  icon={<BulbOutlined />}
+                />
               </div>
             </Card>
           </Col>
