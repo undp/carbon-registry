@@ -7,7 +7,7 @@ import { isBase64 } from '../../Components/ProfileIcon/profile.icon';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import InfoView from '../../Components/InfoView/info.view';
-import { BuildOutlined, BulbOutlined } from '@ant-design/icons';
+import { BuildOutlined, BulbOutlined, ExperimentOutlined } from '@ant-design/icons';
 import {
   getFinancialFields,
   getGeneralFields,
@@ -17,6 +17,8 @@ import {
   ProgrammeStage,
 } from '../../Definitions/InterfacesAndType/programme.definitions';
 import i18next from 'i18next';
+import RoleIcon from '../../Components/RoleIcon/role.icon';
+import { DevBGColor, DevColor } from '../Common/role.color.constants';
 
 const ProgrammeView = () => {
   const { put } = useConnection();
@@ -75,9 +77,16 @@ const ProgrammeView = () => {
     const text = t('view:' + k);
     if (k === 'currentStatus') {
       generalInfo[text] = (
-        <Tag className="clickable" color={getStageTagType(v as ProgrammeStage)}>
-          {getStageEnumVal(v as string)}
-        </Tag>
+        <Tag color={getStageTagType(v as ProgrammeStage)}>{getStageEnumVal(v as string)}</Tag>
+      );
+    } else if (k === 'sector') {
+      generalInfo[text] = <Tag color="processing">{v as string}</Tag>;
+    } else if (k === 'applicationType') {
+      generalInfo[text] = (
+        <span>
+          <RoleIcon icon={<ExperimentOutlined />} bg={DevBGColor} color={DevColor} />
+          <span>{v as string}</span>
+        </span>
       );
     } else {
       generalInfo[text] = v;
@@ -98,7 +107,7 @@ const ProgrammeView = () => {
       </div>
       <div className="content-body">
         <Row gutter={16}>
-          <Col md={24} lg={9}>
+          <Col md={24} lg={10}>
             <Card className="card-container centered-card">{elements}</Card>
             <Card className="card-container">
               <Chart
@@ -156,10 +165,15 @@ const ProgrammeView = () => {
               </div>
             </Card>
           </Col>
-          <Col md={24} lg={15}>
+          <Col md={24} lg={14}>
             <Card className="card-container">
               <div>
                 <InfoView data={generalInfo} title={t('view:general')} icon={<BulbOutlined />} />
+              </div>
+            </Card>
+            <Card className="card-container">
+              <div>
+                <InfoView data={generalInfo} title={t('view:calculation')} icon={<BulbOutlined />} />
               </div>
             </Card>
           </Col>
