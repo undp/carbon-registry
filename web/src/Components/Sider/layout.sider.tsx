@@ -61,7 +61,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
                 {collapsed ? (
                   <DashboardOutlined style={{ fontSize: '2rem' }} />
                 ) : (
-                  t('nav:Dashboard')
+                  t('nav:dashboard')
                 )}
               </Link>
             </Menu.Item>
@@ -73,7 +73,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
                 {collapsed ? (
                   <AppstoreOutlined style={{ fontSize: '2rem' }} />
                 ) : (
-                  t('nav:Programmes')
+                  t('nav:programmes')
                 )}
               </Link>
             </Menu.Item>
@@ -104,7 +104,7 @@ const LayoutSider = (props: LayoutSiderProps) => {
             <SubMenu
               key="users"
               icon={!collapsed ? <UserOutlined style={{ fontSize: '1.2rem' }} /> : ''}
-              title={t('nav:Users')}
+              title={t('nav:users')}
             >
               <Menu.Item key="view-user">
                 <Link to="/userManagement/viewAll">

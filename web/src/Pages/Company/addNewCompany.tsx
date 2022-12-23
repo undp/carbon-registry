@@ -69,7 +69,7 @@ const AddNewCompany = () => {
       });
     } finally {
       setLoading(false);
-      navigate('/userManagement/viewAll', { replace: true });
+      navigate('/companyManagement/viewAll', { replace: true });
     }
   };
 
