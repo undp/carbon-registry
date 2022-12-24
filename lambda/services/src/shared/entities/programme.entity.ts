@@ -5,6 +5,7 @@ import { AgricultureProperties } from '../dto/agriculture.properties';
 import { ProgrammeProperties } from '../dto/programme.properties';
 import { SolarProperties } from '../dto/solar.properties';
 import { Sector } from '../enum/sector.enum';
+import { TypeOfMitigation } from '../enum/typeofmitigation.enum';
 import { ProgrammeStage } from '../programme-ledger/programme-status.enum';
 import { EntitySubject } from './entity.subject';
 
@@ -41,11 +42,21 @@ export class Programme implements EntitySubject {
     })
     currentStage: ProgrammeStage;
 
+    @Column({
+        type: "enum",
+        enum: TypeOfMitigation,
+        array: false
+    })
+    typeOfMitigation: TypeOfMitigation;
+
     @Column({type: 'bigint'})
     startTime: number;
 
     @Column({type: 'bigint'})
     endTime: number;
+
+    @Column({type: "decimal", precision: 10, scale: PRECISION, nullable: true})
+    creditEst: number;
 
     @Column({type: "decimal", precision: 10, scale: PRECISION})
     creditChange: number;

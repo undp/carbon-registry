@@ -251,13 +251,15 @@ export class ProgrammeLedgerService {
   public async updateProgrammeStatus(
     programmeId: string,
     status: ProgrammeStage,
-    currentExpectedStatus: ProgrammeStage
+    currentExpectedStatus: ProgrammeStage,
+    user: string
   ): Promise<boolean> {
     this.logger.log(`Updating programme ${programmeId} status ${status}`);
     const affected = await this.ledger.updateRecords(
       {
         currentStage: status.valueOf(),
-        txTime: new Date().getTime()
+        txTime: new Date().getTime(),
+        txRef: user
       },
       {
         programmeId: programmeId,
@@ -276,7 +278,8 @@ export class ProgrammeLedgerService {
   public async authProgrammeStatus(
     programmeId: string,
     countryCodeA2: string,
-    companyIds: number[]
+    companyIds: number[],
+    user: string
   ): Promise<boolean> {
     this.logger.log(`Authorizing programme ${programmeId}`);
 
@@ -360,6 +363,10 @@ export class ProgrammeLedgerService {
         programme.txTime = new Date().getTime();
         programme.currentStage = ProgrammeStage.ISSUED;
         programme.creditTransferred = 0
+        programme.creditIssued = programme.creditEst;
+        programme.creditBalance = programme.creditIssued;
+        programme.creditChange = programme.creditIssued;
+        programme.txRef = 
         updatedProgramme = programme;
 
         let companyCreditDistribution = {}
@@ -382,7 +389,10 @@ export class ProgrammeLedgerService {
         updateMap[this.ledger.tableName] = {
           currentStage: ProgrammeStage.ISSUED.valueOf(),
           serialNo: serialNo,
-          creditTransferred: 0
+          creditTransferred: 0,
+          creditIssued: programme.creditIssued,
+          creditBalance: programme.creditBalance,
+          creditChange: programme.creditChange,
         };
         updateWhereMap[this.ledger.tableName] = {
           programmeId: programmeId,
