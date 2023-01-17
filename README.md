@@ -1,6 +1,6 @@
 
 # Carbon Registry
-Carbon credit initiative for ExO and HQ/GEF from Vanuatu Carbon Registry.
+Carbon credit initiative for ExO Digtal and HQ/GEF NCE.
 
 ## Standard
 This codebase aims to fullfill the digital public goods standard:
