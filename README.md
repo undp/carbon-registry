@@ -147,7 +147,7 @@ For integration, reference RESTful Web API Documentation documentation via Swagg
 <a name="status"></a>
 ### Status Page
 For transparent uptime monitoring 
-https://github.com/undp/carbon-registry-status
+https://status.carbreg.org
 
 <a name="support"></a>
 ### Governance and Support
