@@ -33,7 +33,7 @@ The following work steps are suggested for the national implementation of the DP
 - Testing: Security, Privacy, Accessibility, Performance, Load. *(Deliverable: 3rd party and/or automated tests.)*
 - Ticketing system: For submitting, tracking, & responding to platform requests & bugs.
 - Warranty: Supporting long term web hosting and operation (DevOps) of the registry
-- Training: manual. video/screen recording walkthrough. guidebook. workshops. 
+- Training: interactive tutorial. manual. video/screen recording walkthrough. guidebook. workshops. help page. chatbot.
 - Awareness: advertising. community outreach.
 
 ## 2. Scope of Work
