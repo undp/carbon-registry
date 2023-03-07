@@ -7,7 +7,7 @@ import {
 } from '../../Definitions/InterfacesAndType/mapComponent.definitions';
 import './MapboxComponent.scss';
 
-mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN ? process.env.MAPBOXGL_ACCESS_TOKEN : '';
+mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN ? process.env.MAPBOXGL_ACCESS_TOKEN : 'pk.eyJ1IjoicGFsaW5kYSIsImEiOiJjbGMyNTdqcWEwZHBoM3FxdHhlYTN4ZmF6In0.KBvFaMTjzzvoRCr1Z1dN_g';
 
 const MapboxComponent = (props: MapComponentProps) => {
   const mapContainerRef = useRef(null);
