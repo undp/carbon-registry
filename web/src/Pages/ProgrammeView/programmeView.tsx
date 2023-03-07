@@ -183,8 +183,7 @@ const ProgrammeView = () => {
 
         setMarkers(markerList);
       } else {
-        let accessToken =
-          'pk.eyJ1IjoicGFsaW5kYSIsImEiOiJjbGMyNTdqcWEwZHBoM3FxdHhlYTN4ZmF6In0.KBvFaMTjzzvoRCr1Z1dN_g';
+        let accessToken = '';
         if (mapType === MapTypes.Mapbox && process.env.MAPBOXGL_ACCESS_TOKEN) {
           accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         }
