@@ -9,8 +9,7 @@ import Geocoding from '@mapbox/mapbox-sdk/services/geocoding';
 
 const { RangePicker } = DatePicker;
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoicGFsaW5kYSIsImEiOiJjbGMyNTdqcWEwZHBoM3FxdHhlYTN4ZmF6In0.KBvFaMTjzzvoRCr1Z1dN_g';
+mapboxgl.accessToken = '';
 
 export interface TransferLocationsMapProps {
   programmeLocations: any;
