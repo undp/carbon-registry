@@ -1,3 +1,9 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/undp/carbon-registry)<br>
+![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fupptime%2Fupptime%2Fmaster%2Fapi%2Fgoogle%2Fuptime.json)<br>
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/undp/carbon-registry/server-deployments.yml?branch=main&label=server%20build)<br>
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/undp/carbon-registry/frontend-deployment.yml?branch=main&label=frontend%20build)<br>
+[Digital Public Goods Paris Agreement](https://www.sparkblue.org/group/keeping-track-digital-public-goods-paris-agreement)<br>
+
 ## Index
 * [About](#about)
 * [Standards](#standards)
