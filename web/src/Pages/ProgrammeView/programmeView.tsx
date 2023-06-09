@@ -58,7 +58,6 @@ import {
   TypeOfMitigation,
   UnitField,
 } from '../../Definitions/InterfacesAndType/programme.definitions';
-import i18next from 'i18next';
 import RoleIcon from '../../Components/RoleIcon/role.icon';
 import {
   CertBGColor,
@@ -76,7 +75,7 @@ import { DateTime } from 'luxon';
 import Geocoding from '@mapbox/mapbox-sdk/services/geocoding';
 import TextArea from 'antd/lib/input/TextArea';
 import { useUserContext } from '../../Context/UserInformationContext/userInformationContext';
-import { HandThumbsUp, ShieldCheck } from 'react-bootstrap-icons';
+import { ShieldCheck } from 'react-bootstrap-icons';
 import { creditUnit, dateFormat, dateTimeFormat } from '../Common/configs';
 import ProgrammeIssueForm from '../../Components/Models/ProgrammeIssueForm';
 import ProgrammeTransferForm from '../../Components/Models/ProgrammeTransferForm';
@@ -85,7 +84,7 @@ import ProgrammeRevokeForm from '../../Components/Models/ProgrammeRevokeForm';
 import OrganisationStatus from '../../Components/Organisation/OrganisationStatus';
 import Loading from '../../Components/Loading/Loading';
 import { CompanyState } from '../../Definitions/InterfacesAndType/companyManagement.definitions';
-import { ProgrammeTransfer } from '../../Casl/entities/ProgrammeTransfer';
+import { ProgrammeTransfer } from '@undp/carbon-library';
 import TimelineBody from '../../Components/TimelineBody/TimelineBody';
 import MapComponent from '../../Components/Maps/MapComponent';
 import { MapTypes, MarkerData } from '../../Definitions/InterfacesAndType/mapComponent.definitions';

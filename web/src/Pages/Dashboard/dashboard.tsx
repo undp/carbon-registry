@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, DatePicker, Radio, Row, Skeleton, Tooltip, message } from 'antd';
 import StasticCard from '../../Components/StasticCard/StasticCard';
 import './dashboard.scss';
@@ -54,7 +54,7 @@ const { RangePicker } = DatePicker;
 const Dashboard = () => {
   const { get, post, delete: del } = useConnection();
   const { userInfoState } = useUserContext();
-  const { i18n, t } = useTranslation(['dashboard']);
+  const { t } = useTranslation(['dashboard']);
   const [loadingWithoutTimeRange, setLoadingWithoutTimeRange] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingCharts, setLoadingCharts] = useState<boolean>(false);
@@ -1551,26 +1551,28 @@ ${total}
       const matchExpression: any = ['match', ['get', 'iso_3166_1']];
       const txLocationMap: any = {};
 
-      const transferLocations: any = [...programmeTransferLocations];
+      if (programmeTransferLocations) {
+        const transferLocations: any = [...programmeTransferLocations];
 
-      // Calculate color values for each country based on 'hdi' value
-      for (const row of transferLocations) {
-        // Convert the range of data values to a suitable color
-        // const blue = row.ratio * 255;
+        // Calculate color values for each country based on 'hdi' value
+        for (const row of transferLocations) {
+          // Convert the range of data values to a suitable color
+          // const blue = row.ratio * 255;
 
-        const color =
-          row.count < 2
-            ? `#4da6ff`
-            : row.count < 10
-            ? '#0080ff'
-            : row.count < 50
-            ? '#0059b3'
-            : row.count < 100
-            ? '#003366'
-            : '#000d1a';
+          const color =
+            row.count < 2
+              ? `#4da6ff`
+              : row.count < 10
+              ? '#0080ff'
+              : row.count < 50
+              ? '#0059b3'
+              : row.count < 100
+              ? '#003366'
+              : '#000d1a';
 
-        matchExpression.push(row.country, color);
-        txLocationMap[row.country] = row.count;
+          matchExpression.push(row.country, color);
+          txLocationMap[row.country] = row.count;
+        }
       }
 
       setTxLocationMapData(txLocationMap);
