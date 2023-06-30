@@ -25,6 +25,8 @@ According to the UNFCCC - CDM (Clean Development Mechanism) methodologies, ident
 ## Calculation - Sector Agriculture 
 
 ### Sub Sector: Rice
+
+Approved Methodology: Rice crops
 ```
 Number of Credits = #hectares * #days * #tCO2e/ha/day 
 ```
