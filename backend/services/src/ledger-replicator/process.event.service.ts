@@ -60,6 +60,28 @@ export class ProcessEventService {
               programme.certifiedTime = programme.txTime;
             } else if (programme.txType === TxType.AUTH) {
               programme.authTime = programme.txTime;
+            } else if (programme.txType === TxType.OWNERSHIP_UPDATE) {
+              const updatedOwnerId =
+                programme.companyId[programme.companyId.length - 1];
+              const company = await this.companyRepo.findOneBy({
+                companyId: updatedOwnerId,
+              });
+              const response = await this.companyRepo
+                .update(
+                  {
+                    companyId: updatedOwnerId,
+                  },
+                  {
+                    programmeCount:
+                      company.companyRole === CompanyRole.GOVERNMENT
+                        ? null
+                        : Number(company.programmeCount) + 1,
+                  }
+                )
+                .catch((err: any) => {
+                  this.logger.error(err);
+                  return err;
+                });
             }
 
             if (
