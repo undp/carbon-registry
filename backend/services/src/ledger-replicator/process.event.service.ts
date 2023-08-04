@@ -7,6 +7,7 @@ import { Programme } from "../shared/entities/programme.entity";
 import { CreditOverall } from "../shared/entities/credit.overall.entity";
 import { LocationInterface } from "../shared/location/location.interface";
 import { CompanyRole } from "src/shared/enum/company.role.enum";
+import { ProgrammeStage } from "src/shared/enum/programme-status.enum";
 
 @Injectable()
 export class ProcessEventService {
@@ -60,7 +61,7 @@ export class ProcessEventService {
               programme.certifiedTime = programme.txTime;
             } else if (programme.txType === TxType.AUTH) {
               programme.authTime = programme.txTime;
-            } else if (programme.txType === TxType.OWNERSHIP_UPDATE) {
+            } else if (programme.txType === TxType.OWNERSHIP_UPDATE && programme.currentStage === ProgrammeStage.AUTHORISED) {
               const updatedOwnerId =
                 programme.companyId[programme.companyId.length - 1];
               const company = await this.companyRepo.findOneBy({
