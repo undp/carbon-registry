@@ -83,6 +83,7 @@ const ProgrammeIssueForm: FC<ProgrammeIssueFormProps> = (props: ProgrammeIssueFo
                 <InputNumber
                   placeholder=""
                   controls={false}
+                  formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   onKeyPress={(event) => {
                     if (!/[0-9\.]/.test(event.key)) {
                       event.preventDefault();
