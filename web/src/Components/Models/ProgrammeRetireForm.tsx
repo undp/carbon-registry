@@ -316,7 +316,6 @@ const ProgrammeRetireForm: FC<ProgrammeRetireFormProps> = (props: ProgrammeRetir
                             event.preventDefault();
                           }
                         }}
-                        formatter={(val) => `${val}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                       />
                     </Form.Item>
                   </Col>
