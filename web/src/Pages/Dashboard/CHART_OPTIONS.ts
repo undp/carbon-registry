@@ -301,6 +301,7 @@ export const totalProgrammesOptionsSub: any = {
     },
   },
 };
+
 export const totalCreditsOptions: any = {
   states: {
     normal: {
@@ -672,6 +673,14 @@ export const optionDonutPieA: any = {
       },
     },
   ],
+  tooltip: {
+    enabled: true,
+    y: {
+      formatter: function (value: any) {
+        return addCommSepRound(value);
+      },
+    },
+  },
 };
 
 export const optionDonutPieB: any = {
@@ -779,4 +788,12 @@ export const optionDonutPieB: any = {
       },
     },
   ],
+  tooltip: {
+    enabled: true,
+    y: {
+      formatter: function (value: any) {
+        return addCommSepRound(value);
+      },
+    },
+  },
 };
