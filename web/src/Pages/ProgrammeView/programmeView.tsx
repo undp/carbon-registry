@@ -42,6 +42,7 @@ import {
 } from '@ant-design/icons';
 import {
   addCommSep,
+  addCommSepRound,
   addSpaces,
   CompanyRole,
   CreditTransferStage,
@@ -1424,6 +1425,12 @@ const ProgrammeView = () => {
                         colors: ['#6ACDFF', '#D2FDBB', '#CDCDCD', '#FF8183', '#B7A4FE'],
                         tooltip: {
                           fillSeriesColor: false,
+                          enabled: true,
+                          y: {
+                            formatter: function (value: any) {
+                              return addCommSepRound(value);
+                            },
+                          },
                         },
                         states: {
                           normal: {
@@ -1459,7 +1466,7 @@ const ProgrammeView = () => {
                                   showAlways: true,
                                   show: true,
                                   label: 'Total',
-                                  formatter: () => '' + data.creditEst,
+                                  formatter: () => '' + addCommSepRound(data.creditEst),
                                 },
                               },
                             },
