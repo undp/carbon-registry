@@ -262,7 +262,6 @@ const ProgrammeTransferForm: FC<ProgrammeTransferFormProps> = (
                     placeholder=""
                     controls={false}
                     disabled={value === pert.companyId}
-                    formatter={(val) => `${val}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     onKeyPress={(event) => {
                       if (!/[0-9\.]/.test(event.key)) {
                         event.preventDefault();
