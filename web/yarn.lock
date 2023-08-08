@@ -2695,7 +2695,7 @@
   dependencies:
     "@ucast/core" "^1.4.1"
 
-"@undp/carbon-library@^1.0.51":
+"@undp/carbon-library@^1.0.52":
   version "1.0.52"
   resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.52.tgz#f5abcfd5352049baf12f593cd8ad55800a1a57e2"
   integrity sha512-uODBGbTZzuJMVuLG6/vz8QS60m41S9mLbeKm5E8amiLa2iWFTPsAgrqSzEBBxLCdDIld65U+cuFCCSbpUtTuqQ==
