@@ -114,6 +114,7 @@ const ProgrammeView = () => {
   const mapType = process.env.REACT_APP_MAP_TYPE ? process.env.REACT_APP_MAP_TYPE : 'None';
   const [isAllOwnersDeactivated, setIsAllOwnersDeactivated] = useState(true);
   const { isTransferFrozen, setTransferFrozen } = useSettingsContext();
+  const [ministrySectoralScope, setMinistrySectoralScope] = useState<any[]>([]);
 
   const showModal = () => {
     setOpenModal(true);
@@ -1022,7 +1023,46 @@ const ProgrammeView = () => {
     return info;
   };
 
+  const getUserDetails = async () => {
+    setLoadingAll(true);
+    try {
+      const response: any = await post('national/user/query', {
+        page: 1,
+        size: 10,
+        filterAnd: [
+          {
+            key: 'id',
+            operation: '=',
+            value: userInfoState?.id,
+          },
+        ],
+      });
+      if (response && response.data) {
+        if (
+          response?.data[0]?.companyRole === CompanyRole.MINISTRY &&
+          response?.data[0]?.company &&
+          response?.data[0]?.company?.sectoralScope
+        ) {
+          setMinistrySectoralScope(response?.data[0]?.company?.sectoralScope);
+        }
+      }
+      setLoadingAll(false);
+    } catch (error: any) {
+      console.log('Error in getting users', error);
+      message.open({
+        type: 'error',
+        content: error.message,
+        duration: 3,
+        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+      });
+      setLoadingAll(false);
+    }
+  };
+
   useEffect(() => {
+    if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
+      getUserDetails();
+    }
     const queryParams = new URLSearchParams(window.location.search);
     const programmeId = queryParams.get('id');
     if (programmeId) {
@@ -1107,7 +1147,11 @@ const ProgrammeView = () => {
 
   if (userInfoState?.userRole !== 'ViewOnly') {
     if (data.currentStage.toString() === 'AwaitingAuthorization') {
-      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT) {
+      if (
+        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+          ministrySectoralScope.includes(data.sectoralScope))
+      ) {
         actionBtns.push(
           <Button
             danger
@@ -1170,7 +1214,11 @@ const ProgrammeView = () => {
       data.currentStage.toString() === ProgrammeStage.Authorised &&
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
-      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT) {
+      if (
+        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+          ministrySectoralScope.includes(data.sectoralScope))
+      ) {
         if (Number(data.creditEst) > Number(data.creditIssued)) {
           actionBtns.push(
             <Button
@@ -1283,7 +1331,9 @@ const ProgrammeView = () => {
       data.certifier.length > 0 &&
       ((userInfoState?.companyRole === CompanyRole.CERTIFIER &&
         data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)) ||
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT)
+        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+          ministrySectoralScope.includes(data.sectoralScope)))
     ) {
       actionBtns.push(
         <Button
