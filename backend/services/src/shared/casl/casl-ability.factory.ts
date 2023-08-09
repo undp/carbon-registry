@@ -101,6 +101,17 @@ export class CaslAbilityFactory {
         }
       }
 
+      if (user.companyRole == CompanyRole.MINISTRY) {
+         if (user.role != Role.ViewOnly) {
+          can(Action.Manage, ProgrammeTransfer);
+          can(Action.Manage, Programme);
+          can(Action.Manage, ProgrammeTransferRequest);
+        } else {
+          can(Action.Read, ProgrammeTransfer);
+          can(Action.Read, Programme);
+        }
+      }
+
       if (
         user.role != Role.ViewOnly &&
         user.companyRole != CompanyRole.PROGRAMME_DEVELOPER
