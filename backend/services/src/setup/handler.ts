@@ -59,6 +59,8 @@ export const handler: Handler = async (event) => {
           ? CompanyRole.CERTIFIER
           : fields[4] == "API"
           ? CompanyRole.API
+          : fields[4] === "Ministry" 
+          ? CompanyRole.MINISTRY
           :CompanyRole.PROGRAMME_DEVELOPER;
       const ur =
         fields[5] == "admin"
@@ -134,6 +136,8 @@ export const handler: Handler = async (event) => {
               country: configService.get("systemCountry"),
               companyRole: cr,
               createdTime: undefined,
+              nameOfMinister: undefined,
+              sectoralScope: undefined
             });
         console.log('Company created', org)
       } catch (e) {
