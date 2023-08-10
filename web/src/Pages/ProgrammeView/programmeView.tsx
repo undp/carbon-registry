@@ -860,12 +860,16 @@ const ProgrammeView = () => {
         delete calculations.energyGenerationUnit;
       }
     }
-    calculations.constantVersion = mitigation.properties.constantVersion;
+    calculations.constantVersion = mitigation.properties?.constantVersion;
 
     for (const key in mitigation) {
       if (mitigation.hasOwnProperty(key)) {
         if (key !== 'properties' && key !== 'projectMaterial') {
-          calculations[key] = mitigation[key];
+          if (key === 'userEstimatedCredits' || key === 'systemEstimatedCredits') {
+            calculations[key] = addCommSep(mitigation[key]);
+          } else {
+            calculations[key] = mitigation[key];
+          }
         }
       }
     }
