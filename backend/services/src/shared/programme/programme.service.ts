@@ -1985,7 +1985,8 @@ export class ProgrammeService {
       actionProps: {
         externalId: program.externalId,
         issueAmount: req.issueAmount,
-        serialNo: updated.serialNo
+        serialNo: updated.serialNo,
+        authOrganisationName: (user as any).companyName
       },
     };
     await this.asyncOperationsInterface.AddAction(
