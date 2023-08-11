@@ -1473,6 +1473,7 @@ export class ProgrammeService {
     this.logger.log(
       `Programme ${req.programmeId} certification received by ${user.id}`
     );
+    const progDetails = await this.findById(req.programmeId);
 
     if (add && user.companyRole != CompanyRole.CERTIFIER) {
       throw new HttpException(
@@ -1483,10 +1484,24 @@ export class ProgrammeService {
 
     if (
       !add &&
-      ![CompanyRole.CERTIFIER, CompanyRole.GOVERNMENT].includes(
-        user.companyRole
-      )
+      ![
+        CompanyRole.CERTIFIER,
+        CompanyRole.GOVERNMENT,
+        CompanyRole.MINISTRY,
+      ].includes(user.companyRole)
     ) {
+      if (user.companyRole === CompanyRole.MINISTRY && progDetails) {
+        const permission = await this.findPermissionForMinistryUser(
+          user,
+          progDetails.sectoralScope
+        );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
+      } else {
       throw new HttpException(
         this.helperService.formatReqMessagesString(
           "programme.certifierOrGovCanOnlyPerformCertificationRevoke",
@@ -1494,6 +1509,7 @@ export class ProgrammeService {
         ),
         HttpStatus.FORBIDDEN
       );
+    }
     }
 
     let certifierId;
