@@ -1513,7 +1513,10 @@ export class ProgrammeService {
     }
 
     let certifierId;
-    if (user.companyRole === CompanyRole.GOVERNMENT) {
+    if (
+      user.companyRole === CompanyRole.GOVERNMENT ||
+      user.companyRole === CompanyRole.MINISTRY
+    ) {
       if (!req.certifierId) {
         throw new HttpException(
           this.helperService.formatReqMessagesString(

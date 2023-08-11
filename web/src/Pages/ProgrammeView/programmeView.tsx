@@ -897,7 +897,7 @@ const ProgrammeView = () => {
         successCB(response);
         message.open({
           type: 'success',
-          content: typeof successMsg !== 'function' ? successMsg : successMsg(response),
+          content: successMsg,
           duration: 3,
           style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
         });
@@ -1368,7 +1368,10 @@ const ProgrammeView = () => {
                       updateProgrammeData
                     )
                   }
-                  showCertifiers={userInfoState.companyRole === CompanyRole.GOVERNMENT}
+                  showCertifiers={
+                    userInfoState.companyRole === CompanyRole.GOVERNMENT ||
+                    userInfoState.companyRole === CompanyRole.MINISTRY
+                  }
                 />
               ),
             });
@@ -1429,6 +1432,11 @@ const ProgrammeView = () => {
       </Card>
     );
   });
+
+  const creditsActionPermissions =
+    userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+    (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+      ministrySectoralScope.includes(data.sectoralScope));
 
   return loadingAll ? (
     <Loading />
@@ -1562,8 +1570,7 @@ const ProgrammeView = () => {
                               0 &&
                             !isTransferFrozen && (
                               <div>
-                                {((userInfoState?.companyRole === CompanyRole.GOVERNMENT &&
-                                  !isAllOwnersDeactivated) ||
+                                {((creditsActionPermissions && !isAllOwnersDeactivated) ||
                                   (data.companyId
                                     .map((e) => Number(e))
                                     .includes(userInfoState!.companyId) &&
@@ -1661,7 +1668,9 @@ const ProgrammeView = () => {
                                     </Button>
                                   </span>
                                 )}
-                                {!isAllOwnersDeactivated &&
+                                {userInfoState?.companyRole === CompanyRole.MINISTRY &&
+                                  ministrySectoralScope.includes(data.sectoralScope) &&
+                                  !isAllOwnersDeactivated &&
                                   userInfoState!.companyState !==
                                     CompanyState.SUSPENDED.valueOf() &&
                                   !isTransferFrozen && (

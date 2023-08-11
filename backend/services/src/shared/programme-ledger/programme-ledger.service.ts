@@ -475,7 +475,7 @@ export class ProgrammeLedgerService {
             programme.revokedCertifierId.splice(reIndex, 1);
           }
         } else {
-          if (index < 0) {
+          if (!programme.certifierId.includes(certifierId)) {
             throw new HttpException(
               this.helperService.formatReqMessagesString(
                 "programme.notCertifiedByCertifier",
