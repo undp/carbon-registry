@@ -46,7 +46,8 @@ export class CaslAbilityFactory {
         });
       } else if (
         user.role == Role.Admin &&
-        user.companyRole == CompanyRole.GOVERNMENT
+        (user.companyRole == CompanyRole.GOVERNMENT ||
+          user.companyRole == CompanyRole.MINISTRY)
       ) {
         can(Action.Manage, User, { role: { $ne: Role.Root } });
         can([Action.Manage], ConfigurationSettings);
@@ -55,6 +56,11 @@ export class CaslAbilityFactory {
           companyId: { $ne: user.companyId },
         });
         cannot(Action.Update, Company, { companyId: { $ne: user.companyId } });
+        if (user.companyRole === CompanyRole.MINISTRY) {
+          cannot([Action.Update, Action.Delete, Action.Read], User, {
+            companyId: { $ne: user.companyId },
+          });
+        }
       } else if (
         user.role == Role.Admin &&
         user.companyRole != CompanyRole.GOVERNMENT
@@ -67,7 +73,10 @@ export class CaslAbilityFactory {
         });
         cannot([Action.Create], Company);
       } else {
-        if (user.companyRole == CompanyRole.GOVERNMENT) {
+        if (
+          user.companyRole == CompanyRole.GOVERNMENT ||
+          user.companyRole === CompanyRole.MINISTRY
+        ) {
           can(Action.Read, User);
           if (user.role === Role.Manager) {
             can([Action.Delete], Company);
@@ -102,7 +111,7 @@ export class CaslAbilityFactory {
       }
 
       if (user.companyRole == CompanyRole.MINISTRY) {
-         if (user.role != Role.ViewOnly) {
+        if (user.role != Role.ViewOnly) {
           can(Action.Manage, ProgrammeTransfer);
           can(Action.Manage, Programme);
           can(Action.Manage, ProgrammeTransferRequest);

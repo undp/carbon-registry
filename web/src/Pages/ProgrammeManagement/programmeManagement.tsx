@@ -22,6 +22,7 @@ import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import { useTranslation } from 'react-i18next';
 import {
   addCommSep,
+  CompanyRole,
   getCompanyBgColor,
   getStageEnumVal,
   getStageTagType,
@@ -35,6 +36,7 @@ const { Search } = Input;
 
 const ProgrammeManagement = () => {
   const navigate = useNavigate();
+  const { userInfoState } = useUserContext();
   const { get, delete: del, post } = useConnection();
   const [totalProgramme, setTotalProgramme] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,7 +51,8 @@ const ProgrammeManagement = () => {
   const { i18n, t } = useTranslation(['common', 'programme']);
   const [sortOrder, setSortOrder] = useState<string>();
   const [sortField, setSortField] = useState<string>();
-  const { userInfoState } = useUserContext();
+  const [ministrySectoralScope, setMinistrySectoralScope] = useState<any[]>([]);
+  const [ministryLevelFilter, setMinistryLevelFilter] = useState<boolean>(false);
 
   const statusOptions = Object.keys(ProgrammeStage).map((k, index) => ({
     label: Object.values(ProgrammeStage)[index],
@@ -248,6 +251,7 @@ const ProgrammeManagement = () => {
     setLoading(true);
 
     const filter: any[] = [];
+    const filterOr: any[] = [];
 
     if (dataFilter) {
       filter.push(dataFilter);
@@ -260,6 +264,16 @@ const ProgrammeManagement = () => {
         key: 'title',
         operation: 'like',
         value: `${search}%`,
+      });
+    }
+
+    if (ministryLevelFilter) {
+      ministrySectoralScope?.map((secScope: any) => {
+        filterOr.push({
+          key: 'sectoralScope',
+          operation: '=',
+          value: secScope,
+        });
       });
     }
 
@@ -282,6 +296,7 @@ const ProgrammeManagement = () => {
         page: currentPage,
         size: pageSize,
         filterAnd: filter,
+        filterOr: filterOr,
         sort: sort,
       });
       setTableData(response.data);
@@ -295,6 +310,36 @@ const ProgrammeManagement = () => {
         duration: 3,
         style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
       });
+      setLoading(false);
+    }
+  };
+
+  const getUserDetails = async () => {
+    setLoading(true);
+    try {
+      const response: any = await post('national/user/query', {
+        page: 1,
+        size: 10,
+        filterAnd: [
+          {
+            key: 'id',
+            operation: '=',
+            value: userInfoState?.id,
+          },
+        ],
+      });
+      if (response && response.data) {
+        if (
+          response?.data[0]?.companyRole === CompanyRole.MINISTRY &&
+          response?.data[0]?.company &&
+          response?.data[0]?.company?.sectoralScope
+        ) {
+          setMinistrySectoralScope(response?.data[0]?.company?.sectoralScope);
+        }
+      }
+      setLoading(false);
+    } catch (error: any) {
+      console.log('Error in getting users', error);
       setLoading(false);
     }
   };
@@ -313,7 +358,13 @@ const ProgrammeManagement = () => {
 
   useEffect(() => {
     getAllProgramme();
-  }, [currentPage, pageSize, sortField, sortOrder, search]);
+  }, [currentPage, pageSize, sortField, sortOrder, search, ministryLevelFilter]);
+
+  useEffect(() => {
+    if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
+      getUserDetails();
+    }
+  }, []);
 
   // useEffect(() => {
   //   setCurrentPage(0);
@@ -367,19 +418,31 @@ const ProgrammeManagement = () => {
               <div className="search-filter">
                 <Checkbox
                   className="label"
-                  onChange={(v) =>
-                    setDataFilter(
-                      v.target.checked
-                        ? {
-                            key: 'companyId',
-                            operation: 'ANY',
-                            value: userInfoState?.companyId,
-                          }
-                        : undefined
-                    )
-                  }
+                  onChange={(v) => {
+                    if (userInfoState) {
+                      if (userInfoState.companyRole === CompanyRole.MINISTRY) {
+                        if (v.target.checked) {
+                          setMinistryLevelFilter(true);
+                        } else {
+                          setMinistryLevelFilter(false);
+                        }
+                      } else {
+                        setDataFilter(
+                          v.target.checked
+                            ? {
+                                key: 'companyId',
+                                operation: 'ANY',
+                                value: userInfoState?.companyId,
+                              }
+                            : undefined
+                        );
+                      }
+                    }
+                  }}
                 >
-                  {t('view:seeMine')}
+                  {userInfoState && userInfoState.companyRole === CompanyRole.MINISTRY
+                    ? t('view:ministryLevel')
+                    : t('view:seeMine')}
                 </Checkbox>
               </div>
               <div className="search-bar">
