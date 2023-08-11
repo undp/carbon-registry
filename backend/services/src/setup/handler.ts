@@ -115,13 +115,21 @@ export const handler: Handler = async (event) => {
       if (fields.length < 5) {
         continue;
       }
-      fields = fields.map(f => f.trim())
+      fields = fields.map((f) => f.trim());
       // (name: string, companyRole: CompanyRole, taxId: string, password: string, email: string, userRole: string
-      const cr = fields[4] == "Certifier"
+      const cr =
+        fields[4] == "Certifier"
           ? CompanyRole.CERTIFIER
           : fields[4] == "API"
           ? CompanyRole.API
+          : fields[4] === "Ministry"
+          ? CompanyRole.MINISTRY
           : CompanyRole.PROGRAMME_DEVELOPER;
+
+      const secScope =
+        fields[4] === "Ministry" && fields[6]
+          ? fields[6].split("-")
+          : undefined;
 
       try {
         const org = await companyService.create({
@@ -136,8 +144,8 @@ export const handler: Handler = async (event) => {
               country: configService.get("systemCountry"),
               companyRole: cr,
               createdTime: undefined,
-              nameOfMinister: undefined,
-              sectoralScope: undefined
+          nameOfMinister: fields[5] || undefined,
+          sectoralScope: secScope,
             });
         console.log('Company created', org)
       } catch (e) {
