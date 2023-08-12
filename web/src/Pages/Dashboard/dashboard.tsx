@@ -1702,28 +1702,32 @@ ${total}
           <Col xxl={8} xl={8} md={12} className="stastic-card-col">
             <StasticCard
               value={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? pendingProjectsWithoutTimeRange
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? transferRequestReceived
                   : programmesUnCertifed
               }
               title={t(
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                  userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? 'programmesPending'
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? 'trasnferReqReceived'
                   : 'programmesUnCertified'
               )}
               updatedDate={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? lastUpdateProgrammesStats
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? lastUpdatePendingTransferReceived
                   : lastUpdateProgrammesCertifiable
               }
               icon={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT ? (
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY ? (
                   <ClockHistory color="#16B1FF" size={80} />
                 ) : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER ? (
                   <BoxArrowInRight color="#16B1FF" size={80} />
@@ -1738,28 +1742,32 @@ ${total}
           <Col xxl={8} xl={8} md={12} className="stastic-card-col">
             <StasticCard
               value={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? transferRequestSent
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? transferRequestSent
                   : programmesCertifed
               }
               title={t(
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                  userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? 'trasnferReqInit'
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? 'trasnferReqInit'
                   : 'programmesCertified'
               )}
               updatedDate={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? lastUpdatePendingTransferSent
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? lastUpdatePendingTransferSent
                   : lastUpdateProgrammesCertified
               }
               icon={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT ? (
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY ? (
                   <BoxArrowRight color="#16B1FF" size={80} />
                 ) : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER ? (
                   <BoxArrowRight color="#16B1FF" size={80} />
@@ -1774,28 +1782,32 @@ ${total}
           <Col xxl={8} xl={8} md={12} className="stastic-card-col">
             <StasticCard
               value={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? creditBalanceWithoutTimeRange
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? creditBalanceWithoutTimeRange
                   : creditCertiedBalanceWithoutTimeRange
               }
               title={t(
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                  userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? 'creditBal'
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? 'creditBal'
                   : 'creditCertified'
               )}
               updatedDate={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY
                   ? lastUpdateCreditBalance
                   : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER
                   ? lastUpdateCreditBalance
                   : lastUpdateProgrammesCertified
               }
               icon={
-                userInfoState?.companyRole === CompanyRole.GOVERNMENT ? (
+                userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+                userInfoState?.companyRole === CompanyRole.MINISTRY ? (
                   <Gem color="#16B1FF" size={80} />
                 ) : userInfoState?.companyRole === CompanyRole.PROGRAMME_DEVELOPER ? (
                   <Gem color="#16B1FF" size={80} />
