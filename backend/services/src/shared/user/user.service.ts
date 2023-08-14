@@ -347,8 +347,11 @@ export class UserService {
     APIkey: string
   ) {
     let company: Company;
-    if (companyRole != CompanyRole.GOVERNMENT) {
-      if (!taxId) {
+    if (
+      companyRole != CompanyRole.GOVERNMENT &&
+      companyRole != CompanyRole.MINISTRY
+    ) {
+      if (!taxId || taxId === "") {
         throw new HttpException(
           "Tax id cannot be empty:" + email,
           HttpStatus.BAD_REQUEST
@@ -356,7 +359,15 @@ export class UserService {
       }
       company = await this.companyService.findByTaxId(taxId);
     } else {
-      company = await this.companyService.findGovByCountry(this.configService.get("systemCountry"))
+      if (companyRole === CompanyRole.GOVERNMENT) {
+        company = await this.companyService.findGovByCountry(
+          this.configService.get("systemCountry")
+        );
+      } else if (companyRole === CompanyRole.MINISTRY) {
+        company = await this.companyService.findMinByCountry(
+          this.configService.get("systemCountry")
+        );
+      }
     }
 
     if (!company) {
