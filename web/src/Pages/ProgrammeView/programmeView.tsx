@@ -90,6 +90,7 @@ import TimelineBody from '../../Components/TimelineBody/TimelineBody';
 import MapComponent from '../../Components/Maps/MapComponent';
 import { MapTypes, MarkerData } from '../../Definitions/InterfacesAndType/mapComponent.definitions';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
+import { mitigationTypeList } from '../../Definitions/mitigatioTypes.definitions';
 
 const ProgrammeView = () => {
   const { get, put, post } = useConnection();
@@ -859,6 +860,10 @@ const ProgrammeView = () => {
         }
         delete calculations.energyGenerationUnit;
       }
+    } else {
+      if (mitigation.properties) {
+        calculations = mitigation.properties;
+      }
     }
     calculations.constantVersion = mitigation.properties?.constantVersion;
 
@@ -867,8 +872,21 @@ const ProgrammeView = () => {
         if (key !== 'properties' && key !== 'projectMaterial') {
           if (key === 'userEstimatedCredits' || key === 'systemEstimatedCredits') {
             calculations[key] = addCommSep(mitigation[key]);
+            if (key === 'systemEstimatedCredits' && mitigation[key] === 0) {
+              calculations[key] = '-';
+            }
           } else {
-            calculations[key] = mitigation[key];
+            if (key === 'constantVersion' && mitigation[key] === 'undefined') {
+              calculations[key] = '-';
+            } else if (key === 'typeOfMitigation') {
+              mitigationTypeList?.map((type: any) => {
+                if (mitigation[key] === type.value) {
+                  calculations[key] = type.label;
+                }
+              });
+            } else {
+              calculations[key] = mitigation[key];
+            }
           }
         }
       }
