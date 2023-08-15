@@ -464,6 +464,16 @@ export class UserService {
         userFields.role = Role.Admin;
       }
 
+      if(company.companyRole === CompanyRole.MINISTRY && user.companyRole === CompanyRole.MINISTRY) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString(
+            "user.minUserCannotCreateMin",
+            []
+          ),
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
       if (company.companyRole != CompanyRole.CERTIFIER || !company.country) {
         company.country = this.configService.get("systemCountry");
       }

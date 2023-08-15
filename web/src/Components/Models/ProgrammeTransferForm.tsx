@@ -122,7 +122,8 @@ const ProgrammeTransferForm: FC<ProgrammeTransferFormProps> = (
       ((toCompanyDefault && userCompanyId !== Number(programme.companyId[index])) ||
         (!toCompanyDefault &&
           (userCompanyId === Number(programme.companyId[index]) ||
-            companyRole === CompanyRole.GOVERNMENT))) &&
+            companyRole === CompanyRole.GOVERNMENT ||
+            companyRole === CompanyRole.MINISTRY))) &&
       parseInt(companies[Number(programme.companyId[index])].state) ===
         CompanyState.ACTIVE.valueOf()
     ) {

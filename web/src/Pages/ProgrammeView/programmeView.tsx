@@ -1608,7 +1608,8 @@ const ProgrammeView = () => {
                                             <ProgrammeRetireForm
                                               hideType={
                                                 userInfoState?.companyRole !==
-                                                CompanyRole.GOVERNMENT
+                                                  CompanyRole.GOVERNMENT &&
+                                                userInfoState?.companyRole !== CompanyRole.MINISTRY
                                               }
                                               myCompanyId={userInfoState?.companyId}
                                               programme={data}

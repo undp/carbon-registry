@@ -71,7 +71,7 @@
   "transferReqCancelSuccess": "The international transfer retire request has been cancelled successfully",
   "transferCancelSuccess": "The transfer request has been cancelled successfully",
   "certifierCanOnlyCertifiy": "Programme certification can perform only by certifier",
-  "govOrProgrammeOwnerOnlyCreditRetirement": "Credit retirement can initiate only the government or programme owner",
+  "govOrProgrammeOwnerOnlyCreditRetirement": "Credit retirement can initiate only the government or programme owner or related ministry",
   "issuedCreditCannotExceedEstCredit": "Programme issue credit amount can not exceed estimated credit amount",
   "organisationDeactivated": "This action is unauthorised due to the deactivation of your organisation. You will now be logged out of the system. Log in again to access the system with view-only permissions.",
   "unAuth": "This action is unauthorised",
