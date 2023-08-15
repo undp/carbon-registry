@@ -901,7 +901,7 @@ export class ProgrammeService {
     //     throw new HttpException("Not enough balance for the transfer", HttpStatus.BAD_REQUEST)
     // }
     if (
-      requester.companyRole != CompanyRole.GOVERNMENT &&
+      requester.companyRole != CompanyRole.GOVERNMENT && requester.companyRole != CompanyRole.MINISTRY &&
       ![...req.fromCompanyIds, req.toCompanyId].includes(requester.companyId)
     ) {
       throw new HttpException(
