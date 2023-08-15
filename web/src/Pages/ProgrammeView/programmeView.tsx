@@ -810,7 +810,7 @@ const ProgrammeView = () => {
   };
 
   const getSuccessMsg = (response: any, initMsg: string, successMsg: string) => {
-    return response.data?.length ? initMsg : successMsg;
+    return response.data instanceof Array ? initMsg : successMsg;
   };
 
   const updateCreditInfo = (response: any) => {
