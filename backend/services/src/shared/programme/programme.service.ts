@@ -1685,7 +1685,7 @@ export class ProgrammeService {
       this.configService.get("systemCountry")
     );
 
-    if (requestedCompany.companyRole != CompanyRole.GOVERNMENT) {
+    if (requestedCompany.companyRole != CompanyRole.GOVERNMENT && requestedCompany.companyRole != CompanyRole.MINISTRY) {
       if (!req.fromCompanyIds) {
         req.fromCompanyIds = [requester.companyId];
       }
@@ -1740,6 +1740,16 @@ export class ProgrammeService {
         ];
       }
     } else {
+      const permission = await this.findPermissionForMinistryUser(
+        requester,
+        programme.sectoralScope
+      );
+      if (!permission) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString("user.userUnAUth", []),
+          HttpStatus.FORBIDDEN
+        );
+      }
       if (!req.fromCompanyIds) {
         req.fromCompanyIds = programme.companyId;
       }

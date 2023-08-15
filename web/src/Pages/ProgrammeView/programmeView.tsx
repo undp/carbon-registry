@@ -810,7 +810,7 @@ const ProgrammeView = () => {
   };
 
   const getSuccessMsg = (response: any, initMsg: string, successMsg: string) => {
-    return response.data instanceof Array ? initMsg : successMsg;
+    return response.data?.length ? initMsg : successMsg;
   };
 
   const updateCreditInfo = (response: any) => {
@@ -1608,7 +1608,8 @@ const ProgrammeView = () => {
                                             <ProgrammeRetireForm
                                               hideType={
                                                 userInfoState?.companyRole !==
-                                                CompanyRole.GOVERNMENT
+                                                  CompanyRole.GOVERNMENT &&
+                                                userInfoState?.companyRole !== CompanyRole.MINISTRY
                                               }
                                               myCompanyId={userInfoState?.companyId}
                                               programme={data}
