@@ -42,6 +42,7 @@ import {
 } from '@ant-design/icons';
 import {
   addCommSep,
+  addCommSepRound,
   addSpaces,
   CompanyRole,
   CreditTransferStage,
@@ -84,7 +85,7 @@ import ProgrammeRevokeForm from '../../Components/Models/ProgrammeRevokeForm';
 import OrganisationStatus from '../../Components/Organisation/OrganisationStatus';
 import Loading from '../../Components/Loading/Loading';
 import { CompanyState } from '../../Definitions/InterfacesAndType/companyManagement.definitions';
-import { ProgrammeTransfer } from '@undp/carbon-library';
+import { ProgrammeTransfer, mitigationTypeList } from '@undp/carbon-library';
 import TimelineBody from '../../Components/TimelineBody/TimelineBody';
 import MapComponent from '../../Components/Maps/MapComponent';
 import { MapTypes, MarkerData } from '../../Definitions/InterfacesAndType/mapComponent.definitions';
@@ -113,6 +114,7 @@ const ProgrammeView = () => {
   const mapType = process.env.REACT_APP_MAP_TYPE ? process.env.REACT_APP_MAP_TYPE : 'None';
   const [isAllOwnersDeactivated, setIsAllOwnersDeactivated] = useState(true);
   const { isTransferFrozen, setTransferFrozen } = useSettingsContext();
+  const [ministrySectoralScope, setMinistrySectoralScope] = useState<any[]>([]);
 
   const showModal = () => {
     setOpenModal(true);
@@ -857,13 +859,34 @@ const ProgrammeView = () => {
         }
         delete calculations.energyGenerationUnit;
       }
+    } else {
+      if (mitigation.properties) {
+        calculations = mitigation.properties;
+      }
     }
-    calculations.constantVersion = mitigation.properties.constantVersion;
+    calculations.constantVersion = mitigation.properties?.constantVersion;
 
     for (const key in mitigation) {
       if (mitigation.hasOwnProperty(key)) {
         if (key !== 'properties' && key !== 'projectMaterial') {
-          calculations[key] = mitigation[key];
+          if (key === 'userEstimatedCredits' || key === 'systemEstimatedCredits') {
+            calculations[key] = addCommSep(mitigation[key]);
+            if (key === 'systemEstimatedCredits' && mitigation[key] === 0) {
+              calculations[key] = '-';
+            }
+          } else {
+            if (key === 'constantVersion' && mitigation[key] === 'undefined') {
+              calculations[key] = '-';
+            } else if (key === 'typeOfMitigation') {
+              mitigationTypeList?.map((type: any) => {
+                if (mitigation[key] === type.value) {
+                  calculations[key] = type.label;
+                }
+              });
+            } else {
+              calculations[key] = mitigation[key];
+            }
+          }
         }
       }
     }
@@ -891,7 +914,7 @@ const ProgrammeView = () => {
         successCB(response);
         message.open({
           type: 'success',
-          content: typeof successMsg !== 'function' ? successMsg : successMsg(response),
+          content: successMsg,
           duration: 3,
           style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
         });
@@ -1021,7 +1044,46 @@ const ProgrammeView = () => {
     return info;
   };
 
+  const getUserDetails = async () => {
+    setLoadingAll(true);
+    try {
+      const response: any = await post('national/user/query', {
+        page: 1,
+        size: 10,
+        filterAnd: [
+          {
+            key: 'id',
+            operation: '=',
+            value: userInfoState?.id,
+          },
+        ],
+      });
+      if (response && response.data) {
+        if (
+          response?.data[0]?.companyRole === CompanyRole.MINISTRY &&
+          response?.data[0]?.company &&
+          response?.data[0]?.company?.sectoralScope
+        ) {
+          setMinistrySectoralScope(response?.data[0]?.company?.sectoralScope);
+        }
+      }
+      setLoadingAll(false);
+    } catch (error: any) {
+      console.log('Error in getting users', error);
+      message.open({
+        type: 'error',
+        content: error.message,
+        duration: 3,
+        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+      });
+      setLoadingAll(false);
+    }
+  };
+
   useEffect(() => {
+    if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
+      getUserDetails();
+    }
     const queryParams = new URLSearchParams(window.location.search);
     const programmeId = queryParams.get('id');
     if (programmeId) {
@@ -1106,7 +1168,11 @@ const ProgrammeView = () => {
 
   if (userInfoState?.userRole !== 'ViewOnly') {
     if (data.currentStage.toString() === 'AwaitingAuthorization') {
-      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT) {
+      if (
+        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+          ministrySectoralScope.includes(data.sectoralScope))
+      ) {
         actionBtns.push(
           <Button
             danger
@@ -1169,7 +1235,11 @@ const ProgrammeView = () => {
       data.currentStage.toString() === ProgrammeStage.Authorised &&
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
-      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT) {
+      if (
+        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+          ministrySectoralScope.includes(data.sectoralScope))
+      ) {
         if (Number(data.creditEst) > Number(data.creditIssued)) {
           actionBtns.push(
             <Button
@@ -1282,7 +1352,9 @@ const ProgrammeView = () => {
       data.certifier.length > 0 &&
       ((userInfoState?.companyRole === CompanyRole.CERTIFIER &&
         data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)) ||
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT)
+        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+          ministrySectoralScope.includes(data.sectoralScope)))
     ) {
       actionBtns.push(
         <Button
@@ -1313,7 +1385,10 @@ const ProgrammeView = () => {
                       updateProgrammeData
                     )
                   }
-                  showCertifiers={userInfoState.companyRole === CompanyRole.GOVERNMENT}
+                  showCertifiers={
+                    userInfoState.companyRole === CompanyRole.GOVERNMENT ||
+                    userInfoState.companyRole === CompanyRole.MINISTRY
+                  }
                 />
               ),
             });
@@ -1375,6 +1450,11 @@ const ProgrammeView = () => {
     );
   });
 
+  const creditsActionPermissions =
+    userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+    (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+      ministrySectoralScope.includes(data.sectoralScope));
+
   return loadingAll ? (
     <Loading />
   ) : (
@@ -1424,6 +1504,12 @@ const ProgrammeView = () => {
                         colors: ['#6ACDFF', '#D2FDBB', '#CDCDCD', '#FF8183', '#B7A4FE'],
                         tooltip: {
                           fillSeriesColor: false,
+                          enabled: true,
+                          y: {
+                            formatter: function (value: any) {
+                              return addCommSepRound(value);
+                            },
+                          },
                         },
                         states: {
                           normal: {
@@ -1459,7 +1545,7 @@ const ProgrammeView = () => {
                                   showAlways: true,
                                   show: true,
                                   label: 'Total',
-                                  formatter: () => '' + data.creditEst,
+                                  formatter: () => '' + addCommSepRound(data.creditEst),
                                 },
                               },
                             },
@@ -1501,8 +1587,7 @@ const ProgrammeView = () => {
                               0 &&
                             !isTransferFrozen && (
                               <div>
-                                {((userInfoState?.companyRole === CompanyRole.GOVERNMENT &&
-                                  !isAllOwnersDeactivated) ||
+                                {((creditsActionPermissions && !isAllOwnersDeactivated) ||
                                   (data.companyId
                                     .map((e) => Number(e))
                                     .includes(userInfoState!.companyId) &&
@@ -1523,7 +1608,8 @@ const ProgrammeView = () => {
                                             <ProgrammeRetireForm
                                               hideType={
                                                 userInfoState?.companyRole !==
-                                                CompanyRole.GOVERNMENT
+                                                  CompanyRole.GOVERNMENT &&
+                                                userInfoState?.companyRole !== CompanyRole.MINISTRY
                                               }
                                               myCompanyId={userInfoState?.companyId}
                                               programme={data}
@@ -1600,7 +1686,9 @@ const ProgrammeView = () => {
                                     </Button>
                                   </span>
                                 )}
-                                {!isAllOwnersDeactivated &&
+                                {userInfoState?.companyRole === CompanyRole.MINISTRY &&
+                                  ministrySectoralScope.includes(data.sectoralScope) &&
+                                  !isAllOwnersDeactivated &&
                                   userInfoState!.companyState !==
                                     CompanyState.SUSPENDED.valueOf() &&
                                   !isTransferFrozen && (

@@ -37,7 +37,6 @@ export const handler: Handler = async (event) => {
   const userService = userApp.get(UserService);
 
   if (event.type === "IMPORT_USERS" && event.body) {
-
     const users = event.body.split("\n");
 
     let c = 0;
@@ -50,7 +49,7 @@ export const handler: Handler = async (event) => {
       if (fields.length < 7) {
         continue;
       }
-      fields = fields.map(f => f.trim())
+      fields = fields.map((f) => f.trim());
       // (name: string, companyRole: CompanyRole, taxId: string, password: string, email: string, userRole: string
       const cr =
         fields[4] == "Government"
@@ -59,34 +58,39 @@ export const handler: Handler = async (event) => {
           ? CompanyRole.CERTIFIER
           : fields[4] == "API"
           ? CompanyRole.API
-          :CompanyRole.PROGRAMME_DEVELOPER;
+          : fields[4] === "Ministry"
+          ? CompanyRole.MINISTRY
+          : CompanyRole.PROGRAMME_DEVELOPER;
       const ur =
         fields[5] == "admin"
           ? Role.Admin
           : fields[5] == "Manager"
           ? Role.Manager
           : Role.ViewOnly;
-      console.log('Inserting user', fields[0],
-      cr,
-      fields[3],
-      fields[1],
-      ur,
-      fields[2])
+      console.log(
+        "Inserting user",
+        fields[0],
+        cr,
+        fields[3],
+        fields[1],
+        ur,
+        fields[2]
+      );
+      const txId = fields[4] !== "Ministry" ? fields[3] : "";
       try {
         await userService.createUserWithPassword(
           fields[0],
           cr,
-          fields[3],
+          txId,
           fields[6],
           fields[1],
           ur,
           fields[2],
-          (cr === CompanyRole.API && fields.length > 7) ? fields[7] : undefined
+          cr === CompanyRole.API && fields.length > 7 ? fields[7] : undefined
         );
       } catch (e) {
-        console.log('Fail to create user', fields[1], e)
+        console.log("Fail to create user", fields[1], e);
       }
-     
     }
     return;
   }
@@ -113,31 +117,41 @@ export const handler: Handler = async (event) => {
       if (fields.length < 5) {
         continue;
       }
-      fields = fields.map(f => f.trim())
+      fields = fields.map((f) => f.trim());
       // (name: string, companyRole: CompanyRole, taxId: string, password: string, email: string, userRole: string
-      const cr = fields[4] == "Certifier"
+      const cr =
+        fields[4] == "Certifier"
           ? CompanyRole.CERTIFIER
           : fields[4] == "API"
           ? CompanyRole.API
+          : fields[4] === "Ministry"
+          ? CompanyRole.MINISTRY
           : CompanyRole.PROGRAMME_DEVELOPER;
+
+      const secScope =
+        fields[4] === "Ministry" && fields[6]
+          ? fields[6].split("-")
+          : undefined;
 
       try {
         const org = await companyService.create({
-              taxId: fields[3],
-              companyId: undefined,
-              name: fields[0],
-              email: fields[1],
-              phoneNo: fields[2],
-              website: undefined,
-              address: configService.get("systemCountryName"),
-              logo: undefined,
-              country: configService.get("systemCountry"),
-              companyRole: cr,
-              createdTime: undefined,
-            });
-        console.log('Company created', org)
+          taxId: fields[4] !== "Ministry" ? fields[3] : undefined,
+          companyId: undefined,
+          name: fields[0],
+          email: fields[1],
+          phoneNo: fields[2],
+          website: undefined,
+          address: configService.get("systemCountryName"),
+          logo: undefined,
+          country: configService.get("systemCountry"),
+          companyRole: cr,
+          createdTime: undefined,
+          nameOfMinister: fields[5] || undefined,
+          sectoralScope: secScope,
+        });
+        console.log("Company created", org);
       } catch (e) {
-        console.log('Fail to create company', fields[1])
+        console.log("Fail to create company", fields[1]);
       }
     }
     return;

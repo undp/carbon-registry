@@ -117,5 +117,6 @@
     "typeOfMitigation": "Type Of Mitigation",
     "userEstimatedCredits": "User Estimated Credits",
     "systemEstimatedCredits": "System Estimated Credits",
-    "actionId": "NDC ID"
+    "actionId": "NDC ID",
+    "ministryLevel": "Minitry Level"
 }

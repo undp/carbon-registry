@@ -32,5 +32,6 @@
   "reqIdFound": "Reset request id found",
   "resetEmailSent": "User found, An email was sent",
   "invalidCountry": "Country is invalid",
-  "editUserSuccess": "The user account has been updated successfully"
+  "editUserSuccess": "The user account has been updated successfully",
+  "minUserCannotCreateMin": "This action is unauthorised"
 }

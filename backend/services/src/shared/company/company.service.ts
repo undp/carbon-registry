@@ -324,6 +324,16 @@ export class CompanyService {
     return companies && companies.length > 0 ? companies[0] : undefined;
   }
 
+  async findMinByCountry(countryCode: string): Promise<Company | undefined> {
+    const companies = await this.companyRepo.find({
+      where: {
+        country: countryCode,
+        companyRole: CompanyRole.MINISTRY,
+      },
+    });
+    return companies && companies.length > 0 ? companies[0] : undefined;
+  }
+
   async create(companyDto: OrganisationDto): Promise<Company | undefined> {
     this.logger.verbose("Company create received", companyDto.email);
 
