@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import sliderLogo from '../../Assets/Images/logo-slider.png';
-import undpLogo from '../../Assets/Images/undp1.webp';
+import undpLogo from '../../Assets/Images/undp1.svg';
 import EBRD from '../../Assets/Images/EBRD.webp';
 import EBRDff from '../../Assets/Images/EBRD.png';
 import UNFCCC from '../../Assets/Images/UNFCCC.webp';
@@ -15,7 +15,6 @@ import ESA from '../../Assets/Images/ESA.webp';
 import ESAff from '../../Assets/Images/ESA.png';
 import WBANK from '../../Assets/Images/WBANK.webp';
 import WBANKff from '../../Assets/Images/WBANK.png';
-import undpLogofall from '../../Assets/Images/undp1.png';
 import forest from '../../Assets/Images/forest.webp';
 import forestfall from '../../Assets/Images/forest.png';
 import resources from '../../Assets/Images/resources.webp';
@@ -228,8 +227,8 @@ const Homepage = () => {
                 <ImgWithFallback
                   className="undp"
                   src={undpLogo}
-                  fallbackSrc={undpLogofall}
-                  mediaType="image/webp"
+                  fallbackSrc={undpLogo}
+                  mediaType="image/svg"
                   alt="UNDP"
                 />
                 <ImgWithFallback
