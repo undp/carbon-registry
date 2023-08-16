@@ -914,7 +914,7 @@ const ProgrammeView = () => {
         successCB(response);
         message.open({
           type: 'success',
-          content: successMsg,
+          content: typeof successMsg !== 'function' ? successMsg : successMsg(response),
           duration: 3,
           style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
         });
@@ -1686,57 +1686,55 @@ const ProgrammeView = () => {
                                     </Button>
                                   </span>
                                 )}
-                                {(userInfoState?.companyRole === CompanyRole.MINISTRY &&
-                                  ministrySectoralScope.includes(data.sectoralScope)) ||
-                                  (!isAllOwnersDeactivated &&
-                                    userInfoState!.companyState !==
-                                      CompanyState.SUSPENDED.valueOf() &&
-                                    !isTransferFrozen && (
-                                      <Button
-                                        type="primary"
-                                        onClick={() => {
-                                          setActionInfo({
-                                            action: 'Request',
-                                            text: '',
-                                            title: t('view:transferTitle'),
-                                            type: 'primary',
-                                            remark: true,
-                                            icon: <Icon.BoxArrowInRight />,
-                                            contentComp: (
-                                              <ProgrammeTransferForm
-                                                companyRole={userInfoState!.companyRole}
-                                                userCompanyId={userInfoState?.companyId}
-                                                receiverLabelText={t('view:by')}
-                                                disableToCompany={true}
-                                                toCompanyDefault={{
-                                                  label: userInfoState?.companyName,
-                                                  value: userInfoState?.companyId,
-                                                }}
-                                                programme={data}
-                                                subText={t('view:popupText')}
-                                                onCancel={() => {
-                                                  setOpenModal(false);
-                                                  setComment(undefined);
-                                                }}
-                                                actionBtnText={t('view:request')}
-                                                onFinish={(body: any) =>
-                                                  onPopupAction(
-                                                    body,
-                                                    'transferRequest',
-                                                    t('view:successRequest'),
-                                                    post,
-                                                    updateCreditInfo
-                                                  )
-                                                }
-                                              />
-                                            ),
-                                          });
-                                          showModal();
-                                        }}
-                                      >
-                                        {t('view:transfer')}
-                                      </Button>
-                                    ))}
+                                {!isAllOwnersDeactivated &&
+                                  userInfoState!.companyState !==
+                                    CompanyState.SUSPENDED.valueOf() &&
+                                  !isTransferFrozen && (
+                                    <Button
+                                      type="primary"
+                                      onClick={() => {
+                                        setActionInfo({
+                                          action: 'Request',
+                                          text: '',
+                                          title: t('view:transferTitle'),
+                                          type: 'primary',
+                                          remark: true,
+                                          icon: <Icon.BoxArrowInRight />,
+                                          contentComp: (
+                                            <ProgrammeTransferForm
+                                              companyRole={userInfoState!.companyRole}
+                                              userCompanyId={userInfoState?.companyId}
+                                              receiverLabelText={t('view:by')}
+                                              disableToCompany={true}
+                                              toCompanyDefault={{
+                                                label: userInfoState?.companyName,
+                                                value: userInfoState?.companyId,
+                                              }}
+                                              programme={data}
+                                              subText={t('view:popupText')}
+                                              onCancel={() => {
+                                                setOpenModal(false);
+                                                setComment(undefined);
+                                              }}
+                                              actionBtnText={t('view:request')}
+                                              onFinish={(body: any) =>
+                                                onPopupAction(
+                                                  body,
+                                                  'transferRequest',
+                                                  t('view:successRequest'),
+                                                  post,
+                                                  updateCreditInfo
+                                                )
+                                              }
+                                            />
+                                          ),
+                                        });
+                                        showModal();
+                                      }}
+                                    >
+                                      {t('view:transfer')}
+                                    </Button>
+                                  )}
                               </div>
                             )}
                         </div>
