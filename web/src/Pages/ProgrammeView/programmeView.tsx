@@ -810,10 +810,6 @@ const ProgrammeView = () => {
   };
 
   const getSuccessMsg = (response: any, initMsg: string, successMsg: string) => {
-    console.log('response success msg ----------- > ');
-    console.log(response.data);
-    console.log(initMsg);
-    console.log(successMsg);
     return response.data instanceof Array ? initMsg : successMsg;
   };
 
