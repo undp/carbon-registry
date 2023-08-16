@@ -1490,7 +1490,15 @@ export class ProgrammeService {
         CompanyRole.MINISTRY,
       ].includes(user.companyRole)
     ) {
-      if (user.companyRole === CompanyRole.MINISTRY && progDetails) {
+      throw new HttpException(
+        this.helperService.formatReqMessagesString(
+          "programme.certifierOrGovCanOnlyPerformCertificationRevoke",
+          []
+        ),
+        HttpStatus.FORBIDDEN
+      );
+    } else if(!add && user.companyRole === CompanyRole.MINISTRY) {
+      if ( progDetails) {
         const permission = await this.findPermissionForMinistryUser(
           user,
           progDetails.sectoralScope
@@ -1501,15 +1509,7 @@ export class ProgrammeService {
             HttpStatus.FORBIDDEN
           );
         }
-      } else {
-      throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "programme.certifierOrGovCanOnlyPerformCertificationRevoke",
-          []
-        ),
-        HttpStatus.FORBIDDEN
-      );
-    }
+      }
     }
 
     let certifierId;
@@ -1567,7 +1567,7 @@ export class ProgrammeService {
         user.companyId
       );
     } else {
-      if (user.companyRole === CompanyRole.GOVERNMENT) {
+      if (user.companyRole === CompanyRole.GOVERNMENT || user.companyRole === CompanyRole.MINISTRY) {
         await this.emailHelperService.sendEmailToProgrammeOwnerAdmins(
           req.programmeId,
           EmailTemplates.PROGRAMME_CERTIFICATION_REVOKE_BY_GOVT_TO_PROGRAMME,
@@ -1740,15 +1740,17 @@ export class ProgrammeService {
         ];
       }
     } else {
-      const permission = await this.findPermissionForMinistryUser(
-        requester,
-        programme.sectoralScope
-      );
-      if (!permission) {
-        throw new HttpException(
-          this.helperService.formatReqMessagesString("user.userUnAUth", []),
-          HttpStatus.FORBIDDEN
+      if(requestedCompany.companyRole === CompanyRole.MINISTRY) {
+        const permission = await this.findPermissionForMinistryUser(
+          requester,
+          programme.sectoralScope
         );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
       }
       if (!req.fromCompanyIds) {
         req.fromCompanyIds = programme.companyId;
