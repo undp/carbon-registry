@@ -1740,15 +1740,17 @@ export class ProgrammeService {
         ];
       }
     } else {
-      const permission = await this.findPermissionForMinistryUser(
-        requester,
-        programme.sectoralScope
-      );
-      if (!permission) {
-        throw new HttpException(
-          this.helperService.formatReqMessagesString("user.userUnAUth", []),
-          HttpStatus.FORBIDDEN
+      if(requestedCompany.companyRole === CompanyRole.MINISTRY) {
+        const permission = await this.findPermissionForMinistryUser(
+          requester,
+          programme.sectoralScope
         );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
       }
       if (!req.fromCompanyIds) {
         req.fromCompanyIds = programme.companyId;
