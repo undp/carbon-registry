@@ -1852,17 +1852,29 @@ export class ProgrammeService {
 
       const hostAddress = this.configService.get("host");
       if (requester.companyId != toCompany.companyId) {
-        transfer.status = TransferStatus.PENDING;
-        await this.emailHelperService.sendEmailToGovernmentAdmins(
-          EmailTemplates.CREDIT_RETIREMENT_BY_DEV,
-          {
-            credits: transfer.creditAmount,
-            programmeName: programme.title,
-            serialNumber: programme.serialNo,
-            organisationName: fromCompany.name,
-            pageLink: hostAddress + "/creditTransfers/viewAll",
-          }
-        );
+        if(requester.companyRole === CompanyRole.MINISTRY) {
+          const permission = await this.findPermissionForMinistryUser(
+          requester,
+          programme.sectoralScope
+          );
+        if(permission) {
+          transfer.status = TransferStatus.PROCESSING;
+          autoApproveTransferList.push(transfer);
+        }
+        }
+        else {
+          transfer.status = TransferStatus.PENDING;
+          await this.emailHelperService.sendEmailToGovernmentAdmins(
+            EmailTemplates.CREDIT_RETIREMENT_BY_DEV,
+            {
+              credits: transfer.creditAmount,
+              programmeName: programme.title,
+              serialNumber: programme.serialNo,
+              organisationName: fromCompany.name,
+              pageLink: hostAddress + "/creditTransfers/viewAll",
+            }
+          );
+        }
       } else {
         transfer.status = TransferStatus.PROCESSING;
         autoApproveTransferList.push(transfer);
