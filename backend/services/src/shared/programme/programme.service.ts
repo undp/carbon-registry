@@ -310,6 +310,7 @@ export class ProgrammeService {
       ],
       filterOr: undefined,
       sort: undefined,
+      filterBy: undefined
     };
 
     const resp = await this.programmeTransferViewRepo
@@ -378,7 +379,7 @@ export class ProgrammeService {
     abilityCondition: string,
     user: User
   ): Promise<any> {
-    const resp = await this.programmeTransferViewRepo
+    let queryBuilder = await this.programmeTransferViewRepo
       .createQueryBuilder("programme_transfer")
       .where(
         this.helperService.generateWhereSQL(
@@ -388,8 +389,14 @@ export class ProgrammeService {
             abilityCondition
           )
         )
-      )
-      .orderBy(
+      );
+
+      if (query.filterBy !== null && query.filterBy !== undefined && query.filterBy.key === 'ministryLevel') {
+        queryBuilder = queryBuilder.andWhere("programme_transfer.programmeSectoralScope IN (:...allowedScopes)", {
+          allowedScopes: query.filterBy.value
+        });
+      }
+      const resp = await  queryBuilder.orderBy(
         query?.sort?.key &&
           this.helperService.generateSortCol(query?.sort?.key),
         query?.sort?.order,
