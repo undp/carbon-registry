@@ -6,7 +6,7 @@ import { ProgrammeTransfer } from "./programme.transfer";
     expression: `
         SELECT programme_transfer.*, JSON_AGG(distinct "requester".*) as "requester", JSON_AGG(distinct "receiver".*) as "receiver", 
         "prog"."creditBalance" as "creditBalance", "prog"."title" as "programmeTitle", "prog"."certifierId" as "programmeCertifierId", 
-        "prog"."sector" as "programmeSector", JSON_AGG(distinct "certifier".*) as "certifier", 
+        "prog"."sector" as "programmeSector", "prog"."sectoralScope" as "programmeSectoralScope", JSON_AGG(distinct "certifier".*) as "certifier", 
         JSON_AGG(distinct "sender".*) as "sender", "prog"."proponentTaxVatId" as "proponentTaxVatId", 
         "prog"."proponentPercentage" as "proponentPercentage", "prog"."creditOwnerPercentage" as "creditOwnerPercentage",
         "prog"."companyId" as "companyId", "prog"."serialNo" as "serialNo"
@@ -34,6 +34,9 @@ export class ProgrammeTransferViewEntityQuery extends ProgrammeTransfer {
 
     @ViewColumn()
     programmeSector: string;
+
+    @ViewColumn()
+    programmeSectoralScope: string;
 
     @ViewColumn()
     certifier: Company[];

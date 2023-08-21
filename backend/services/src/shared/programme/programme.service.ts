@@ -208,13 +208,15 @@ export class ProgrammeService {
       );
     }
     if (pTransfer.isRetirement && pTransfer.toCompanyId != approver.companyId) {
-      throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "programme.invalidApproverForRetirementReq",
-          []
-        ),
-        HttpStatus.FORBIDDEN
-      );
+      if(approver.companyRole !== CompanyRole.MINISTRY) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString(
+              "programme.invalidApproverForRetirementReq",
+              []
+            ),
+            HttpStatus.FORBIDDEN
+          );
+      }
     }
 
     const result = await this.programmeTransferRepo
@@ -486,13 +488,15 @@ export class ProgrammeService {
       );
     }
     if (transfer.isRetirement && transfer.toCompanyId != approver.companyId) {
-      throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "programme.invalidApproverForRetirementReq",
-          []
-        ),
-        HttpStatus.FORBIDDEN
-      );
+      if(approver.companyRole !== CompanyRole.MINISTRY) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString(
+            "programme.invalidApproverForRetirementReq",
+            []
+          ),
+          HttpStatus.FORBIDDEN
+        );
+      }
     }
 
     const receiver = await this.companyService.findByCompanyId(

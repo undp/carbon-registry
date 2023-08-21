@@ -99,6 +99,7 @@ const CreditTransfer = () => {
   const [totalComCredits, setTotalComCredits] = useState<number>(0);
   const [companyIdsVal, setCompanyIdsVal] = useState<number[]>();
   const [creditAmount, setCreditAmount] = useState<number>(0);
+  const [ministrySectoralScope, setMinistrySectoralScope] = useState<any[]>([]);
   const { isTransferFrozen, setTransferFrozen } = useSettingsContext();
 
   const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
@@ -199,6 +200,48 @@ const CreditTransfer = () => {
       setLoading(false);
     }
   };
+
+  const getUserDetails = async () => {
+    setLoading(true);
+    try {
+      const response: any = await post('national/user/query', {
+        page: 1,
+        size: 10,
+        filterAnd: [
+          {
+            key: 'id',
+            operation: '=',
+            value: userInfoState?.id,
+          },
+        ],
+      });
+      if (response && response.data) {
+        if (
+          response?.data[0]?.companyRole === CompanyRole.MINISTRY &&
+          response?.data[0]?.company &&
+          response?.data[0]?.company?.sectoralScope
+        ) {
+          setMinistrySectoralScope(response?.data[0]?.company?.sectoralScope);
+        }
+      }
+      setLoading(false);
+    } catch (error: any) {
+      console.log('Error in getting users', error);
+      message.open({
+        type: 'error',
+        content: error.message,
+        duration: 3,
+        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+      });
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
+      getUserDetails();
+    }
+  }, []);
 
   useEffect(() => {
     if (currentPage !== 1) {
@@ -347,7 +390,10 @@ const CreditTransfer = () => {
             </List.Item>
           )}
         />
-      ) : record.isRetirement && userInfoState?.companyRole === CompanyRole.GOVERNMENT ? (
+      ) : record.isRetirement &&
+        (userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+          (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+            ministrySectoralScope.includes(record.programmeSectoralScope))) ? (
         <List
           className="action-menu"
           size="small"
