@@ -241,7 +241,7 @@ export class ProgrammeService {
     );
 
     if (result.affected > 0) {
-      if (pTransfer.isRetirement) {
+      if (pTransfer.isRetirement && pTransfer.toCompanyMeta) {
         const countryName = await this.countryService.getCountryName(
           pTransfer.toCompanyMeta.country
         );
@@ -572,7 +572,7 @@ export class ProgrammeService {
     );
 
     if (transferResult.statusCode === 200) {
-      if (transfer.isRetirement) {
+      if (transfer.isRetirement && transfer.toCompanyMeta) {
         const countryName = await this.countryService.getCountryName(
           transfer.toCompanyMeta.country
         );
@@ -734,7 +734,7 @@ export class ProgrammeService {
       const initiatorCompanyDetails = await this.companyService.findByCompanyId(
         transfer.initiatorCompanyId
       );
-      if (transfer.isRetirement) {
+      if (transfer.isRetirement && transfer.toCompanyMeta) {
         const countryName = await this.countryService.getCountryName(
           transfer.toCompanyMeta.country
         );
@@ -1922,7 +1922,7 @@ export class ProgrammeService {
       ).data;
     }
     if (updateProgramme) {
-      return new DataResponseDto(HttpStatus.OK, updateProgramme);
+      //return new DataResponseDto(HttpStatus.OK, updateProgramme);
     }
     return new DataListResponseDto(allTransferList, allTransferList.length);
   }
@@ -2378,7 +2378,7 @@ export class ProgrammeService {
             HttpStatus.INTERNAL_SERVER_ERROR
           );
         } else {
-          if (transfer.isRetirement) {
+          if (transfer.isRetirement && transfer.toCompanyMeta) {
             const countryName = await this.countryService.getCountryName(
               transfer.toCompanyMeta.country
             );
