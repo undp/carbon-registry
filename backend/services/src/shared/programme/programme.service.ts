@@ -1922,7 +1922,7 @@ export class ProgrammeService {
       ).data;
     }
     if (updateProgramme) {
-      //return new DataResponseDto(HttpStatus.OK, updateProgramme);
+      return new DataResponseDto(HttpStatus.OK, updateProgramme);
     }
     return new DataListResponseDto(allTransferList, allTransferList.length);
   }
