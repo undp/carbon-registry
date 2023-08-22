@@ -784,17 +784,27 @@ const CreditTransfer = () => {
           </Col>
           <Col lg={{ span: 9 }} md={{ span: 9 }}>
             <div className="filter-section">
-              <div className="search-filter">
-                <Checkbox
-                  className="label"
-                  onChange={(v) => {
-                    if (userInfoState && userInfoState.companyRole === CompanyRole.MINISTRY) {
-                      if (v.target.checked) {
-                        setMinistryLevelFilter(true);
-                      } else {
-                        setMinistryLevelFilter(false);
-                      }
-                    } else {
+              <div className="filter-col">
+                {userInfoState && userInfoState.companyRole === CompanyRole.MINISTRY && (
+                  <div className="justify-left">
+                    <Checkbox
+                      className="label"
+                      onChange={(v) => {
+                        if (v.target.checked) {
+                          setMinistryLevelFilter(true);
+                        } else {
+                          setMinistryLevelFilter(false);
+                        }
+                      }}
+                    >
+                      {t('view:ministryLevel')}
+                    </Checkbox>
+                  </div>
+                )}
+                <div className="justify-left">
+                  <Checkbox
+                    className="label"
+                    onChange={(v) =>
                       setDataFilter(
                         v.target.checked
                           ? [
@@ -820,14 +830,12 @@ const CreditTransfer = () => {
                               },
                             ]
                           : undefined
-                      );
+                      )
                     }
-                  }}
-                >
-                  {userInfoState && userInfoState.companyRole === CompanyRole.MINISTRY
-                    ? t('view:ministryLevel')
-                    : t('view:seeMine')}
-                </Checkbox>
+                  >
+                    {t('view:seeMine')}
+                  </Checkbox>
+                </div>
               </div>
               <div className="search-bar">
                 <Search
