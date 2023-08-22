@@ -883,6 +883,8 @@ const ProgrammeView = () => {
                   calculations[key] = type.label;
                 }
               });
+            } else if (key === 'methodology') {
+              calculations[key] = mitigation[key];
             } else {
               calculations[key] = mitigation[key];
             }
