@@ -1,4 +1,19 @@
 @import '../../Styles/variables.scss';
+.filter-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 1rem;
+
+  .justify-left {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
 
 .credit-transfer-management {
   .ant-checkbox-checked {
