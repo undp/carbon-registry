@@ -70,7 +70,7 @@ export class CompanyService {
       .getOne();
       if(user.companyRole === CompanyRole.MINISTRY) {
         const companyDetails = await this.findByCompanyId(companyId);
-          if(companyDetails.companyRole === CompanyRole.GOVERNMENT) {
+          if(companyDetails.companyRole === CompanyRole.GOVERNMENT || companyDetails.companyRole === CompanyRole.MINISTRY) {
             throw new HttpException(
               this.helperService.formatReqMessagesString(
                 "user.userUnAUth",
@@ -187,6 +187,18 @@ export class CompanyService {
         }`
       )
       .getOne();
+      if(user.companyRole === CompanyRole.MINISTRY) {
+        const companyDetails = await this.findByCompanyId(companyId);
+          if(companyDetails.companyRole === CompanyRole.GOVERNMENT || companyDetails.companyRole === CompanyRole.MINISTRY) {
+            throw new HttpException(
+              this.helperService.formatReqMessagesString(
+                "user.userUnAUth",
+                []
+              ),
+              HttpStatus.FORBIDDEN
+            );
+          }
+      }
     if (!company) {
       throw new HttpException(
         this.helperService.formatReqMessagesString(
