@@ -464,7 +464,7 @@ export class UserService {
         userFields.role = Role.Admin;
       }
 
-      if(company.companyRole === CompanyRole.MINISTRY && user.companyRole === CompanyRole.MINISTRY) {
+      if(company.companyRole === CompanyRole.MINISTRY && companyRole === CompanyRole.MINISTRY) {
         throw new HttpException(
           this.helperService.formatReqMessagesString(
             "user.minUserCannotCreateMin",

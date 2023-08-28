@@ -99,7 +99,9 @@ const CreditTransfer = () => {
   const [totalComCredits, setTotalComCredits] = useState<number>(0);
   const [companyIdsVal, setCompanyIdsVal] = useState<number[]>();
   const [creditAmount, setCreditAmount] = useState<number>(0);
+  const [ministrySectoralScope, setMinistrySectoralScope] = useState<any[]>([]);
   const { isTransferFrozen, setTransferFrozen } = useSettingsContext();
+  const [ministryLevelFilter, setMinistryLevelFilter] = useState<boolean>(false);
 
   const onStatusQuery = async (checkedValues: CheckboxValueType[]) => {
     console.log(checkedValues);
@@ -175,6 +177,14 @@ const CreditTransfer = () => {
       };
     }
 
+    let filterBy: any;
+    if (ministryLevelFilter) {
+      filterBy = {
+        key: 'ministryLevel',
+        value: ministrySectoralScope,
+      };
+    }
+
     try {
       const response: any = await post('national/programme/transferQuery', {
         page: currentPage,
@@ -182,6 +192,7 @@ const CreditTransfer = () => {
         filterAnd: filter,
         filterOr: dataFilter,
         sort: sort,
+        filterBy: filterBy,
       });
 
       console.log(response);
@@ -200,6 +211,48 @@ const CreditTransfer = () => {
     }
   };
 
+  const getUserDetails = async () => {
+    setLoading(true);
+    try {
+      const response: any = await post('national/user/query', {
+        page: 1,
+        size: 10,
+        filterAnd: [
+          {
+            key: 'id',
+            operation: '=',
+            value: userInfoState?.id,
+          },
+        ],
+      });
+      if (response && response.data) {
+        if (
+          response?.data[0]?.companyRole === CompanyRole.MINISTRY &&
+          response?.data[0]?.company &&
+          response?.data[0]?.company?.sectoralScope
+        ) {
+          setMinistrySectoralScope(response?.data[0]?.company?.sectoralScope);
+        }
+      }
+      setLoading(false);
+    } catch (error: any) {
+      console.log('Error in getting users', error);
+      message.open({
+        type: 'error',
+        content: error.message,
+        duration: 3,
+        style: { textAlign: 'right', marginRight: 15, marginTop: 10 },
+      });
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
+      getUserDetails();
+    }
+  }, []);
+
   useEffect(() => {
     if (currentPage !== 1) {
       setCurrentPage(1);
@@ -210,7 +263,7 @@ const CreditTransfer = () => {
 
   useEffect(() => {
     getAllTransfers();
-  }, [currentPage, pageSize, sortField, sortOrder, search]);
+  }, [currentPage, pageSize, sortField, sortOrder, search, ministryLevelFilter]);
 
   const handleRequestOk = async (
     reqId: number,
@@ -347,7 +400,10 @@ const CreditTransfer = () => {
             </List.Item>
           )}
         />
-      ) : record.isRetirement && userInfoState?.companyRole === CompanyRole.GOVERNMENT ? (
+      ) : record.isRetirement &&
+        (userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
+          (userInfoState?.companyRole === CompanyRole.MINISTRY &&
+            ministrySectoralScope.includes(record.programmeSectoralScope))) ? (
         <List
           className="action-menu"
           size="small"
@@ -707,7 +763,7 @@ const CreditTransfer = () => {
       </div>
       <div className="content-card">
         <Row>
-          <Col lg={{ span: 16 }} md={{ span: 16 }}>
+          <Col lg={{ span: 15 }} md={{ span: 15 }}>
             <div className="action-bar">
               <Checkbox
                 className="all-check"
@@ -726,42 +782,60 @@ const CreditTransfer = () => {
               />
             </div>
           </Col>
-          <Col lg={{ span: 8 }} md={{ span: 8 }}>
+          <Col lg={{ span: 9 }} md={{ span: 9 }}>
             <div className="filter-section">
-              <div className="search-filter">
-                <Checkbox
-                  className="label"
-                  onChange={(v) =>
-                    setDataFilter(
-                      v.target.checked
-                        ? [
-                            {
-                              key: 'initiatorCompanyId',
-                              operation: '=',
-                              value: userInfoState?.companyId,
-                            },
-                            {
-                              key: 'fromCompanyId',
-                              operation: '=',
-                              value: userInfoState?.companyId,
-                            },
-                            {
-                              key: 'toCompanyId',
-                              operation: '=',
-                              value: userInfoState?.companyId,
-                            },
-                            {
-                              key: 'programmeCertifierId',
-                              operation: 'ANY',
-                              value: userInfoState?.companyId,
-                            },
-                          ]
-                        : undefined
-                    )
-                  }
-                >
-                  {t('view:seeMine')}
-                </Checkbox>
+              <div className="filter-col">
+                {userInfoState && userInfoState.companyRole === CompanyRole.MINISTRY && (
+                  <div className="justify-left">
+                    <Checkbox
+                      className="label"
+                      onChange={(v) => {
+                        if (v.target.checked) {
+                          setMinistryLevelFilter(true);
+                        } else {
+                          setMinistryLevelFilter(false);
+                        }
+                      }}
+                    >
+                      {t('view:ministryLevel')}
+                    </Checkbox>
+                  </div>
+                )}
+                <div className="justify-left">
+                  <Checkbox
+                    className="label"
+                    onChange={(v) =>
+                      setDataFilter(
+                        v.target.checked
+                          ? [
+                              {
+                                key: 'initiatorCompanyId',
+                                operation: '=',
+                                value: userInfoState?.companyId,
+                              },
+                              {
+                                key: 'fromCompanyId',
+                                operation: '=',
+                                value: userInfoState?.companyId,
+                              },
+                              {
+                                key: 'toCompanyId',
+                                operation: '=',
+                                value: userInfoState?.companyId,
+                              },
+                              {
+                                key: 'programmeCertifierId',
+                                operation: 'ANY',
+                                value: userInfoState?.companyId,
+                              },
+                            ]
+                          : undefined
+                      )
+                    }
+                  >
+                    {t('view:seeMine')}
+                  </Checkbox>
+                </div>
               </div>
               <div className="search-bar">
                 <Search

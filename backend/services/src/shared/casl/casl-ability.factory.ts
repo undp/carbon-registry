@@ -57,7 +57,7 @@ export class CaslAbilityFactory {
         });
         cannot(Action.Update, Company, { companyId: { $ne: user.companyId } });
         if (user.companyRole === CompanyRole.MINISTRY) {
-          cannot([Action.Update, Action.Delete, Action.Read], User, {
+          cannot([Action.Update, Action.Delete], User, {
             companyId: { $ne: user.companyId },
           });
           cannot(Action.Delete, Company, { companyRole: { $eq: user.companyRole } });
@@ -83,13 +83,16 @@ export class CaslAbilityFactory {
             }
             can(Action.Read, User);
         } else {
-          can(Action.Read, User, { companyId: { $eq: user.companyId } });
           if(user.companyRole == CompanyRole.MINISTRY) {
+            can(Action.Read, User);
             if (user.role === Role.Manager) {
               can([Action.Delete], Company);
               cannot(Action.Delete, Company, { companyRole: { $eq: user.companyRole } });
               cannot(Action.Delete, Company, { companyId: { $eq: user.companyId } });
             }
+          }
+          else {
+            can(Action.Read, User, { companyId: { $eq: user.companyId } });
           }
         }
 
