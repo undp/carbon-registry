@@ -135,7 +135,7 @@ Carbon Registry contains 3 ledger tables.
 2. Company Account Ledger (Credit) - Contains company accounts credit transactions.
 3. Country Account Ledger (Credit) - Contains country credit transactions.
 
-The below diagram demonstrates the the ledger behavior of programme create, authorise, issue and transfer processes. Blue color document icon denotes a single data block in a ledger.
+The below diagram demonstrates the ledger behavior of programme create, authorise, issue and transfer processes. Blue color document icon denotes a single data block in a ledger.
 
 ![alt text](./documention/imgs/Ledger.svg)
 
@@ -182,7 +182,7 @@ The below diagram demonstrates the the ledger behavior of programme create, auth
   - Update [organisations.csv](./organisations.csv) file to add organisations.
   - Update [users.csv](./users.csv) file to add users.
   - When updating files keep the header and replace existing dummy data with your data.
-  - These users and companys add to the system each docker restart.
+  - These users and companies add to the system each docker restart.
 - Run `docker-compose up -d --build`. This will build and start containers for following services,
     - PostgresDB container
     - National service

@@ -1,6 +1,6 @@
 # Sample Terms of Reference
 The TOR can be further specified if national details are known, e.g. about the NDC management tool. 
-These worksteps can also be intergrated with larger TORs, especially TORs covering wider NDC management / transparency. Below are sample phrases that may be used. Generally a vendor (firm) or a group of individual consultant are encouraged, as the required skills vary. 
+These worksteps can also be integrated with larger TORs, especially TORs covering wider NDC management / transparency. Below are sample phrases that may be used. Generally a vendor (firm) or a group of individual consultant are encouraged, as the required skills vary. 
 
 ## 1. Installation
 The following work steps are suggested for the national implementation of the DPG carbon registry in any country.
@@ -8,7 +8,7 @@ The following work steps are suggested for the national implementation of the DP
 - Installation of a Carbon Registry from https://github.com/undp/carbon-registry
 
 - Technical timeline/roadmap
-- Fork the [Carbon Registry](https://github.com/undp/carbon-registry). Send pull requests to `staging` for added features (languages, security patchees, modules, etc.). 
+- Fork the [Carbon Registry](https://github.com/undp/carbon-registry). Send pull requests to `staging` for added features (languages, security patches, modules, etc.). 
 
 - Initial Setup of the Carbon Registry, including localization to national requirements:
 	- translation of text into relevant national languages
@@ -22,14 +22,14 @@ The following work steps are suggested for the national implementation of the DP
 	- integration with existing NDC management tools (if applicable) [API]
 	- adjustment of user types to national requirements
 	- creation of government accounts
-	- status page for monitoring uptime, utlizing https://github.com/undp/carbon-registry-status 
+	- status page for monitoring uptime, utilizing https://github.com/undp/carbon-registry-status 
 	- *(Deliverable: Fully localized Carbon Registry running on staging (test) environment & productive (live) environment)*
  
 - Build carbon credit calculators for locally-determined sectors & according to local regulations. Referencing https://github.com/undp/carbon-registry/tree/main/libs/carbon-credit-calculator . Push new calculators to main codebase.
 - [Optional] Creation of new features / modules. Reporting update on https://github.com/undp/carbon-registry/tree/main/modules.
 - - Successful end-to-end test of the registry. This test needs to cover the full lifecycle of one dummy project including at least project creation, authorization, implementation, MRV, issuance and transfer. 
 *(Deliverable: Test Report)*
-- Creation of a nationally appropriate signup proceedure for non-government accounts
+- Creation of a nationally appropriate signup procedure for non-government accounts
 - Hand over to official government use
 *(Deliverable: Government Acceptance. Source code submission (ideally on `GitHub`) approved.)*
 - Testing: Security, Privacy, Accessibility, Performance, Load. *(Deliverable: 3rd party and/or automated tests.)*
@@ -114,8 +114,8 @@ Planning| 	< 48 hours|	< 5 days|
 - Code Package: Access rights to online git (Github, Gitlab, etc) code repository OR bundled in following file types: .git or .zip containing the full repository of files (such as .yml, .md, .sql, .json, .ts, .html, .svg, .js, etc. ). The latter can be shared via online file sharing services ([Send](https://send.vis.ee), Dropbox, Sharepoint, WeTransfer, etc) as the files will be too large to attach directly in email.
 
 Other items to consider:
-- Hosting / clound server:
-- 	The ToR is based on the assumption that he government entity has or will prepare a hosting environment in a cloud server. If the government does not have a server space, consider if the vendor will need to host the registry. If so, consider if the vendor can be contracted for a long term. 
+- Hosting / cloud server:
+- 	The ToR is based on the assumption that the government entity has or will prepare a hosting environment in a cloud server. If the government does not have a server space, consider if the vendor will need to host the registry. If so, consider if the vendor can be contracted for a long term. 
 - 	Server specifications: TBD 
 
 ## 4. Required persons / skills
