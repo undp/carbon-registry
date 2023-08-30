@@ -17,26 +17,19 @@ export const EmailTemplates = {
     html: `
         Welcome {{name}}, <br><br>
 
-        Your account has been created for the {{countryName}} Carbon Credit
-        Registry. You can access your account using the temporary Homepage: {{home}} <br><br>
+        Thank you for supporting the {{countryName}} Carbon Registry.<br><br>
 
+        Your account has been created on: {{home}} <br>
         User: {{email}} <br>
         Password (temporary): {{tempPassword}} <br><br>
 
-        If you have any questions, feel free to email our customer success
-        team <a href="mailto:help@carbreg.org?subject=I Need Help With The {{countryName}} Carbon Credit Registry">customer success team</a>
-        (We’re lightning quick at replying.) We also offer live chat {{liveChat}}.
+        If you have any questions, feel free to email our <a href="mailto:help@carbreg.org?subject=I Need Help With The {{countryName}} Carbon Registry">customer success team</a>. 
+        We also offer <a href="{{helpDoc}}">help documentation</a> and <a href="{{liveChat}}">chat</a>.
         <br><br>
 
         Sincerely, <br>
-        The {{countryName}} Carbon Credit Registry Team <br><br>
+        The {{countryName}} Carbon Registry Team <br><br>
 
-        <div style="font-size:12px">
-            P.S.Need immediate help getting started? Check out our help
-            <a href="{{helpDoc}}">documentation</a>. Or, just reply to this email, the
-            {{countryName}} Carbon Credit Registry Team is always ready to help!
-        </div>
-        <br>
         <div style="font-size:12px">
             {{countryName}} <br>
             Address  <br>
