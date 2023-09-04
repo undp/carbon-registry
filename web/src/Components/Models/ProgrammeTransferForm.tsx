@@ -122,12 +122,16 @@ const ProgrammeTransferForm: FC<ProgrammeTransferFormProps> = (
       ((toCompanyDefault && userCompanyId !== Number(programme.companyId[index])) ||
         (!toCompanyDefault &&
           (userCompanyId === Number(programme.companyId[index]) ||
-            companyRole === CompanyRole.GOVERNMENT))) &&
+            companyRole === CompanyRole.GOVERNMENT ||
+            companyRole === CompanyRole.MINISTRY))) &&
       parseInt(companies[Number(programme.companyId[index])].state) ===
         CompanyState.ACTIVE.valueOf()
     ) {
       const companyAvailableTotal =
-        ((programme.creditBalance - (programme.creditFrozen ? programme.creditFrozen[index] : 0)) *
+        ((programme.creditBalance -
+          (programme.creditFrozen && programme.creditFrozen[index]
+            ? programme.creditFrozen[index]
+            : 0)) *
           programme.creditOwnerPercentage[index]) /
         100;
       validCompanies.push({

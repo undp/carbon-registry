@@ -68,6 +68,18 @@ export class CompanyService {
         }`
       )
       .getOne();
+      if(user.companyRole === CompanyRole.MINISTRY) {
+        const companyDetails = await this.findByCompanyId(companyId);
+          if(companyDetails.companyRole === CompanyRole.GOVERNMENT || companyDetails.companyRole === CompanyRole.MINISTRY) {
+            throw new HttpException(
+              this.helperService.formatReqMessagesString(
+                "user.userUnAUth",
+                []
+              ),
+              HttpStatus.FORBIDDEN
+            );
+          }
+      }
     if (!company) {
       throw new HttpException(
         this.helperService.formatReqMessagesString(
@@ -175,6 +187,18 @@ export class CompanyService {
         }`
       )
       .getOne();
+      if(user.companyRole === CompanyRole.MINISTRY) {
+        const companyDetails = await this.findByCompanyId(companyId);
+          if(companyDetails.companyRole === CompanyRole.GOVERNMENT || companyDetails.companyRole === CompanyRole.MINISTRY) {
+            throw new HttpException(
+              this.helperService.formatReqMessagesString(
+                "user.userUnAUth",
+                []
+              ),
+              HttpStatus.FORBIDDEN
+            );
+          }
+      }
     if (!company) {
       throw new HttpException(
         this.helperService.formatReqMessagesString(
@@ -275,6 +299,9 @@ export class CompanyService {
   }
 
   async findByTaxId(taxId: string): Promise<Company | undefined> {
+    if (!taxId) {
+      return null;
+    }
     const companies = await this.companyRepo.find({
       where: {
         taxId: taxId,
@@ -316,6 +343,16 @@ export class CompanyService {
       where: {
         country: countryCode,
         companyRole: CompanyRole.GOVERNMENT,
+      },
+    });
+    return companies && companies.length > 0 ? companies[0] : undefined;
+  }
+
+  async findMinByCountry(countryCode: string): Promise<Company | undefined> {
+    const companies = await this.companyRepo.find({
+      where: {
+        country: countryCode,
+        companyRole: CompanyRole.MINISTRY,
       },
     });
     return companies && companies.length > 0 ? companies[0] : undefined;

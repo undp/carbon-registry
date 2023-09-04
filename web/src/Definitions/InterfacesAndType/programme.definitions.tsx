@@ -3,6 +3,7 @@ import { ProgrammeTransfer } from '@undp/carbon-library';
 import { GovBGColor, CertBGColor, DevBGColor } from '../../Pages/Common/role.color.constants';
 
 export enum ProgrammeStage {
+  New = 'New',
   AwaitingAuthorization = 'Pending',
   Authorised = 'Authorised',
   // Transferred = 'Transferred',
@@ -44,11 +45,42 @@ export enum TxType {
   FREEZE = '7',
   AUTH = '8',
   UNFREEZE = '9',
+  OWNERSHIP_UPDATE = '12',
 }
 
 export enum SectoralScope {
-  'Energy Industry' = '1',
+  EnergyIndustry = '1',
+  EnergyDistribution = '2',
+  EnergyDemand = '3',
+  ManufacturingIndustries = '4',
+  ChemicalIndustries = '5',
+  Construction = '6',
+  Transport = '7',
+  MiningAndMineral = '8',
+  MetalProduction = '9',
+  FugitiveEmissionsFromFuels = '10',
+  FugitiveEmissionsFromProductionConsumption = '11',
+  SolventUse = '12',
+  WasteHandlingDisposal = '13',
+  AfforestationAndReforestation = '14',
+  Agriculture = '15',
+}
+
+export enum SectoralScopeDisplayNames {
+  'Energy Industries (Renewable - / Non-Renewable Sources)' = '1',
   'Energy Distribution' = '2',
+  'Energy Demand' = '3',
+  'Manufacturing Industries' = '4',
+  'Chemical Industries' = '5',
+  'Construction' = '6',
+  'Transport' = '7',
+  'Mining/Mineral Production' = '8',
+  'Metal Production' = '9',
+  'Fugitive Emissions From Fuels (Solid, Oil and Gas)' = '10',
+  'Fugitive Emissions From Production and Consumption of Halocarbons and Sulphur Hexafluoride' = '11',
+  'Solvent Use' = '12',
+  'Waste Handling and Disposal' = '13',
+  'Afforestation and Reforestation' = '14',
   'Agriculture' = '15',
 }
 
@@ -96,8 +128,8 @@ export const getStageTagType = (stage: ProgrammeStage) => {
       return 'error';
     case ProgrammeStage.Authorised:
       return 'processing';
-    // case ProgrammeStage.Transferred:
-    //   return 'success';
+    case ProgrammeStage.New:
+      return 'success';
     default:
       return 'default';
   }
@@ -140,12 +172,13 @@ export enum CompanyRole {
   PROGRAMME_DEVELOPER = 'ProgrammeDeveloper',
   MRV = 'MRV',
   GOVERNMENT = 'Government',
+  MINISTRY = 'Ministry',
 }
 
 export interface ProgrammeProperties {
   maxInternationalTransferAmount: string;
   creditingPeriodInYears: number;
-  programmeCostUSD: number;
+  estimatedProgrammeCostUSD: number;
   sourceOfFunding: any;
   grantEquivalentAmount: number;
   carbonPriceUSDPerTon: number;
@@ -202,8 +235,10 @@ export const getGeneralFields = (programme: Programme) => {
     applicationType: 'Programme Developer',
     sector: programme.sector,
     sectoralScope:
-      Object.keys(SectoralScope)[
-        Object.values(SectoralScope).indexOf(programme.sectoralScope as SectoralScope)
+      Object.keys(SectoralScopeDisplayNames)[
+        Object.values(SectoralScopeDisplayNames).indexOf(
+          programme.sectoralScope as SectoralScopeDisplayNames
+        )
       ],
     startDate: DateTime.fromSeconds(Number(programme.startTime)),
     endDate: DateTime.fromSeconds(Number(programme.endTime)),
@@ -241,7 +276,7 @@ export const addSpaces = (text: string) => {
 
 export const getFinancialFields = (programme: Programme) => {
   return {
-    programmeCost: addCommSep(programme.programmeProperties.programmeCostUSD),
+    estimatedProgrammeCostUSD: addCommSep(programme.programmeProperties.estimatedProgrammeCostUSD),
     financingType: addSpaces(programme.programmeProperties.sourceOfFunding),
     grantEquivalent: new UnitField(
       'USD',

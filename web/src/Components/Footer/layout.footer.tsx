@@ -20,7 +20,9 @@ const LayoutFooter = () => {
                 <div className="title">{'CARBON'}</div>
                 <div className="title-sub">{'REGISTRY'}</div>
               </div>
-              <div className="footer-country-name">{process.env.COUNTRY_NAME || 'CountryX'}</div>
+              <div className="footer-country-name">
+                {process.env.REACT_APP_COUNTRY_NAME || 'CountryX'}
+              </div>
             </div>
           </div>
         </Col>
@@ -34,13 +36,17 @@ const LayoutFooter = () => {
       <Row>
         <Col md={10} lg={10}>
           <div className="footertext-bottom">
-            {process.env.COUNTRY_NAME || 'CountryX'}
+            {process.env.REACT_APP_COUNTRY_NAME || 'CountryX'}
             <CcCircle className="cc" color="#FFFF" size="10px" />
           </div>
         </Col>
         <Col md={14} lg={14}>
           <div className="footertext-link-container">
-            <a href="/help" target={'blank'} className="footertext-links">
+            <a
+              href="https://nationalcarbonregistrydemo.tawk.help/"
+              target={'_blank'}
+              className="footertext-links"
+            >
               {t('homepage:Help')}
             </a>
             <a href="https://status.carbreg.org/" target={'blank'} className="footertext-links">

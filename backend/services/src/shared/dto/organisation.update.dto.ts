@@ -22,7 +22,10 @@ export class OrganisationUpdateDto {
   name: string;
 
   @ValidateIf(
-    (c) => ![CompanyRole.GOVERNMENT, CompanyRole.API].includes(c.companyRole)
+    (c) =>
+      ![CompanyRole.GOVERNMENT, CompanyRole.API, CompanyRole.MINISTRY].includes(
+        c.companyRole
+      )
   )
   @IsNotEmpty()
   @IsString()
@@ -45,9 +48,7 @@ export class OrganisationUpdateDto {
   @ApiPropertyOptional()
   website: string;
 
-  @ValidateIf(
-    (c) => c.logo
-  )
+  @ValidateIf((c) => c.logo)
   @ApiPropertyOptional()
   @MaxLength(1048576, { message: "Logo cannot exceed 1MB" })
   logo: string;

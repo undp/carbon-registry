@@ -138,6 +138,18 @@ export class ProgrammeService {
     });
   }
 
+  async findPermissionForMinistryUser(
+    user: User,
+    programmeSectoralScope: any
+  ): Promise<boolean> {
+    const orgDetails = await this.companyService.findByCompanyId(
+      user.companyId
+    );
+    if (!orgDetails?.sectoralScope.includes(programmeSectoralScope as any)) {
+      return false;
+    } else return true;
+  }
+
   async transferReject(req: ProgrammeTransferReject, approver: User) {
     this.logger.log(
       `Programme reject ${JSON.stringify(req)} ${approver.companyId}`
@@ -155,6 +167,22 @@ export class ProgrammeService {
         ),
         HttpStatus.BAD_REQUEST
       );
+    }
+
+    const programmeDetails = await this.findById(pTransfer.programmeId);
+    if (programmeDetails) {
+      if (approver.companyRole === CompanyRole.MINISTRY) {
+        const permission = await this.findPermissionForMinistryUser(
+          approver,
+          programmeDetails.sectoralScope
+        );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
+      }
     }
 
     if (pTransfer.status == TransferStatus.CANCELLED) {
@@ -180,13 +208,15 @@ export class ProgrammeService {
       );
     }
     if (pTransfer.isRetirement && pTransfer.toCompanyId != approver.companyId) {
-      throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "programme.invalidApproverForRetirementReq",
-          []
-        ),
-        HttpStatus.FORBIDDEN
-      );
+      if(approver.companyRole !== CompanyRole.MINISTRY) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString(
+              "programme.invalidApproverForRetirementReq",
+              []
+            ),
+            HttpStatus.FORBIDDEN
+          );
+      }
     }
 
     const result = await this.programmeTransferRepo
@@ -213,7 +243,7 @@ export class ProgrammeService {
     );
 
     if (result.affected > 0) {
-      if (pTransfer.isRetirement) {
+      if (pTransfer.isRetirement && pTransfer.toCompanyMeta) {
         const countryName = await this.countryService.getCountryName(
           pTransfer.toCompanyMeta.country
         );
@@ -280,6 +310,7 @@ export class ProgrammeService {
       ],
       filterOr: undefined,
       sort: undefined,
+      filterBy: undefined
     };
 
     const resp = await this.programmeTransferViewRepo
@@ -348,7 +379,7 @@ export class ProgrammeService {
     abilityCondition: string,
     user: User
   ): Promise<any> {
-    const resp = await this.programmeTransferViewRepo
+    let queryBuilder = await this.programmeTransferViewRepo
       .createQueryBuilder("programme_transfer")
       .where(
         this.helperService.generateWhereSQL(
@@ -358,8 +389,14 @@ export class ProgrammeService {
             abilityCondition
           )
         )
-      )
-      .orderBy(
+      );
+
+      if (query.filterBy !== null && query.filterBy !== undefined && query.filterBy.key === 'ministryLevel') {
+        queryBuilder = queryBuilder.andWhere("programme_transfer.programmeSectoralScope IN (:...allowedScopes)", {
+          allowedScopes: query.filterBy.value
+        });
+      }
+      const resp = await  queryBuilder.orderBy(
         query?.sort?.key &&
           this.helperService.generateSortCol(query?.sort?.key),
         query?.sort?.order,
@@ -406,6 +443,21 @@ export class ProgrammeService {
         HttpStatus.BAD_REQUEST
       );
     }
+    const programmeD = await this.findById(transfer.programmeId);
+    if (programmeD) {
+      if (approver.companyRole === CompanyRole.MINISTRY) {
+        const permission = await this.findPermissionForMinistryUser(
+          approver,
+          programmeD.sectoralScope
+        );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
+      }
+    }
 
     if (transfer.status == TransferStatus.CANCELLED) {
       throw new HttpException(
@@ -443,13 +495,15 @@ export class ProgrammeService {
       );
     }
     if (transfer.isRetirement && transfer.toCompanyId != approver.companyId) {
-      throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "programme.invalidApproverForRetirementReq",
-          []
-        ),
-        HttpStatus.FORBIDDEN
-      );
+      if(approver.companyRole !== CompanyRole.MINISTRY) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString(
+            "programme.invalidApproverForRetirementReq",
+            []
+          ),
+          HttpStatus.FORBIDDEN
+        );
+      }
     }
 
     const receiver = await this.companyService.findByCompanyId(
@@ -529,7 +583,7 @@ export class ProgrammeService {
     );
 
     if (transferResult.statusCode === 200) {
-      if (transfer.isRetirement) {
+      if (transfer.isRetirement && transfer.toCompanyMeta) {
         const countryName = await this.countryService.getCountryName(
           transfer.toCompanyMeta.country
         );
@@ -610,107 +664,7 @@ export class ProgrammeService {
       });
 
     if (result.affected > 0) {
-      const transfers = await this.programmeTransferRepo.find({
-        where: {
-          programmeId: programme.programmeId,
-          status: TransferStatus.PENDING,
-        },
-      });
-
-      for (let transfer of transfers) {
-        const companyIndex = programme.companyId.indexOf(
-          transfer.fromCompanyId
-        );
-        const companyProponent = programme.creditOwnerPercentage[companyIndex];
-        const creditBalance =
-          (programme.creditBalance * companyProponent) / 100;
-        if (transfer.creditAmount > creditBalance) {
-          const result = await this.programmeTransferRepo
-            .update(
-              {
-                requestId: transfer.requestId,
-              },
-              {
-                status: TransferStatus.CANCELLED,
-                txTime: new Date().getTime(),
-                authTime: new Date().getTime(),
-                txRef: `#${SystemActionType.LOW_CREDIT_AUTO_CANCEL}#`,
-              }
-            )
-            .catch((err) => {
-              this.logger.error(err);
-              return err;
-            });
-
-          if (result.affected === 0) {
-            throw new HttpException(
-              this.helperService.formatReqMessagesString(
-                "programme.internalErrorStatusUpdating",
-                []
-              ),
-              HttpStatus.INTERNAL_SERVER_ERROR
-            );
-          } else {
-            if (transfer.isRetirement) {
-              const countryName = await this.countryService.getCountryName(
-                transfer.toCompanyMeta.country
-              );
-
-              await this.emailHelperService.sendEmailToOrganisationAdmins(
-                transfer.fromCompanyId,
-                EmailTemplates.CREDIT_RETIREMENT_CANCEL_SYS_TO_INITIATOR,
-                {
-                  credits: transfer.creditAmount,
-                  serialNumber: programme.serialNo,
-                  programmeName: programme.title,
-                  country: countryName,
-                  pageLink: hostAddress + "/creditTransfers/viewAll",
-                }
-              );
-
-              await this.emailHelperService.sendEmailToGovernmentAdmins(
-                EmailTemplates.CREDIT_RETIREMENT_CANCEL_SYS_TO_GOV,
-                {
-                  credits: transfer.creditAmount,
-                  serialNumber: programme.serialNo,
-                  programmeName: programme.title,
-                  pageLink: hostAddress + "/creditTransfers/viewAll",
-                  country: countryName,
-                },
-                "",
-                transfer.initiatorCompanyId
-              );
-            } else {
-              await this.emailHelperService.sendEmailToOrganisationAdmins(
-                transfer.initiatorCompanyId,
-                EmailTemplates.CREDIT_TRANSFER_CANCELLATION_SYS_TO_INITIATOR,
-                {
-                  credits: transfer.creditAmount,
-                  serialNumber: programme.serialNo,
-                  programmeName: programme.title,
-                  pageLink: hostAddress + "/creditTransfers/viewAll",
-                },
-                transfer.toCompanyId
-              );
-
-              await this.emailHelperService.sendEmailToOrganisationAdmins(
-                transfer.fromCompanyId,
-                EmailTemplates.CREDIT_TRANSFER_CANCELLATION_SYS_TO_SENDER,
-                {
-                  credits: transfer.creditAmount,
-                  serialNumber: programme.serialNo,
-                  programmeName: programme.title,
-                  pageLink: hostAddress + "/creditTransfers/viewAll",
-                },
-                transfer.toCompanyId,
-                "",
-                transfer.initiatorCompanyId
-              );
-            }
-          }
-        }
-      }
-
+      this.checkPendingTransferValidity(programme);
       return new DataResponseDto(HttpStatus.OK, programme);
     }
 
@@ -744,6 +698,22 @@ export class ProgrammeService {
       );
     }
 
+    const programmeDetails = await this.findById(transfer.programmeId);
+    if (programmeDetails) {
+      if (requester.companyRole === CompanyRole.MINISTRY) {
+        const permission = await this.findPermissionForMinistryUser(
+          requester,
+          programmeDetails.sectoralScope
+        );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
+      }
+    }
+
     if (transfer.status != TransferStatus.PENDING) {
       throw new HttpException(
         this.helperService.formatReqMessagesString(
@@ -775,7 +745,7 @@ export class ProgrammeService {
       const initiatorCompanyDetails = await this.companyService.findByCompanyId(
         transfer.initiatorCompanyId
       );
-      if (transfer.isRetirement) {
+      if (transfer.isRetirement && transfer.toCompanyMeta) {
         const countryName = await this.countryService.getCountryName(
           transfer.toCompanyMeta.country
         );
@@ -914,6 +884,19 @@ export class ProgrammeService {
         HttpStatus.BAD_REQUEST
       );
     }
+
+    if (requester.companyRole === CompanyRole.MINISTRY) {
+      const permission = await this.findPermissionForMinistryUser(
+        requester,
+        programme.sectoralScope
+      );
+      if (!permission) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString("user.userUnAUth", []),
+          HttpStatus.FORBIDDEN
+        );
+      }
+    }
     this.logger.verbose(`Transfer programme ${JSON.stringify(programme)}`);
 
     if (programme.currentStage != ProgrammeStage.AUTHORISED) {
@@ -929,7 +912,7 @@ export class ProgrammeService {
     //     throw new HttpException("Not enough balance for the transfer", HttpStatus.BAD_REQUEST)
     // }
     if (
-      requester.companyRole != CompanyRole.GOVERNMENT &&
+      requester.companyRole != CompanyRole.GOVERNMENT && requester.companyRole != CompanyRole.MINISTRY &&
       ![...req.fromCompanyIds, req.toCompanyId].includes(requester.companyId)
     ) {
       throw new HttpException(
@@ -1134,13 +1117,16 @@ export class ProgrammeService {
 
   async addDocument(document: ProgrammeDocumentDto): Promise<DataResponseDto | undefined> {
     this.logger.log('Add Document triggered')
-    const resp = await this.programmeLedger.addDocument(document.externalId, document.actionId, document.data, document.type, 0);
+
+    const certifierId = (await this.companyService.findByTaxId(document.certifierTaxId))?.companyId;
+    const resp = await this.programmeLedger.addDocument(document.externalId, document.actionId, document.data, document.type, 0, certifierId);
     return new DataResponseDto(HttpStatus.OK, resp);
   }
 
   async programmeAccept(accept: ProgrammeAcceptedDto): Promise<DataResponseDto | undefined> {
     this.logger.log('Add accept triggered')
-    const resp = await this.programmeLedger.addDocument(accept.externalId, undefined, accept.data, accept.type, accept.creditEst);
+    const certifierId = (await this.companyService.findByTaxId(accept.certifierTaxId))?.companyId;
+    const resp = await this.programmeLedger.addDocument(accept.externalId, undefined, accept.data, accept.type, accept.creditEst, certifierId);
     return new DataResponseDto(HttpStatus.OK, resp);
   }
 
@@ -1179,6 +1165,11 @@ export class ProgrammeService {
     }
 
     const companyIds = [];
+
+    let investorCompanyId;
+    let ownerCompanyId;
+    let investorCompanyName;
+    let ownerCompanyName;
     for (const taxId of update.proponentTaxVatId) {
       const compo = await this.companyService.findByTaxId(taxId);
       if (!compo) {
@@ -1190,10 +1181,19 @@ export class ProgrammeService {
           HttpStatus.BAD_REQUEST
         );
       }
+      if (compo.taxId === update.investorTaxId) {
+        investorCompanyId = Number(compo.companyId);
+        investorCompanyName = compo.name;
+      } else if (compo.taxId === update.ownerTaxId) {
+        ownerCompanyId = Number(compo.companyId);
+        ownerCompanyName = compo.name;
+      }
       companyIds.push(compo.companyId)
     }
     
-    const resp = await this.programmeLedger.updateOwnership(update.externalId, companyIds, update.proponentTaxVatId, update.proponentPercentage);
+    const resp = await this.programmeLedger.updateOwnership(update.externalId, companyIds, update.proponentTaxVatId, update.proponentPercentage, investorCompanyId, ownerCompanyId, investorCompanyName, ownerCompanyName, update.shareFromOwner);
+    if(resp)
+      this.checkPendingTransferValidity(resp);
     return new DataResponseDto(HttpStatus.OK, resp);
   }
 
@@ -1423,7 +1423,7 @@ export class ProgrammeService {
     for (const el of resp) {
       const refs = this.getCompanyIdAndUserIdFromRef(el.data.txRef);
       if (
-        refs &&
+        refs && !isNaN(refs?.companyId) && !isNaN(Number(refs.id)) &&
         (user.companyRole === CompanyRole.GOVERNMENT ||
           Number(refs?.companyId) === Number(user.companyId))
       ) {
@@ -1484,6 +1484,7 @@ export class ProgrammeService {
     this.logger.log(
       `Programme ${req.programmeId} certification received by ${user.id}`
     );
+    const progDetails = await this.findById(req.programmeId);
 
     if (add && user.companyRole != CompanyRole.CERTIFIER) {
       throw new HttpException(
@@ -1494,9 +1495,11 @@ export class ProgrammeService {
 
     if (
       !add &&
-      ![CompanyRole.CERTIFIER, CompanyRole.GOVERNMENT].includes(
-        user.companyRole
-      )
+      ![
+        CompanyRole.CERTIFIER,
+        CompanyRole.GOVERNMENT,
+        CompanyRole.MINISTRY,
+      ].includes(user.companyRole)
     ) {
       throw new HttpException(
         this.helperService.formatReqMessagesString(
@@ -1505,10 +1508,26 @@ export class ProgrammeService {
         ),
         HttpStatus.FORBIDDEN
       );
+    } else if(!add && user.companyRole === CompanyRole.MINISTRY) {
+      if ( progDetails) {
+        const permission = await this.findPermissionForMinistryUser(
+          user,
+          progDetails.sectoralScope
+        );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
+      }
     }
 
     let certifierId;
-    if (user.companyRole === CompanyRole.GOVERNMENT) {
+    if (
+      user.companyRole === CompanyRole.GOVERNMENT ||
+      user.companyRole === CompanyRole.MINISTRY
+    ) {
       if (!req.certifierId) {
         throw new HttpException(
           this.helperService.formatReqMessagesString(
@@ -1559,7 +1578,7 @@ export class ProgrammeService {
         user.companyId
       );
     } else {
-      if (user.companyRole === CompanyRole.GOVERNMENT) {
+      if (user.companyRole === CompanyRole.GOVERNMENT || user.companyRole === CompanyRole.MINISTRY) {
         await this.emailHelperService.sendEmailToProgrammeOwnerAdmins(
           req.programmeId,
           EmailTemplates.PROGRAMME_CERTIFICATION_REVOKE_BY_GOVT_TO_PROGRAMME,
@@ -1677,7 +1696,7 @@ export class ProgrammeService {
       this.configService.get("systemCountry")
     );
 
-    if (requestedCompany.companyRole != CompanyRole.GOVERNMENT) {
+    if (requestedCompany.companyRole != CompanyRole.GOVERNMENT && requestedCompany.companyRole != CompanyRole.MINISTRY) {
       if (!req.fromCompanyIds) {
         req.fromCompanyIds = [requester.companyId];
       }
@@ -1732,6 +1751,18 @@ export class ProgrammeService {
         ];
       }
     } else {
+      if(requestedCompany.companyRole === CompanyRole.MINISTRY) {
+        const permission = await this.findPermissionForMinistryUser(
+          requester,
+          programme.sectoralScope
+        );
+        if (!permission) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString("user.userUnAUth", []),
+            HttpStatus.FORBIDDEN
+          );
+        }
+      }
       if (!req.fromCompanyIds) {
         req.fromCompanyIds = programme.companyId;
       }
@@ -1832,17 +1863,29 @@ export class ProgrammeService {
 
       const hostAddress = this.configService.get("host");
       if (requester.companyId != toCompany.companyId) {
-        transfer.status = TransferStatus.PENDING;
-        await this.emailHelperService.sendEmailToGovernmentAdmins(
-          EmailTemplates.CREDIT_RETIREMENT_BY_DEV,
-          {
-            credits: transfer.creditAmount,
-            programmeName: programme.title,
-            serialNumber: programme.serialNo,
-            organisationName: fromCompany.name,
-            pageLink: hostAddress + "/creditTransfers/viewAll",
-          }
-        );
+        if(requester.companyRole === CompanyRole.MINISTRY) {
+          const permission = await this.findPermissionForMinistryUser(
+          requester,
+          programme.sectoralScope
+          );
+        if(permission) {
+          transfer.status = TransferStatus.PROCESSING;
+          autoApproveTransferList.push(transfer);
+        }
+        }
+        else {
+          transfer.status = TransferStatus.PENDING;
+          await this.emailHelperService.sendEmailToGovernmentAdmins(
+            EmailTemplates.CREDIT_RETIREMENT_BY_DEV,
+            {
+              credits: transfer.creditAmount,
+              programmeName: programme.title,
+              serialNumber: programme.serialNo,
+              organisationName: fromCompany.name,
+              pageLink: hostAddress + "/creditTransfers/viewAll",
+            }
+          );
+        }
       } else {
         transfer.status = TransferStatus.PROCESSING;
         autoApproveTransferList.push(transfer);
@@ -1910,6 +1953,19 @@ export class ProgrammeService {
         ),
         HttpStatus.BAD_REQUEST
       );
+    }
+
+    if (user.companyRole === CompanyRole.MINISTRY) {
+      const permission = await this.findPermissionForMinistryUser(
+        user,
+        program.sectoralScope
+      );
+      if (!permission) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString("user.userUnAUth", []),
+          HttpStatus.FORBIDDEN
+        );
+      }
     }
 
     if (program.currentStage != ProgrammeStage.AUTHORISED) {
@@ -2027,6 +2083,18 @@ export class ProgrammeService {
         HttpStatus.BAD_REQUEST
       );
     }
+    if (user.companyRole === CompanyRole.MINISTRY) {
+      const permission = await this.findPermissionForMinistryUser(
+        user,
+        program.sectoralScope
+      );
+      if (!permission) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString("user.userUnAUth", []),
+          HttpStatus.FORBIDDEN
+        );
+      }
+    }
 
     if (program.currentStage != ProgrammeStage.AWAITING_AUTHORIZATION) {
       throw new HttpException(
@@ -2068,7 +2136,8 @@ export class ProgrammeService {
       actionProps: {
         externalId: program.externalId,
         issueAmount: req.issueAmount,
-        serialNo: updated.serialNo
+        serialNo: updated.serialNo,
+        authOrganisationName: (user as any).companyName
       },
     };
     await this.asyncOperationsInterface.AddAction(
@@ -2139,6 +2208,19 @@ export class ProgrammeService {
       );
     }
 
+    if (user.companyRole === CompanyRole.MINISTRY) {
+      const permission = await this.findPermissionForMinistryUser(
+        user,
+        programme.sectoralScope
+      );
+      if (!permission) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString("user.userUnAUth", []),
+          HttpStatus.FORBIDDEN
+        );
+      }
+    }
+
     const authRe: AsyncAction = {
       actionType: AsyncActionType.RejectProgramme,
       actionProps: {
@@ -2159,7 +2241,7 @@ export class ProgrammeService {
     return new BasicResponseDto(HttpStatus.OK, "Successfully updated");
   }
 
-  private getUserName = async (usrId: string) => {
+  private getUserName = async (usrId: any) => {
     this.logger.debug(`Getting user [${usrId}]`);
     if (usrId == "undefined" || usrId == "null") {
       return null;
@@ -2263,5 +2345,109 @@ export class ProgrammeService {
   private getUserRefWithRemarks = (user: any, remarks: string) => {
     return `${user.companyId}#${user.companyName}#${user.id}#${remarks}`;
   };
+
+  private checkPendingTransferValidity = async(programme:Programme) => {
+    const hostAddress = this.configService.get("host");
+    const transfers = await this.programmeTransferRepo.find({
+      where: {
+        programmeId: programme.programmeId,
+        status: TransferStatus.PENDING,
+      },
+    });
+
+    for (let transfer of transfers) {
+      const companyIndex = programme.companyId.indexOf(
+        transfer.fromCompanyId
+      );
+      const companyProponent = programme.creditOwnerPercentage[companyIndex];
+      const creditBalance =
+        (programme.creditBalance * companyProponent) / 100;
+      if (transfer.creditAmount > creditBalance) {
+        const result = await this.programmeTransferRepo
+          .update(
+            {
+              requestId: transfer.requestId,
+            },
+            {
+              status: TransferStatus.CANCELLED,
+              txTime: new Date().getTime(),
+              authTime: new Date().getTime(),
+              txRef: `#${SystemActionType.LOW_CREDIT_AUTO_CANCEL}#`,
+            }
+          )
+          .catch((err) => {
+            this.logger.error(err);
+            return err;
+          });
+
+        if (result.affected === 0) {
+          throw new HttpException(
+            this.helperService.formatReqMessagesString(
+              "programme.internalErrorStatusUpdating",
+              []
+            ),
+            HttpStatus.INTERNAL_SERVER_ERROR
+          );
+        } else {
+          if (transfer.isRetirement && transfer.toCompanyMeta) {
+            const countryName = await this.countryService.getCountryName(
+              transfer.toCompanyMeta.country
+            );
+
+            await this.emailHelperService.sendEmailToOrganisationAdmins(
+              transfer.fromCompanyId,
+              EmailTemplates.CREDIT_RETIREMENT_CANCEL_SYS_TO_INITIATOR,
+              {
+                credits: transfer.creditAmount,
+                serialNumber: programme.serialNo,
+                programmeName: programme.title,
+                country: countryName,
+                pageLink: hostAddress + "/creditTransfers/viewAll",
+              }
+            );
+
+            await this.emailHelperService.sendEmailToGovernmentAdmins(
+              EmailTemplates.CREDIT_RETIREMENT_CANCEL_SYS_TO_GOV,
+              {
+                credits: transfer.creditAmount,
+                serialNumber: programme.serialNo,
+                programmeName: programme.title,
+                pageLink: hostAddress + "/creditTransfers/viewAll",
+                country: countryName,
+              },
+              "",
+              transfer.initiatorCompanyId
+            );
+          } else {
+            await this.emailHelperService.sendEmailToOrganisationAdmins(
+              transfer.initiatorCompanyId,
+              EmailTemplates.CREDIT_TRANSFER_CANCELLATION_SYS_TO_INITIATOR,
+              {
+                credits: transfer.creditAmount,
+                serialNumber: programme.serialNo,
+                programmeName: programme.title,
+                pageLink: hostAddress + "/creditTransfers/viewAll",
+              },
+              transfer.toCompanyId
+            );
+
+            await this.emailHelperService.sendEmailToOrganisationAdmins(
+              transfer.fromCompanyId,
+              EmailTemplates.CREDIT_TRANSFER_CANCELLATION_SYS_TO_SENDER,
+              {
+                credits: transfer.creditAmount,
+                serialNumber: programme.serialNo,
+                programmeName: programme.title,
+                pageLink: hostAddress + "/creditTransfers/viewAll",
+              },
+              transfer.toCompanyId,
+              "",
+              transfer.initiatorCompanyId
+            );
+          }
+        }
+      }
+    }
+  }
 
 }

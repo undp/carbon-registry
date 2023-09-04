@@ -2,6 +2,7 @@ import { BeforeInsert, Column, Entity, PrimaryColumn } from "typeorm";
 import { CompanyRole } from "../enum/company.role.enum";
 import { CompanyState } from "../enum/company.state.enum";
 import { EntitySubject } from "./entity.subject";
+import { SectoralScope } from "@undp/serial-number-gen";
 
 @Entity()
 export class Company implements EntitySubject {
@@ -35,10 +36,9 @@ export class Company implements EntitySubject {
   @Column({
     type: "enum",
     enum: CompanyRole,
-    array: false
+    array: false,
   })
   companyRole: CompanyRole;
-
 
   @Column({
     type: "enum",
@@ -72,6 +72,12 @@ export class Company implements EntitySubject {
 
   @Column({ type: "bigint", nullable: true })
   createdTime: number;
+
+  @Column({ nullable: true })
+  nameOfMinister: string;
+
+  @Column("varchar", { array: true, nullable: true })
+  sectoralScope: SectoralScope[];
 
   @BeforeInsert()
   setDefaultState() {

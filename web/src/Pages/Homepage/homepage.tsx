@@ -4,8 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import sliderLogo from '../../Assets/Images/logo-slider.png';
-import undpLogo from '../../Assets/Images/undp.webp';
-import undpLogofall from '../../Assets/Images/undp.png';
+import undpLogo from '../../Assets/Images/undp1.svg';
+import EBRD from '../../Assets/Images/EBRD.webp';
+import EBRDff from '../../Assets/Images/EBRD.png';
+import UNFCCC from '../../Assets/Images/UNFCCC.webp';
+import UNFCCCff from '../../Assets/Images/UNFCCC.png';
+import IETA from '../../Assets/Images/IETA.webp';
+import IETAff from '../../Assets/Images/IETA.png';
+import ESA from '../../Assets/Images/ESA.webp';
+import ESAff from '../../Assets/Images/ESA.png';
+import WBANK from '../../Assets/Images/WBANK.webp';
+import WBANKff from '../../Assets/Images/WBANK.png';
 import forest from '../../Assets/Images/forest.webp';
 import forestfall from '../../Assets/Images/forest.png';
 import resources from '../../Assets/Images/resources.webp';
@@ -64,7 +73,9 @@ const Homepage = () => {
                       <div className="title">{'CARBON'}</div>
                       <div className="title-sub">{'REGISTRY'}</div>
                     </div>
-                    <div className="country-name">{process.env.COUNTRY_NAME || 'CountryX'}</div>
+                    <div className="country-name">
+                      {process.env.REACT_APP_COUNTRY_NAME || 'CountryX'}
+                    </div>
                   </div>
                 </div>
               </Col>
@@ -166,7 +177,7 @@ const Homepage = () => {
                   </Col>
                 </Row>
               </div>
-              <Row>{t('homepage:aboutusline2')}</Row>
+              <Row className="homepagebody_aboutusline1">{t('homepage:aboutusline2')}</Row>
               <Row className="homepagebody_aboutuslines">{t('homepage:aboutusline3')}</Row>
               <div className="homepagebody_aboutusline1">
                 Developed in Partnership with{' '}
@@ -204,6 +215,54 @@ const Homepage = () => {
                 end-to-end digital ecosystem for the carbon market. The overarching goal is to
                 support a transparent, high integrity global carbon market that can channel capital
                 for impactful climate action and low-carbon development.
+              </div>
+              <div className="undplogocontainer">
+                <ImgWithFallback
+                  className="erbd"
+                  src={EBRD}
+                  fallbackSrc={EBRDff}
+                  mediaType="image/webp"
+                  alt="EBRD"
+                />
+                <ImgWithFallback
+                  className="undp"
+                  src={undpLogo}
+                  fallbackSrc={undpLogo}
+                  mediaType="image/svg"
+                  alt="UNDP"
+                />
+                <ImgWithFallback
+                  className="unfccc"
+                  src={UNFCCC}
+                  fallbackSrc={UNFCCCff}
+                  mediaType="image/webp"
+                  alt="UNFCCC"
+                />
+                <ImgWithFallback
+                  className="ieta"
+                  src={IETA}
+                  fallbackSrc={IETAff}
+                  mediaType="image/webp"
+                  alt="IETA"
+                />
+                <a href="https://www.esa.int/" target="_blank">
+                  <ImgWithFallback
+                    className="esa"
+                    src={ESA}
+                    fallbackSrc={ESAff}
+                    mediaType="image/webp"
+                    alt="ESAFF"
+                  />
+                </a>{' '}
+                <a href="https://www.worldbank.org/" target="_blank">
+                  <ImgWithFallback
+                    className="wbank"
+                    src={WBANK}
+                    fallbackSrc={WBANKff}
+                    mediaType="image/webp"
+                    alt="WBANK"
+                  />
+                </a>{' '}
               </div>
             </div>
           </div>

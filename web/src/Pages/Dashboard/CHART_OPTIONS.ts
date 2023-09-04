@@ -105,7 +105,6 @@ export const totalProgrammesOptions: any = {
     offsetX: 0,
     offsetY: 5,
     labels: {
-      colors: ['#4FB8E7', '#FF8183', '#D8D8D8'],
       useSeriesColors: false,
     },
     markers: {
@@ -252,18 +251,6 @@ export const totalProgrammesOptionsSub: any = {
     offsetX: 0,
     offsetY: 5,
     labels: {
-      colors: [
-        '#16B1FF',
-        '#FF8183',
-        '#7FEABF',
-        '#FFB480',
-        '#666699',
-        '#009999',
-        '#c2c2d6',
-        '#ddddbb',
-        '#ff9900',
-        '#D8D8D8',
-      ],
       useSeriesColors: false,
     },
     markers: {
@@ -301,6 +288,7 @@ export const totalProgrammesOptionsSub: any = {
     },
   },
 };
+
 export const totalCreditsOptions: any = {
   states: {
     normal: {
@@ -406,7 +394,6 @@ export const totalCreditsOptions: any = {
     offsetX: 0,
     offsetY: 5,
     labels: {
-      colors: ['#4FB8E7', '#7FEABF', '#D8D8D8', '#FF8183', '#B7A4FE'],
       useSeriesColors: false,
     },
     markers: {
@@ -539,7 +526,6 @@ export const totalCreditsCertifiedOptions: any = {
     offsetX: 0,
     offsetY: 5,
     labels: {
-      colors: ['#6ACDFF', '#FF8183', '#CDCDCD'],
       useSeriesColors: false,
     },
     markers: {
@@ -633,7 +619,6 @@ export const optionDonutPieA: any = {
     offsetX: 0,
     offsetY: 5,
     labels: {
-      colors: ['#6ACDFF', '#7FEABF', '#CDCDCD', '#FF8183', '#B7A4FE'],
       useSeriesColors: false,
     },
     markers: {
@@ -672,6 +657,14 @@ export const optionDonutPieA: any = {
       },
     },
   ],
+  tooltip: {
+    enabled: true,
+    y: {
+      formatter: function (value: any) {
+        return addCommSepRound(value);
+      },
+    },
+  },
 };
 
 export const optionDonutPieB: any = {
@@ -740,7 +733,6 @@ export const optionDonutPieB: any = {
     offsetX: 0,
     offsetY: 5,
     labels: {
-      colors: ['#6ACDFF', '#FF8183', '#CDCDCD'],
       useSeriesColors: false,
     },
     markers: {
@@ -779,4 +771,12 @@ export const optionDonutPieB: any = {
       },
     },
   ],
+  tooltip: {
+    enabled: true,
+    y: {
+      formatter: function (value: any) {
+        return addCommSepRound(value);
+      },
+    },
+  },
 };

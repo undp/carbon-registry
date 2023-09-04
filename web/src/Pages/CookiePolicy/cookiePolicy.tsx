@@ -33,7 +33,7 @@ const CookiePolicy = () => {
                 <div className="title">{'CARBON'}</div>
                 <div className="title-sub">{'REGISTRY'}</div>
               </div>
-              <div className="country-name">{process.env.COUNTRY_NAME || 'CountryX'}</div>
+              <div className="country-name">{process.env.REACT_APP_COUNTRY_NAME || 'CountryX'}</div>
             </div>
           </div>
         </Col>
@@ -44,9 +44,9 @@ const CookiePolicy = () => {
             <div className="cookietitle">SAMPLE COOKIE POLICY</div>
             <div className="cookie-sub">Last updated February 02, 2023</div>
             <div className="cookie-body">
-              This Cookie Policy explains how CountryX (<b>"Company"</b>
-              , "<b>we</b>","<b>us</b>", and "<b>our</b>") uses cookies and similar technologies to
-              recognize you when you visit our websites at{' '}
+              This Cookie Policy explains how {process.env.REACT_APP_COUNTRY_NAME || 'CountryX'} (
+              <b>"Company"</b>, "<b>we</b>","<b>us</b>", and "<b>our</b>") uses cookies and similar
+              technologies to recognize you when you visit our websites at{' '}
               <a target="_blank" href="https://carbreg.org">
                 https://carbreg.org
               </a>
@@ -616,8 +616,9 @@ const CookiePolicy = () => {
               <br />
               <br />
               <br />
-              CountryX
-              <br />Address
+              {process.env.REACT_APP_COUNTRY_NAME || 'CountryX'}
+              <br />
+              Address
               <br />
               City, Region
               <br />

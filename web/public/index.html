@@ -41,7 +41,10 @@
     </script>
 
     <meta name="description" content="Your Reliable Ledger For A Greener Tomorrow, Today" />
-    <meta name="keywords" content="Carbon Registry, Carbon Trading, Carbon Credits, UNDP, United Nations, Paris Agreement, climate, carbon emissions, sustainable development goals, digital public goods" />
+    <meta
+      name="keywords"
+      content="Carbon Registry, Carbon Trading, Carbon Credits, UNDP, United Nations, Paris Agreement, climate, carbon emissions, sustainable development goals, digital public goods"
+    />
     <meta name="author" content="CountryX" />
 
     <!-- Facebook SEO -->
@@ -64,10 +67,48 @@
       name="twitter:image"
       content="https://www.test.carbreg.org/static/media/thumbnail.5104bd8cc527df632977.png"
     />
+    <script>
+      var isJSsupported = 'querySelector' in document;
+      var isIE = window.navigator.userAgent.match(/(MSIE|Trident)/i);
+      if (!isJSsupported || isIE) {
+        window.location.href = 'fallback.html';
+      }
+    </script>
   </head>
 
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div
+        style="
+          display: flex;
+          width: 100%;
+          height: 100vh;
+          font-family: 'Inter';
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          font-size: 16px;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            width: 40%;
+            max-width: 600px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid #d9d9d9;
+            padding: 10px;
+            line-height: 1.5rem;
+          "
+        >
+          JavaScript Disabled: We're sorry, but it seems that your browser does not support
+          JavaScript. Please enable JavaScript or use a different browser to fully experience this
+          website.
+        </div>
+      </div>
+    </noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -79,21 +120,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <div
-      data-tf-popover="UlGWnyhF"
-      data-tf-button-color="#16b1ff"
-      data-tf-tooltip="Hey 👋&nbsp;&nbsp;How can I help you? "
-      data-tf-chat
-      data-tf-medium="snippet"
-      data-tf-hidden="utm_source=xxxxx,utm_medium=xxxxx,utm_campaign=xxxxx,utm_term=xxxxx,utm_content=xxxxx"
-      style="all: unset"
-    ></div>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        var tag = document.createElement('script');
-        tag.src = '//embed.typeform.com/next/embed.js';
-        document.getElementsByTagName('head')[0].appendChild(tag);
-      });
+    <script type="text/javascript">
+      var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+      (function () {
+        var s1 = document.createElement('script'),
+          s0 = document.getElementsByTagName('script')[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/64c7dcf494cf5d49dc67906d/1h6mbe6pp';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+      })();
     </script>
   </body>
 </html>

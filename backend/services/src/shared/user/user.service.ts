@@ -141,6 +141,9 @@ export class UserService {
     abilityCondition: string
   ): Promise<DataResponseDto | undefined> {
     this.logger.verbose("User update received", abilityCondition);
+
+    userDto.email = userDto.email?.toLowerCase()
+
     const { id, ...update } = userDto;
     const user = await this.findById(id);
     if (!user) {
@@ -260,6 +263,7 @@ export class UserService {
   }
 
   async regenerateApiKey(email, abilityCondition) {
+    email = email?.toLowerCase()
     this.logger.verbose("Regenerated api key received", email);
     const user = await this.userRepo
       .createQueryBuilder()
@@ -343,8 +347,11 @@ export class UserService {
     APIkey: string
   ) {
     let company: Company;
-    if (companyRole != CompanyRole.GOVERNMENT) {
-      if (!taxId) {
+    if (
+      companyRole != CompanyRole.GOVERNMENT &&
+      companyRole != CompanyRole.MINISTRY
+    ) {
+      if (!taxId || taxId === "") {
         throw new HttpException(
           "Tax id cannot be empty:" + email,
           HttpStatus.BAD_REQUEST
@@ -352,7 +359,15 @@ export class UserService {
       }
       company = await this.companyService.findByTaxId(taxId);
     } else {
-      company = await this.companyService.findGovByCountry(this.configService.get("systemCountry"))
+      if (companyRole === CompanyRole.GOVERNMENT) {
+        company = await this.companyService.findGovByCountry(
+          this.configService.get("systemCountry")
+        );
+      } else if (companyRole === CompanyRole.MINISTRY) {
+        company = await this.companyService.findMinByCountry(
+          this.configService.get("systemCountry")
+        );
+      }
     }
 
     if (!company) {
@@ -391,6 +406,7 @@ export class UserService {
     companyRole: CompanyRole
   ): Promise<User | DataResponseMessageDto | undefined> {
     this.logger.verbose(`User create received  ${userDto.email} ${companyId}`);
+    userDto.email = userDto.email?.toLowerCase();
     const createdUserDto = {...userDto};
     if(userDto.company){
       createdUserDto.company={...userDto.company}
@@ -423,7 +439,11 @@ export class UserService {
       }
     }
     if (company) {
-      if (companyRole != CompanyRole.GOVERNMENT && companyRole != CompanyRole.API) {
+      if (
+        companyRole != CompanyRole.GOVERNMENT &&
+        companyRole != CompanyRole.API &&
+        companyRole !== CompanyRole.MINISTRY
+      ) {
         throw new HttpException(
           this.helperService.formatReqMessagesString("user.userUnAUth", []),
           HttpStatus.FORBIDDEN
@@ -442,6 +462,16 @@ export class UserService {
         );
       } else if (!userFields.role) {
         userFields.role = Role.Admin;
+      }
+
+      if(company.companyRole === CompanyRole.MINISTRY && companyRole === CompanyRole.MINISTRY) {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString(
+            "user.minUserCannotCreateMin",
+            []
+          ),
+          HttpStatus.BAD_REQUEST
+        );
       }
 
       if (company.companyRole != CompanyRole.CERTIFIER || !company.country) {
@@ -638,9 +668,12 @@ export class UserService {
                 throw new HttpException(
                   `${
                     err.driverError.table == "company"
-                      ? "Company email"
-                      : "Email"
-                  } already exist`,
+                      ? this.helperService.formatReqMessagesString(
+                          "user.orgEmailExist",
+                          []
+                        )
+                      : "Email already exist"
+                  }`,
                   HttpStatus.BAD_REQUEST
                 );
               } else if (err.driverError.detail.includes("taxId")) {

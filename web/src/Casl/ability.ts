@@ -41,7 +41,10 @@ export const updateUserAbility = (ability: AppAbility, user: User) => {
       can([Action.Delete], Company);
       can([Action.Create], Company);
       can(Action.Update, Company, { companyId: { $eq: user.companyId } });
-    } else if (user.role === Role.Admin && user.companyRole === CompanyRole.GOVERNMENT) {
+    } else if (
+      user.role === Role.Admin &&
+      (user.companyRole === CompanyRole.GOVERNMENT || user.companyRole === CompanyRole.MINISTRY)
+    ) {
       can(Action.Manage, User, { role: { $ne: Role.Root } });
       cannot(Action.Update, User, ['role', 'apiKey', 'password', 'companyRole', 'email'], {
         id: { $eq: user.id },
@@ -52,7 +55,18 @@ export const updateUserAbility = (ability: AppAbility, user: User) => {
       cannot(Action.Update, Company, ['companyRole']);
       can(Action.Delete, Company);
       can(Action.Create, Company);
+      if (user.companyRole === CompanyRole.MINISTRY) {
+        can(Action.Read, User);
+        cannot([Action.Update, Action.Delete], User, {
+          companyId: { $ne: user.companyId },
+        });
+        cannot(Action.Delete, Company, { companyRole: { $eq: user.companyRole } });
+        cannot(Action.Delete, Company, { companyId: { $eq: user.companyId } });
+      }
     } else if (user.role === Role.Admin && user.companyRole !== CompanyRole.GOVERNMENT) {
+      if (user.companyRole === CompanyRole.MINISTRY) {
+        can(Action.Create, Company);
+      }
       can(Action.Manage, User, { role: { $ne: Role.Root } });
       cannot([Action.Update, Action.Delete, Action.Read], User, {
         companyId: { $ne: user.companyId },
@@ -67,7 +81,10 @@ export const updateUserAbility = (ability: AppAbility, user: User) => {
       cannot(Action.Update, Company, ['companyRole']);
       cannot(Action.Create, Company);
     } else {
-      if (user.companyRole === CompanyRole.GOVERNMENT) {
+      if (
+        user.companyRole === CompanyRole.GOVERNMENT ||
+        user.companyRole === CompanyRole.MINISTRY
+      ) {
         can(Action.Read, User);
       } else {
         can(Action.Read, User, { companyId: { $eq: user.companyId } });
