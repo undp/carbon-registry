@@ -18,7 +18,7 @@ const ProgrammeManagement = () => {
     ProgrammeManagementColumns.creditBalance,
     ProgrammeManagementColumns.creditTransferred,
     ProgrammeManagementColumns.certifierId,
-    ProgrammeManagementColumns.serialNo
+    ProgrammeManagementColumns.serialNo,
   ];
 
   const onNavigateToProgrammeView = (record: any) => {
@@ -32,7 +32,7 @@ const ProgrammeManagement = () => {
       useUserContext={useUserContext}
       useConnection={useConnection}
       onNavigateToProgrammeView={onNavigateToProgrammeView}
-      enableAddProgramme = {false}
+      enableAddProgramme={false}
       useAbilityContext={useAbilityContext}
     ></ProgrammeManagementComponent>
   );

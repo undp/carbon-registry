@@ -20,9 +20,9 @@ import forestfall from '../../Assets/Images/forest.png';
 import resources from '../../Assets/Images/resources.webp';
 import resourcesfall from '../../Assets/Images/resources.png';
 import LayoutFooter from '../../Components/Footer/layout.footer';
-import ImgWithFallback from '../../Components/ImgwithFallback/ImgWithFallback';
 import './homepage.scss';
 import { BarChart, Gem, Calculator } from 'react-bootstrap-icons';
+import { ImgWithFallback } from '@undp/carbon-library';
 const Homepage = () => {
   const { i18n, t } = useTranslation(['common', 'homepage']);
   const navigate = useNavigate();
