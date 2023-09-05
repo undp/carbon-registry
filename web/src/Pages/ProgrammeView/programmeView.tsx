@@ -84,6 +84,10 @@ const ProgrammeView = () => {
   const [isAllOwnersDeactivated, setIsAllOwnersDeactivated] = useState(true);
   const { isTransferFrozen, setTransferFrozen } = useSettingsContext();
   const [ministrySectoralScope, setMinistrySectoralScope] = useState<any[]>([]);
+  const accessToken =
+    mapType === MapTypes.Mapbox && process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
+      ? process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
+      : '';
 
   const showModal = () => {
     setOpenModal(true);
@@ -195,11 +199,6 @@ const ProgrammeView = () => {
 
         setMarkers(markerList);
       } else {
-        let accessToken;
-        if (mapType === MapTypes.Mapbox && process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN) {
-          accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN;
-        }
-
         if (!accessToken || !data!.programmeProperties.geographicalLocation) return;
         const locMarkers: MarkerData[] = [];
         for (const address in data!.programmeProperties.geographicalLocation) {
@@ -1808,6 +1807,7 @@ const ProgrammeView = () => {
                       markers={markers}
                       height={250}
                       style="mapbox://styles/mapbox/streets-v11"
+                      accessToken={accessToken}
                     ></MapComponent>
                     <Row className="region-list">
                       {data.programmeProperties.geographicalLocation &&
