@@ -5,12 +5,11 @@ const { Header, Sider, Content } = Layout;
 import { Outlet } from 'react-router-dom';
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
-import { ConfigurationSettingsType } from '../../Definitions/InterfacesAndType/settings.definitions';
 import LayoutHeader from '../Header/layout.header';
 import LayoutSider from '../Sider/layout.sider';
 import './layout.scss';
 import { PauseCircleFill } from 'react-bootstrap-icons';
-import { Loading } from '@undp/carbon-library';
+import { ConfigurationSettingsType, Loading } from '@undp/carbon-library';
 
 const CustomLayout = (props: any) => {
   const { selectedKey } = props;
