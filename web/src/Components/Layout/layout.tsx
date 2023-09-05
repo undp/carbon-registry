@@ -7,10 +7,10 @@ import { useConnection } from '../../Context/ConnectionContext/connectionContext
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
 import { ConfigurationSettingsType } from '../../Definitions/InterfacesAndType/settings.definitions';
 import LayoutHeader from '../Header/layout.header';
-import Loading from '../Loading/Loading';
 import LayoutSider from '../Sider/layout.sider';
 import './layout.scss';
 import { PauseCircleFill } from 'react-bootstrap-icons';
+import { Loading } from '@undp/carbon-library';
 
 const CustomLayout = (props: any) => {
   const { selectedKey } = props;
