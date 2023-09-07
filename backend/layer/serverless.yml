@@ -20,12 +20,21 @@ layers:
     name: service-dependencies-${self:provider.stage}-1
     description: "Node Modules Dependencies 1"
     package:
-      include:
-        - 'node_modules/@*/**'
-        - 'node_modules/a*/**'
-        - 'node_modules/b*/**'
-        - 'node_modules/c*/**'
-        - '!node_modules/@aws*/**'
+      exclude:
+        - node_modules/**
+        - '!node_modules/@c*/**'
+        - '!node_modules/@d*/**'
+        - '!node_modules/@j*/**'
+        - '!node_modules/@l*/**'
+        - '!node_modules/@n*/**'
+        - '!node_modules/@p*/**'
+        - '!node_modules/@s*/**'
+        - '!node_modules/@t*/**'
+        - '!node_modules/@u*/**'
+        - '!node_modules/@v*/**'
+        - '!node_modules/a*/**'
+        - '!node_modules/b*/**'
+        - '!node_modules/c*/**'
   service-dependencies-2:
     path: dependency_layer
     name: service-dependencies-${self:provider.stage}-2
