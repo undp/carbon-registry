@@ -1,27 +1,7 @@
 import { NestFactory } from "@nestjs/core";
-import { Role } from "../shared/casl/role.enum";
-import { UserDto } from "../shared/dto/user.dto";
-import { LedgerDbModule } from "../shared/ledger-db/ledger-db.module";
-import { QLDBLedgerService } from "../shared/ledger-db/qldb-ledger.service";
-import { getLogger } from "../shared/server";
-import { UtilModule } from "../shared/util/util.module";
-import { Country } from "../shared/entities/country.entity";
-import { CountryService } from "../shared/util/country.service";
-import { CreditOverall } from "../shared/entities/credit.overall.entity";
-import { CompanyModule } from "../shared/company/company.module";
-import { OrganisationDto as OrganisationDto } from "../shared/dto/organisation.dto";
-import { CompanyRole } from "../shared/enum/company.role.enum";
-import { CompanyService } from "../shared/company/company.service";
-import { UserModule } from "../shared/user/user.module";
-import { UserService } from "../shared/user/user.service";
-import { TxType } from "../shared/enum/txtype.enum";
-import { LedgerDBInterface } from "../shared/ledger-db/ledger.db.interface";
 import { Handler } from "aws-lambda";
-import { LocationModule } from "../shared/location/location.module";
-import { LocationInterface } from "../shared/location/location.interface";
-import { ProgrammeModule } from "../shared/programme/programme.module";
-import { ProgrammeService } from "../shared/programme/programme.service";
 import { ConfigService } from "@nestjs/config";
+import { UserModule, getLogger, UserService, CompanyRole, Role, CompanyModule, CompanyService, ProgrammeModule, ProgrammeService, LedgerDbModule, LedgerDBInterface, CreditOverall, TxType, OrganisationDto, UserDto, UtilModule, CountryService, Country, LocationModule, LocationInterface } from "carbon-services-lib";
 const fs = require("fs");
 
 export const handler: Handler = async (event) => {
@@ -148,6 +128,7 @@ export const handler: Handler = async (event) => {
           createdTime: undefined,
           nameOfMinister: fields[5] || undefined,
           sectoralScope: secScope,
+          regions: []
         });
         console.log("Company created", org);
       } catch (e) {
@@ -239,5 +220,6 @@ export const handler: Handler = async (event) => {
     }
   );
   const locationInterface = locationApp.get(LocationInterface);
-  await locationInterface.init();
+  const regionRawData = fs.readFileSync('regions.csv', 'utf8');
+  await locationInterface.init(regionRawData);
 };

@@ -1,34 +1,6 @@
 import { Body, Controller, Get, Post, Put, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Programme } from '../shared/entities/programme.entity';
-import { Action } from '../shared/casl/action.enum';
-import { AppAbility } from '../shared/casl/casl-ability.factory';
-import { CheckPolicies } from '../shared/casl/policy.decorator';
-import { PoliciesGuard, PoliciesGuardEx } from '../shared/casl/policy.guard';
-import { ProgrammeDto } from '../shared/dto/programme.dto';
-import { ProgrammeService } from '../shared/programme/programme.service';
-import { QueryDto } from '../shared/dto/query.dto';
-import { ConstantUpdateDto } from '../shared/dto/constants.update.dto';
-import { ProgrammeStage } from '../shared/enum/programme-status.enum';
-import { ProgrammeApprove } from '../shared/dto/programme.approve';
-import { ProgrammeReject } from '../shared/dto/programme.reject';
-import { ProgrammeRetire } from '../shared/dto/programme.retire';
-import { ApiKeyJwtAuthGuard } from '../shared/auth/guards/api-jwt-key.guard';
-import { ProgrammeTransferRequest } from '../shared/dto/programme.transfer.request';
-import { ProgrammeTransfer } from '../shared/entities/programme.transfer';
-import { ProgrammeTransferApprove } from '../shared/dto/programme.transfer.approve';
-import { ProgrammeTransferReject } from '../shared/dto/programme.transfer.reject';
-import { JwtAuthGuard } from '../shared/auth/guards/jwt-auth.guard';
-import { ProgrammeCertify } from '../shared/dto/programme.certify';
-import { ProgrammeTransferCancel } from '../shared/dto/programme.transfer.cancel';
-import { ProgrammeIssue } from '../shared/dto/programme.issue';
-import { ProgrammeRevoke } from '../shared/dto/programme.revoke';
-import { TransferFreezeGuard } from '../shared/auth/guards/transfer-freeze.guard';
-import { ProgrammeDocumentDto } from '../shared/dto/programme.document.dto';
-import { MitigationProperties } from '../shared/dto/mitigation.properties';
-import { OwnershipUpdateDto } from '../shared/dto/ownership.update';
-import { MitigationAddDto } from '../shared/dto/mitigation.add.dto';
-import { ProgrammeAcceptedDto } from '../shared/dto/programme.accepted.dto';
+import { ProgrammeService, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, AppAbility, Action, Programme, ProgrammeDto, ProgrammeDocumentDto, ProgrammeAcceptedDto, MitigationAddDto, OwnershipUpdateDto, PoliciesGuardEx, QueryDto, ConstantUpdateDto, ProgrammeApprove, ProgrammeIssue, ProgrammeReject, TransferFreezeGuard, ProgrammeTransferRequest, ProgrammeRetire, ProgrammeCertify, ProgrammeRevoke, ProgrammeTransferApprove, ProgrammeTransfer, ProgrammeTransferReject, ProgrammeTransferCancel } from 'carbon-services-lib';
 
 @ApiTags('Programme')
 @ApiBearerAuth()
@@ -44,8 +16,8 @@ export class ProgrammeController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Programme))
     @Post('create')
-    async addProgramme(@Body()programme: ProgrammeDto) {
-      return this.programmeService.create(programme)
+    async addProgramme(@Body()programme: ProgrammeDto, @Request() req) {
+      return this.programmeService.create(programme, req.user)
     }
 
     @ApiBearerAuth('api_key')
@@ -53,8 +25,8 @@ export class ProgrammeController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Programme))
     @Post('addDocument')
-    async addDocument(@Body()document: ProgrammeDocumentDto) {
-      return this.programmeService.addDocument(document)
+    async addDocument(@Body()document: ProgrammeDocumentDto, @Request() req) {
+      return this.programmeService.addDocument(document, req.user)
     }
 
     @ApiBearerAuth('api_key')
@@ -71,7 +43,7 @@ export class ProgrammeController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Programme))
     @Post('addMitigation')
-    async addMitigation(@Body()mitigation: MitigationAddDto) {
+    async addMitigation(@Body()mitigation: MitigationAddDto, @Request() req) {
       return this.programmeService.addMitigation(mitigation)
     }
 
@@ -80,8 +52,8 @@ export class ProgrammeController {
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Programme))
     @Post('updateOwnership')
-    async updateOwnership(@Body()update: OwnershipUpdateDto) {
-      return this.programmeService.updateOwnership(update)
+    async updateOwnership(@Body()update: OwnershipUpdateDto, @Request() req) {
+      return this.programmeService.updateOwnership(update, req.user)
     }
 
     @ApiBearerAuth()

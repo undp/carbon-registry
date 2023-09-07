@@ -12,24 +12,8 @@ import {
   Delete,
   Put,
 } from "@nestjs/common";
-import { Action } from "../shared/casl/action.enum";
-import {
-  AppAbility,
-  CaslAbilityFactory,
-} from "../shared/casl/casl-ability.factory";
-import { CheckPolicies } from "../shared/casl/policy.decorator";
-import { PoliciesGuard, PoliciesGuardEx } from "../shared/casl/policy.guard";
-import { User } from "../shared/entities/user.entity";
-import { UserDto } from "../shared/dto/user.dto";
-import { UserService } from "../shared/user/user.service";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { QueryDto } from "../shared/dto/query.dto";
-import { UserUpdateDto } from "../shared/dto/user.update.dto";
-import { PasswordUpdateDto } from "../shared/dto/password.update.dto";
-import { Role } from "../shared/casl/role.enum";
-import { JwtAuthGuard } from "../shared/auth/guards/jwt-auth.guard";
-import { HelperService } from "../shared/util/helpers.service";
-import { ApiKeyJwtAuthGuard } from "../shared/auth/guards/api-jwt-key.guard";
+import { ApiTags, ApiBearerAuth } from "@nestjs/swagger";
+import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto } from "carbon-services-lib";
 
 @ApiTags("User")
 @ApiBearerAuth()
