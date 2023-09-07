@@ -64,7 +64,7 @@ jobs:
       - name: Copy package.json
         if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         working-directory: ./backend/layer/dependency_layer
-        run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./ && cp -r ../../../libs ../../
+        run: cp ../../services/package.json ./ && cp ../../services/yarn.lock ./
       - name: Install Dependency
         if: ${{ needs.check_dependency_change.outputs.deps_changed == 'True' }}
         working-directory: ./backend/layer/dependency_layer
