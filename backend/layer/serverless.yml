@@ -45,3 +45,4 @@ layers:
         - 'node_modules/a*/**'
         - 'node_modules/b*/**'
         - 'node_modules/c*/**'
+        - 'node_modules/aws-sdk/**'
