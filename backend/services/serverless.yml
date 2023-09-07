@@ -148,17 +148,17 @@ functions:
       - ${param:depLayerArn1}
       - ${param:depLayerArn2}
 
-  default:
-    handler: src/shared/handler.handler
-    events:
-      - http:
-          method: any
-          path: /{any+}
-    environment:
-      NODE_PATH: "./:/opt/node_modules"
-    layers:
-      - ${param:depLayerArn1}
-      - ${param:depLayerArn2}
+  # default:
+  #   handler: src/shared/handler.handler
+  #   events:
+  #     - http:
+  #         method: any
+  #         path: /{any+}
+  #   environment:
+  #     NODE_PATH: "./:/opt/node_modules"
+  #   layers:
+  #     - ${param:depLayerArn1}
+  #     - ${param:depLayerArn2}
 custom:
   optimize:
     external: ["swagger-ui-dist"]
