@@ -99,7 +99,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependency
         working-directory: ./backend/services
-        run: yarn install --frozen-lockfile
+        run: yarn install --production --frozen-lockfile
       - name: version
         run: |
           echo "ARN1=$(aws lambda list-layer-versions --layer-name service-dependencies-${{ needs.check_dependency_change.outputs.stage }}-1 --region us-east-1 --query 'LayerVersions[0].LayerVersionArn')" >> $GITHUB_OUTPUT
