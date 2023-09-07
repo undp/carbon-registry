@@ -7,7 +7,7 @@ The digital Platform for Voluntary Bilateral Cooperation facilitates the impleme
 3. The Carbon Registry update when the programmes are Issued with credits in the ITMO Platform 
 
 #### <b>Lifecycle</b>
-![alt text](./documention/imgs/ITMOxCARBON_LifeCycle.svg)
+![ITMO Platform Lifecycle](https://github.com/undp/carbon-registry/blob/main/documention/imgs/ITMOxCARBON_LifeCycle.svg)
 
 #### <b>Programme Creation and Authorisation</b>
 - Authorisation of programmes in the ITMO Platform identified by the event name: "ITMO-Design Document (DD) & Validation Report / Upload on National Public Registry". 
