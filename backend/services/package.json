@@ -23,6 +23,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@aws-sdk/client-qldb": "^3.408.0",
+    "@aws-sdk/client-qldb-session": "^3.408.0",
     "@casl/ability": "^6.3.2",
     "@drdgvhbh/postgres-error-codes": "^0.0.6",
     "@nestjs/common": "^9.0.0",
@@ -64,8 +66,6 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@aws-sdk/client-qldb": "^3.405.0",
-    "@aws-sdk/client-qldb-session": "^3.405.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
