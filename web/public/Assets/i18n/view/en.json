@@ -119,5 +119,7 @@
   "userEstimatedCredits": "User Estimated Credits",
   "systemEstimatedCredits": "System Estimated Credits",
   "actionId": "NDC ID",
-  "ministryLevel": "Minitry Level"
+  "ministryLevel": "Minitry Level",
+  "creditEst": "Estimated Credits",
+  "carbonPriceUSDPerTon": "Minimum Carbon Price: USD per ton (assuming no other revenue)",
 }
