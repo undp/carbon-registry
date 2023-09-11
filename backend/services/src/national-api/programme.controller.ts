@@ -17,6 +17,7 @@ export class ProgrammeController {
     @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Programme))
     @Post('create')
     async addProgramme(@Body()programme: ProgrammeDto, @Request() req) {
+      console.log('Programme create', programme)
       return this.programmeService.create(programme, req.user)
     }
 
