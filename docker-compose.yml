@@ -85,7 +85,7 @@ services:
       ITMO_EMAIL: ""
       ITMO_PASSWORD: ""
       MRV_ENDPOINT: 'http://192.168.123.20:9000'
-      REGISTRY_SYNC_ENABLE: true
+      SYNC_ENABLE: true
       MRV_API_TOKEN: ''
   # async-operations-handler:
   #   build:
