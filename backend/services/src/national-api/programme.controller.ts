@@ -85,6 +85,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Programme, true))
     // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
     @Post('query')
