@@ -43,6 +43,7 @@ services:
       HOST: "http://localhost:3030"
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
@@ -87,6 +88,7 @@ services:
       MRV_ENDPOINT: 'http://192.168.123.20:9000'
       SYNC_ENABLE: true
       MRV_API_TOKEN: ''
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
   # async-operations-handler:
   #   build:
   #     context: .
