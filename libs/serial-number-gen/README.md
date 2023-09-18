@@ -3,7 +3,8 @@
 ## Table of Contents
 
 Document Information
-1. Introduction 
+
+1. Introduction
 2. Serial Number Generator
     - 2.1. Serial Number Standard
     - 2.2. Country Code
@@ -14,14 +15,15 @@ Document Information
     - 2.7. Unit Serial Block – End
 3. Usage
 
-# 1. Introduction
+## 1. Introduction
+
 Once carbon programme that was added to the system is Authorized, a unique serial number should be generated for every programme by the Carbon Registry.
 
-# 2. Serial Number Generator
+## 2. Serial Number Generator
 
-## 2.1 Serial Number Standard
+### 2.1 Serial Number Standard
 
-![alt text](./docs/imgs/format.png)
+![Serial Number Standard](./docs/imgs/format.png)
 
 Serial Number character length:
 
@@ -40,10 +42,9 @@ The blocks will be separated by the delimiter dash (-)<br>
 Eg:
 VU-ITMO-11-356-2022-0-27-35
 
+### 2.2 Country Code
 
-## 2.2 Country Code
-
-Standard needs to be followed `ISO 3166-1 alpha-2` two-letter country codes. 
+Standard needs to be followed `ISO 3166-1 alpha-2` two-letter country codes.
 
 Eg.
 | Country Name | ISO 3166-1 alpha-2 code |
@@ -51,12 +52,15 @@ Eg.
 | Costa Rica | CR |
 | Fiji | FJ |
 
-## 2.3 Type of Credit/ Unit
+### 2.3 Type of Credit/ Unit
+
 Carbon credit measurement unit: ITMO
 
-## 2.4 Sectoral Scope Number
-According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identified Sectors and Sectoral scope numbers are as follows:
+<a name="sectoral-scope-number"></a>
 
+### 2.4 Sectoral Scope Number
+
+According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identified Sectors and Sectoral scope numbers are as follows:
 
 | Scope Number | Sectoral Scope |
 | --- | --- |
@@ -76,16 +80,19 @@ According to the UNFCCC - CDM (Clean Development Mechanism methodologies, identi
 | 14 | Afforestation and reforestation |
 | 15 | Agriculture |
 
-## 2.5 Unique Programme ID
-format: XXX, When it exceeds the limit of possibilities it will go beyond 3 digits. 
+### 2.5 Unique Programme ID
+
+format: XXX, When it exceeds the limit of possibilities it will go beyond 3 digits.
 
 Contains only numbers
 
-## 2.6 Unit Serial Block – Start
+### 2.6 Unit Serial Block – Start
+
 Serial Block Start – Total number of credits before issuing the credits for the programme + 1 <br>
 The start of the serial block will be represented without the decimal point of the credit value. It will be represented as a rounded integer.
 
-## 2.7 Unit Serial Block – End
+### 2.7 Unit Serial Block – End
+
 Serial Block End – Total number of credits after issuing the credits for the programme. <br>
 The end of the serial block will be represented without the decimal point of the credit value.
 It will be represented as a rounded integer.
@@ -100,24 +107,23 @@ Eg:
 | Programme 4 | 41 | 0.1285 | 0 | Programme Rejected as credit value is 0. |
 | Programme 5 | 41 | 14.7 | 15 | 42 | 56 |
 
+## 3. Usage
 
-# 3. Usage
-<!-- ### Install
-```
-npm i --save @undp/serial-number-gen
-``` -->
-```
+```TypeScript
+// Install with:
+// npm i --save @undp/serial-number-gen
+
 import { generateSerialNumber } from '@undp/serial-number-gen';
 
 const serialNo = generateSerialNumber(countryCodeA2, sectoralScope, programmeId, year, startBlock, endBlock, creditUnit);
-
 ```
 
 ### Parameters
+
 | Block Name | Description |
 | --- | --- |
 | countryCodeA2 | Country Code (as per ISO 3166) |
-| sectoralScope | Sectoral Scope Number ([as per CDM](###sectoral-scope-number)) (1-15)
+| sectoralScope | Sectoral Scope Number ([as per CDM](#sectoral-scope-number)) (1-15)
 | programmeId | Unique Programme ID |
 | Year | Year in format XXXX |
 | startBlock | Current ledger credit value (inclusive)|
