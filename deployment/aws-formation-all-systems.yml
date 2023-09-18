@@ -1,4 +1,5 @@
-Description:  This template deploys a VPC, with a public and private subnets . It deploys an internet gateway, with a default
+Description:
+  This template deploys a VPC, with a public and private subnets . It deploys an internet gateway, with a default
   route on the public subnets,
   and default routes for them in the private subnets.
 
@@ -146,7 +147,6 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ${EnvironmentName} Private Subnet (AZ2)
-          
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
@@ -216,7 +216,7 @@ Resources:
   DBInstance:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier: !Sub '${DBInstanceIdentifier}${EnvironmentName}'
+      DBInstanceIdentifier: !Sub "${DBInstanceIdentifier}${EnvironmentName}"
       DBName: !Sub ${DBName}${EnvironmentName}
       AllocatedStorage:
         Ref: DBAllocatedStorage
@@ -243,99 +243,99 @@ Resources:
 
   LedgerInstance:
     Type: AWS::QLDB::Ledger
-    Properties: 
+    Properties:
       DeletionProtection: false
       Name: !Sub ${LedgerName}-${EnvironmentName}
       PermissionsMode: STANDARD
 
   VpcEndpointSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
+    Type: "AWS::EC2::SecurityGroup"
     Properties:
-      VpcId: 
-          Ref: VPC
-      GroupDescription: 'Security group for VPC Endpoint'
+      VpcId:
+        Ref: VPC
+      GroupDescription: "Security group for VPC Endpoint"
       Tags:
-          - Key: Name
-            Value: qldb-vpce-sg
+        - Key: Name
+          Value: qldb-vpce-sg
       SecurityGroupIngress:
-          - IpProtocol: tcp
-            FromPort: 443
-            ToPort: 443
-            SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
-          - IpProtocol: tcp
-            FromPort: 465
-            ToPort: 465
-            SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
+        - IpProtocol: tcp
+          FromPort: 465
+          ToPort: 465
+          SourceSecurityGroupId: !GetAtt NoIngressSecurityGroup.GroupId
 
-  # LambdaRole:
-  #   Type: AWS::IAM::Role
-  #   Properties:
-  #     RoleName:
-  #       Fn::Sub: carbon-lambda-role
-  #     AssumeRolePolicyDocument:
-  #       Statement:
-  #         - Action:
-  #           - sts:AssumeRole
-  #           Effect: Allow
-  #           Principal:
-  #             Service:
-  #               - lambda.amazonaws.com
-  #               - qldb.amazonaws.com
-  #               - ses.amazonaws.com
-  #       Version: 2012-10-17
-  #     ManagedPolicyArns:
-  #       - arn:aws:iam::aws:policy/AWSLambdaExecute
-  #       - arn:aws:iam::aws:policy/AmazonS3FullAccess
-  #       - arn:aws:iam::aws:policy/AmazonQLDBFullAccess
-  #       - arn:aws:iam::aws:policy/AmazonRDSFullAccess
-  #       - arn:aws:iam::aws:policy/AmazonEC2FullAccess
-  #       - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
-  #       - arn:aws:iam::aws:policy/AmazonSESFullAccess
-  #       - arn:aws:iam::aws:policy/AmazonSQSFullAccess
-  #     Path: /
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: carbon-lambda-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - qldb.amazonaws.com
+                - ses.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonQLDBFullAccess
+        - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+        - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+        - arn:aws:iam::aws:policy/AmazonKinesisFullAccess
+        - arn:aws:iam::aws:policy/AmazonSESFullAccess
+        - arn:aws:iam::aws:policy/AmazonSQSFullAccess
+      Path: /
 
   QLDBEndpoint:
-    Type: 'AWS::EC2::VPCEndpoint'
+    Type: "AWS::EC2::VPCEndpoint"
     Properties:
       PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal: "*"
-              Action: "*"
-              Resource: "*"
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action: "*"
+            Resource: "*"
       PrivateDnsEnabled: True
       SecurityGroupIds:
-          - !GetAtt VpcEndpointSecurityGroup.GroupId
-      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.qldb.session'
+        - !GetAtt VpcEndpointSecurityGroup.GroupId
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.qldb.session"
       SubnetIds:
-          - Ref: PrivateSubnet1
+        - Ref: PrivateSubnet2
       VpcEndpointType: Interface
       VpcId: !Ref VPC
 
   KinesisStream:
     Type: AWS::Kinesis::Stream
-    Properties: 
+    Properties:
       Name: !Sub ${LedgerName}-${EnvironmentName}
       ShardCount: 1
 
   QLDBStream:
     Type: AWS::QLDB::Stream
-    Properties: 
-      InclusiveStartTime: '2020-05-29T00:00:00Z'
-      KinesisConfiguration: 
+    Properties:
+      InclusiveStartTime: "2020-05-29T00:00:00Z"
+      KinesisConfiguration:
         StreamArn: !GetAtt KinesisStream.Arn
       LedgerName: !Ref LedgerInstance
       RoleArn: !Ref LambdaExecutionRoleArn
       StreamName: !Sub ${LedgerName}-${EnvironmentName}
 
   S3GatewayEndpoint:
-    Type: 'AWS::EC2::VPCEndpoint'
+    Type: "AWS::EC2::VPCEndpoint"
     Properties:
       RouteTableIds:
         - !Ref PrivateRouteTable1
         - !Ref PrivateRouteTable2
-      ServiceName: !Sub 'com.amazonaws.${AWS::Region}.s3'
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
       VpcId: !Ref VPC
 
   VPCEndpointForSES:
@@ -343,10 +343,10 @@ Resources:
     Properties:
       PrivateDnsEnabled: True
       SecurityGroupIds:
-          - !GetAtt VpcEndpointSecurityGroup.GroupId
-      ServiceName: 'com.amazonaws.us-east-1.email-smtp'
+        - !GetAtt VpcEndpointSecurityGroup.GroupId
+      ServiceName: "com.amazonaws.us-east-1.email-smtp"
       SubnetIds:
-          - Ref: PrivateSubnet1
+        - Ref: PrivateSubnet2
       VpcEndpointType: Interface
       VpcId: !Ref VPC
 
@@ -356,13 +356,16 @@ Resources:
     Properties:
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
       OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
-      BucketName: !Sub '${RegistryPrefix}-www-${EnvironmentName}'
+      BucketName: !Sub "${RegistryPrefix}-www-eco-${EnvironmentName}"
       WebsiteConfiguration:
-        ErrorDocument: 'index.html'
-        IndexDocument: 'index.html'
+        ErrorDocument: "index.html"
+        IndexDocument: "index.html"
 
   S3BucketCommonWeb:
     Type: AWS::S3::Bucket
@@ -373,25 +376,24 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
-      BucketName: !Sub '${RegistryPrefix}-common-${EnvironmentName}'
-
+      BucketName: !Sub "${RegistryPrefix}-common-eco-${EnvironmentName}"
 
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref S3BucketWeb
       PolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
-          - Effect: 'Allow'
-            Action: 's3:GetObject'
-            Principal: '*'
-            Resource: !Sub '${S3BucketWeb.Arn}/*'
+          - Effect: "Allow"
+            Action: "s3:GetObject"
+            Principal: "*"
+            Resource: !Sub "${S3BucketWeb.Arn}/*"
 
   AsyncQueue:
     Type: AWS::SQS::Queue
-    Properties: 
-      QueueName: !Sub 'AsyncQueue${EnvironmentName}.fifo'
+    Properties:
+      QueueName: !Sub "AsyncQueue${EnvironmentName}.fifo"
       FifoQueue: true
       ContentBasedDeduplication: true
       VisibilityTimeout: 60
@@ -399,7 +401,7 @@ Resources:
   DBInstanceMRV:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier: !Sub '${MRVDBInstanceIdentifier}${EnvironmentName}'
+      DBInstanceIdentifier: !Sub "${MRVDBInstanceIdentifier}${EnvironmentName}"
       DBName: !Sub ${DBName}${EnvironmentName}
       AllocatedStorage:
         Ref: DBAllocatedStorage
@@ -426,22 +428,22 @@ Resources:
 
   LedgerInstanceMRV:
     Type: AWS::QLDB::Ledger
-    Properties: 
+    Properties:
       DeletionProtection: false
       Name: !Sub ${MRVLedgerName}-${EnvironmentName}
       PermissionsMode: STANDARD
 
   KinesisStreamMRV:
     Type: AWS::Kinesis::Stream
-    Properties: 
+    Properties:
       Name: !Sub ${MRVLedgerName}-${EnvironmentName}
       ShardCount: 1
 
   QLDBStreamMRV:
     Type: AWS::QLDB::Stream
-    Properties: 
-      InclusiveStartTime: '2020-05-29T00:00:00Z'
-      KinesisConfiguration: 
+    Properties:
+      InclusiveStartTime: "2020-05-29T00:00:00Z"
+      KinesisConfiguration:
         StreamArn: !GetAtt KinesisStreamMRV.Arn
       LedgerName: !Ref LedgerInstanceMRV
       RoleArn: !Ref LambdaExecutionRoleArn
@@ -453,13 +455,16 @@ Resources:
     Properties:
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
       OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
-      BucketName: !Sub '${MRVPrefix}-www-${EnvironmentName}'
+      BucketName: !Sub "${MRVPrefix}--eco-${EnvironmentName}"
       WebsiteConfiguration:
-        ErrorDocument: 'index.html'
-        IndexDocument: 'index.html'
+        ErrorDocument: "index.html"
+        IndexDocument: "index.html"
 
   S3BucketCommonWebMRV:
     Type: AWS::S3::Bucket
@@ -470,24 +475,24 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
-      BucketName: !Sub '${MRVPrefix}-common-${EnvironmentName}'
+      BucketName: !Sub "${MRVPrefix}-common-eco-${EnvironmentName}"
 
   S3BucketPolicyMRV:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref S3BucketWebMRV
       PolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
-          - Effect: 'Allow'
-            Action: 's3:GetObject'
-            Principal: '*'
-            Resource: !Sub '${S3BucketWebMRV.Arn}/*'
+          - Effect: "Allow"
+            Action: "s3:GetObject"
+            Principal: "*"
+            Resource: !Sub "${S3BucketWebMRV.Arn}/*"
 
   AsyncQueueMRV:
     Type: AWS::SQS::Queue
-    Properties: 
-      QueueName: !Sub '${MRVPrefix}AsyncQueue${EnvironmentName}.fifo'
+    Properties:
+      QueueName: !Sub "${MRVPrefix}AsyncQueue${EnvironmentName}.fifo"
       FifoQueue: true
       ContentBasedDeduplication: true
       VisibilityTimeout: 60
@@ -499,11 +504,11 @@ Outputs:
 
   PublicSubnets:
     Description: A list of the public subnets
-    Value: !Join [ ",", [ !Ref PublicSubnet1 ]]
+    Value: !Join [",", [!Ref PublicSubnet1]]
 
   PrivateSubnets:
     Description: A list of the private subnets
-    Value: !Join [ ",", [ !Ref PrivateSubnet1 ]]
+    Value: !Join [",", [!Ref PrivateSubnet1]]
 
   PublicSubnet1:
     Description: A reference to the public subnet in the 1st Availability Zone
@@ -518,5 +523,5 @@ Outputs:
     Value: !Ref NoIngressSecurityGroup
 
   BucketUrl:
-    Description: 'S3 Web Bucket Url'
-    Value: !GetAtt 'S3BucketWeb.WebsiteURL'
+    Description: "S3 Web Bucket Url"
+    Value: !GetAtt "S3BucketWeb.WebsiteURL"

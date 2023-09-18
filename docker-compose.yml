@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: "<ANY PASSOWORD>"
+      POSTGRES_PASSWORD: "root"
       POSTGRES_USER: root
       PSQL_USERNAME: root
       # POSTGRES_HOST_AUTH_METHOD: trust
@@ -31,14 +31,14 @@ services:
     environment:
       DB_HOST: db
       DB_USER: root
-      DB_PASSWORD: "<ANY PASSOWORD>"
+      DB_PASSWORD: "root"
       RUN_MODULE: national-api
-      rootEmail: <ROOT EMAIL>
-      systemCountryCode: "NG"
-      name: "Antactic Region"
+      rootEmail: louvani@ecoregistry.io
+      systemCountryCode: "CO"
+      name: "Colombia"
       logoBase64: "sss"
-      IS_EMAIL_DISABLED: "true"
-      LOCATION_SERVICE: OPENSTREET
+      IS_EMAIL_DISABLED: false
+      LOCATION_SERVICE: FILE
       ASYNC_OPERATIONS_TYPE: Database
       HOST: "http://localhost:3030"
       DOMAIN_MAP: "true"
@@ -59,7 +59,7 @@ services:
     environment:
       DB_HOST: db
       DB_USER: root
-      DB_PASSWORD: "<ANY PASSOWORD>"
+      DB_PASSWORD: "root"
       RUN_PORT: 3100
       RUN_MODULE: analytics-api
       DOMAIN_MAP: "true"
@@ -73,17 +73,19 @@ services:
     environment:
       DB_HOST: db
       DB_USER: root
-      DB_PASSWORD: "<ANY PASSOWORD>"
+      DB_PASSWORD: "root"
       # ,data-importer
-      RUN_MODULE: replicator,async-operations-handler
-      LOCATION_SERVICE: OPENSTREET
+      RUN_MODULE: replicator,async-operations-handler,data-importer
+      LOCATION_SERVICE: FILE
       SMTP_ENDPOINT: email-smtp.us-east-1.amazonaws.com
-      SMTP_PASSWORD: ""
-      IS_EMAIL_DISABLED: "true"
+      SOURCE_EMAIL: contacto@ecoregistry.io
+      SMTP_PASSWORD: "BLsFOLktGrR8gWBnjPtKlhBPWyCOYmBSKzrwTmuvlNAj"
+      SMTP_USERNAME: AKIA34J5RP2QAYWYC24N
+      IS_EMAIL_DISABLED: false
       ASYNC_OPERATIONS_TYPE: Database
-      ITMO_API_KEY: ""
-      ITMO_EMAIL: ""
-      ITMO_PASSWORD: ""
+      ITMO_API_KEY: "cGFsaW5kYS5hdHRhbmF5YWtlK3Rlc3RhcGlAdW5kcC5vcmdfX190RzM0WUE0aTdXQ05RNFBfMnJJcGk="
+      ITMO_EMAIL: "palinda.attanayake+testapi@undp.org"
+      ITMO_PASSWORD: "NOZb4ntE"
       MRV_ENDPOINT: 'http://192.168.123.20:9000'
       REGISTRY_SYNC_ENABLE: true
       MRV_API_TOKEN: ''
@@ -110,9 +112,9 @@ services:
         PORT: 3030
         REACT_APP_BACKEND: http://localhost:3000
         REACT_APP_STAT_URL: http://localhost:3100
-        REACT_APP_COUNTRY_NAME: "CountryX"
-        REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"
-        REACT_APP_COUNTRY_CODE: "NG"
+        REACT_APP_COUNTRY_NAME: "Colombia"
+        REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-eco-test.s3.amazonaws.com/flag.png"
+        REACT_APP_COUNTRY_CODE: "CO"
         REACT_APP_MAP_TYPE: "None"
     ports:
       - "3030:3030"

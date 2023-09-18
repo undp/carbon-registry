@@ -513,6 +513,7 @@ export class UserService {
     }
 
     u.password = this.helperService.generateRandomPassword();
+    console.log("Password: ", u.password);
     if (userDto.role == Role.Admin && u.companyRole == CompanyRole.API) {
       u.apiKey = await this.generateApiKey(userDto.email);
     }

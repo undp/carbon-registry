@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_BACKEND: https://api.carbreg.org
-      COUNTRY_NAME: 'Namibia'
-      COUNTRY_FLAG_URL: 'https://carbon-common-prod.s3.amazonaws.com/flag.png'
-      COUNTRY_CODE: 'NA'
+      COUNTRY_NAME: "Namibia"
+      COUNTRY_FLAG_URL: "https://carbon-common-prod.s3.amazonaws.com/flag.png"
+      COUNTRY_CODE: "NA"
       REACT_APP_MAPBOXGL_ACCESS_TOKEN: ${{ secrets.MAPBOXGL_ACCESS_TOKEN }}
-      REACT_APP_MAP_TYPE : "Mapbox"
+      REACT_APP_MAP_TYPE: "Mapbox"
     steps:
       - uses: actions/checkout@v3
       - name: Cache modules
@@ -42,4 +42,4 @@ jobs:
         working-directory: ./web
         run: CI=false yarn build
       - name: Deploy
-        run: aws s3 sync ./web/build s3://carbon-www-prod
+        run: aws s3 sync ./web/build s3://carbon-www-eco-prod
