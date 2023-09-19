@@ -85,8 +85,8 @@ services:
       ITMO_API_KEY: ""
       ITMO_EMAIL: ""
       ITMO_PASSWORD: ""
-      CLIENT_ENDPOINT: 'http://192.168.123.20:9000'
-      CLIENT_API_TOKEN: ''
+      SYNC_ENDPOINT: 'http://192.168.123.20:9000'
+      SYNC_API_TOKEN: ''
       SYNC_ENABLE: true
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
   # async-operations-handler:
