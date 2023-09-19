@@ -1155,7 +1155,7 @@ const ProgrammeView = () => {
   const actionBtns = [];
 
   if (userInfoState?.userRole !== 'ViewOnly') {
-    if (data.currentStage.toString() === 'AwaitingAuthorization') {
+    if (data.currentStage.toString() === ProgrammeStageR.Approved) {
       if (
         userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
         (userInfoState?.companyRole === CompanyRole.MINISTRY &&
@@ -1273,41 +1273,6 @@ const ProgrammeView = () => {
         }
       }
     }
-    //   if (userInfoState && data.companyId.includes(userInfoState?.companyId)) {
-    //     actionBtns.push(
-    //       <Button
-    //         danger
-    //         onClick={() => {
-    //           setActionInfo({
-    //             action: 'Retire',
-    //             text: `You can’t undo this action`,
-    //             type: 'danger',
-    //             remark: true,
-    //             icon: <PoweroffOutlined />,
-    //           });
-    //           showModal();
-    //         }}
-    //       >
-    //         {t('view:retire')}
-    //       </Button>
-    //     );
-    //   } else {
-    // actionBtns.push(
-    //   <Button
-    //     danger
-    //     onClick={() => {
-    //       setActionInfo({
-    //         action: 'Retire',
-    //         text: `You are going to transfer programme ${data.title}`,
-    //         type: 'danger',
-    //       });
-    //       showModal();
-    //     }}
-    //   >
-    //     {t('view:Transfer')}
-    //   </Button>
-    // );
-    // }
 
     if (
       userInfoState &&
