@@ -121,5 +121,5 @@
   "actionId": "NDC ID",
   "ministryLevel": "Minitry Level",
   "creditEst": "Estimated Credits",
-  "carbonPriceUSDPerTon": "Minimum Carbon Price: USD per ton (assuming no other revenue)",
+  "carbonPriceUSDPerTon": "Minimum Carbon Price: USD per ton (assuming no other revenue)"
 }
