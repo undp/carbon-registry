@@ -40,10 +40,15 @@ services:
       logoBase64: "sss"
       IS_EMAIL_DISABLED: "true"
       LOCATION_SERVICE: OPENSTREET
+      ASYNC_OPERATIONS_TYPE: Database
       HOST: "http://localhost:3030"
+      DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
     volumes:
       - filestore:/app/backend/services/public
+      - ./users.csv:/app/backend/services/users.csv
+      - ./organisations.csv:/app/backend/services/organisations.csv
   stats:
     # build:
     #   context: .
@@ -60,6 +65,7 @@ services:
       DB_PASSWORD: "<ANY PASSWORD>"
       RUN_PORT: 3100
       RUN_MODULE: analytics-api
+      DOMAIN_MAP: "true"
   replicator:
     image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:latest
     # build:
@@ -82,6 +88,10 @@ services:
       ITMO_API_KEY: ""
       ITMO_EMAIL: ""
       ITMO_PASSWORD: ""
+      SYNC_ENDPOINT: 'http://192.168.123.20:9000'
+      SYNC_API_TOKEN: ''
+      SYNC_ENABLE: true
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
   web:
     image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:latest
     # build:
