@@ -8,6 +8,7 @@
     "role": "Role",
     "phoneNo": "Phone",
     "taxId": "Tax ID",
+    "paymentId" : "Registration Payment ID",
     "website": "Website",
     "address": "Address",
     "id": "id",
