@@ -24,7 +24,7 @@ jobs:
       - name: Commit Changes
         working-directory: ./web
         run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.name "System Generated"
           git config --global user.email "palinda@xeptagon.com"
           git add package.json yarn.lock
           git commit -m "Update Web Lib Version"
