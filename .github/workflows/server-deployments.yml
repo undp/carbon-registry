@@ -5,7 +5,7 @@ on:
       - develop
       - main
     paths:
-      - backend/**/*
+      - backend/**
       # - libs/**
       - .github/workflows/server*
     
