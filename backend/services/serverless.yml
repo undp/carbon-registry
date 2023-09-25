@@ -24,6 +24,7 @@ package:
     - "countries.json"
     - "regions.csv"
     - "src/i18n/**"
+    - "fonts/*"
 
 plugins:
   - "serverless-plugin-typescript"
