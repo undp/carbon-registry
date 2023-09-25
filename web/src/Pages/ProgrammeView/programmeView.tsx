@@ -101,11 +101,13 @@ const ProgrammeView = () => {
     if (index > 0) {
       filepath = filepath.substring(0, index);
     }
-    const lastCharcter = filepath.charAt(filepath.length - 1);
-    if (lastCharcter === '/') {
-      filepath = filepath.slice(0, -1);
-    }
-    return filepath.substring(filepath.lastIndexOf('/') + 1);
+    // const lastCharcter = filepath.charAt(filepath.length - 1);
+    // if (lastCharcter === '/') {
+    //   filepath = filepath.slice(0, -1);
+    // }
+    // return filepath.substring(filepath.lastIndexOf('/') + 1);
+    return filepath.substring(filepath.lastIndexOf('%2F') + 1);
+
   };
 
   const fileItemContent = (filePath: any) => {
