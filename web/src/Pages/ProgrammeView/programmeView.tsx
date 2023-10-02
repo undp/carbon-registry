@@ -107,7 +107,6 @@ const ProgrammeView = () => {
     // }
     // return filepath.substring(filepath.lastIndexOf('/') + 1);
     return filepath.substring(filepath.lastIndexOf('%2F') + 1);
-
   };
 
   const fileItemContent = (filePath: any) => {
