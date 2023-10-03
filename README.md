@@ -31,11 +31,12 @@ The system has 3 key features:
 * [Run Services Locally](#local)
 * [Deploy System on the AWS Cloud](#cloud)
 * [Modules](#modules)
-* [User Onboarding and Permissions Model](#user)
 * [Web Frontend](#frontend)
 * [Localization](#localization)
 * [API (Application Programming Interface)](#api)
 * [Status Page](#status)
+* [User Manual](#manual)
+* [Demonstration Video](#demo)
 * [Governance and Support](#support)
 
 <a name="standards"></a>
@@ -289,41 +290,6 @@ Carbon credit calculation is implemented in a separate node module. [Please refe
 
 UNDP Platform for Voluntary Bilateral Cooperation generation is implemented in a separate node module. [Please refer this](./modules/Platform%20for%20Voluntary%20Bilateral%20Cooperation/README.md) for more information.
 
-<a name="user"></a>
-
-## User Onboarding and Permissions Model
-
-### User Roles
-
-System pre-defined user roles are as follows,
-
-* Root
-* Company Level (National Government, Programme and Certification Company come under this level)
-  * Admin
-  * Manager
-  * View Only
-
-### User Onboarding Process
-
-1. After the system setup, the system have a Root User for the setup email (one Root User for the system)
-2. Root User is responsible for creating the Government entity and the Admin of the Government
-3. The Government Admin is responsible for creating the other companies and Admins of each company.
-4. Admin of the company has the authority to add the remaining users (Admin, Managers, View Only Users) to the company.
-5. When a user is added to the system, a confirmation email should be sent to users including the login password.
-
-### User Management
-
-All the CRUD operations can be performed as per the following table,
-
-| Company Role | New User Role | Authorized User Roles (Company) |
-| --- | --- | --- |
-| Government | Root | Cannot create new one other than the default system user and Can manage all the users in the system |
-| Government | Admin<br>Manager<br>View Only | Root<br>Admin(Government) |
-| All other Company Roles | Admin<br>Manager<br>View Only | Root<br>Admin(Government)<br>Admin(Company) |
-
-* All users can edit own user account except Role and Email.
-* Users are not allowed to delete the own account from the system.
-
 <a name="frontend"></a>
 
 ### Web Frontend
@@ -371,10 +337,23 @@ For transparent uptime monitoring go to the [status page](https://status.carbreg
 
 Open source code available at <https://github.com/undp/carbon-registry-status>
 
+<a name="manual"></a>
+
+### User Manual
+
+To learn more about how the system is structured and how to manage it visit the [user manual](https://github.com/undp/carbon-registry/blob/main/documention/manual.md)
+
+<a name="demo"></a>
+
+### Demonstration Video
+
+Watch our [demo walkthrough](https://www.youtube.com/watch?v=xSxXvcPveT0)
+[![Video Thumbnail](https://img.youtube.com/vi/xSxXvcPveT0/maxresdefault.jpg)](https://www.youtube.com/watch?v=xSxXvcPveT0)
+
 <a name="support"></a>
 
 ### Governance and Support
 
 [Digital For Climate (D4C)](https://www.theclimatewarehouse.org/work/digital-4-climate) is responsible for managing the application. D4C is a collaboration between the [European Bank for Reconstruction and Development (EBRD)](https://www.ebrd.com), [United Nations Development Program (UNDP)](https://www.undp.org), [United Nations Framework Convention on Climate Change (UNFCCC)](https://www.unfccc.int), [International Emissions Trading Association (IETA)](https://www.ieta.org), [European Space Agency (ESA)](https://www.esa.int), and [World Bank Group](https://www.worldbank.org) that aims to coordinate respective workflows and create a modular and interoperable end-to-end digital ecosystem for the carbon market. The overarching goal is to support a transparent, high integrity global carbon market that can channel capital for impactful climate action and low-carbon development.
 
-This code is managed by [United Nations Development Programme](https://www.undp.org) as custodian. For any questions, contact us at [digital@undp.org](mailto:digital@undp.org).
+This code is managed by [United Nations Development Programme](https://www.undp.org) as custodian, detailed in the [press release](https://www.undp.org/news/newly-accredited-digital-public-good-national-carbon-registry-will-help-countries-meet-their-climate-targets). For any questions, contact us at [digital4planet@undp.org](mailto:digital4planet@undp.org).
