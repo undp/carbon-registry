@@ -117,6 +117,7 @@ export const handler: Handler = async (event) => {
         const org = await companyService.create({
           taxId: fields[4] !== "Ministry" ? fields[3] : undefined,
           companyId: undefined,
+          paymentId: undefined,
           name: fields[0],
           email: fields[1],
           phoneNo: fields[2],
@@ -128,7 +129,8 @@ export const handler: Handler = async (event) => {
           createdTime: undefined,
           nameOfMinister: fields[5] || undefined,
           sectoralScope: secScope,
-          regions: []
+          regions: [],
+          state: undefined //double check this
         });
         console.log("Company created", org);
       } catch (e) {

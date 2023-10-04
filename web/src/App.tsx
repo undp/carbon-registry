@@ -30,6 +30,7 @@ import { AbilityContext } from './Casl/Can';
 import { defineAbility, updateUserAbility } from './Casl/ability';
 import { message } from 'antd';
 import { SettingsContextProvider } from './Context/SettingsContext/settingsContext';
+import RegisterNewCompany from './Pages/Company/registerNewCompany';
 
 // message.config({
 //   duration: 60,
@@ -37,6 +38,9 @@ import { SettingsContextProvider } from './Context/SettingsContext/settingsConte
 
 const App = () => {
   const ability = defineAbility();
+  const enableRegistration = process.env.REACT_APP_ENABLE_REGISTRATION
+    ? process.env.REACT_APP_ENABLE_REGISTRATION
+    : true;
   useEffect(() => {
     console.log(process.env.REACT_APP_BACKEND);
     console.log(process.env.REACT_APP_STAT_URL);
@@ -133,6 +137,16 @@ const App = () => {
                       <Route path="updateUser" element={<UpdateUser />} />
                     </Route> */}
                 </Route>
+                {enableRegistration && (
+                  <Route
+                    path="registerCompany"
+                    element={
+                      <Suspense fallback={<div>"Loading..."</div>}>
+                        <RegisterNewCompany />
+                      </Suspense>
+                    }
+                  />
+                )}
                 <Route path="/*" element={<Navigate to="/" replace />} />
               </Routes>
             </BrowserRouter>
