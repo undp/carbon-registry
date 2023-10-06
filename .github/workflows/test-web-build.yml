@@ -1,5 +1,6 @@
 name: Test Web Build
 on:
+  workflow_dispatch:
   push:
     branches:
       - '**'        # matches every branch

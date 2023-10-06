@@ -1,5 +1,6 @@
 name: Deploy Services
 on:
+  workflow_dispatch:
   push:
     branches:
       - '**'        # matches every branch
