@@ -85,6 +85,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Programme, true))
     // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
     @Post('query')
@@ -131,6 +132,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(TransferFreezeGuard, ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, ProgrammeTransferRequest))
     @Put('retire')
     async programmeRetire(@Body() body: ProgrammeRetire, @Request() req) {
@@ -152,6 +154,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(TransferFreezeGuard, ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Create, ProgrammeTransferRequest))
     @Post('transferRequest')
     async transferRequest(@Body() body: ProgrammeTransferRequest, @Request() req) {
@@ -159,6 +162,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(TransferFreezeGuard, ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Create, ProgrammeTransferRequest))
     @Post('transferApprove')
     async transferApprove(@Body() body: ProgrammeTransferApprove, @Request() req) {
@@ -166,6 +170,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(TransferFreezeGuard, ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Delete, ProgrammeTransfer))
     @Post('transferReject')
     async transferReject(@Body() body: ProgrammeTransferReject, @Request() req) {
@@ -173,6 +178,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(TransferFreezeGuard, ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Delete, ProgrammeTransfer))
     @Post('transferCancel')
     async transferCancel(@Body() body: ProgrammeTransferCancel, @Request() req) {
@@ -180,6 +186,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, ProgrammeTransfer, true))
     @Post('transferQuery')
     queryUser(@Body()query: QueryDto, @Request() req) {
@@ -188,6 +195,7 @@ export class ProgrammeController {
     }
 
     @ApiBearerAuth()
+    @ApiBearerAuth('api_key')
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, ProgrammeTransfer, true))
     @Get('transfersByProgrammeId')
     transfersByProgrammeId(@Query('programmeId') programmeId: string, @Request() req) {

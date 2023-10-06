@@ -23,6 +23,7 @@ import { FindOrganisationQueryDto } from "../shared/dto/find.organisation.dto";
 import { OrganisationUpdateDto } from "../shared/dto/organisation.update.dto";
 import { CountryService } from "../shared/util/country.service";
 import { HelperService } from "../shared/util/helpers.service";
+import { ApiKeyJwtAuthGuard } from "../shared/auth/guards/api-jwt-key.guard";
 
 @ApiTags("Organisation")
 @ApiBearerAuth()
@@ -44,7 +45,8 @@ export class CompanyController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company, true))
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company, true))
   @Post("queryNames")
   queryNames(@Body() query: QueryDto, @Request() req) {
     console.log(req.abilityCondition);
@@ -102,7 +104,8 @@ export class CompanyController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company))
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company))
   @Post("findByIds")
   async findByCompanyId(
     @Body() body: FindOrganisationQueryDto,
@@ -118,20 +121,26 @@ export class CompanyController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Update, Company))
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Company))
   @Put("update")
   async updateCompany(@Body() company: OrganisationUpdateDto, @Request() req) {
     global.baseUrl = `${req.protocol}://${req.get("Host")}`;
     return await this.companyService.update(company, req.abilityCondition);
   }
 
-  @UseGuards(JwtAuthGuard)
+
+  @ApiBearerAuth()
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard)
   @Post("countries")
   async getCountries(@Body() query: QueryDto, @Request() req) {
     return await this.countryService.getCountryList(query);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard)
   @Get("countries")
   async getAvailableCountries(@Request() req) {
     return await this.countryService.getAvailableCountries();
