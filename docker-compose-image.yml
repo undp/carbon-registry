@@ -21,7 +21,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - data:/data/postgres
   national:
-    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:latest
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:CARBON-15
     # build:
     # context: .
     # dockerfile: ./backend/services/Dockerfile
@@ -53,7 +53,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: ./backend/services/Dockerfile
-    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:latest
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:CARBON-15
     ports:
       - "3100:3100"
     depends_on:
@@ -67,7 +67,7 @@ services:
       RUN_MODULE: analytics-api
       DOMAIN_MAP: "true"
   replicator:
-    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:latest
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:CARBON-15
     # build:
     #   context: .
     #   dockerfile: ./backend/services/Dockerfile
@@ -93,7 +93,7 @@ services:
       SYNC_ENABLE: true
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
   web:
-    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:latest
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:CARBON-15
     # build:
     #   context: .
     #   dockerfile: ./web/Dockerfile
