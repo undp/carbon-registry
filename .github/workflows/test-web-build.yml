@@ -11,7 +11,7 @@ on:
       - .github/workflows/frontend*
 
 jobs:
-  deploy_front_end:
+  Test_web_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
