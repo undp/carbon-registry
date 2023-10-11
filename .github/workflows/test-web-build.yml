@@ -8,7 +8,8 @@ on:
       - '!main'   # excludes master
     paths:
       - web/**
-      - .github/workflows/frontend*
+      - backend/**
+      - .github/workflows/test-web*
 
 jobs:
   Test_web_build:
