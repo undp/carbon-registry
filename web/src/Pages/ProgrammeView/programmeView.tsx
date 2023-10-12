@@ -988,10 +988,12 @@ const ProgrammeView = () => {
     let error = undefined;
     if (body) {
       body.programmeId = data?.programmeId;
+      body.externalId = data?.externalId;
     } else {
       body = {
         comment: comment,
         programmeId: data?.programmeId,
+        externalId: data?.externalId,
       };
     }
     try {
