@@ -57,6 +57,7 @@ import {
   getFinancialFields,
   TimelineBody,
   dateFormat,
+  Role,
 } from '@undp/carbon-library';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
 
@@ -1420,7 +1421,7 @@ const ProgrammeView = () => {
       : ministrySectoralScope.includes(data.sectoralScope) &&
         !isAllOwnersDeactivated &&
         userInfoState!.companyState !== CompanyState.SUSPENDED.valueOf() &&
-        !isTransferFrozen;
+        !isTransferFrozen && userInfoState?.userRole !== Role.ViewOnly;;
 
   return loadingAll ? (
     <Loading />
