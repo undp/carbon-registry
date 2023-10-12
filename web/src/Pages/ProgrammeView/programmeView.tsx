@@ -1421,7 +1421,8 @@ const ProgrammeView = () => {
       : ministrySectoralScope.includes(data.sectoralScope) &&
         !isAllOwnersDeactivated &&
         userInfoState!.companyState !== CompanyState.SUSPENDED.valueOf() &&
-        !isTransferFrozen && userInfoState?.userRole !== Role.ViewOnly;;
+        !isTransferFrozen &&
+        userInfoState?.userRole !== Role.ViewOnly;
 
   return loadingAll ? (
     <Loading />
