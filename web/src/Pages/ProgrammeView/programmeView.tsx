@@ -610,6 +610,12 @@ const ProgrammeView = () => {
               </span>
             ),
           };
+          if (upcomAuthorisationIndex !== -1) {
+            activityList.splice(upcomAuthorisationIndex, 1);
+          }
+          if (upcomCreditIndex !== -1) {
+            activityList.splice(upcomCreditIndex, 1);
+          }
         } else if (activity.data.txType === TxType.TRANSFER) {
           el = {
             status: 'process',
@@ -783,7 +789,10 @@ const ProgrammeView = () => {
             ),
           };
         }
-        if (activity.data.creditEst !== activity.data.creditIssued) {
+        if (
+          activity.data.creditEst !== activity.data.creditIssued &&
+          activity.data.txType !== TxType.REJECT
+        ) {
           creditEl = {
             status: 'process',
             title: t('view:tlIssue'),
