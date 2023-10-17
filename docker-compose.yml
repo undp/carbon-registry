@@ -44,6 +44,7 @@ services:
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
+      SYSTEM_NAME: Carbon Registry System
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
@@ -116,6 +117,7 @@ services:
         REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"
         REACT_APP_COUNTRY_CODE: "NG"
         REACT_APP_MAP_TYPE: "None"
+        REACT_APP_ENABLE_REGISTRATION: true
     ports:
       - "3030:3030"
     depends_on:
