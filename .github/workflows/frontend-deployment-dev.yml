@@ -88,6 +88,6 @@ jobs:
             cd repos/carbon-registry &&
             sudo $(aws ecr get-login --no-include-email --region us-east-1) &&
             sudo docker stop carbon-registry-web-1 || true &&
-            sudo docker rm carbon-registry-web-1
+            sudo docker rm carbon-registry-web-1 &&
             sudo docker pull 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:v1 &&
             docker compose -f docker-compose-image.yml up -d web '
