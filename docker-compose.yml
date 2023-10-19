@@ -44,7 +44,7 @@ services:
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
-      SYSTEM_NAME: Carbon Registry System
+      SYSTEM_NAME: Carbon Registry
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
