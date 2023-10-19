@@ -2,8 +2,8 @@
 import { Handler, Context } from 'aws-lambda';
 import { Server } from 'http';
 import { proxy } from 'aws-serverless-express';
-import { bootstrapServer } from '../shared/server'
 import { NationalAPIModule } from './national.api.module';
+import { bootstrapServer } from 'carbon-services-lib';
 
 let cachedServer: Server;
 

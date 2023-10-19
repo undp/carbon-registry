@@ -43,6 +43,8 @@ services:
       HOST: "http://localhost:3030"
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
+      SYSTEM_NAME: Carbon Registry
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
@@ -84,9 +86,10 @@ services:
       ITMO_API_KEY: ""
       ITMO_EMAIL: ""
       ITMO_PASSWORD: ""
-      MRV_ENDPOINT: 'http://192.168.123.20:9000'
-      REGISTRY_SYNC_ENABLE: true
-      MRV_API_TOKEN: ''
+      SYNC_ENDPOINT: 'http://192.168.123.20:9000'
+      SYNC_API_TOKEN: ''
+      SYNC_ENABLE: true
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
   # async-operations-handler:
   #   build:
   #     context: .
@@ -114,6 +117,7 @@ services:
         REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"
         REACT_APP_COUNTRY_CODE: "NG"
         REACT_APP_MAP_TYPE: "None"
+        REACT_APP_ENABLE_REGISTRATION: true
     ports:
       - "3030:3030"
     depends_on:
