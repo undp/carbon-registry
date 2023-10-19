@@ -11,19 +11,8 @@ import {
   Body,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { Company } from "../shared/entities/company.entity";
-import { Action } from "../shared/casl/action.enum";
-import { PoliciesGuardEx } from "../shared/casl/policy.guard";
-import { QueryDto } from "../shared/dto/query.dto";
-import { CompanyService } from "../shared/company/company.service";
-import { CaslAbilityFactory } from "../shared/casl/casl-ability.factory";
-import { JwtAuthGuard } from "../shared/auth/guards/jwt-auth.guard";
-import { OrganisationSuspendDto } from "../shared/dto/organisation.suspend.dto";
-import { FindOrganisationQueryDto } from "../shared/dto/find.organisation.dto";
-import { OrganisationUpdateDto } from "../shared/dto/organisation.update.dto";
-import { CountryService } from "../shared/util/country.service";
-import { HelperService } from "../shared/util/helpers.service";
-import { ApiKeyJwtAuthGuard } from "../shared/auth/guards/api-jwt-key.guard";
+import { CompanyService, CountryService, ApiKeyJwtAuthGuard, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto } from "carbon-services-lib";
+
 
 @ApiTags("Organisation")
 @ApiBearerAuth()
@@ -41,7 +30,7 @@ export class CompanyController {
   @Post("query")
   query(@Body() query: QueryDto, @Request() req) {
     console.log(req.abilityCondition);
-    return this.companyService.query(query, req.abilityCondition);
+    return this.companyService.query(query, req.abilityCondition, req.user.companyRole);
   }
 
   @ApiBearerAuth()
@@ -96,6 +85,36 @@ export class CompanyController {
       );
     }
     return this.companyService.activate(
+      companyId,
+      req.user,
+      body.remarks,
+      req.abilityCondition
+    );
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Approve, Company))
+  @Put("approve")
+  approve(
+    @Query("id") companyId: number,
+    @Body() body: OrganisationSuspendDto,
+    @Request() req
+  ) {
+    return this.companyService.approve(
+      companyId,
+      req.abilityCondition
+    );
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Reject, Company))
+  @Put("reject")
+  reject(
+    @Query("id") companyId: number,
+    @Body() body: OrganisationSuspendDto,
+    @Request() req
+  ) {
+    return this.companyService.reject(
       companyId,
       req.user,
       body.remarks,

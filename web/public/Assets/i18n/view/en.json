@@ -115,9 +115,14 @@
   "tlTxLowCreditCancelSystemDesc": "The request to transfer {} {} credits from {} to {} was cancelled by the system due to insufficient credit balance",
   "tlOwnership": "New Ownership",
   "tlOwnershipDesc": "{} invested in this programme obtaining {} ownership of the programme.",
+  "tlPending": "Pending",
+  "tlAuthorisation": "Authorisation",
   "typeOfMitigation": "Type Of Mitigation",
   "userEstimatedCredits": "User Estimated Credits",
   "systemEstimatedCredits": "System Estimated Credits",
   "actionId": "NDC ID",
-  "ministryLevel": "Minitry Level"
+  "ministryLevel": "Ministry Level",
+  "creditEst": "Estimated Credits",
+  "carbonPriceUSDPerTon": "Minimum Carbon Price: USD per ton (assuming no other revenue)",
+  "environmentalAssessmentRegistrationNo": "Environmental Assessment Registration Number"
 }

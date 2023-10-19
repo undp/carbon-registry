@@ -31,13 +31,17 @@ ENV REACT_APP_MAPBOXGL_ACCESS_TOKEN $REACT_APP_MAPBOXGL_ACCESS_TOKEN
 ARG REACT_APP_MAP_TYPE
 ENV REACT_APP_MAP_TYPE $REACT_APP_MAP_TYPE
 
+ARG REACT_APP_ENABLE_REGISTRATION
+ENV REACT_APP_ENABLE_REGISTRATION $REACT_APP_ENABLE_REGISTRATION
+
 # Build the app
 RUN CI=false yarn build
 
 # production environment
 FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
-COPY ./web/nginx.conf /etc/nginx/conf.d/default.conf
+ARG NGINX_CONFIG=nginx.conf
+COPY ./web/$NGINX_CONFIG /etc/nginx/conf.d/default.conf
 
 EXPOSE $PORT
 CMD ["nginx", "-g", "daemon off;"]
