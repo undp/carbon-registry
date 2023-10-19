@@ -258,7 +258,7 @@ const Login: FC<LoginPageProps> = (props: LoginPageProps) => {
                       {enableRegistration === 'true' && (
                         <div className="login-register-new-container">
                           <span className="login-register-new-txt">
-                            {t('login:register-acc')}?&nbsp;&nbsp;
+                            {t('login:register-acc')}&nbsp;&nbsp;
                             <span
                               className="login-register-new-txt-span"
                               onClick={() => navigate('/registerCompany')}
