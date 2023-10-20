@@ -94,6 +94,12 @@ const ProgrammeView = () => {
     setOpenModal(true);
   };
 
+  const ministryLevelPermission =
+    data &&
+    userInfoState?.companyRole === CompanyRole.MINISTRY &&
+    ministrySectoralScope.includes(data.sectoralScope) &&
+    userInfoState?.userRole !== 'ViewOnly';
+
   const locationColors = ['#6ACDFF', '#FF923D', '#CDCDCD', '#FF8183', '#B7A4FE'];
 
   const getFileName = (filepath: string) => {
@@ -1228,11 +1234,7 @@ const ProgrammeView = () => {
 
   if (userInfoState?.userRole !== 'ViewOnly') {
     if (data.currentStage.toString() === ProgrammeStageR.Approved) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         actionBtns.push(
           <Button
             danger
@@ -1296,11 +1298,7 @@ const ProgrammeView = () => {
       data.currentStage.toString() === ProgrammeStageR.Authorised &&
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         if (Number(data.creditEst) > Number(data.creditIssued)) {
           actionBtns.push(
             <Button
@@ -1380,8 +1378,7 @@ const ProgrammeView = () => {
       ((userInfoState?.companyRole === CompanyRole.CERTIFIER &&
         data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)) ||
         userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope)))
+        ministryLevelPermission)
     ) {
       actionBtns.push(
         <Button
@@ -1479,9 +1476,7 @@ const ProgrammeView = () => {
   });
 
   const creditsActionPermissions =
-    userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-    (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-      ministrySectoralScope.includes(data.sectoralScope));
+    userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission;
 
   const reqBtnPermissions =
     userInfoState?.companyRole !== CompanyRole.MINISTRY
@@ -1718,6 +1713,7 @@ const ProgrammeView = () => {
                                               }
                                               translator={i18n}
                                               useConnection={useConnection}
+                                              ministryLevelPermission={ministryLevelPermission}
                                             />
                                           ),
                                         });
