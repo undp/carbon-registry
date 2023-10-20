@@ -11,7 +11,7 @@ import {
   Body,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CompanyService, CountryService, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto } from "carbon-services-lib";
+import { CompanyService, CountryService, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto } from "@undp/carbon-services-lib";
 
 
 @ApiTags("Organisation")

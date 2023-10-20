@@ -13,7 +13,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { ApiTags, ApiBearerAuth } from "@nestjs/swagger";
-import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto } from "carbon-services-lib";
+import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto } from "@undp/carbon-services-lib";
 
 @ApiTags("User")
 @ApiBearerAuth()
