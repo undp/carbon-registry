@@ -15,7 +15,7 @@ import {
   HttpStatus,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { AuthService, PasswordResetService, HelperService, LoginDto, ForgotPasswordDto, PasswordResetDto } from "carbon-services-lib";
+import { AuthService, PasswordResetService, HelperService, LoginDto, ForgotPasswordDto, PasswordResetDto } from "@undp/carbon-services-lib";
 
 @ApiTags("Auth")
 @Controller("auth")
