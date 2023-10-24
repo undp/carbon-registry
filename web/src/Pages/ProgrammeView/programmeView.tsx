@@ -12,6 +12,7 @@ import {
   ClockCircleOutlined,
   ExperimentOutlined,
   SafetyOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
 import { DateTime } from 'luxon';
 import Geocoding from '@mapbox/mapbox-sdk/services/geocoding';
@@ -111,16 +112,31 @@ const ProgrammeView = () => {
   };
 
   const fileItemContent = (filePath: any) => {
+    let DocumentName: any;
+    console.log(filePath.length, '...........');
+    if (filePath.includes('DESIGN')) {
+      DocumentName = 'Design Document';
+    }
+    if (filePath.includes('METHODOLOGY')) DocumentName = 'Methodology  Document';
+    if (filePath.includes('OBJECTION')) DocumentName = 'No Objection Letter';
+    if (filePath.includes('AUTHORISATION')) DocumentName = 'Letter of Authorisation';
+    if (filePath.includes('ENVIRONMENTAL_IMPACT_ASSESSMENT'))
+      DocumentName = 'Environmental Impact Assessment';
+    if (filePath.includes('MONITORING_REPORT')) DocumentName = 'Monitoring Report';
+    if (filePath.includes('VERIFICATION_REPORT')) DocumentName = 'Verification Report';
+    const versionfull = filePath.split('_')[filePath.split('_').length - 1];
+    const version = versionfull ? versionfull.split('.')[0] : 'V1';
+    const finalversion = version.startsWith('V') ? version : 'V1';
     return (
       <Row className="field" key={filePath}>
         <Col span={12} className="field-key">
-          <a target="_blank" href={filePath} rel="noopener noreferrer" className="file-name">
-            {getFileName(filePath)}
-          </a>
+          <div>
+            {DocumentName} ~ {finalversion}
+          </div>
         </Col>
         <Col span={12} className="field-value">
           <a target="_blank" href={filePath} rel="noopener noreferrer" className="file-name">
-            <Icon.Link45deg style={{ verticalAlign: 'middle' }} />
+            <BookOutlined />
           </a>
         </Col>
       </Row>
@@ -129,7 +145,26 @@ const ProgrammeView = () => {
 
   const getFileContent = (files: any) => {
     if (Array.isArray(files)) {
-      return files.map((filePath: any) => {
+      const design = files.filter((filePath) => filePath.includes('DESIGN')).sort();
+      const methodolgy = files.filter((filePath) => filePath.includes('METHODOLOGY')).sort();
+      const envimpact = files
+        .filter((filePath) => filePath.includes('ENVIRONMENTAL_IMPACT_ASSESSMENT'))
+        .sort();
+      const monitor = files.filter((filePath) => filePath.includes('MONITORING_REPORT')).sort();
+      const auth = files.filter((filePath) => filePath.includes('AUTHORISATION')).sort();
+      const objec = files.filter((filePath) => filePath.includes('OBJECTION')).sort();
+      const verification = files
+        .filter((filePath) => filePath.includes('VERIFICATION_REPORT'))
+        .sort();
+      const latestfile = [];
+      if (design.length > 0) latestfile.push(design.pop());
+      if (objec.length > 0) latestfile.push(objec.pop());
+      if (methodolgy.length > 0) latestfile.push(methodolgy.pop());
+      if (auth.length > 0) latestfile.push(auth.pop());
+      if (envimpact.length > 0) latestfile.push(envimpact.pop());
+      if (monitor.length > 0) latestfile.push(monitor.pop());
+      if (verification.length > 0) latestfile.push(verification.pop());
+      return latestfile.map((filePath: any) => {
         return fileItemContent(filePath);
       });
     } else {
