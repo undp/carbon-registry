@@ -521,6 +521,79 @@ const ProgrammeView = () => {
     return hist;
   };
 
+  const displayHideNdcDocumentAvailabilityIndicators = (
+    activityList: any,
+    upcomingTimeLineMonitoringVisible: boolean,
+    upcomingTimeLineVerificationVisible: boolean
+  ) => {
+    const monitoringElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:monitoringEl')
+    );
+    const verificationElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:verificationEl')
+    );
+
+    if (upcomingTimeLineMonitoringVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (monitoringElIndex === -1) {
+        const monitoringEl = {
+          status: 'process',
+          title: t('view:monitoringEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Binoculars />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, monitoringEl);
+        } else {
+          activityList.unshift(monitoringEl);
+        }
+      }
+    } else {
+      if (monitoringElIndex !== -1) {
+        activityList.splice(monitoringElIndex, 1);
+      }
+    }
+
+    if (upcomingTimeLineVerificationVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (verificationElIndex === -1) {
+        const verificationEl = {
+          status: 'process',
+          title: t('view:verificationEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Flag />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, verificationEl);
+        } else {
+          activityList.unshift(verificationEl);
+        }
+      }
+    } else {
+      if (verificationElIndex !== -1) {
+        activityList.splice(verificationElIndex, 1);
+      }
+    }
+
+    return activityList;
+  };
+
   const getProgrammeHistory = async (programmeId: string) => {
     setLoadingHistory(true);
     try {
@@ -531,11 +604,40 @@ const ProgrammeView = () => {
 
       const [response, transfers] = await Promise.all([historyPromise, transferPromise]);
 
+      let upcomingTimeLineMonitoringVisible = false;
+      let upcomingTimeLineVerificationVisible = false;
+
+      if (data) {
+        data?.mitigationActions?.map((mitigationAction: any) => {
+          if (mitigationAction.projectMaterial && mitigationAction.projectMaterial.length > 0) {
+            const monitoringReportAvailable = mitigationAction.projectMaterial.find((item: any) => {
+              return item.includes('MONITORING_REPORT');
+            });
+
+            const verificationReportAvailable = mitigationAction.projectMaterial.find(
+              (item: any) => {
+                return item.includes('VERIFICATION_REPORT');
+              }
+            );
+
+            if (!monitoringReportAvailable) {
+              upcomingTimeLineMonitoringVisible = true;
+            }
+            if (!verificationReportAvailable) {
+              upcomingTimeLineVerificationVisible = true;
+            }
+          } else {
+            upcomingTimeLineMonitoringVisible = true;
+            upcomingTimeLineVerificationVisible = true;
+          }
+        });
+      }
+
       const txDetails: any = {};
       const txList = await getTxActivityLog(transfers.data, txDetails);
       let txListKeys = Object.keys(txList).sort();
       const certifiedTime: any = {};
-      const activityList: any[] = [];
+      let activityList: any[] = [];
       for (const activity of response.data) {
         let programmecreateindex: any;
         const createIndex = activityList.findIndex((item) => item.title === t('view:tlCreate'));
@@ -878,6 +980,12 @@ const ProgrammeView = () => {
       for (const txT of txListKeys) {
         activityList.unshift(...txList[txT]);
       }
+
+      activityList = displayHideNdcDocumentAvailabilityIndicators(
+        activityList,
+        upcomingTimeLineMonitoringVisible,
+        upcomingTimeLineVerificationVisible
+      );
 
       setHistoryData(activityList);
       setLoadingHistory(false);
