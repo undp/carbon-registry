@@ -533,7 +533,7 @@ const ProgrammeView = () => {
       (item: any) => item.title === t('view:verificationEl')
     );
 
-    if (upcomingTimeLineMonitoringVisible) {
+    if (upcomingTimeLineMonitoringVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
       if (monitoringElIndex === -1) {
         const monitoringEl = {
           status: 'process',
@@ -562,7 +562,7 @@ const ProgrammeView = () => {
       }
     }
 
-    if (upcomingTimeLineVerificationVisible) {
+    if (upcomingTimeLineVerificationVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
       if (verificationElIndex === -1) {
         const verificationEl = {
           status: 'process',
