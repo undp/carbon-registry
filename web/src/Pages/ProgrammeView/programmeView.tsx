@@ -12,6 +12,7 @@ import {
   ClockCircleOutlined,
   ExperimentOutlined,
   SafetyOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
 import { DateTime } from 'luxon';
 import Geocoding from '@mapbox/mapbox-sdk/services/geocoding';
@@ -57,6 +58,7 @@ import {
   getFinancialFields,
   TimelineBody,
   dateFormat,
+  Role,
 } from '@undp/carbon-library';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
 
@@ -95,6 +97,12 @@ const ProgrammeView = () => {
     setOpenModal(true);
   };
 
+  const ministryLevelPermission =
+    data &&
+    userInfoState?.companyRole === CompanyRole.MINISTRY &&
+    ministrySectoralScope.includes(data.sectoralScope) &&
+    userInfoState?.userRole !== 'ViewOnly';
+
   const locationColors = ['#6ACDFF', '#FF923D', '#CDCDCD', '#FF8183', '#B7A4FE'];
 
   const getFileName = (filepath: string) => {
@@ -111,16 +119,31 @@ const ProgrammeView = () => {
   };
 
   const fileItemContent = (filePath: any) => {
+    let DocumentName: any;
+    console.log(filePath.length, '...........');
+    if (filePath.includes('DESIGN')) {
+      DocumentName = 'Design Document';
+    }
+    if (filePath.includes('METHODOLOGY')) DocumentName = 'Methodology  Document';
+    if (filePath.includes('OBJECTION')) DocumentName = 'No Objection Letter';
+    if (filePath.includes('AUTHORISATION')) DocumentName = 'Letter of Authorisation';
+    if (filePath.includes('ENVIRONMENTAL_IMPACT_ASSESSMENT'))
+      DocumentName = 'Environmental Impact Assessment';
+    if (filePath.includes('MONITORING_REPORT')) DocumentName = 'Monitoring Report';
+    if (filePath.includes('VERIFICATION_REPORT')) DocumentName = 'Verification Report';
+    const versionfull = filePath.split('_')[filePath.split('_').length - 1];
+    const version = versionfull ? versionfull.split('.')[0] : 'V1';
+    const finalversion = version.startsWith('V') ? version : 'V1';
     return (
       <Row className="field" key={filePath}>
         <Col span={12} className="field-key">
-          <a target="_blank" href={filePath} rel="noopener noreferrer" className="file-name">
-            {getFileName(filePath)}
-          </a>
+          <div>
+            {DocumentName} ~ {finalversion}
+          </div>
         </Col>
         <Col span={12} className="field-value">
           <a target="_blank" href={filePath} rel="noopener noreferrer" className="file-name">
-            <Icon.Link45deg style={{ verticalAlign: 'middle' }} />
+            <BookOutlined />
           </a>
         </Col>
       </Row>
@@ -129,7 +152,26 @@ const ProgrammeView = () => {
 
   const getFileContent = (files: any) => {
     if (Array.isArray(files)) {
-      return files.map((filePath: any) => {
+      const design = files.filter((filePath) => filePath.includes('DESIGN')).sort();
+      const methodolgy = files.filter((filePath) => filePath.includes('METHODOLOGY')).sort();
+      const envimpact = files
+        .filter((filePath) => filePath.includes('ENVIRONMENTAL_IMPACT_ASSESSMENT'))
+        .sort();
+      const monitor = files.filter((filePath) => filePath.includes('MONITORING_REPORT')).sort();
+      const auth = files.filter((filePath) => filePath.includes('AUTHORISATION')).sort();
+      const objec = files.filter((filePath) => filePath.includes('OBJECTION')).sort();
+      const verification = files
+        .filter((filePath) => filePath.includes('VERIFICATION_REPORT'))
+        .sort();
+      const latestfile = [];
+      if (design.length > 0) latestfile.push(design.pop());
+      if (objec.length > 0) latestfile.push(objec.pop());
+      if (methodolgy.length > 0) latestfile.push(methodolgy.pop());
+      if (auth.length > 0) latestfile.push(auth.pop());
+      if (envimpact.length > 0) latestfile.push(envimpact.pop());
+      if (monitor.length > 0) latestfile.push(monitor.pop());
+      if (verification.length > 0) latestfile.push(verification.pop());
+      return latestfile.map((filePath: any) => {
         return fileItemContent(filePath);
       });
     } else {
@@ -480,6 +522,79 @@ const ProgrammeView = () => {
     return hist;
   };
 
+  const displayHideNdcDocumentAvailabilityIndicators = (
+    activityList: any,
+    upcomingTimeLineMonitoringVisible: boolean,
+    upcomingTimeLineVerificationVisible: boolean
+  ) => {
+    const monitoringElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:monitoringEl')
+    );
+    const verificationElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:verificationEl')
+    );
+
+    if (upcomingTimeLineMonitoringVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (monitoringElIndex === -1) {
+        const monitoringEl = {
+          status: 'process',
+          title: t('view:monitoringEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Binoculars />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, monitoringEl);
+        } else {
+          activityList.unshift(monitoringEl);
+        }
+      }
+    } else {
+      if (monitoringElIndex !== -1) {
+        activityList.splice(monitoringElIndex, 1);
+      }
+    }
+
+    if (upcomingTimeLineVerificationVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (verificationElIndex === -1) {
+        const verificationEl = {
+          status: 'process',
+          title: t('view:verificationEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Flag />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, verificationEl);
+        } else {
+          activityList.unshift(verificationEl);
+        }
+      }
+    } else {
+      if (verificationElIndex !== -1) {
+        activityList.splice(verificationElIndex, 1);
+      }
+    }
+
+    return activityList;
+  };
+
   const getProgrammeHistory = async (programmeId: string) => {
     setLoadingHistory(true);
     try {
@@ -490,14 +605,65 @@ const ProgrammeView = () => {
 
       const [response, transfers] = await Promise.all([historyPromise, transferPromise]);
 
+      let upcomingTimeLineMonitoringVisible = false;
+      let upcomingTimeLineVerificationVisible = false;
+
+      if (data) {
+        data?.mitigationActions?.map((mitigationAction: any) => {
+          if (mitigationAction.projectMaterial && mitigationAction.projectMaterial.length > 0) {
+            const monitoringReportAvailable = mitigationAction.projectMaterial.find((item: any) => {
+              return item.includes('MONITORING_REPORT');
+            });
+
+            const verificationReportAvailable = mitigationAction.projectMaterial.find(
+              (item: any) => {
+                return item.includes('VERIFICATION_REPORT');
+              }
+            );
+
+            if (!monitoringReportAvailable) {
+              upcomingTimeLineMonitoringVisible = true;
+            }
+            if (!verificationReportAvailable) {
+              upcomingTimeLineVerificationVisible = true;
+            }
+          } else {
+            upcomingTimeLineMonitoringVisible = true;
+            upcomingTimeLineVerificationVisible = true;
+          }
+        });
+      }
+
       const txDetails: any = {};
       const txList = await getTxActivityLog(transfers.data, txDetails);
       let txListKeys = Object.keys(txList).sort();
       const certifiedTime: any = {};
-      const activityList: any[] = [];
+      let activityList: any[] = [];
       for (const activity of response.data) {
+        let programmecreateindex: any;
+        const createIndex = activityList.findIndex((item) => item.title === t('view:tlCreate'));
+        const upcomCreditIndex = activityList.findIndex(
+          (item) => item.subTitle === t('view:tlPending')
+        );
+        const upcomAuthorisationIndex = activityList.findIndex(
+          (item) => item.title === 'Authorisation'
+        );
+        if (createIndex !== -1) {
+          programmecreateindex = createIndex;
+        }
         let el = undefined;
+        let newEl = undefined;
+        let creditEl = undefined;
+        let upcomingAuthorisation: any;
+        const day = Math.floor(
+          DateTime.now().diff(DateTime.fromMillis(activity.data.txTime), 'days').days
+        );
         if (activity.data.txType === TxType.CREATE) {
+          if (day === 1) {
+            upcomingAuthorisation = `Awaiting Action : ${day} Day`;
+          } else {
+            upcomingAuthorisation = `Awaiting Action : ${day} Days`;
+          }
           el = {
             status: 'process',
             title: t('view:tlCreate'),
@@ -506,6 +672,16 @@ const ProgrammeView = () => {
             icon: (
               <span className="step-icon created-step">
                 <Icon.CaretRight />
+              </span>
+            ),
+          };
+          newEl = {
+            status: 'process',
+            title: t('view:tlAuthorisation'),
+            subTitle: upcomingAuthorisation,
+            icon: (
+              <span className="step-icon upcom-auth-step">
+                <Icon.ClipboardCheck />
               </span>
             ),
           };
@@ -534,6 +710,9 @@ const ProgrammeView = () => {
               </span>
             ),
           };
+          if (upcomAuthorisationIndex !== -1) {
+            activityList.splice(upcomAuthorisationIndex, 1);
+          }
         } else if (activity.data.txType === TxType.ISSUE) {
           el = {
             status: 'process',
@@ -576,6 +755,12 @@ const ProgrammeView = () => {
               </span>
             ),
           };
+          if (upcomAuthorisationIndex !== -1) {
+            activityList.splice(upcomAuthorisationIndex, 1);
+          }
+          if (upcomCreditIndex !== -1) {
+            activityList.splice(upcomCreditIndex, 1);
+          }
         } else if (activity.data.txType === TxType.TRANSFER) {
           el = {
             status: 'process',
@@ -749,6 +934,27 @@ const ProgrammeView = () => {
             ),
           };
         }
+        if (
+          activity.data.creditEst !== activity.data.creditIssued &&
+          activity.data.txType !== TxType.REJECT
+        ) {
+          creditEl = {
+            status: 'process',
+            title: t('view:tlIssue'),
+            subTitle: t('view:tlPending'),
+            icon: (
+              <span className="step-icon upcom-issue-step">
+                <Icon.Award />
+              </span>
+            ),
+          };
+          activityList.splice(upcomCreditIndex, 1);
+        }
+        if (activity.data.creditEst === activity.data.creditIssued) {
+          if (upcomCreditIndex !== -1) {
+            activityList.splice(upcomCreditIndex, 1);
+          }
+        }
         if (el) {
           const toDelete = [];
           for (const txT of txListKeys) {
@@ -763,11 +969,24 @@ const ProgrammeView = () => {
           txListKeys = Object.keys(txList).sort();
           activityList.unshift(el);
         }
+        if (newEl) {
+          const insertIndexauth = Number(programmecreateindex) + 1;
+          activityList.splice(insertIndexauth, 0, newEl);
+        }
+        if (creditEl) {
+          activityList.splice(0, 0, creditEl);
+        }
       }
 
       for (const txT of txListKeys) {
         activityList.unshift(...txList[txT]);
       }
+
+      activityList = displayHideNdcDocumentAvailabilityIndicators(
+        activityList,
+        upcomingTimeLineMonitoringVisible,
+        upcomingTimeLineVerificationVisible
+      );
 
       setHistoryData(activityList);
       setLoadingHistory(false);
@@ -920,10 +1139,12 @@ const ProgrammeView = () => {
     let error = undefined;
     if (body) {
       body.programmeId = data?.programmeId;
+      body.externalId = data?.externalId;
     } else {
       body = {
         comment: comment,
         programmeId: data?.programmeId,
+        externalId: data?.externalId,
       };
     }
     try {
@@ -1153,11 +1374,7 @@ const ProgrammeView = () => {
 
   if (userInfoState?.userRole !== 'ViewOnly') {
     if (data.currentStage.toString() === ProgrammeStageR.Approved) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         actionBtns.push(
           <Button
             danger
@@ -1221,11 +1438,7 @@ const ProgrammeView = () => {
       data.currentStage.toString() === ProgrammeStageR.Authorised &&
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         if (Number(data.creditEst) > Number(data.creditIssued)) {
           actionBtns.push(
             <Button
@@ -1305,8 +1518,7 @@ const ProgrammeView = () => {
       ((userInfoState?.companyRole === CompanyRole.CERTIFIER &&
         data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)) ||
         userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope)))
+        ministryLevelPermission)
     ) {
       actionBtns.push(
         <Button
@@ -1404,9 +1616,7 @@ const ProgrammeView = () => {
   });
 
   const creditsActionPermissions =
-    userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-    (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-      ministrySectoralScope.includes(data.sectoralScope));
+    userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission;
 
   const reqBtnPermissions =
     userInfoState?.companyRole !== CompanyRole.MINISTRY
@@ -1416,7 +1626,8 @@ const ProgrammeView = () => {
       : ministrySectoralScope.includes(data.sectoralScope) &&
         !isAllOwnersDeactivated &&
         userInfoState!.companyState !== CompanyState.SUSPENDED.valueOf() &&
-        !isTransferFrozen;
+        !isTransferFrozen &&
+        userInfoState?.userRole !== Role.ViewOnly;
 
   return loadingAll ? (
     <Loading />
@@ -1643,6 +1854,7 @@ const ProgrammeView = () => {
                                               }
                                               translator={i18n}
                                               useConnection={useConnection}
+                                              ministryLevelPermission={ministryLevelPermission}
                                             />
                                           ),
                                         });
