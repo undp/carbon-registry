@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { Handler } from "aws-lambda";
 import { ConfigService } from "@nestjs/config";
-import { UserModule, getLogger, UserService, CompanyRole, Role, CompanyModule, CompanyService, ProgrammeModule, ProgrammeService, LedgerDbModule, LedgerDBInterface, CreditOverall, TxType, OrganisationDto, UserDto, UtilModule, CountryService, Country, LocationModule, LocationInterface } from "carbon-services-lib";
+import { UserModule, getLogger, UserService, CompanyRole, Role, CompanyModule, CompanyService, ProgrammeModule, ProgrammeService, LedgerDbModule, LedgerDBInterface, CreditOverall, TxType, OrganisationDto, UserDto, UtilModule, CountryService, Country, LocationModule, LocationInterface } from "@undp/carbon-services-lib";
 const fs = require("fs");
 
 export const handler: Handler = async (event) => {
