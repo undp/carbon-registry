@@ -124,5 +124,7 @@
   "ministryLevel": "Niveau ministériel",
   "creditEst": "Crédits estimés",
   "carbonPriceUSDPerTon": "Prix minimum du carbone : USD par tonne (en supposant aucun autre revenu)",
-  "environmentalAssessmentRegistrationNo": "Numéro d'enregistrement de l'évaluation environnementale"
+  "environmentalAssessmentRegistrationNo": "Numéro d'enregistrement de l'évaluation environnementale",
+  "verificationEl": "Vérification",
+  "monitoringEl": "Suivi"
 }
