@@ -91,7 +91,7 @@ const App = () => {
                     element={<CustomLayout selectedKey="programmeManagement/viewAll" />}
                   >
                     <Route path="viewAll" element={<ProgrammeManagement />} />
-                    <Route path="view" element={<ProgrammeView />} />
+                    <Route path="view/:id" element={<ProgrammeView />} />
                   </Route>
                   <Route
                     path="/companyManagement"

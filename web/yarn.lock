@@ -2750,6 +2750,7 @@
   version "1.0.166-CARBON-283.0"
   resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.166-CARBON-283.0.tgz#0979e99b9a82ebb667436d87041254678d36ba82"
   integrity sha512-GzXObKCHAmyDDXLcI6Gw4+iROyfixvrB9iI8zC9QBbXe7IfYYBXciR6F5EZBZ4a9UuDfH3jYytdmeVa6ERVCow==
+
   dependencies:
     "@rollup/plugin-commonjs" "^25.0.0"
     "@rollup/plugin-node-resolve" "^15.0.2"
