@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Row, Col, Card, Progress, Tag, Steps, message, Skeleton, Button, Modal, Form } from 'antd';
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './programmeView.scss';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
@@ -91,10 +91,17 @@ const ProgrammeView = () => {
     mapType === MapTypes.Mapbox && process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
       ? process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
       : '';
+  const { id } = useParams();
 
   const showModal = () => {
     setOpenModal(true);
   };
+
+  const ministryLevelPermission =
+    data &&
+    userInfoState?.companyRole === CompanyRole.MINISTRY &&
+    ministrySectoralScope.includes(data.sectoralScope) &&
+    userInfoState?.userRole !== 'ViewOnly';
 
   const locationColors = ['#6ACDFF', '#FF923D', '#CDCDCD', '#FF8183', '#B7A4FE'];
 
@@ -515,6 +522,79 @@ const ProgrammeView = () => {
     return hist;
   };
 
+  const displayHideNdcDocumentAvailabilityIndicators = (
+    activityList: any,
+    upcomingTimeLineMonitoringVisible: boolean,
+    upcomingTimeLineVerificationVisible: boolean
+  ) => {
+    const monitoringElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:monitoringEl')
+    );
+    const verificationElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:verificationEl')
+    );
+
+    if (upcomingTimeLineMonitoringVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (monitoringElIndex === -1) {
+        const monitoringEl = {
+          status: 'process',
+          title: t('view:monitoringEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Binoculars />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, monitoringEl);
+        } else {
+          activityList.unshift(monitoringEl);
+        }
+      }
+    } else {
+      if (monitoringElIndex !== -1) {
+        activityList.splice(monitoringElIndex, 1);
+      }
+    }
+
+    if (upcomingTimeLineVerificationVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (verificationElIndex === -1) {
+        const verificationEl = {
+          status: 'process',
+          title: t('view:verificationEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Flag />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, verificationEl);
+        } else {
+          activityList.unshift(verificationEl);
+        }
+      }
+    } else {
+      if (verificationElIndex !== -1) {
+        activityList.splice(verificationElIndex, 1);
+      }
+    }
+
+    return activityList;
+  };
+
   const getProgrammeHistory = async (programmeId: string) => {
     setLoadingHistory(true);
     try {
@@ -525,11 +605,40 @@ const ProgrammeView = () => {
 
       const [response, transfers] = await Promise.all([historyPromise, transferPromise]);
 
+      let upcomingTimeLineMonitoringVisible = false;
+      let upcomingTimeLineVerificationVisible = false;
+
+      if (data) {
+        data?.mitigationActions?.map((mitigationAction: any) => {
+          if (mitigationAction.projectMaterial && mitigationAction.projectMaterial.length > 0) {
+            const monitoringReportAvailable = mitigationAction.projectMaterial.find((item: any) => {
+              return item.includes('MONITORING_REPORT');
+            });
+
+            const verificationReportAvailable = mitigationAction.projectMaterial.find(
+              (item: any) => {
+                return item.includes('VERIFICATION_REPORT');
+              }
+            );
+
+            if (!monitoringReportAvailable) {
+              upcomingTimeLineMonitoringVisible = true;
+            }
+            if (!verificationReportAvailable) {
+              upcomingTimeLineVerificationVisible = true;
+            }
+          } else {
+            upcomingTimeLineMonitoringVisible = true;
+            upcomingTimeLineVerificationVisible = true;
+          }
+        });
+      }
+
       const txDetails: any = {};
       const txList = await getTxActivityLog(transfers.data, txDetails);
       let txListKeys = Object.keys(txList).sort();
       const certifiedTime: any = {};
-      const activityList: any[] = [];
+      let activityList: any[] = [];
       for (const activity of response.data) {
         let programmecreateindex: any;
         const createIndex = activityList.findIndex((item) => item.title === t('view:tlCreate'));
@@ -873,6 +982,12 @@ const ProgrammeView = () => {
         activityList.unshift(...txList[txT]);
       }
 
+      activityList = displayHideNdcDocumentAvailabilityIndicators(
+        activityList,
+        upcomingTimeLineMonitoringVisible,
+        upcomingTimeLineVerificationVisible
+      );
+
       setHistoryData(activityList);
       setLoadingHistory(false);
       setCertTimes(certifiedTime);
@@ -1177,20 +1292,15 @@ const ProgrammeView = () => {
     if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
       getUserDetails();
     }
-    const queryParams = new URLSearchParams(window.location.search);
-    const programmeId = queryParams.get('id');
-    if (programmeId) {
-      getProgrammeById(programmeId);
-    } else if (!state) {
-      navigate('/programmeManagement/viewAll', { replace: true });
+
+    if (state && state.record) {
+      setLoadingAll(false);
+      setData(state.record);
     } else {
-      if (!state.record) {
-        if (state.id) {
-          getProgrammeById(state.id);
-        }
+      if (id) {
+        getProgrammeById(id);
       } else {
-        setLoadingAll(false);
-        setData(state.record);
+        navigate('/programmeManagement/viewAll', { replace: true });
       }
     }
   }, []);
@@ -1264,11 +1374,7 @@ const ProgrammeView = () => {
 
   if (userInfoState?.userRole !== 'ViewOnly') {
     if (data.currentStage.toString() === ProgrammeStageR.Approved) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         actionBtns.push(
           <Button
             danger
@@ -1332,11 +1438,7 @@ const ProgrammeView = () => {
       data.currentStage.toString() === ProgrammeStageR.Authorised &&
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         if (Number(data.creditEst) > Number(data.creditIssued)) {
           actionBtns.push(
             <Button
@@ -1416,8 +1518,7 @@ const ProgrammeView = () => {
       ((userInfoState?.companyRole === CompanyRole.CERTIFIER &&
         data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)) ||
         userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope)))
+        ministryLevelPermission)
     ) {
       actionBtns.push(
         <Button
@@ -1515,9 +1616,7 @@ const ProgrammeView = () => {
   });
 
   const creditsActionPermissions =
-    userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-    (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-      ministrySectoralScope.includes(data.sectoralScope));
+    userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission;
 
   const reqBtnPermissions =
     userInfoState?.companyRole !== CompanyRole.MINISTRY
@@ -1755,6 +1854,7 @@ const ProgrammeView = () => {
                                               }
                                               translator={i18n}
                                               useConnection={useConnection}
+                                              ministryLevelPermission={ministryLevelPermission}
                                             />
                                           ),
                                         });
