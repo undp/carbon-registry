@@ -16,7 +16,7 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
 - Once the setup is complete, you have the option to either create a new organization for your registry, which should take around 15 to 20 minutes, or subscribe to an existing organization.
 
 ## <b>Data Synchronization</b>
-![Data Synchronization Steps](./CADT_Sync.svg)
+![Data Synchronization Steps](./imgs/CADT_Sync.svg)
 
 ## <b>Project Creation</b>
 - CADTrust endpoint https://github.com/Chia-Network/cadt/blob/main/docs/cadt_rpc_api.md#stage-a-new-project-with-the-minimum-required-fields
@@ -99,7 +99,7 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
 - If the project is for a <b>single proponent</b> single unit will be created on the CADTrust with the `Unit Serial Block - Start` and issued credit amount as the unit `startBlock` and `endBlock`.
 - If the project involves multiple proponents, units are created (at the credit issue on Registry) for each proponent based on their respective ownership percentages. Following image demonstrate the startBlock calculation approach. 
 
-    ![](./Credit1.svg)
+    ![](./imgs/Credit1.svg)
     - Credit Estimated for the project (CE) = (Y - X + 1)
     - X + CE * P1 / 100
     - Org 1 startBlock = X (From the serial Number)
@@ -113,7 +113,7 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
         - startBlock (SB2) = Z + 1
         - endBlock (EB2) = Z + 1 + CI * P2 / 100
 
-    ![](./Credit2.svg)
+    ![](./imgs/Credit2.svg)
 
 - Another batch of credits issued (CI2) for the project ( CI + CI2 < CE ). 2 united will be created as follows,
     - Org 1 (Block 3)
@@ -123,17 +123,45 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
         - startBlock (SB4) = EB2 + 1
         - endBlock (EB4) = EB2 + 1 + CI2 * P2 / 100
 
-    ![](./Credit3.svg)
+    ![](./imgs/Credit3.svg)
 
+- Transfer T amount of credits to Org 3 from Org 1
 
-![Block Allocation Methodology](./CADTCreditBlocks.svg)
+    <b>If T < CI</b>
+    - Split Unit Block 1 into 2 blocks. Org 1 will keep the existing warehouse unit ID
+    - Update Unit Block 1:
+        - startBlock (SB1) = X + T + 1
+        - endBlock (EB1) = No change
 
+    - New unit block 5 will be created for the Org 3
+        - startBlock (SB5) = X
+        - endBlock (EB5) = X + T
+
+    ![](./imgs/Credit4.svg)
+
+    <b>If T > CI and T < CI + CI2</b>
+    - Update Unit Block 1 ownership to Org 3
+    - Split Unit Block 3 into 2 blocks. Org 1 will keep the existing warehouse unit ID
+    - Update Unit Block 3:
+        - startBlock (SB3) = EB1 + 1 + T + 1
+        - endBlock (EB3) = No change
+    - New unit block 5 will be created for the Org 3
+        - startBlock (SB5) = EB1 + 1
+        - endBlock (EB5) = EB1 + 1 + T
+
+    ![](./imgs/Credit5.svg)
 
 ## <b>Docker Integration Setup</b>
-1. Append `data-importer` to `docker-compose` file `replicator` service `RUN_MODULE` env variable with comma separated. 
-2. Update following env variables in the `docker-compose` file `replicator` service.
-    - ITMO_API_KEY
-    - ITMO_EMAIL
-    - ITMO_PASSWORD
-    - ITMO_ENDPOINT
-3. Programmes will import on each docker restart. 
+1. Update following env variables in the `docker-compose` file `replicator` service.
+    - CADTRUST_ENABLE
+    - CADTRUST_ENDPOINT
+2. Update following env variables in the `docker-compose` file `national` service.
+    - CADTRUST_ENABLE
+3. Check followings on CADTrust/Chia before create projects,
+    - Create organization or subscribe to an existing organization
+    - Fully sync wallet
+    - If you are testing, switch to `testneta`
+    - Enough credit in the Chia Wallet.
+    - Successfully subscribed to Chia Governance Body
+
+
