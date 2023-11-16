@@ -1,5 +1,5 @@
 # Module: Climate Action Data Trust Integration
-Integration Capability of the UNDP National Carbon Registry with the Climate Action Data Trust (CADTrust)
+Integration of the UNDP National Carbon Registry with the Climate Action Data Trust (CADTrust)
 
 ## <b>Instructions</b>
 - Synchronization of data was completed using the CADTrust REST API, as outlined in the documentation available at https://github.com/Chia-Network/cadt/blob/main/docs/cadt_rpc_api.md.
@@ -8,12 +8,12 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
     - Project status update
     - Project credit issuance
     - Project credit transfer
-- If your creating own Chia node please refer following documentation. Make sure you are running Chia node data layer. 
+- If you are creating your own Chia node, please refer to the following documentation. Ensure that the Chia node data layer is running.
     - https://github.com/Chia-Network/chia-blockchain/wiki/INSTALL
     - https://github.com/Chia-Network/chia-blockchain/wiki/How-to-Connect-to-the-Testnet
 - To create your own CADTrust Server refer following installation guide
     - https://github.com/Chia-Network/cadt#installation
-- Once the setup is complete, you have the option to either create a new organization for your registry, which should take around 15 to 20 minutes, or subscribe to an existing organization.
+- After completing the setup, you can choose to either create a new organization for your registry, a process that typically takes about 15 to 20 minutes, or subscribe to an existing organization.
 
 ## <b>Data Synchronization</b>
 ![Data Synchronization Steps](./imgs/CADT_Sync.svg)
@@ -21,7 +21,7 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
 ## <b>Project Creation</b>
 - CADTrust endpoint https://github.com/Chia-Network/cadt/blob/main/docs/cadt_rpc_api.md#stage-a-new-project-with-the-minimum-required-fields
 - The Carbon Registry will create a program immediately but in an asynchronous manner. Once the project is created on CADTrust, it will commit changes instantly. However, it takes approximately 5 minutes for the new project to be fully propagated on the blockchain.
-- The UUID generated in the CADTrust response is saved in the `cadtId` field of the Registry program for future reference. 
+- The UUID generated in the CADTrust response is saved in the `cadtId` field of the Registry project for future reference. 
 - UNDP to CADTrust project field mapping
 
     | **Name in the CADTrust Platform**   | **Name in the Carbon Registry**   |
@@ -68,7 +68,7 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
     | unitBlockStart | Credit issued block start, Refer [Credit block allocation methodology](#credit-block-allocation-methodology) |
     | unitBlockEnd | Credit issued block end, Refer [Credit block allocation methodology](#credit-block-allocation-methodology) |
     | vintageYear | `startTime` field year |
-    | unitType | Type based on the sector. Refer following table for unit type mapping |
+    | unitType | Type based on the sector. Refer below table for unit type mapping |
     | unitStatus | `Held` |
     | unitRegistryLink | `https://test.carbreg.org/programmeManagement//creditTransfers/viewAll` |
     | correspondingAdjustmentDeclaration | `Unknown` |
@@ -91,17 +91,17 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
 - Use following endpoints
   - Ownership change - https://github.com/Chia-Network/cadt/blob/main/docs/cadt_rpc_api.md#update-a-pre-existing-unit-using-only-the-required-parameters
   - Split unit - https://github.com/Chia-Network/cadt/blob/main/docs/cadt_rpc_api.md#split-units-in-four
-- Unit block owner change or split based on the transferred credit amount. Please refer [credit block allocation methodology]((#credit-block-allocation-methodology)) for details.
+- The ownership of the unit block changes or splits according to the amount of credit transferred. Please refer [credit block allocation methodology]((#credit-block-allocation-methodology)) for details.
 
 ## Credit Block Allocation Methodology
-- At the project creation carbon registry issue a [serial number](https://github.com/undp/carbon-registry/tree/main/libs/serial-number-gen) for the programme based on the estimated credit of the project. eg: NA-ITMO-15-123-2023-0-1001-1400
-- In this serial number, the 7th field indicates the start of the credit for this project in the national registry, while the 8th field denotes the end of the credit block.
-- If the project is for a <b>single proponent</b> single unit will be created on the CADTrust with the `Unit Serial Block - Start` and issued credit amount as the unit `startBlock` and `endBlock`.
+- At the project creation, carbon registry issue a [serial number](https://github.com/undp/carbon-registry/tree/main/libs/serial-number-gen) for the programme based on the estimated credits of the project. eg: NA-ITMO-15-123-2023-0-1001-1400
+- In this serial number, the 7th field indicates the start of the credit for this project on the national registry, while the 8th field denotes the end of the credit block.
+- If the project is for a <b>single proponent</b> single unit will be created on the CADTrust with the `Unit Serial Block - Start` as the `startBlock` and issued credit amount as the unit `endBlock` (`endBlock`  = `startBlock` + < Issued credit amount >).
 - If the project involves multiple proponents, units are created (at the credit issue on Registry) for each proponent based on their respective ownership percentages. Following image demonstrate the startBlock calculation approach. 
 
     ![](./imgs/Credit1.svg)
-    - Credit Estimated for the project (CE) = (Y - X + 1)
-    - X + CE * P1 / 100
+    - Estimated Credit for the project (CE) = (Y - X + 1)
+    - Z = X + CE * P1 / 100
     - Org 1 startBlock = X (From the serial Number)
     - Org 2 startBlock = Z + 1
 
@@ -157,11 +157,11 @@ Integration Capability of the UNDP National Carbon Registry with the Climate Act
     - CADTRUST_ENDPOINT
 2. Update following env variables in the `docker-compose` file `national` service.
     - CADTRUST_ENABLE
-3. Check followings on CADTrust/Chia before create projects,
-    - Create organization or subscribe to an existing organization
-    - Fully sync wallet
-    - If you are testing, switch to `testneta`
-    - Enough credit in the Chia Wallet.
-    - Successfully subscribed to Chia Governance Body
+3. Check followings on CADTrust / Chia before create projects,
+    - Create organization or subscribe to an existing organization on CADTrust
+    - Fully sync Chia wallet
+    - If you are need to work on a testnet, switch to `testneta`
+    - Enough credit on the Chia Wallet.
+    - Subscription to the Chia Governance Body occurs automatically. Please ensure to verify the successful completion of this process.
 
 
