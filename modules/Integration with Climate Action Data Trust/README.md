@@ -96,8 +96,7 @@ Integration of the UNDP National Carbon Registry with the Climate Action Data Tr
 ## Credit Block Allocation Methodology
 - At the project creation, carbon registry issue a [serial number](https://github.com/undp/carbon-registry/tree/main/libs/serial-number-gen) for the programme based on the estimated credits of the project. eg: NA-ITMO-15-123-2023-0-1001-1400
 - In this serial number, the 7th field indicates the start of the credit for this project on the national registry, while the 8th field denotes the end of the credit block.
-- If the project is for a <b>single proponent</b> single unit will be created on the CADTrust with the `Unit Serial Block - Start` as the `startBlock` and issued credit amount as the unit `endBlock` (`endBlock`  = `startBlock` + < Issued credit amount >).
-- If the project involves multiple proponents, units are created (at the credit issue on Registry) for each proponent based on their respective ownership percentages. Following image demonstrate the startBlock calculation approach. 
+- Units are created (at the credit issue on Registry) for each proponent based on their respective ownership percentages. Following image demonstrate the startBlock calculation approach. 
 
     ![](./imgs/Credit1.svg)
     - Estimated Credit for the project (CE) = (Y - X + 1)
