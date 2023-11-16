@@ -124,5 +124,7 @@
   "ministryLevel": "Ministry Level",
   "creditEst": "Estimated Credits",
   "carbonPriceUSDPerTon": "Minimum Carbon Price: USD per ton (assuming no other revenue)",
-  "environmentalAssessmentRegistrationNo": "Environmental Assessment Registration Number"
+  "environmentalAssessmentRegistrationNo": "Environmental Assessment Registration Number",
+  "verificationEl": "Verification",
+  "monitoringEl": "Monitoring"
 }
