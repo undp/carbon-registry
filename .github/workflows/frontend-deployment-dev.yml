@@ -6,6 +6,7 @@ on:
     paths:
       - web/**
       - .github/workflows/frontend*
+      - docker-compose*
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
