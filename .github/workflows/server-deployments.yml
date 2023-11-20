@@ -15,6 +15,11 @@ env:
   AWS_DEFAULT_REGION: us-east-1
 
 jobs:
+  job-1:
+      runs-on: ubuntu-latest
+      concurrency:
+        group: server_deploy
+        cancel-in-progress: true
   check_dependency_change:
     runs-on: ubuntu-latest
     # Declare outputs for next jobs
