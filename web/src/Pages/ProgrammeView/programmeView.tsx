@@ -58,6 +58,8 @@ import {
   getFinancialFields,
   TimelineBody,
   dateFormat,
+  getValidNdcActions,
+  addNdcDesc,
   Role,
 } from '@undp/carbon-library';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
@@ -721,8 +723,11 @@ const ProgrammeView = () => {
             description: (
               <TimelineBody
                 text={formatString('view:tlIssueDesc', [
-                  addCommSep(activity.data.creditChange),
-                  creditUnit,
+                  addNdcDesc({
+                    ndcActions: getTxRefValues(activity.data.txRef, 4),
+                    t: t,
+                    creditUnit: creditUnit,
+                  }),
                   getTxRefValues(activity.data.txRef, 1),
                 ])}
                 remark={getTxRefValues(activity.data.txRef, 3)}
@@ -1096,7 +1101,8 @@ const ProgrammeView = () => {
         }
       }
     }
-    return calculations;
+    const { issuedCredits, availableCredits, ...details } = calculations;
+    return details;
   };
 
   const onPopupAction = async (
@@ -1439,7 +1445,10 @@ const ProgrammeView = () => {
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
       if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
-        if (Number(data.creditEst) > Number(data.creditIssued)) {
+        if (
+          Number(data.creditEst) > Number(data.creditIssued) &&
+          getValidNdcActions(data).length > 0
+        ) {
           actionBtns.push(
             <Button
               type="primary"
@@ -1471,6 +1480,7 @@ const ProgrammeView = () => {
                         )
                       }
                       translator={i18n}
+                      ndcActions={getValidNdcActions(data)}
                     />
                   ),
                 });
