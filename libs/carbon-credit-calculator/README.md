@@ -1,35 +1,42 @@
-# Carbon Registry - Credit Calculation 
+# Carbon Registry - Credit Calculation
 
 ## Introduction
-The library includes the implementations carbon credits calculation for different sectors. Currently implemented only two of the sectors which are Agriculture and Energy. 
+
+The library includes the implementations carbon credits calculation for different sectors. Currently implemented only two of the sectors which are Agriculture and Energy.
 
 ## Sectors
-According to the UNFCCC - CDM (Clean Development Mechanism) methodologies, identified sectors are as follows,
 
-1. Energy industries (renewable / non-renewable sources) 
-2. Energy distribution 
-3. Energy demand 
-4. Manufacturing industries 
-5. Chemical industries 
-6. Construction 
-7. Transport 
-8. Mining/mineral production 
-9. Metal production 
-10. Fugitive emissions from fuels (solid, oil and gas) 
-11. Fugitive emissions from production and consumption of halocarbons and sulphur hexafluoride 
-12. Solvent use 
-13. Waste handling and disposal 
-14. Afforestation and reforestation 
-15. Agriculture 
+According to the UNFCCC - CDM (Clean Development Mechanism) methodologies, identified sectors are as follows:
 
-## Calculation - Sector Agriculture 
-```
+1. Energy industries (renewable / non-renewable sources)
+2. Energy distribution
+3. Energy demand
+4. Manufacturing industries
+5. Chemical industries
+6. Construction
+7. Transport
+8. Mining/mineral production
+9. Metal production
+10. Fugitive emissions from fuels (solid, oil and gas)
+11. Fugitive emissions from production and consumption of halocarbons and sulphur hexafluoride
+12. Solvent use
+13. Waste handling and disposal
+14. Afforestation and reforestation
+15. Agriculture
+
+## Calculation - Sector Agriculture
+
+### Sub Sector: Rice
+
+Approved Methodology: Rice crops
+
+```text
 Number of Credits = #hectares * #days * #tCO2e/ha/day 
 ```
 
 | **Input Field** | **Data Type** | **Mandatory/Optional** | **Default Value** | **Possible values if any** | **Validations** |
 | --- | --- | --- | --- | --- | --- |
-| landArea | Float | Mandatory | | |  Area\>0Format – Non-zero, Can't be negative <br>Invalid area Format – Not a number <br>Empty area Format - Empty field |
+| landArea | Float | Mandatory | | |  Area \> 0 Format – Non-zero, Can't be negative <br>Invalid area Format – Not a number <br>Empty area Format - Empty field |
 | landAreaUnit | String | Mandatory | | ha | Invalid unit Format – Invalid field <br>Empty unit Format – Empty field |
 | duration | Integer | Mandatory | | | Days \> 0 Format – Non-zero, Can't be negative <br>Invalid input field Format – Not a number <br>Format – Empty field |
 | durationUnit | String | Mandatory | | Days | Invalid unit Format – Invalid field <br>Empty unit Format – Empty field |
@@ -44,13 +51,15 @@ Number of Credits = #hectares * #days * #tCO2e/ha/day
 
 Constant values can parse externally. If not use above default constants.
 
-Example Calculation: 
-``` 
+Example Calculation:
+
+```text
 Hectares - 16ha 
 Days – 120 
 Constant – 0.046 
 ```
-```
+
+```text
  #hectares * #days * #tCO2e/ha/day = 16*120*0.046 = 88.32 
 ```
 
@@ -58,17 +67,18 @@ Constant – 0.046
 
 ### Sub Sector: Solar
 
-Approved Methodology: Solar Photovoltaic (PV) 
+Approved Methodology: Solar Photovoltaic (PV)
 
-```
+```text
 Parameters: 
  
-X – Enegy generation value (kWh/year/unit) 
+X – Energy generation value (kWh/year/unit) 
 Y – Threshold value (kWh/year/unit) 
 A – High emission factor (tCO2/ MWh) 
 B – Low emission factor (tCO2/ MWh) 
 ```
-```
+
+```text
 If X < Y ; X*A 
 If X >= Y ; Y*A + (X-Y)*B 
 ```
@@ -79,13 +89,14 @@ If X >= Y ; Y*A + (X-Y)*B
 | energyGenerationUnit | String | Mandatory | | kWh/year | Invalid unit Format – Invalid field<br>Empty unit Format – Empty field |
 | buildingType | String | Mandatory | | Household<br>Health Center<br>Dispensary<br>School<br>Primary School<br>Secondary School<br>Public Administration<br>Trading Place<br>Bus Stop| Invalid input field Format – Invalid field<br>Empty input fieldFormat – Empty field |
 
-### System Configurations 
+### System Configurations
 
 #### Constants
+
 | **Constant Name** | **Value** | **Unit of Measurement** |
 | --- | --- | --- |
-| High Emission Factor (A) | 6.8(at or below threshold) | High emission factor (tCO2/ MWh) |
-| Low Emission Factor (B) | 1.3(above throshold) | Low emission factor (tCO2/ MWh) |
+| High Emission Factor (A) | 6.8 (at or below threshold) | High emission factor (tCO2/ MWh) |
+| Low Emission Factor (B) | 1.3 (above threshold) | Low emission factor (tCO2/ MWh) |
 | Building Type || Household, Health Center, Dispensary, School, Primary School, Secondary School, Public Administration, Trading Place, Bus Stop|
 
 #### Threshold
@@ -106,27 +117,28 @@ Example Calculation:
 
 1. A - High emission factor (tCO2/ MWh) = 6.8
 2. B - Low emission factor (tCO2/ MWh) = 1.3
-3. Bulding Type – Household 
+3. Building Type – Household
     - Y Threshold value (kWh/year/unit) = 55
-<br><br>
 4. X - Measured value (kWh/year/unit) = 20
-      ```
+
+      ```text
       X < Y ; X*A = (20/1000)*6.8 = 0.136
       ```
+
 5. X - Measured value (kWh/year/unit) = 105
-      ```
+
+      ```text
       X >= Y ; Y*A + (X-Y)*B = (55/1000)*6.8 + {(105-55)/1000}*1.3 = 0.439
       ```
 
-
 ## Usage
-<!-- ### Install
-```
-npm i --save @undp/carbon-credit-calculator
-``` -->
 
 ### Generate Credit based on the Sector
-```
+
+```TypeScript
+// Install with
+// npm i --save @undp/carbon-credit-calculator
+
 import { AgricultureConstants, AgricultureCreationRequest, calculateCredit, SolarConstants, SolarCreationRequest } from '@undp/carbon-credit-calculator';
 
 // Create creditCreationRequest based on the sector

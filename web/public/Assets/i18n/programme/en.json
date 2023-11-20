@@ -12,5 +12,6 @@
     "title": "Programme Name",
     "gettingProgrammeError": "Error in getting programme",
     "all": "All",
-    "searchByName": "Search by programme name"
+    "searchByName": "Search by programme name",
+    "environmentalImpactAssessment": "Environmental Impact Assessment"
 }

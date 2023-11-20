@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: "<ANY PASSOWORD>"
+      POSTGRES_PASSWORD: "<ANY PASSWORD>"
       POSTGRES_USER: root
       PSQL_USERNAME: root
       # POSTGRES_HOST_AUTH_METHOD: trust
@@ -31,18 +31,22 @@ services:
     environment:
       DB_HOST: db
       DB_USER: root
-      DB_PASSWORD: "<ANY PASSOWORD>"
+      DB_PASSWORD: "<ANY PASSWORD>"
       RUN_MODULE: national-api
       rootEmail: <ROOT EMAIL>
       systemCountryCode: "NG"
       name: "Antactic Region"
       logoBase64: "sss"
       IS_EMAIL_DISABLED: "true"
+      DISABLE_LOW_PRIORITY_EMAIL: "true"
       LOCATION_SERVICE: OPENSTREET
       ASYNC_OPERATIONS_TYPE: Database
       HOST: "http://localhost:3030"
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
+      SYSTEM_NAME: Carbon Registry
+      BACKEND_HOST: http://192.168.1.73:9000
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
@@ -59,7 +63,7 @@ services:
     environment:
       DB_HOST: db
       DB_USER: root
-      DB_PASSWORD: "<ANY PASSOWORD>"
+      DB_PASSWORD: "<ANY PASSWORD>"
       RUN_PORT: 3100
       RUN_MODULE: analytics-api
       DOMAIN_MAP: "true"
@@ -73,20 +77,26 @@ services:
     environment:
       DB_HOST: db
       DB_USER: root
-      DB_PASSWORD: "<ANY PASSOWORD>"
+      DB_PASSWORD: "<ANY PASSWORD>"
       # ,data-importer
       RUN_MODULE: replicator,async-operations-handler
+      DATA_IMPORT_TYPES: ""
       LOCATION_SERVICE: OPENSTREET
       SMTP_ENDPOINT: email-smtp.us-east-1.amazonaws.com
+      SMTP_USERNAME: "AKIAUMXKTXDJLKSXTF3U"
       SMTP_PASSWORD: ""
       IS_EMAIL_DISABLED: "true"
+      DISABLE_LOW_PRIORITY_EMAIL: "true"
       ASYNC_OPERATIONS_TYPE: Database
       ITMO_API_KEY: ""
       ITMO_EMAIL: ""
       ITMO_PASSWORD: ""
-      MRV_ENDPOINT: 'http://192.168.123.20:9000'
-      REGISTRY_SYNC_ENABLE: true
-      MRV_API_TOKEN: ''
+      SYNC_ENDPOINT: 'http://192.168.123.20:9000'
+      SYNC_API_TOKEN: ''
+      SYNC_ENABLE: true
+      SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
+      HOST: "http://localhost:3030"
+      BACKEND_HOST: http://192.168.1.123:9000
   # async-operations-handler:
   #   build:
   #     context: .
@@ -114,6 +124,7 @@ services:
         REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"
         REACT_APP_COUNTRY_CODE: "NG"
         REACT_APP_MAP_TYPE: "None"
+        REACT_APP_ENABLE_REGISTRATION: true
     ports:
       - "3030:3030"
     depends_on:

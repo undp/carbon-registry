@@ -1,0 +1,257 @@
+﻿Category,Sub Category,Name,Type,Required/Optional,User Input/Inferred,UI Description,Available in Carbon Registry,Available in MRV
+Programme Creation,Programme Details,Title,String,Required,User Input,Name of the programme,Yes,Yes
+Programme Creation,Programme Details,External ID ,String,Required,User Input,Field to enter unique identifier,No,Yes
+Programme Creation,Programme Details,Sector ,Enum,Required,User Input,Drop down to select the sector of the programme,Yes,Yes
+Programme Creation,Programme Details,Sectoral Scope ,Enum,Required,User Input,Drop down to select the sectoral scope of the programme,Yes,Yes
+Programme Creation,Programme Details,Programme Start Date ,Date,Required,User Input,Calendar to select the programme start date,Yes,Yes
+Programme Creation,Programme Details,Programme End Date ,Date,Required,User Input,Calendar to select the programme end date,Yes,Yes
+Programme Creation,Programme Details,Buyer Country Eligibility ,Enum,Optional,User Input,Drop down to select the country,Yes,Yes
+Programme Creation,Programme Details,Geographical Location (dropdown) ,Enum,Required,User Input,Drop down to select the region ,Yes,Yes
+Programme Creation,Programme Details,GHG Covered ,Enum,Required,User Input,Multi-select drop-down to select the GreenHouse Gases Covered,No,Yes
+Programme Creation,Programme Details,NDC Scope,Boolean,Optional,User Input,To select of the NDC Scope is conditional or unconditional,No,Yes
+Programme Creation,Programme Details,Design Document ,Document,Required,User Input,Upload the design document for the programme,Yes,Yes
+Programme Creation,Programme Details,Organisation (Name) ,Enum,Required,User Input,Ability to add multiple owners to the programme through a drop down,Yes,Yes
+Programme Creation,Programme Details,Ownership Percentage ,Float,Required,User Input,Percentage the particular organisation owns of the programme,Yes,Yes
+Programme Creation,Programme Details,Included in NDC ,Boolean,Optional,User Input,To check if the programme is included in the Nationally Determined Contributions,No,Yes
+Programme Creation,Programme Financing Sought,Estimated Programme Cost (USD) ,Float,Required,User Input,The Cost of the programme,Yes,Yes
+Programme Creation,Programme Financing Sought,Estimated Credits,Float,Required,User Input,Number of credits estimated for the programme,Yes,Yes
+Programme Creation,Programme Financing Sought,Minimum Carbon Price: USD per ton (assuming no other revenue),Float,Optional,Inferred,Price of each Carbon ton in USD,Yes,Yes
+Programme,Programme Documents,Methodology Document ,Document,Optional,User Input,Upload the methodolgy document for the programme,Yes,Yes
+Add Action,NDC Action details,NDC Action ,Enum,Required,User Input,Drop down to select the type of NDC Action,Yes(Only Mitigation),Yes
+Add Action,NDC Action details,Methodology ,String,Required,Inferred,"Fixed field where the value is ""Gold Standard""",No,Yes
+Add Action,NDC Action details,Mitigation Type (only when NDC Action = Mitigation) ,Enum,Required,User Input,Drop down to select the type of Mitigation ,Yes,Yes
+Add Action,NDC Action details,User Estimated Credits,Float,Optional,User Input,Credits for the NDC Action as estimated by the user,Yes,Yes
+Add Action,NDC Action details,Methodology Estimated Credits ,Float,Optional,Inferred,Credit estimate for the NDC action calculated through the credit calculation methodology,Yes(Only Mitigation),Yes
+Add Action,NDC Action details,Consumer Group (only when Mitigation Type = Solar) ,Enum,Required,User Input,Drop down to select the consumer group,Yes,Yes
+Add Action,NDC Action details,Energy Generation (only when Mitigation Type = Solar) ,Float,Required,User Input,The Energy generated through this NDC action,Yes,Yes
+Add Action,NDC Action details,Energy Generation Unit (only when Mitigation Type = Solar) ,Float,Required,User Input,Drop down to select the unit of measurement of the above energy generation,Yes,Yes
+Add Action,NDC Action details,Land Area (only when Mitigation Type = Agriculture) ,Float,Required,User Input,The land area used for this NDC action,Yes,Yes
+Add Action,NDC Action details,Land Area Unit (only when Mitigation Type = Agriculture) ,Float,Required,User Input,Drop down to select the unit of measurement of the above land area,Yes,Yes
+Add Action,NDC Action details,Implementing Agency (only when NDC Action = Adaptation) ,Enum,Optional,User Input,Drop down to select the implementing agency,No,Yes
+Add Action,NDC Action details,Included in NAP ,Boolean,Optional,User Input,To check if the programme is included in the National Adaptation Plan,No,Yes
+Add Action,NDC Action details,National Plan Objectives (only when NDC Action = Adaptation) ,Enum,Optional,User Input,Drop down to select the National Plan Objectives,No,Yes
+Add Action,NDC Action details,National Plan Coverage (only when NDC Action = Adaptation) ,Enum,Optional,User Input,Drop down to select the National Plan Coverage,No,Yes
+Add Action,NDC Action details,"GHG emissions reduced( tCO2E ) - Gas
+ (only when NDC Action = Adaptation) ",Enum,Required,User Input,Checklist to select the gases,No,Yes
+Add Action,NDC Action details,"GHG emissions reduced( tCO2E ) - Value
+ (only when NDC Action = Adaptation) ",Float,Required,User Input,Field to enter the value for each selected gas,No,Yes
+Add Action,NDC Action details,"GHG emissions avoided( tCO2E ) - Gas
+ (only when NDC Action = Adaptation) ",Enum,Required,User Input,Checklist to select the gases,No,Yes
+Add Action,NDC Action details,"GHG emissions avoided( tCO2E ) - Value
+ (only when NDC Action = Adaptation) ",Float,Required,User Input,Field to enter the value for each selected gas,No,Yes
+Add Action,NDC Action details,Title (only when NDC Action = Enablement) ,String,Optional,User Input,Name of the enablement action,No,Yes
+Add Action,NDC Action details,Type (only when NDC Action = Enablement) ,Enum,Optional,User Input,Check list to select the types of enablement,No,Yes
+Add Action,NDC Action details,Report (only when NDC Action = Enablement) ,Document,Optional,User Input,Option to upload a report,No,Yes
+Add Action,Co-Benefits - SDG Goals,SDG Goals (under SGD Goals),Enum,Optional,User Input,Select the SDG goals achieved through the NDC action,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Does the action contribute to ending discrimination against girls/women (e.g.Non-discrimination of employment based on sex)?
+(under Gender Parity)",Boolean,Optional,User Input,Answer yes or no to the question,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Does the action contribute to ending violence against girls/women (e.g.trafficking or sexual exploitation)?
+(under Gender Parity)",Boolean,Optional,User Input,Answer yes or no to the question,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Does the action contribute to ending harmful practices against girls / women (e.g.Child marriage, genital mutilation etc.)?
+(under Gender Parity)",Boolean,Optional,User Input,Answer yes or no to the question,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Does the action contribute to promoting equal rights to economic resources to women (e.g.ownership of land)?
+(under Gender Parity)",Boolean,Optional,User Input,Answer yes or no to the question,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Does the action contribute to promoting equal rights to reproductive health and reproductive rights (e.g. use of contraceptives, access to health services etc.)?
+(under Gender Parity)",Boolean,Optional,User Input,Answer yes or no to the question,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Number of women employed under the action
+(under Gender Parity)",String,Optional,User Input,Field to enter the value,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Number of women trained under the action
+(under Gender Parity)",String,Optional,User Input,Field to enter the value,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Number of women selected for decision making position (e.g. senior managers, community leaders, etc.)
+(under Gender Parity)",String,Optional,User Input,Field to enter the value,No,Yes
+Add Action,Co-Benefits - Gender Parity,"Number of women provided with access to modern technology and/or finance (e.g. microfinance, mobile phones etc.)
+(under Gender Parity)",String,Optional,User Input,Field to enter the value,No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project Developer and the Project shall respect internationally proclaimed human rights and shall not be complicit in violence or human rights abuses of any kind as defined in the Universal Declaration of Human Rights 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project shall not discriminate with regards to participation and inclusion 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project shall not directly or indirectly lead to/contribute to adverse impacts on gender equality and/or the situation of women 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Projects shall apply the principles of nondiscrimination, equal treatment, and equal pay for equal work 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project shall refer to the country’s national gender strategy or equivalent national commitment to aid in assessing gender risks 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"(where required) Summary of opinions and recommendations of an Expert Stakeholder(s)  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project shall avoid community exposure to increased health risks and shall not adversely affect the health of the workers and the community 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Does the Project Area include sites, structures, or objects with historical, cultural, artistic, traditional or religious values or intangible forms of culture?   
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Does the Project require or cause the physical or economic relocation of peoples (temporary or permanent, full or partial)? 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Does the Project require any change, or have any uncertainties related to land tenure arrangements and/or access rights, usage rights or land ownership? 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"For Projects involving land use tenure, are there any uncertainties with regards to land tenure, access rights, usage rights or land ownership? 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Are indigenous peoples present in or within the area of influence of the Project and/or is the Project located on land/territory claimed by indigenous peoples? 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project shall not involve, be complicit in or inadvertently contribute to or reinforce corruption or corrupt Projects 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project Developer shall ensure that all employment is in compliance with national labour occupational health and safety laws and with the principles and standards embodied in the ILO fundamental conventions 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Workers shall be able to establish and join labour organisations  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Working hours (must not exceed 48 hours per week on a regular basis), AND  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Duties and tasks, AND  ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Remuneration (must include provision for payment of overtime), AND  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Modalities on health insurance, AND  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Modalities on termination of the contract with provision for voluntary resignation by employee, AND  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Provision for annual leave of not less than 10 days per year, not including sick and casual leave.  
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"No child labour is allowed (Exceptions for children working on their families’ property requires an Expert Stakeholder opinion) 
+(under Safeguards)",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"The Project Developer shall ensure the use of appropriate equipment, training of workers, documentation and reporting of accidents and incidents, and emergency preparedness and response measures  
+",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Does the project cause negative economic consequences during and after project implementation? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Will the Project increase greenhouse gas emissions over the Baseline Scenario? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Will the Project use energy from a local grid or power supply (i.e., not connected to a national or regional grid) or fuel resource (such as wood, biomass) that provides for other local users? ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Will the Project affect the natural or pre-existing pattern of watercourses, ground-water and/or the watershed(s) such as high seasonal flow variability, flooding potential, lack of aquatic connectivity or water scarcity? ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Could the Project directly or indirectly cause additional erosion and/or water body instability or disrupt the natural pattern of erosion?  ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Is the Project’s area of influence susceptible to excessive erosion and/or water body instability? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Does the Project involve the use of land and soil for production of crops or other products? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Will the Project be susceptible to or lead to increased vulnerability to wind, earthquakes, subsidence, landslides, erosion, flooding, drought or other extreme climatic conditions? ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Could the Project be negatively impacted by or involve genetically modified organisms or GMOs (e.g., contamination, collection and/or harvesting, commercial development, or take place in facilities or farms that include GMOs in their processes and production)? ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Could the Project potentially result in the release of pollutants to the environment? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Will the Project involve the manufacture, trade, release, and/ or use of hazardous and non-hazardous chemicals and/or materials? ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Will the Project involve the application of pesticides and/or fertilisers? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Will the Project involve the harvesting of forests? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Does the Project modify the quantity or nutritional quality of food available such as through crop regime alteration or export or economic incentives? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Will the Project involve animal husbandry? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,"Does the Project physically affect or alter largely intact or High Conservation Value (HCV) ecosystems, critical habitats, landscapes, key biodiversity areas or sites identified? ",Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Are there any endangered species identified as potentially being present within the Project boundary (including those that may route through the area)? ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Safeguards,Does the Project potentially impact other areas where endangered species may be present through transboundary affects?  ,Enum,Optional,User Input,"Answer yes, maybe or no to the question",No,Yes
+Add Action,Co-Benefits - Environment,Does the activity improve air quality in the area?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of SOx (sulphur oxides) emissions?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of fly ash emissions?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of SPM (Suspended Particulate Matter) emissions?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of NMVOCs (Non Methane Volatile Organic Compounds)?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of noise?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of odours?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reducing level/frequency/time of dust?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Other air quality improvements?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,"Does the activity improve the soil quality and/or avoid soil pollution,waste disposal?",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Prevention of pollution from end-of-life products/equipment (solid waste)?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Production/use of compost?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,"Production/use of manure, mineral fertilizer or other soil nutrients?",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Use of irrigation?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Use of measures to prevent soil erosion?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Practice minimum tillage?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Other means to improve land quality?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Does the activity improve water in the area?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Improved management and or control of waste water?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Saving and/or conservation of water?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Reliable and accessible water supply though improved or new distribution?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Safe potable water through purification or a cleaner supply?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Improved ecological state of water bodies?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Other means to improve water?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Does the activity protect or enhance depletable natural resources?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Mineral resources,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Plant life (e.g. plant habitats),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,"Species diversity (e.g. animals, insects, birds)",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Forests,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Environment,Other depletable natural resources (enhanced/protected),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Does the activity create new jobs?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,New long-term jobs (> 1 year),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,New short-term jobs (< 1 year),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,New sources of income generation,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Other employment opportunities,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Number of persons employed/to be employed (leave blank if not known),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,New long-term jobs (> 1 year),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,New short-term jobs (< 1 year),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Does the activity result in health and safety improvements?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,"Reduction of diseases, disease prevention",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Reduction of accidents (e.g. fire hazards),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Reduction of crime,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Preservation of food,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Reducing health damaging indoor air pollution,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,"Enhancement of health services (hospitals, doctors, medication etc.)",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Improved sanitation and waste management (i.e. facilities that offer the possibility of deposing of waste in a sanitary way),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Other health and safety improvements,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,"Does the activity facilitate education, dissemination of information, research or increase awareness?",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Job related training (vocational etc.),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,"Enhanced educational services (schools, teachers, affordability, quality etc.)",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Project related knowledge dissemination (project related site visits and tours etc.),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Other educational benefits,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Does the activity improve the welfare of people?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Improvement of working conditions,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Community or rural advancement,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Poverty alleviation (more people above poverty level),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Improving wealth distribution and/or generation of income and assets,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Increased municipal revenues,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Empowerment of women (e.g. optimize tasks undertaken by women),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Reduced traffic congestion,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Social,Other welfare benefits,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Does the activity support economic development and/or stability?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,New economic investment as result of the project,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Initiation of new industrial/commercial activities,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Establishment and maintenance of new infrastructure,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Enhancement of productivity of existing production,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Reduction of costs of production or services,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Creation of new business opportunities,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Other economic benefits,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Does the activity improve energy availability and/or access?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,"Improved coverage/availability of supply of energy (e.g. distribution, hours of the day)",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Improved access to energy (e.g. points of delivery),Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Affordability and/or reliability of energy,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Other improvements to energy,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Does the activity result in a change in technology?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,"Introduction, development and diffusion of imported technology?",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,"Introduction, development and diffusion of new local technology?",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Adaptation of new viable technologies to local circumstances?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Activities that build usable know-how for a technology?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Other technological benefits,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Does the activity contribute to improving the country's balance of payments?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Reduction of the dependency on foreign sources of energy,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Other macroeconomic benefits,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Economic,Do you have any further information that highlights the sustainable development co-benefits of the activity?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Assessment,"Has an independent third party (environmental auditor, voluntary standards organization, designated operational entity etc.) verified the statements made in the SD description you are about to submit?",Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Assessment,Name or type of verifying organisation or any other relevant information,String,Optional,User Input,Field to enter the name if answer is yes to above,No,Yes
+Add Action,Co-Benefits - Assessment,Are you willing to have an independent third party verify the statements made in the SD description you are about to submit?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Assessment,Details,String,Optional,User Input,Text field to enter the value if answer is yes to above,No,Yes
+Add Action,Co-Benefits - Assessment,Title,Enum,Optional,User Input,Option to select the title of the contact person,No,Yes
+Add Action,Co-Benefits - Assessment,First Name,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Last Name,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Organisation,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Telephone number,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Email address,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Affiliation to CDM,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Are you the person listed in the latest version of the form Modalities of Communication statement (F-CDM-MOC) for this project?,Enum,Optional,User Input,"Answer yes, no or n/a to the question",No,Yes
+Add Action,Co-Benefits - Assessment,Specify,String,Optional,User Input,Text field to enter the value if answer is no to above,No,Yes
+Add Action,Co-Benefits - Assessment,Study Name,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Funder,String,Optional,User Input,Text field to enter the value,No,Yes
+Add Action,Co-Benefits - Assessment,Documents,Document,Optional,User Input,Upload the document,No,Yes
+Add Action,Project Reports,Monitoring Report ,Document,Optional,User Input,Option to upload the monitoring report,Yes(Only Mitigation),Yes
+NDC Action,NDC Action Details,Verification Report ,Document,Optional,User Input,Option to upload the verification report once the monitoring report is approved,Yes(Only Mitigation),Yes
+Add Investment,Programme Financing Invested,Investor Name,Enum,Required,User Input,Drop down to select the organisation of the investor,Yes,Yes
+Add Investment,Programme Financing Invested,Amount Invested (USD),Float,Required,User Input,Amount invested by the investor,No,Yes
+Add Investment,Programme Financing Invested,Instrument,Enum,Optional,User Input,Checklist to select instrument used to fund the investment,No,Yes
+Add Investment,Programme Financing Invested,"Interest Rate (%)
+(if instrument = loan)",Float,Required,User Input,field to enter the Interest rate on the loan,No,Yes
+Add Investment,Programme Financing Invested,"Result Metric
+(if instrument = result based)",String,Required,User Input,field to enter the result metric,No,Yes
+Add Investment,Programme Financing Invested,"Payment Per Metric
+(if instrument = result based)",Float,Required,User Input,field to enter the payment per metric,No,Yes
+Add Investment,Programme Financing Invested,"Description
+(if instrument = in-kind)",String,Optional,User Input,field to enter the description,No,Yes
+Add Investment,Programme Financing Invested,"Comments
+(if instrument = other)",String,Required,User Input,field to enter comments of other instruments,No,Yes
+Add Investment,Programme Financing Invested,Type,Enum,Optional,User Input,Option to select the Type of Investment,No,Yes
+Add Investment,Programme Financing Invested,Level,Enum,Optional,User Input,Option to select the Level of Investment,No,Yes
+Add Investment,Programme Financing Invested,Stream,Enum,Optional,User Input,Option to select the Stream of Investment,No,Yes
+Add Investment,Programme Financing Invested,ESG Classification,Enum,Optional,User Input,Option to select the ESG classification of Investment,No,Yes
+Add Investment,Ownership,Owner organisation/s ownership,Float,Required,Inferred,The ownership held by the specific owner in this programme,No,Yes
+Add Investment,Ownership,Ownership request,Float,Required,User Input,percentage of ownership requested from each programme owner,Yes,Yes
+Add Investment,Ownership,Total Ownership,Float,Required,Inferred,The total of the existing ownership,No,Yes
+Add Investment,Ownership,Total Ownership Request,Float,Required,Inferred,The total of the ownership requested by the investor,No,Yes
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
