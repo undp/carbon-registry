@@ -15,8 +15,7 @@ import ESA from '../../Assets/Images/ESA.webp';
 import ESAff from '../../Assets/Images/ESA.png';
 import WBANK from '../../Assets/Images/WBANK.webp';
 import WBANKff from '../../Assets/Images/WBANK.png';
-import forest from '../../Assets/Images/forest.webp';
-import forestfall from '../../Assets/Images/forest.png';
+import forestfall from '../../Assets/Images/forestnew.png';
 import resources from '../../Assets/Images/resources.webp';
 import resourcesfall from '../../Assets/Images/resources.png';
 import LayoutFooter from '../../Components/Footer/layout.footer';
@@ -62,8 +61,8 @@ const Homepage = () => {
       <Row>
         <Col md={24} lg={24} flex="auto">
           <div className="homepage-img-container image-container">
-            <Row>
-              <Col md={21} lg={21} flex="auto">
+            <Row className="header-row">
+              <Col md={18} lg={21} xs={17} flex="auto">
                 <div className="homepage-header-container">
                   <div className="logo">
                     <img src={sliderLogo} alt="slider-logo" />
@@ -79,7 +78,7 @@ const Homepage = () => {
                   </div>
                 </div>
               </Col>
-              <Col md={3} lg={3} flex="auto">
+              <Col md={6} lg={3} xs={7} flex="auto">
                 <div className="homepage-button-container">
                   <div className="button">
                     <Button type="primary" onClick={() => navigate('/login')}>
@@ -123,8 +122,8 @@ const Homepage = () => {
               <div className="homepagebody_subtitle">{t('homepage:Keyfeatures')}</div>
 
               <div className="aboutus_cards-container">
-                <Row gutter={[5, 5]} className="aboutus_card-row">
-                  <Col xxl={8} xl={8} md={8} className="aboutus_card-col">
+                <Row gutter={5} className="aboutus_card-row">
+                  <Col xxl={8} xl={8} md={12} className="aboutus_card-col">
                     <div className="aboutus-card-main-container">
                       <Col>
                         <Row className="aboutus_card-row">
@@ -141,7 +140,7 @@ const Homepage = () => {
                       </Col>
                     </div>
                   </Col>
-                  <Col xxl={8} xl={8} md={8} className="aboutus_card-col">
+                  <Col xxl={8} xl={8} md={12} className="aboutus_card-col">
                     <div className="aboutus-card-main-container">
                       <Col>
                         <Row className="aboutus_card-row">
@@ -158,7 +157,7 @@ const Homepage = () => {
                       </Col>
                     </div>
                   </Col>
-                  <Col xxl={8} xl={8} md={8} className="aboutus_card-col">
+                  <Col xxl={8} xl={8} md={12} className="aboutus_card-col">
                     <div className="aboutus-card-main-container">
                       <Col>
                         <Row className="aboutus_card-row">
@@ -216,54 +215,66 @@ const Homepage = () => {
                 support a transparent, high integrity global carbon market that can channel capital
                 for impactful climate action and low-carbon development.
               </div>
-              <div className="undplogocontainer">
-                <ImgWithFallback
-                  className="erbd"
-                  src={EBRD}
-                  fallbackSrc={EBRDff}
-                  mediaType="image/webp"
-                  alt="EBRD"
-                />
-                <ImgWithFallback
-                  className="undp"
-                  src={undpLogo}
-                  fallbackSrc={undpLogo}
-                  mediaType="image/svg"
-                  alt="UNDP"
-                />
-                <ImgWithFallback
-                  className="unfccc"
-                  src={UNFCCC}
-                  fallbackSrc={UNFCCCff}
-                  mediaType="image/webp"
-                  alt="UNFCCC"
-                />
-                <ImgWithFallback
-                  className="ieta"
-                  src={IETA}
-                  fallbackSrc={IETAff}
-                  mediaType="image/webp"
-                  alt="IETA"
-                />
-                <a href="https://www.esa.int/" target="_blank">
+              <Row className="undplogocontainer">
+                <Col className="gutter-row" xl={5} md={8} sm={24} xs={24}>
                   <ImgWithFallback
-                    className="esa"
-                    src={ESA}
-                    fallbackSrc={ESAff}
+                    className="erbd"
+                    src={EBRD}
+                    fallbackSrc={EBRDff}
                     mediaType="image/webp"
-                    alt="ESAFF"
+                    alt="EBRD"
                   />
-                </a>{' '}
-                <a href="https://www.worldbank.org/" target="_blank">
+                </Col>
+                <Col className="gutter-row align-to-end" xl={3} md={8} sm={12} xs={12}>
                   <ImgWithFallback
-                    className="wbank"
-                    src={WBANK}
-                    fallbackSrc={WBANKff}
-                    mediaType="image/webp"
-                    alt="WBANK"
+                    className="undp"
+                    src={undpLogo}
+                    fallbackSrc={undpLogo}
+                    mediaType="image/svg"
+                    alt="UNDP"
                   />
-                </a>{' '}
-              </div>
+                </Col>
+                <Col className="gutter-row align-to-start" xl={3} md={8} sm={12} xs={12}>
+                  <ImgWithFallback
+                    className="unfccc"
+                    src={UNFCCC}
+                    fallbackSrc={UNFCCCff}
+                    mediaType="image/webp"
+                    alt="UNFCCC"
+                  />
+                </Col>
+                <Col className="gutter-row" xl={5} md={8} sm={24} xs={24}>
+                  <ImgWithFallback
+                    className="ieta"
+                    src={IETA}
+                    fallbackSrc={IETAff}
+                    mediaType="image/webp"
+                    alt="IETA"
+                  />
+                </Col>
+                <Col className="gutter-row" xl={5} md={8} sm={24} xs={24}>
+                  <a href="https://www.esa.int/" target="_blank">
+                    <ImgWithFallback
+                      className="esa"
+                      src={ESA}
+                      fallbackSrc={ESAff}
+                      mediaType="image/webp"
+                      alt="ESAFF"
+                    />
+                  </a>{' '}
+                </Col>
+                <Col className="gutter-row" xl={3} md={8} sm={24} xs={24}>
+                  <a href="https://www.worldbank.org/" target="_blank">
+                    <ImgWithFallback
+                      className="wbank"
+                      src={WBANK}
+                      fallbackSrc={WBANKff}
+                      mediaType="image/webp"
+                      alt="WBANK"
+                    />
+                  </a>{' '}
+                </Col>
+              </Row>
             </div>
           </div>
         </Col>
@@ -287,7 +298,7 @@ const Homepage = () => {
               <Col flex={3} md={12} lg={12}>
                 <ImgWithFallback
                   className="forest-image"
-                  src={forest}
+                  src={forestfall}
                   fallbackSrc={forestfall}
                   mediaType="image/webp"
                   alt="forestry"
