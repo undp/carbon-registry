@@ -37,13 +37,14 @@ The system has 3 key features:
 * [Status Page](#status)
 * [User Manual](#manual)
 * [Demonstration Video](#demo)
+* [Data Sovereignty](#data)
 * [Governance and Support](#support)
 
 <a name="standards"></a>
 
 ## Standards
 
-This codebase aims to full the [Digital Public Goods standard](https://digitalpublicgoods.net/standard/) and it is built according to the [Principles for Digital Development](https://digitalprinciples.org/).
+This codebase aims to fulfill the [Digital Public Goods standard](https://digitalpublicgoods.net/standard/), adheres to the [UNDP Data Principles](https://data.undp.org/data-principles), and it is built according to the [Principles for Digital Development](https://digitalprinciples.org/).
 
 <a name="architecture"></a>
 
@@ -349,6 +350,29 @@ To learn more about how the system is structured and how to manage it visit the 
 
 Watch our [demo walkthrough](https://www.youtube.com/watch?v=xSxXvcPveT0)
 [![Video Thumbnail](https://img.youtube.com/vi/xSxXvcPveT0/maxresdefault.jpg)](https://www.youtube.com/watch?v=xSxXvcPveT0)
+
+<a name="data"></a>
+
+### Data Sovereignty
+
+The code is designed with data sovereignty at its core, empowering nations and organizations to have greater control and governance over their environmental data. Here are the key points highlighting how this system promotes data sovereignty:
+
+- **Local Control**: 
+   - Allows nations and entities to store, manage, and process their data locally or in a preferred jurisdiction, adhering to local laws and regulations.
+- **Open Source Architecture**:
+   - Facilitates transparency, customization, and control over the software, enabling adaptation to specific legal and regulatory requirements.
+- **Decentralized Infrastructure**:
+   - Supports a decentralized data management approach, minimizing reliance on external or centralized systems.
+- **Standardized yet Flexible Protocols**:
+   - Provides standardized protocols for data management while allowing for local customization, aligning with the diverse legal landscapes.
+- **Secure Data Sharing and Access Control**:
+   - Implements robust access control and secure data sharing mechanisms, ensuring only authorized entities can access or alter the data.
+- **Audit Trails**:
+   - Offers comprehensive audit trails for all data transactions, ensuring traceability and accountability in data handling and reporting.
+- **Enhanced Privacy Compliance**:
+   - Helps in ensuring compliance with privacy laws and regulations by providing tools for secure data handling and consent management.
+
+By integrating these features, the code significantly contributes to achieving data sovereignty, promoting a more localized and accountable management of environmental data in line with the goals of the Paris Agreement.
 
 <a name="support"></a>
 

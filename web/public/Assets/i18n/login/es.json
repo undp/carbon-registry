@@ -1,9 +1,10 @@
 {
-  "carbon": "Carbón",
-  "credit": "Crédito",
-  "management": "Administración",
-  "welcome": "Bienvenidas",
+  "carbon": "NACIONAL",
+  "credit": "REGISTRO DE CARBONO",
+  "management": "DEMO",
+  "welcome": "Bienvenido",
   "welcome-back": "Bienvenido de nuevo",
-  "register-acc": "Aún no tienes una cuenta",
-  "forgot-pwd": "Has olvidado tu contraseña"
+  "register-acc": "¿Necesitas una cuenta?",
+  "forgot-pwd": "¿Olvidó su contraseña?",
+  "register-here": "Regístrate aquí"
 }
