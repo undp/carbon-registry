@@ -2746,10 +2746,10 @@
     "@types/node" "^18.11.9"
     convert-units "^2.3.4"
 
-"@undp/carbon-library@1.0.133-NAM-17.4":
-  version "1.0.133-NAM-17.4"
-  resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.133-NAM-17.4.tgz#38800407a3779756c9cfe0f8af9a6de65be4d6b5"
-  integrity sha512-7ADZD47vFvrL3DeC6+m54vNguPwtKrBHZWDIfUFU9ASUvyBDMfONRaBaSztNmOpV+GJWCOjHvwFGFwhYMWcaEg==
+"@undp/carbon-library@1.0.171":
+  version "1.0.171"
+  resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.171.tgz#bfbe36ae09746a9bb6e12d04f7ba2997ac4346bb"
+  integrity sha512-dWs9XxQU7IW50VfT8k9sV1t8XEKwNBA1F7x/ZCIGlA/vTb92IGpJvFzd3kElBcQIU9bb6IKdAnx+s9xxsHEaGQ==
   dependencies:
     "@rollup/plugin-commonjs" "^25.0.0"
     "@rollup/plugin-node-resolve" "^15.0.2"
@@ -3391,10 +3391,10 @@ axe-core@^4.6.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.7.2.tgz#040a7342b20765cb18bb50b628394c21bccc17a0"
   integrity sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==
 
-axios@^1.1.3:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
-  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
+axios@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
+  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"

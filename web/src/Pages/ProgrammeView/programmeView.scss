@@ -139,6 +139,7 @@
   .file-name {
     cursor: pointer;
     color: $body-text-color;
+    margin-left:50px;
   }
   .file-name:hover {
     color: $primary-color;
@@ -206,7 +207,7 @@
   }
   .upcom-issue-step{
     color: #000000;
-    background-color: rgba(#1e1f1f, 0.5);
+    background-color: rgba(#3A3541, 0.5);
   }
   .reject-step {
     color: #ff9900;
