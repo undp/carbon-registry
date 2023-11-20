@@ -8,6 +8,11 @@ on:
       - .github/workflows/frontend*
 
 jobs:
+  job-1:
+      runs-on: ubuntu-latest
+      concurrency:
+        group: web_deploy
+        cancel-in-progress: true
   deploy_front_end:
     runs-on: ubuntu-latest
     env:
