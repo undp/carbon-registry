@@ -96,7 +96,7 @@ services:
       SYNC_ENABLE: true
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
       HOST: "http://localhost:3030"
-      BACKEND_HOST: http://192.168.1.73:9000
+      BACKEND_HOST: http://192.168.1.123:9000
   # async-operations-handler:
   #   build:
   #     context: .
