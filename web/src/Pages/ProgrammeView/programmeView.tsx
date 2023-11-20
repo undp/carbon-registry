@@ -27,6 +27,7 @@ import {
   ProgrammeTransfer,
   addCommSep,
   mitigationTypeList,
+  mitigationSubTypeList,
   sumArray,
   dateTimeFormat,
   isBase64,
@@ -35,6 +36,7 @@ import {
   TxType,
   getRetirementTypeString,
   TypeOfMitigation,
+  SubTypeOfMitigation,
   UnitField,
   addSpaces,
   CompanyRole,
@@ -1040,15 +1042,25 @@ const ProgrammeView = () => {
     }
     let calculations: any = {};
     if (mitigation.typeOfMitigation === TypeOfMitigation.AGRICULTURE) {
-      if (mitigation.properties) {
-        calculations = mitigation.properties;
-        if (calculations.landAreaUnit) {
-          calculations.landArea = new UnitField(
-            mitigation.properties.landAreaUnit,
-            addCommSep(mitigation.properties.landArea)
-          );
+      if (mitigation.subTypeOfMitigation === SubTypeOfMitigation.RICE_CROPS) {
+        if (mitigation.properties) {
+          calculations = mitigation.properties;
+          if (calculations.landAreaUnit) {
+            calculations.landArea = new UnitField(
+              mitigation.properties.landAreaUnit,
+              addCommSep(mitigation.properties.landArea)
+            );
+          }
+          delete calculations.landAreaUnit;
         }
-        delete calculations.landAreaUnit;
+      } else if (mitigation.subTypeOfMitigation === SubTypeOfMitigation.SOIL_ENRICHMENT_BIOCHAR) {
+        if (mitigation.properties) {
+          calculations = mitigation.properties;
+          if (calculations.weight) {
+            calculations.weightInTons = addCommSep(mitigation.properties.weight);
+          }
+          delete calculations.weight;
+        }
       }
     } else if (mitigation.typeOfMitigation === TypeOfMitigation.SOLAR) {
       if (mitigation.properties) {
@@ -1088,6 +1100,12 @@ const ProgrammeView = () => {
               calculations[key] = '-';
             } else if (key === 'typeOfMitigation') {
               mitigationTypeList?.map((type: any) => {
+                if (mitigation[key] === type.value) {
+                  calculations[key] = type.label;
+                }
+              });
+            } else if (key === 'subTypeOfMitigation') {
+              mitigationSubTypeList?.map((type: any) => {
                 if (mitigation[key] === type.value) {
                   calculations[key] = type.label;
                 }
