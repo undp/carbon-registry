@@ -19,6 +19,12 @@ jobs:
       REACT_APP_MAP_TYPE : "Mapbox"
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 5
+      - name: Check Docker variable changes
+        run: |
+          echo "docker-compose file Change...."
+          git diff HEAD~ -- HEAD -z ./docker-compose*
       # - name: Cache modules
       #   uses: actions/cache@v1
       #   id: yarn-cache
