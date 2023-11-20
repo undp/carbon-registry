@@ -7,6 +7,10 @@ on:
       - web/**
       - .github/workflows/frontend*
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy_front_end:
     runs-on: ubuntu-latest
