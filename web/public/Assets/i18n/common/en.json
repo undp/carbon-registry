@@ -15,5 +15,7 @@
   "signIn": "Sign In",
   "loginFailed": "Login failed",
   "networkError": "Network error. Please check your internet connection and try again.",
-  "systemError": "Something went wrong. Please try again."
+  "systemError": "Something went wrong. Please try again.",
+  "approve": "APPROVE",
+  "reject": "REJECT"
 }

@@ -6,6 +6,7 @@ on:
     paths:
       - web/**
       - .github/workflows/frontend*
+      - docker-compose*
 
 jobs:
   deploy_front_end:
@@ -19,31 +20,37 @@ jobs:
       REACT_APP_MAP_TYPE : "Mapbox"
     steps:
       - uses: actions/checkout@v3
-      - name: Cache modules
-        uses: actions/cache@v1
-        id: yarn-cache
         with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          fetch-depth: 5
+      - name: Check Docker variable changes
+        run: |
+          echo "docker-compose file Change...."
+          git diff HEAD~ -- HEAD -z ./docker-compose*
+      # - name: Cache modules
+      #   uses: actions/cache@v1
+      #   id: yarn-cache
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: ${{ runner.os }}-yarn-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        working-directory: ./web
-        run: CI=false yarn
-      - name: Build
-        working-directory: ./web
-        run: CI=false yarn build
-      - name: Deploy
-        run: aws s3 sync ./web/build s3://carbon-www-prod
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      # - name: Install dependencies
+      #   working-directory: ./web
+      #   run: CI=false yarn
+      # - name: Build
+      #   working-directory: ./web
+      #   run: CI=false yarn build
+      # - name: Deploy
+      #   run: aws s3 sync ./web/build s3://carbon-www-prod
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1

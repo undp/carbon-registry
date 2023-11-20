@@ -24,7 +24,6 @@ import { UtilModule } from "./util/util.module";
 import * as bodyParser from "body-parser";
 
 const express = require("express");
-const fs_promises = require('fs/promises');
 
 // NOTE: If you get ERR_CONTENT_DECODING_FAILED in your browser, this is likely
 // due to a compressed response (e.g. gzip) which has not been handled correctly
@@ -94,19 +93,12 @@ export async function buildNestApp(
   httpBase: string,
   expressApp?: AbstractHttpAdapter
 ): Promise<NestExpressApplication> {
-  let options: any = {
-    logger: getLogger(module),
-  }
-  if (process.env.SSL_KEY_PATH) {
-    options['httpsOptions'] = {
-      key: (await fs_promises.readFile(process.env.SSL_KEY_PATH)),
-      cert: (await fs_promises.readFile(process.env.SSL_CERT_PATH)),
-    }
-  }
   const nestApp = await NestFactory.create<NestExpressApplication>(
     module,
     new ExpressAdapter(expressApp),
-    options
+    {
+      logger: getLogger(module),
+    }
   );
   useContainer(nestApp.select(UtilModule), { fallbackOnErrors: true });
   nestApp.setGlobalPrefix(httpBase);
