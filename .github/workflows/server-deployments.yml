@@ -8,6 +8,7 @@ on:
       - backend/**
       # - libs/**
       - .github/workflows/server*
+      - docker-compose*
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
