@@ -86,8 +86,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             cd repos/carbon-registry &&
             sudo $(aws ecr get-login --no-include-email --region us-east-1) &&
-            sudo docker stop carbon-registry-web-1 || true &&
-            sudo docker rm carbon-registry-web-1 &&
+            (docker stop carbon-registry-web-1 > /dev/null &&  docker rm carbon-registry-web-1 ) 2>/dev/null || true &&
             sudo docker pull 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:v1 &&
             docker compose -f docker-compose-image.yml up -d web '
       - name: Build, tag, and push the QA-develop image to Amazon ECR
