@@ -10,4 +10,3 @@ backend/services/.env.local
 !./data/README.md
 .yalc
 yalc.lock
-web/public/locales/*
