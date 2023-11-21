@@ -8,6 +8,10 @@ on:
       - .github/workflows/frontend*
       - docker-compose*
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy_front_end:
     runs-on: ubuntu-latest
@@ -80,7 +84,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             cd repos/carbon-registry &&
             sudo $(aws ecr get-login --no-include-email --region us-east-1) &&
-            sudo docker stop carbon-registry_web_1 || true &&
-            sudo docker rm carbon-registry_web_1 &&
+            (docker stop carbon-registry_web_1 > /dev/null &&  docker rm carbon-registry_web_1 ) 2>/dev/null || true &&
             sudo docker pull 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:main &&
             docker-compose -f docker-compose-image.yml up -d web ' 
