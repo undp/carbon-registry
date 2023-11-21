@@ -734,7 +734,7 @@ const ProgrammeView = () => {
                         getTxRefValues(activity.data.txRef, 1),
                       ]
                     : [
-                        `${addCommSep(activity.data.creditChange)} ${creditUnit}`,
+                        `${addCommSep(activity.data.creditChange)} ${creditUnit} credits`,
                         getTxRefValues(activity.data.txRef, 1),
                       ]
                 )}
