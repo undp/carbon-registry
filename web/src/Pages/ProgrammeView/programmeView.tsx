@@ -137,7 +137,11 @@ const ProgrammeView = () => {
     if (filePath.includes('VERIFICATION_REPORT')) DocumentName = 'Verification Report';
     const versionfull = filePath.split('_')[filePath.split('_').length - 1];
     const version = versionfull ? versionfull.split('.')[0] : 'V1';
-    const finalversion = version.startsWith('V') ? version : 'V1';
+    let finalversion = version.startsWith('V') ? version : 'V1';
+    if (!DocumentName) {
+      DocumentName = 'Document';
+      finalversion = 'V1';
+    }
     return (
       <Row className="field" key={filePath}>
         <Col span={12} className="field-key">
@@ -175,6 +179,9 @@ const ProgrammeView = () => {
       if (envimpact.length > 0) latestfile.push(envimpact.pop());
       if (monitor.length > 0) latestfile.push(monitor.pop());
       if (verification.length > 0) latestfile.push(verification.pop());
+      if (files.length > 0 && latestfile.length == 0) {
+        latestfile.push(...files);
+      }
       return latestfile.map((filePath: any) => {
         return fileItemContent(filePath);
       });
