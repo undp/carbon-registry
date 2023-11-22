@@ -179,7 +179,7 @@ const ProgrammeView = () => {
       if (envimpact.length > 0) latestfile.push(envimpact.pop());
       if (monitor.length > 0) latestfile.push(monitor.pop());
       if (verification.length > 0) latestfile.push(verification.pop());
-      if (files.length > 0 && latestfile.length == 0) {
+      if (files.length > 0 && latestfile.length === 0) {
         latestfile.push(...files);
       }
       return latestfile.map((filePath: any) => {
