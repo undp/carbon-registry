@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Put, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ProgrammeService, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, AppAbility, Action, Programme, ProgrammeDto, ProgrammeDocumentRegistryDto, ProgrammeAcceptedDto, MitigationAddDto, OwnershipUpdateDto, PoliciesGuardEx, QueryDto, ConstantUpdateDto, ProgrammeApprove, ProgrammeIssue, ProgrammeReject, TransferFreezeGuard, ProgrammeTransferRequest, ProgrammeRetire, ProgrammeCertify, ProgrammeRevoke, ProgrammeTransferApprove, ProgrammeTransfer, ProgrammeTransferReject, ProgrammeTransferCancel } from '@undp/carbon-services-lib';
+import { ProgrammeMitigationIssue,ProgrammeService, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, AppAbility, Action, Programme, ProgrammeDto, ProgrammeDocumentRegistryDto, ProgrammeAcceptedDto, MitigationAddDto, OwnershipUpdateDto, PoliciesGuardEx, QueryDto, ConstantUpdateDto, ProgrammeApprove, ProgrammeIssue, ProgrammeReject, TransferFreezeGuard, ProgrammeTransferRequest, ProgrammeRetire, ProgrammeCertify, ProgrammeRevoke, ProgrammeTransferApprove, ProgrammeTransfer, ProgrammeTransferReject, ProgrammeTransferCancel } from '@undp/carbon-services-lib';
 
 @ApiTags('Programme')
 @ApiBearerAuth()
@@ -92,7 +92,7 @@ export class ProgrammeController {
     @ApiBearerAuth()
     @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Programme))
     @Put('issue')
-    async programmeIssue(@Body() body: ProgrammeIssue, @Request() req) {
+    async programmeIssue(@Body() body: ProgrammeMitigationIssue, @Request() req) {
         return this.programmeService.issueProgrammeCredit(body, req.user)
     }
 

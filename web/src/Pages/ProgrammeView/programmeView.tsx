@@ -27,6 +27,7 @@ import {
   ProgrammeTransfer,
   addCommSep,
   mitigationTypeList,
+  mitigationSubTypeList,
   sumArray,
   dateTimeFormat,
   isBase64,
@@ -35,6 +36,7 @@ import {
   TxType,
   getRetirementTypeString,
   TypeOfMitigation,
+  SubTypeOfMitigation,
   UnitField,
   addSpaces,
   CompanyRole,
@@ -58,6 +60,8 @@ import {
   getFinancialFields,
   TimelineBody,
   dateFormat,
+  getValidNdcActions,
+  addNdcDesc,
   Role,
 } from '@undp/carbon-library';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
@@ -720,11 +724,22 @@ const ProgrammeView = () => {
             subTitle: DateTime.fromMillis(activity.data.txTime).toFormat(dateTimeFormat),
             description: (
               <TimelineBody
-                text={formatString('view:tlIssueDesc', [
-                  addCommSep(activity.data.creditChange),
-                  creditUnit,
-                  getTxRefValues(activity.data.txRef, 1),
-                ])}
+                text={formatString(
+                  'view:tlIssueDesc',
+                  getTxRefValues(activity.data.txRef, 4)
+                    ? [
+                        addNdcDesc({
+                          ndcActions: getTxRefValues(activity.data.txRef, 4),
+                          t: t,
+                          creditUnit: creditUnit,
+                        }),
+                        getTxRefValues(activity.data.txRef, 1),
+                      ]
+                    : [
+                        `${addCommSep(activity.data.creditChange)} ${creditUnit} credits`,
+                        getTxRefValues(activity.data.txRef, 1),
+                      ]
+                )}
                 remark={getTxRefValues(activity.data.txRef, 3)}
                 via={activity.data.userName}
                 t={t}
@@ -1035,15 +1050,25 @@ const ProgrammeView = () => {
     }
     let calculations: any = {};
     if (mitigation.typeOfMitigation === TypeOfMitigation.AGRICULTURE) {
-      if (mitigation.properties) {
-        calculations = mitigation.properties;
-        if (calculations.landAreaUnit) {
-          calculations.landArea = new UnitField(
-            mitigation.properties.landAreaUnit,
-            addCommSep(mitigation.properties.landArea)
-          );
+      if (mitigation.subTypeOfMitigation === SubTypeOfMitigation.RICE_CROPS) {
+        if (mitigation.properties) {
+          calculations = mitigation.properties;
+          if (calculations.landAreaUnit) {
+            calculations.landArea = new UnitField(
+              mitigation.properties.landAreaUnit,
+              addCommSep(mitigation.properties.landArea)
+            );
+          }
+          delete calculations.landAreaUnit;
         }
-        delete calculations.landAreaUnit;
+      } else if (mitigation.subTypeOfMitigation === SubTypeOfMitigation.SOIL_ENRICHMENT_BIOCHAR) {
+        if (mitigation.properties) {
+          calculations = mitigation.properties;
+          if (calculations.weight) {
+            calculations.weightInTons = addCommSep(mitigation.properties.weight);
+          }
+          delete calculations.weight;
+        }
       }
     } else if (mitigation.typeOfMitigation === TypeOfMitigation.SOLAR) {
       if (mitigation.properties) {
@@ -1087,6 +1112,12 @@ const ProgrammeView = () => {
                   calculations[key] = type.label;
                 }
               });
+            } else if (key === 'subTypeOfMitigation') {
+              mitigationSubTypeList?.map((type: any) => {
+                if (mitigation[key] === type.value) {
+                  calculations[key] = type.label;
+                }
+              });
             } else if (key === 'methodology') {
               calculations[key] = mitigation[key];
             } else {
@@ -1096,7 +1127,8 @@ const ProgrammeView = () => {
         }
       }
     }
-    return calculations;
+    const { issuedCredits, availableCredits, ...details } = calculations;
+    return details;
   };
 
   const onPopupAction = async (
@@ -1439,7 +1471,10 @@ const ProgrammeView = () => {
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
       if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
-        if (Number(data.creditEst) > Number(data.creditIssued)) {
+        if (
+          Number(data.creditEst) > Number(data.creditIssued) &&
+          getValidNdcActions(data).length > 0
+        ) {
           actionBtns.push(
             <Button
               type="primary"
@@ -1471,6 +1506,7 @@ const ProgrammeView = () => {
                         )
                       }
                       translator={i18n}
+                      ndcActions={getValidNdcActions(data)}
                     />
                   ),
                 });

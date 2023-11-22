@@ -80,6 +80,7 @@ services:
       DB_PASSWORD: "<ANY PASSWORD>"
       # ,data-importer
       RUN_MODULE: replicator,async-operations-handler
+      DATA_IMPORT_TYPES: ""
       LOCATION_SERVICE: OPENSTREET
       SMTP_ENDPOINT: email-smtp.us-east-1.amazonaws.com
       SMTP_USERNAME: "AKIAUMXKTXDJLKSXTF3U"
@@ -95,7 +96,7 @@ services:
       SYNC_ENABLE: true
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
       HOST: "http://localhost:3030"
-      BACKEND_HOST: http://192.168.1.73:9000
+      BACKEND_HOST: http://192.168.1.123:9000
   # async-operations-handler:
   #   build:
   #     context: .
