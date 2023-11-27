@@ -11,7 +11,7 @@ import {
   Body,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CompanyService, CountryService, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto } from "@undp/carbon-services-lib";
+import { CompanyService, CountryService, ApiKeyJwtAuthGuard, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto } from "@undp/carbon-services-lib";
 
 
 @ApiTags("Organisation")
@@ -34,7 +34,8 @@ export class CompanyController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company, true))
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company, true))
   @Post("queryNames")
   queryNames(@Body() query: QueryDto, @Request() req) {
     console.log(req.abilityCondition);
@@ -122,7 +123,8 @@ export class CompanyController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company))
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company))
   @Post("findByIds")
   async findByCompanyId(
     @Body() body: FindOrganisationQueryDto,
@@ -138,18 +140,26 @@ export class CompanyController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Update, Company))
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Company))
   @Put("update")
   async updateCompany(@Body() company: OrganisationUpdateDto, @Request() req) {
     global.baseUrl = `${req.protocol}://${req.get("Host")}`;
     return await this.companyService.update(company, req.abilityCondition);
   }
 
+
+  @ApiBearerAuth()
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard)
   @Post("countries")
   async getCountries(@Body() query: QueryDto, @Request() req) {
     return await this.countryService.getCountryList(query);
   }
 
+  @ApiBearerAuth()
+  @ApiBearerAuth('api_key')
+  @UseGuards(ApiKeyJwtAuthGuard)
   @Get("countries")
   async getAvailableCountries(@Request() req) {
     return await this.countryService.getAvailableCountries();
