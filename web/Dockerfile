@@ -40,6 +40,8 @@ RUN CI=false yarn build
 # production environment
 FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
+COPY ./web/docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 ARG NGINX_CONFIG=nginx.conf
 COPY ./web/$NGINX_CONFIG /etc/nginx/conf.d/default.conf
 
