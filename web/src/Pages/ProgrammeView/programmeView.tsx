@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { Row, Col, Card, Progress, Tag, Steps, message, Skeleton, Button, Modal, Form } from 'antd';
-import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './programmeView.scss';
 import Chart from 'react-apexcharts';
@@ -17,7 +16,6 @@ import {
 import { DateTime } from 'luxon';
 import Geocoding from '@mapbox/mapbox-sdk/services/geocoding';
 import TextArea from 'antd/lib/input/TextArea';
-import { useUserContext } from '../../Context/UserInformationContext/userInformationContext';
 import { ShieldCheck } from 'react-bootstrap-icons';
 import {
   CreditTransferStage,
@@ -63,8 +61,10 @@ import {
   getValidNdcActions,
   addNdcDesc,
   Role,
+  useConnection,
+  useUserContext
 } from '@undp/carbon-library';
-import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
+import { useSettingsContext } from '@undp/carbon-library';
 
 const ProgrammeView = () => {
   const { get, put, post } = useConnection();
@@ -1850,7 +1850,6 @@ const ProgrammeView = () => {
                                                 )
                                               }
                                               translator={i18n}
-                                              useConnection={useConnection}
                                             />
                                           ),
                                         });
@@ -1896,7 +1895,6 @@ const ProgrammeView = () => {
                                                 )
                                               }
                                               translator={i18n}
-                                              useConnection={useConnection}
                                               ministryLevelPermission={ministryLevelPermission}
                                             />
                                           ),
@@ -1945,7 +1943,6 @@ const ProgrammeView = () => {
                                                 updateCreditInfo
                                               )
                                             }
-                                            useConnection={useConnection}
                                             translator={i18n}
                                           />
                                         ),
