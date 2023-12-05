@@ -11,7 +11,7 @@
 
 The National Carbon Registry enables carbon credit trading in order to reduce greenhouse gas emissions.
 
-As an online database, the National Carbon Registry uses national and international standards for quantifying and verifying greenhouse gas emissions reductions by programmes, tracking issued carbon credits and enabling credit transfers in an efficient and transparent manner. The Registry functions by receiving, processing, recording and storing data on mitigations projects, the issuance, holding, transfer, acquisition, cancellation, and retirement of emission reduction credits. This information is publicly accessible to increase public confidence in the emissions reduction agenda.
+As an online database, the National Carbon Registry uses national and international standards for quantifying and verifying greenhouse gas emissions reductions by projects, tracking issued carbon credits and enabling credit transfers in an efficient and transparent manner. The Registry functions by receiving, processing, recording and storing data on mitigations projects, the issuance, holding, transfer, acquisition, cancellation, and retirement of emission reduction credits. This information is publicly accessible to increase public confidence in the emissions reduction agenda.
 
 The National Carbon Registry enables carbon credit tracking transactions from mitigation activities, as the digital implementation of the Paris Agreement. Any country can customize and deploy a local version of the registry then connect it to other national & international registries, MRV systems, and more.
 
@@ -60,11 +60,11 @@ UNDP Carbon Registry is based on service oriented architecture (SOA). Following 
 
 ### National Service
 
-Authenticate, Validate and Accept user (Government, Programme Developer/Certifier) API requests related to the following functionalities,
+Authenticate, Validate and Accept user (Government, Project Developer/Certifier) API requests related to the following functionalities,
 
 * User and company CRUD operations.
 * User authentication.
-* Programme life cycle management.
+* Project life cycle management.
 * Credit life cycle management.
 
 Service is horizontally scalable and state maintained in the following locations,
@@ -73,8 +73,8 @@ Service is horizontally scalable and state maintained in the following locations
 * Operational Database.
 * Ledger Database.
 
-Uses the Carbon Credit Calculator and Serial Number Generator node modules to estimate the programme carbon credit amount and issue a serial number.
-Uses Ledger interface to persist programme and credit life cycles.
+Uses the Carbon Credit Calculator and Serial Number Generator node modules to estimate the project carbon credit amount and issue a serial number.
+Uses Ledger interface to persist project and credit life cycles.
 
 ### Analytics Service
 
@@ -122,8 +122,8 @@ Change by environment variable `FILE_SERVICE`. Supported types are `LOCAL` (defa
 
 ### **Database Architecture**
 
-Primary/secondary database architecture used to store carbon programme and account balances.
-Ledger database is the primary database. Add/update programmes and update account balances in a single transaction. Currently implemented only for AWS QLDB
+Primary/secondary database architecture used to store carbon project and account balances.
+Ledger database is the primary database. Add/update projects and update account balances in a single transaction. Currently implemented only for AWS QLDB
 
 Operational Database is the secondary database. Eventually replicated to this from primary database via data stream. Implemented based on PostgreSQL
 
@@ -135,7 +135,7 @@ Operational Database is the secondary database. Eventually replicated to this fr
 
 #### Why Ledger Database?
 
-1. Immutable and Transparent - Track and maintain a sequenced history of every carbon programme and credit change.
+1. Immutable and Transparent - Track and maintain a sequenced history of every carbon project and credit change.
 2. Data Integrity (Cryptographic verification by third party).
 3. Reconcile carbon credits and company account balance.
 
@@ -145,7 +145,7 @@ This enables the capability to add any blockchain or ledger database support to 
 
 #### PostgreSQL Ledger Implementation
 
-This ledger implementation stores all the carbon programme and credit events in a separate event database with the sequence number. Support all the ledger functionalities except immutability.  
+This ledger implementation stores all the carbon project and credit events in a separate event database with the sequence number. Support all the ledger functionalities except immutability.  
 
 Single database approach used for user and company management.
 
@@ -153,11 +153,11 @@ Single database approach used for user and company management.
 
 Carbon Registry contains 3 ledger tables.
 
-1. Programme ledger - Contains all the programme and credit transactions.
+1. Project ledger - Contains all the project and credit transactions.
 2. Company Account Ledger (Credit) - Contains company accounts credit transactions.
 3. Country Account Ledger (Credit) - Contains country credit transactions.
 
-The below diagram demonstrates the ledger behavior of programme create, authorise, issue and transfer processes. Blue color document icon denotes a single data block in a ledger.
+The below diagram demonstrates the ledger behavior of project create, authorise, issue and transfer processes. Blue color document icon denotes a single data block in a ledger.
 
 ![Ledger Layout](./documention/imgs/Ledger.svg)
 
@@ -184,7 +184,7 @@ The below diagram demonstrates the ledger behavior of programme create, authoris
         ├── serverless.yml          # Service deployment scripts [Serverless + AWS Lambda]
 ├── libs
     ├── carbon-credit-calculator    # Implementation for the Carbon credit calculation library [Node module + Typescript]
-    ├── serial-number-gen           # Implementation for the carbon programme serial number calculation [Node module + Typescript]
+    ├── serial-number-gen           # Implementation for the carbon project serial number calculation [Node module + Typescript]
 ├── web                             # System web frontend implementation [ReactJS]
 ├── .gitignore
 ├── docker-compose.yml              # Docker container definitions
@@ -205,7 +205,7 @@ The below diagram demonstrates the ledger behavior of programme create, authoris
     * `SMTP_PASSWORD`
   * Use `DB_PASSWORD` env variable to change PostgreSQL database password
   * Configure system root account email by updating environment variable `ROOT EMAIL`. If the email service is enabled, on the first docker start, this email address will receive a new email with the root user password.
-  * By default frontend does not show map images on dashboard and programme view. To enable them please update `REACT_APP_MAP_TYPE` env variable to `Mapbox` and add new env variable `REACT_APP_MAPBOXGL_ACCESS_TOKEN` with [MapBox public access token](https://docs.mapbox.com/help/tutorials/get-started-tokens-api/) in web container.
+  * By default frontend does not show map images on dashboard and project view. To enable them please update `REACT_APP_MAP_TYPE` env variable to `Mapbox` and add new env variable `REACT_APP_MAPBOXGL_ACCESS_TOKEN` with [MapBox public access token](https://docs.mapbox.com/help/tutorials/get-started-tokens-api/) in web container.
 * Add user data
   * Update [organisations.csv](./organisations.csv) file to add organisations.
   * Update [users.csv](./users.csv) file to add users.
@@ -304,7 +304,7 @@ Web frontend implemented using ReactJS framework. Please refer [getting started 
 * Languages (Current): English
 * Languages (In progress): French, Spanish
 
-For updating translations or adding new ones, reference <https://github.com/undp/carbon-registry/tree/main/web/public/Assets/i18n>
+Please refer [here](./web/public/locales/i18n/README.md) for adding a new language translation file.
 
 <a name="api"></a>
 
