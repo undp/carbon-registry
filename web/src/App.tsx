@@ -28,7 +28,12 @@ import { AbilityContext } from './Casl/Can';
 import { defineAbility, updateUserAbility } from './Casl/ability';
 import { message } from 'antd';
 import RegisterNewCompany from './Pages/Company/registerNewCompany';
-import { Loading, ConnectionContextProvider, UserInformationContextProvider, SettingsContextProvider } from '@undp/carbon-library';
+import {
+  Loading,
+  ConnectionContextProvider,
+  UserInformationContextProvider,
+  SettingsContextProvider,
+} from '@undp/carbon-library';
 import { useTranslation } from 'react-i18next';
 
 // message.config({

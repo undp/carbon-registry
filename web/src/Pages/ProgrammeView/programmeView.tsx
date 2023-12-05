@@ -66,9 +66,9 @@ import {
   addNdcDesc,
   Role,
   useConnection,
-  useUserContext
+  useUserContext,
+  useSettingsContext,
 } from '@undp/carbon-library';
-import { useSettingsContext } from '@undp/carbon-library';
 
 const ProgrammeView = () => {
   const { get, put, post } = useConnection();
