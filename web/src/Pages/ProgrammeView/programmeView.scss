@@ -135,6 +135,11 @@
     margin-top: 14px;
     font-weight: 600;
   }
+  
+  .name{
+    color: rgba(58, 53, 65, 0.8);
+    width: 70%;
+  }
 
   .file-name {
     cursor: pointer;
@@ -207,7 +212,7 @@
   }
   .upcom-issue-step{
     color: #000000;
-    background-color: rgba(#1e1f1f, 0.5);
+    background-color: rgba(#3A3541, 0.5);
   }
   .reject-step {
     color: #ff9900;

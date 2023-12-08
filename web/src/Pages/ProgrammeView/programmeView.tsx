@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useState, useEffect, useRef } from 'react';
 import { Row, Col, Card, Progress, Tag, Steps, message, Skeleton, Button, Modal, Form } from 'antd';
 import { useConnection } from '../../Context/ConnectionContext/connectionContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './programmeView.scss';
+import moment from 'moment';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-bootstrap-icons';
@@ -13,6 +15,8 @@ import {
   ExperimentOutlined,
   SafetyOutlined,
   BookOutlined,
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { DateTime } from 'luxon';
 import Geocoding from '@mapbox/mapbox-sdk/services/geocoding';
@@ -27,6 +31,7 @@ import {
   ProgrammeTransfer,
   addCommSep,
   mitigationTypeList,
+  mitigationSubTypeList,
   sumArray,
   dateTimeFormat,
   isBase64,
@@ -35,6 +40,7 @@ import {
   TxType,
   getRetirementTypeString,
   TypeOfMitigation,
+  SubTypeOfMitigation,
   UnitField,
   addSpaces,
   CompanyRole,
@@ -58,6 +64,8 @@ import {
   getFinancialFields,
   TimelineBody,
   dateFormat,
+  getValidNdcActions,
+  addNdcDesc,
   Role,
 } from '@undp/carbon-library';
 import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
@@ -91,10 +99,17 @@ const ProgrammeView = () => {
     mapType === MapTypes.Mapbox && process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
       ? process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
       : '';
+  const { id } = useParams();
 
   const showModal = () => {
     setOpenModal(true);
   };
+
+  const ministryLevelPermission =
+    data &&
+    userInfoState?.companyRole === CompanyRole.MINISTRY &&
+    ministrySectoralScope.includes(data.sectoralScope) &&
+    userInfoState?.userRole !== 'ViewOnly';
 
   const locationColors = ['#6ACDFF', '#FF923D', '#CDCDCD', '#FF8183', '#B7A4FE'];
 
@@ -111,28 +126,66 @@ const ProgrammeView = () => {
     return filepath.substring(filepath.lastIndexOf('%2F') + 3);
   };
 
-  const fileItemContent = (filePath: any) => {
+  const fileItemContent = (fileData: any) => {
     let DocumentName: any;
-    console.log(filePath.length, '...........');
+    let filePath: any;
+    let status: any;
+    fileData.split(' + ').length > 1
+      ? (filePath = fileData.split(' + ')[0])
+      : (filePath = fileData);
     if (filePath.includes('DESIGN')) {
-      DocumentName = 'Design Document';
+      (DocumentName = 'Design Document'), (status = fileData.split(' + ')[1]);
     }
-    if (filePath.includes('METHODOLOGY')) DocumentName = 'Methodology  Document';
+    if (filePath.includes('METHODOLOGY'))
+      (DocumentName = 'Methodology  Document'), (status = fileData.split(' + ')[1]);
     if (filePath.includes('OBJECTION')) DocumentName = 'No Objection Letter';
     if (filePath.includes('AUTHORISATION')) DocumentName = 'Letter of Authorisation';
     if (filePath.includes('ENVIRONMENTAL_IMPACT_ASSESSMENT'))
-      DocumentName = 'Environmental Impact Assessment';
-    if (filePath.includes('MONITORING_REPORT')) DocumentName = 'Monitoring Report';
-    if (filePath.includes('VERIFICATION_REPORT')) DocumentName = 'Verification Report';
+      (DocumentName = 'Environmental Impact Assessment'), (status = fileData.split(' + ')[1]);
+    if (filePath.includes('MONITORING_REPORT'))
+      (DocumentName = 'Monitoring Report'), (status = fileData.split(' + ')[1]);
+    if (filePath.includes('VERIFICATION_REPORT'))
+      (DocumentName = 'Verification Report'), (status = fileData.split(' + ')[1]);
     const versionfull = filePath.split('_')[filePath.split('_').length - 1];
     const version = versionfull ? versionfull.split('.')[0] : 'V1';
-    const finalversion = version.startsWith('V') ? version : 'V1';
+    const timestamp = fileData.split(' + ')[2];
+    let finalversion = version.startsWith('V') ? version : 'V1';
+    if (!DocumentName) {
+      DocumentName = 'Document';
+      finalversion = 'V1';
+    }
     return (
       <Row className="field" key={filePath}>
         <Col span={12} className="field-key">
-          <div>
-            {DocumentName} ~ {finalversion}
-          </div>
+          {!isNaN(timestamp) ? (
+            <div className="name-time-container">
+              <Row>
+                <div className="name">{DocumentName}</div>
+                <div className="icon">
+                  {status && status === 'Accepted' && (
+                    <CheckCircleOutlined
+                      className="common-progress-icon"
+                      style={{ color: '#5DC380' }}
+                    />
+                  )}
+                  {status && status === 'Rejected' && (
+                    <ExclamationCircleOutlined
+                      className="common-progress-icon"
+                      style={{ color: '#FD6F70' }}
+                    />
+                  )}
+                </div>
+              </Row>
+              <div className="time">
+                {moment(parseInt(timestamp)).format('DD MMMM YYYY @ HH:mm')}
+                {' ~ ' + finalversion}
+              </div>
+            </div>
+          ) : (
+            <div className="name">
+              {DocumentName} ~ {finalversion}
+            </div>
+          )}
         </Col>
         <Col span={12} className="field-value">
           <a target="_blank" href={filePath} rel="noopener noreferrer" className="file-name">
@@ -143,7 +196,17 @@ const ProgrammeView = () => {
     );
   };
 
-  const getFileContent = (files: any) => {
+  const getFileContent = (fileData: any) => {
+    const docList = [];
+    let newData: any;
+    for (let i = 0; i < fileData.length; i++) {
+      fileData[i].url
+        ? (newData = fileData[i].url + ' + ' + fileData[i].accept + ' + ' + fileData[i].timestamp)
+        : (newData = fileData[i]);
+      docList.push(newData);
+    }
+    const files = docList;
+
     if (Array.isArray(files)) {
       const design = files.filter((filePath) => filePath.includes('DESIGN')).sort();
       const methodolgy = files.filter((filePath) => filePath.includes('METHODOLOGY')).sort();
@@ -164,6 +227,9 @@ const ProgrammeView = () => {
       if (envimpact.length > 0) latestfile.push(envimpact.pop());
       if (monitor.length > 0) latestfile.push(monitor.pop());
       if (verification.length > 0) latestfile.push(verification.pop());
+      if (files.length > 0 && latestfile.length === 0) {
+        latestfile.push(...files);
+      }
       return latestfile.map((filePath: any) => {
         return fileItemContent(filePath);
       });
@@ -398,7 +464,14 @@ const ProgrammeView = () => {
           description: (
             <TimelineBody
               text={formatString('view:tlRetInitDesc', [
-                addCommSep(transfer.creditAmount),
+                addCommSep(
+                  transfer.creditAmount
+                    ? transfer.retirementType === RetireType.CROSS_BORDER
+                      ? transfer.creditAmount -
+                        Number(((transfer.omgePercentage * transfer.creditAmount) / 100).toFixed(2))
+                      : transfer.creditAmount
+                    : transfer.creditAmount
+                ),
                 creditUnit,
                 transfer.sender[0]?.name,
                 `${
@@ -411,6 +484,15 @@ const ProgrammeView = () => {
                   : transfer.retirementType === RetireType.LEGAL_ACTION
                   ? 'legal action'
                   : 'other',
+                transfer.retirementType === RetireType.CROSS_BORDER && transfer.omgePercentage
+                  ? formatString('view:t1RetInitOmgeDesc', [
+                      addCommSep(
+                        transfer.creditAmount
+                          ? ((transfer.omgePercentage * transfer.creditAmount) / 100).toFixed(2)
+                          : undefined
+                      ),
+                    ])
+                  : '',
                 transfer.requester[0]?.name,
               ])}
               remark={transfer.comment}
@@ -515,6 +597,79 @@ const ProgrammeView = () => {
     return hist;
   };
 
+  const displayHideNdcDocumentAvailabilityIndicators = (
+    activityList: any,
+    upcomingTimeLineMonitoringVisible: boolean,
+    upcomingTimeLineVerificationVisible: boolean
+  ) => {
+    const monitoringElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:monitoringEl')
+    );
+    const verificationElIndex = activityList.findIndex(
+      (item: any) => item.title === t('view:verificationEl')
+    );
+
+    if (upcomingTimeLineMonitoringVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (monitoringElIndex === -1) {
+        const monitoringEl = {
+          status: 'process',
+          title: t('view:monitoringEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Binoculars />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, monitoringEl);
+        } else {
+          activityList.unshift(monitoringEl);
+        }
+      }
+    } else {
+      if (monitoringElIndex !== -1) {
+        activityList.splice(monitoringElIndex, 1);
+      }
+    }
+
+    if (upcomingTimeLineVerificationVisible && data?.currentStage !== ProgrammeStageR.Rejected) {
+      if (verificationElIndex === -1) {
+        const verificationEl = {
+          status: 'process',
+          title: t('view:verificationEl'),
+          subTitle: t('view:tlPending'),
+          icon: (
+            <span className="step-icon upcom-issue-step">
+              <Icon.Flag />
+            </span>
+          ),
+        };
+
+        if (
+          activityList.length > 0 &&
+          activityList[0].title === t('view:tlIssue') &&
+          activityList[0].subTitle === t('view:tlPending')
+        ) {
+          activityList.splice(1, 0, verificationEl);
+        } else {
+          activityList.unshift(verificationEl);
+        }
+      }
+    } else {
+      if (verificationElIndex !== -1) {
+        activityList.splice(verificationElIndex, 1);
+      }
+    }
+
+    return activityList;
+  };
+
   const getProgrammeHistory = async (programmeId: string) => {
     setLoadingHistory(true);
     try {
@@ -525,11 +680,44 @@ const ProgrammeView = () => {
 
       const [response, transfers] = await Promise.all([historyPromise, transferPromise]);
 
+      let upcomingTimeLineMonitoringVisible = false;
+      let upcomingTimeLineVerificationVisible = false;
+
+      if (data) {
+        data?.mitigationActions?.map((mitigationAction: any) => {
+          if (mitigationAction.projectMaterial && mitigationAction.projectMaterial.length > 0) {
+            const monitoringReportAvailable = mitigationAction.projectMaterial.find((item: any) => {
+              return item.url
+                ? item.url.includes('MONITORING_REPORT')
+                : item.includes('MONITORING_REPORT');
+            });
+
+            const verificationReportAvailable = mitigationAction.projectMaterial.find(
+              (item: any) => {
+                return item.url
+                  ? item.url.includes('VERIFICATION_REPORT')
+                  : item.includes('VERIFICATION_REPORT');
+              }
+            );
+
+            if (!monitoringReportAvailable) {
+              upcomingTimeLineMonitoringVisible = true;
+            }
+            if (!verificationReportAvailable) {
+              upcomingTimeLineVerificationVisible = true;
+            }
+          } else {
+            upcomingTimeLineMonitoringVisible = true;
+            upcomingTimeLineVerificationVisible = true;
+          }
+        });
+      }
+
       const txDetails: any = {};
       const txList = await getTxActivityLog(transfers.data, txDetails);
       let txListKeys = Object.keys(txList).sort();
       const certifiedTime: any = {};
-      const activityList: any[] = [];
+      let activityList: any[] = [];
       for (const activity of response.data) {
         let programmecreateindex: any;
         const createIndex = activityList.findIndex((item) => item.title === t('view:tlCreate'));
@@ -611,11 +799,22 @@ const ProgrammeView = () => {
             subTitle: DateTime.fromMillis(activity.data.txTime).toFormat(dateTimeFormat),
             description: (
               <TimelineBody
-                text={formatString('view:tlIssueDesc', [
-                  addCommSep(activity.data.creditChange),
-                  creditUnit,
-                  getTxRefValues(activity.data.txRef, 1),
-                ])}
+                text={formatString(
+                  'view:tlIssueDesc',
+                  getTxRefValues(activity.data.txRef, 4)
+                    ? [
+                        addNdcDesc({
+                          ndcActions: getTxRefValues(activity.data.txRef, 4),
+                          t: t,
+                          creditUnit: creditUnit,
+                        }),
+                        getTxRefValues(activity.data.txRef, 1),
+                      ]
+                    : [
+                        `${addCommSep(activity.data.creditChange)} ${creditUnit} credits`,
+                        getTxRefValues(activity.data.txRef, 1),
+                      ]
+                )}
                 remark={getTxRefValues(activity.data.txRef, 3)}
                 via={activity.data.userName}
                 t={t}
@@ -738,11 +937,38 @@ const ProgrammeView = () => {
             description: (
               <TimelineBody
                 text={formatString('view:tlRetireDesc', [
-                  addCommSep(activity.data.creditChange),
+                  addCommSep(
+                    tx?.retirementType === RetireType.CROSS_BORDER
+                      ? activity.data.creditChange -
+                          Number(
+                            (
+                              (Number(
+                                getTxRefValues(activity.data.txRef, 10)
+                                  ? getTxRefValues(activity.data.txRef, 10)
+                                  : 0
+                              ) *
+                                activity.data.creditChange) /
+                              100
+                            ).toFixed(2)
+                          )
+                      : activity.data.creditChange
+                  ),
                   creditUnit,
                   getTxRefValues(activity.data.txRef, 6),
                   `${crossCountry ? 'to ' + crossCountry : ''} `,
                   getRetirementTypeString(tx?.retirementType)?.toLowerCase(),
+                  tx?.retirementType === RetireType.CROSS_BORDER &&
+                  getTxRefValues(activity.data.txRef, 10)
+                    ? formatString('view:t1RetInitOmgeDesc', [
+                        addCommSep(
+                          (
+                            (Number(getTxRefValues(activity.data.txRef, 10)) *
+                              activity.data.creditChange) /
+                            100
+                          ).toFixed(2)
+                        ),
+                      ])
+                    : '',
                   getTxRefValues(activity.data.txRef, 1),
                 ])}
                 remark={getTxRefValues(activity.data.txRef, 9)}
@@ -873,6 +1099,12 @@ const ProgrammeView = () => {
         activityList.unshift(...txList[txT]);
       }
 
+      activityList = displayHideNdcDocumentAvailabilityIndicators(
+        activityList,
+        upcomingTimeLineMonitoringVisible,
+        upcomingTimeLineVerificationVisible
+      );
+
       setHistoryData(activityList);
       setLoadingHistory(false);
       setCertTimes(certifiedTime);
@@ -920,15 +1152,25 @@ const ProgrammeView = () => {
     }
     let calculations: any = {};
     if (mitigation.typeOfMitigation === TypeOfMitigation.AGRICULTURE) {
-      if (mitigation.properties) {
-        calculations = mitigation.properties;
-        if (calculations.landAreaUnit) {
-          calculations.landArea = new UnitField(
-            mitigation.properties.landAreaUnit,
-            addCommSep(mitigation.properties.landArea)
-          );
+      if (mitigation.subTypeOfMitigation === SubTypeOfMitigation.RICE_CROPS) {
+        if (mitigation.properties) {
+          calculations = mitigation.properties;
+          if (calculations.landAreaUnit) {
+            calculations.landArea = new UnitField(
+              mitigation.properties.landAreaUnit,
+              addCommSep(mitigation.properties.landArea)
+            );
+          }
+          delete calculations.landAreaUnit;
         }
-        delete calculations.landAreaUnit;
+      } else if (mitigation.subTypeOfMitigation === SubTypeOfMitigation.SOIL_ENRICHMENT_BIOCHAR) {
+        if (mitigation.properties) {
+          calculations = mitigation.properties;
+          if (calculations.weight) {
+            calculations.weightInTons = addCommSep(mitigation.properties.weight);
+          }
+          delete calculations.weight;
+        }
       }
     } else if (mitigation.typeOfMitigation === TypeOfMitigation.SOLAR) {
       if (mitigation.properties) {
@@ -972,6 +1214,12 @@ const ProgrammeView = () => {
                   calculations[key] = type.label;
                 }
               });
+            } else if (key === 'subTypeOfMitigation') {
+              mitigationSubTypeList?.map((type: any) => {
+                if (mitigation[key] === type.value) {
+                  calculations[key] = type.label;
+                }
+              });
             } else if (key === 'methodology') {
               calculations[key] = mitigation[key];
             } else {
@@ -981,7 +1229,8 @@ const ProgrammeView = () => {
         }
       }
     }
-    return calculations;
+    const { issuedCredits, availableCredits, ...details } = calculations;
+    return details;
   };
 
   const onPopupAction = async (
@@ -1177,20 +1426,15 @@ const ProgrammeView = () => {
     if (userInfoState?.companyRole === CompanyRole.MINISTRY) {
       getUserDetails();
     }
-    const queryParams = new URLSearchParams(window.location.search);
-    const programmeId = queryParams.get('id');
-    if (programmeId) {
-      getProgrammeById(programmeId);
-    } else if (!state) {
-      navigate('/programmeManagement/viewAll', { replace: true });
+
+    if (state && state.record) {
+      setLoadingAll(false);
+      setData(state.record);
     } else {
-      if (!state.record) {
-        if (state.id) {
-          getProgrammeById(state.id);
-        }
+      if (id) {
+        getProgrammeById(id);
       } else {
-        setLoadingAll(false);
-        setData(state.record);
+        navigate('/programmeManagement/viewAll', { replace: true });
       }
     }
   }, []);
@@ -1264,11 +1508,7 @@ const ProgrammeView = () => {
 
   if (userInfoState?.userRole !== 'ViewOnly') {
     if (data.currentStage.toString() === ProgrammeStageR.Approved) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
         actionBtns.push(
           <Button
             danger
@@ -1332,12 +1572,11 @@ const ProgrammeView = () => {
       data.currentStage.toString() === ProgrammeStageR.Authorised &&
       Number(data.creditEst) > Number(data.creditIssued)
     ) {
-      if (
-        userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope))
-      ) {
-        if (Number(data.creditEst) > Number(data.creditIssued)) {
+      if (userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission) {
+        if (
+          Number(data.creditEst) > Number(data.creditIssued) &&
+          getValidNdcActions(data).length > 0
+        ) {
           actionBtns.push(
             <Button
               type="primary"
@@ -1369,6 +1608,7 @@ const ProgrammeView = () => {
                         )
                       }
                       translator={i18n}
+                      ndcActions={getValidNdcActions(data)}
                     />
                   ),
                 });
@@ -1416,8 +1656,7 @@ const ProgrammeView = () => {
       ((userInfoState?.companyRole === CompanyRole.CERTIFIER &&
         data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)) ||
         userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-        (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-          ministrySectoralScope.includes(data.sectoralScope)))
+        ministryLevelPermission)
     ) {
       actionBtns.push(
         <Button
@@ -1515,9 +1754,7 @@ const ProgrammeView = () => {
   });
 
   const creditsActionPermissions =
-    userInfoState?.companyRole === CompanyRole.GOVERNMENT ||
-    (userInfoState?.companyRole === CompanyRole.MINISTRY &&
-      ministrySectoralScope.includes(data.sectoralScope));
+    userInfoState?.companyRole === CompanyRole.GOVERNMENT || ministryLevelPermission;
 
   const reqBtnPermissions =
     userInfoState?.companyRole !== CompanyRole.MINISTRY
@@ -1755,6 +1992,7 @@ const ProgrammeView = () => {
                                               }
                                               translator={i18n}
                                               useConnection={useConnection}
+                                              ministryLevelPermission={ministryLevelPermission}
                                             />
                                           ),
                                         });
