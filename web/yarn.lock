@@ -1928,7 +1928,6 @@
     glob "^8.0.3"
     is-reference "1.2.1"
     magic-string "^0.30.3"
-    magic-string "^0.30.3"
 
 "@rollup/plugin-json@^6.0.1":
   version "6.0.1"
@@ -2788,10 +2787,10 @@
     "@types/node" "^18.11.9"
     convert-units "^2.3.4"
 
-"@undp/carbon-library@1.0.273-palindaa-patch-1.0":
-  version "1.0.273-palindaa-patch-1.0"
-  resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.273-palindaa-patch-1.0.tgz#0346e5c773f61e2ebde266d1b65d3e032028167e"
-  integrity sha512-ZpD62WTV37Dc4jT5Yv4Zcb4h1nR8g+3xUCeL4BEYrmtoNmPvkIBooQK+ShZocp4PEIBBJ9wuuIxPRtjpQPYFXw==
+"@undp/carbon-library@1.0.274-CARBON-347.1":
+  version "1.0.274-CARBON-347.1"
+  resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.274-CARBON-347.1.tgz#769b145cef0a69abadc012c3daa1bf854182df10"
+  integrity sha512-1jp+ixtxHl2Eys6Gmrkv2UBU8IEzDaeTIRjWURgOLty/lody4PtcXt76wiC8TVFzmiRb3V/DClIbHmy0JLmHxA==
   dependencies:
     "@rollup/plugin-commonjs" "^25.0.0"
     "@rollup/plugin-json" "^6.0.1"
@@ -5798,15 +5797,6 @@ fs-extra@^10.0.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
   integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
-  dependencies:
-    graceful-fs "^4.2.0"
-    jsonfile "^6.0.1"
-    universalify "^2.0.0"
-
-fs-extra@^11.1.1:
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.2.0.tgz#e70e17dfad64232287d01929399e0ea7c86b0e5b"
-  integrity sha512-PmDi3uwK5nFuXh7XDTlVnS17xJS7vW36is2+w3xcv8SVxiB4NyATf4ctkVY5bkSjX0Y4nbvZCq1/EjtEyr9ktw==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
