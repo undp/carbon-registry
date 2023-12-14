@@ -167,9 +167,9 @@ export class CompanyController {
 
   @ApiBearerAuth()
   @ApiBearerAuth('api_key')
-  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Company))
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Create, Company))
   @Post('addInvestment')
   async addInvestment(@Body() investment: InvestmentSyncDto, @Request() req) {
-      return this.companyService.addInvestmentOnLedger(investment); 
+    return await this.companyService.addInvestmentOnLedger(investment); 
   }
 }
