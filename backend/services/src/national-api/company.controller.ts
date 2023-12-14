@@ -11,7 +11,7 @@ import {
   Body,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CompanyService, CountryService, ApiKeyJwtAuthGuard, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto } from "@undp/carbon-services-lib";
+import { CompanyService, CountryService, ApiKeyJwtAuthGuard, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto, Investment,InvestmentSyncDto } from "@undp/carbon-services-lib";
 
 
 @ApiTags("Organisation")
@@ -163,5 +163,12 @@ export class CompanyController {
   @Get("countries")
   async getAvailableCountries(@Request() req) {
     return await this.countryService.getAvailableCountries();
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Update, Investment))
+  @Post('addInvestment')
+  async addInvestment(@Body() investment: InvestmentSyncDto, @Request() req) {
+      return this.companyService.addInvestmentOnLedger(investment);
   }
 }
