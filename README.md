@@ -5,6 +5,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/undp/carbon-registry)
 ![Uptime](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/undp/carbon-registry-status/master/api/carbon-registry/uptime.json)
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/undp/carbon-registry/server-deployments.yml?branch=main&label=server%20build)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fundp%2Fcarbon-registry.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fundp%2Fcarbon-registry?ref=badge_shield)
  ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/undp/carbon-registry/frontend-deployment-prod.yml?branch=main&label=frontend%20build)
 [![SparkBlue Chat](https://img.shields.io/badge/chat-SparkBlue-blue)](https://www.sparkblue.org/group/keeping-track-digital-public-goods-paris-agreement)
 [![Digital Public Goods certification](https://img.shields.io/badge/Digital%20Public%20Good-Certified-blueviolet)](https://app.digitalpublicgoods.net/a/10403)
@@ -381,3 +382,7 @@ By integrating these features, the code significantly contributes to achieving d
 [Digital For Climate (D4C)](https://www.theclimatewarehouse.org/work/digital-4-climate) is responsible for managing the application. D4C is a collaboration between the [European Bank for Reconstruction and Development (EBRD)](https://www.ebrd.com), [United Nations Development Program (UNDP)](https://www.undp.org), [United Nations Framework Convention on Climate Change (UNFCCC)](https://www.unfccc.int), [International Emissions Trading Association (IETA)](https://www.ieta.org), [European Space Agency (ESA)](https://www.esa.int), and [World Bank Group](https://www.worldbank.org) that aims to coordinate respective workflows and create a modular and interoperable end-to-end digital ecosystem for the carbon market. The overarching goal is to support a transparent, high integrity global carbon market that can channel capital for impactful climate action and low-carbon development.
 
 This code is managed by [United Nations Development Programme](https://www.undp.org) as custodian, detailed in the [press release](https://www.undp.org/news/newly-accredited-digital-public-good-national-carbon-registry-will-help-countries-meet-their-climate-targets). For any questions, contact us at [digital4planet@undp.org](mailto:digital4planet@undp.org).
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fundp%2Fcarbon-registry.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fundp%2Fcarbon-registry?ref=badge_large)
