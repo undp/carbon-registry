@@ -20,6 +20,7 @@ const AddNewCompany = () => {
       onNavigateToCompanyManagement={onNavigateToCompanyManagement}
       maximumImageSize={maximumImageSize}
       useLocation={useLocation}
+      regionField
       systemType={CarbonSystemType.REGISTRY}
     ></AddNewCompanyComponent>
   );

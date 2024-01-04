@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Put, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ProgrammeMitigationIssue,ProgrammeService, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, AppAbility, Action, Programme, ProgrammeDto, ProgrammeDocumentRegistryDto, ProgrammeAcceptedDto, MitigationAddDto, OwnershipUpdateDto, PoliciesGuardEx, QueryDto, ConstantUpdateDto, ProgrammeApprove, ProgrammeIssue, ProgrammeReject, TransferFreezeGuard, ProgrammeTransferRequest, ProgrammeRetire, ProgrammeCertify, ProgrammeRevoke, ProgrammeTransferApprove, ProgrammeTransfer, ProgrammeTransferReject, ProgrammeTransferCancel } from '@undp/carbon-services-lib';
+import { ProgrammeMitigationIssue, ProgrammeService, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, AppAbility, Action, Programme, ProgrammeDto, ProgrammeDocumentRegistryDto, ProgrammeAcceptedDto, MitigationAddDto, OwnershipUpdateDto, PoliciesGuardEx, QueryDto, ConstantUpdateDto, ProgrammeApprove, ProgrammeIssue, ProgrammeReject, TransferFreezeGuard, ProgrammeTransferRequest, ProgrammeRetire, ProgrammeCertify, ProgrammeRevoke, ProgrammeTransferApprove, ProgrammeTransfer, ProgrammeTransferReject, ProgrammeTransferCancel, DataExportQueryDto } from '@undp/carbon-services-lib';
 
 @ApiTags('Programme')
 @ApiBearerAuth()
@@ -64,6 +64,14 @@ export class ProgrammeController {
     @Post('query')
     async getAll(@Body()query: QueryDto, @Request() req) {
       return this.programmeService.query(query, req.abilityCondition)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Programme, true))
+    // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
+    @Post('download')
+    async getDownload(@Body() query: DataExportQueryDto, @Request() req) {
+      return this.programmeService.downloadProgrammes(query, req.abilityCondition); // Return the filePath as a JSON response
     }
 
     @ApiBearerAuth('api_key')
@@ -165,6 +173,16 @@ export class ProgrammeController {
     queryUser(@Body()query: QueryDto, @Request() req) {
       console.log(req.abilityCondition)
       return this.programmeService.queryProgrammeTransfers(query, req.abilityCondition, req.user)
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(
+      ApiKeyJwtAuthGuard,
+      PoliciesGuardEx(true, Action.Read, ProgrammeTransfer, true)
+    )
+    @Post("transfers/download")
+    async getTransfersDownload(@Body() query: DataExportQueryDto, @Request() req) {
+      return this.programmeService.downloadTransfers(query, req.abilityCondition, req.user); // Return the filePath as a JSON response
     }
 
     @ApiBearerAuth()

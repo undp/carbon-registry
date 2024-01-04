@@ -13,7 +13,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { ApiTags, ApiBearerAuth } from "@nestjs/swagger";
-import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto } from "@undp/carbon-services-lib";
+import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto, DataExportQueryDto } from "@undp/carbon-services-lib";
 
 @ApiTags("User")
 @ApiBearerAuth()
@@ -106,6 +106,14 @@ export class UserController {
   queryUser(@Body() query: QueryDto, @Request() req) {
     console.log(req.abilityCondition);
     return this.userService.query(query, req.abilityCondition);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
+  // @UseGuards(JwtAuthGuard, PoliciesGuardEx(true, Action.Read, User, true))
+  @Post('download')
+  async getDownload(@Body()query: DataExportQueryDto, @Request() req) {
+    return this.userService.download(query, req.abilityCondition); // Return the filePath as a JSON response
   }
 
   @ApiBearerAuth()
