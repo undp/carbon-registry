@@ -3,13 +3,16 @@ import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 const { Header, Sider, Content } = Layout;
 import { Outlet } from 'react-router-dom';
-import { useConnection } from '../../Context/ConnectionContext/connectionContext';
-import { useSettingsContext } from '../../Context/SettingsContext/settingsContext';
 import LayoutHeader from '../Header/layout.header';
 import LayoutSider from '../Sider/layout.sider';
 import './layout.scss';
 import { PauseCircleFill } from 'react-bootstrap-icons';
-import { ConfigurationSettingsType, Loading } from '@undp/carbon-library';
+import {
+  ConfigurationSettingsType,
+  Loading,
+  useConnection,
+  useSettingsContext,
+} from '@undp/carbon-library';
 
 const CustomLayout = (props: any) => {
   const { selectedKey } = props;
