@@ -136,16 +136,27 @@ jobs:
       #     args: -c "cd ./backend/services && serverless deploy --stage ${{ needs.check_dependency_change.outputs.stage }} --param='depLayerArn1=${{ steps.layerArn.outputs.ARN1 }}' --param='depLayerArn2=${{ steps.layerArn.outputs.ARN2 }}'"
       #     entrypoint: /bin/sh
       - name: Configure AWS credentials
-        if: github.ref == 'refs/heads/develop'
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Login to Amazon ECR
-        if: github.ref == 'refs/heads/develop'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push the image to Amazon ECR for main
+        if: github.ref == 'refs/heads/main'
+        id: build-image-main
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: carbon-services
+          IMAGE_TAG: main
+        run: |
+          # Build a docker container and push it to ECR 
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f backend/services/Dockerfile .
+          echo "Pushing image to ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"  
       - name: Build, tag, and push the image to Amazon ECR
         if: github.ref == 'refs/heads/develop'
         id: build-image
@@ -160,13 +171,13 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       - name: Deploy docker image to Amazon EC2
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/main'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: carbon-services
-          IMAGE_TAG: develop
-          PRIVATE_KEY: ${{ secrets.AWS_SSH_KEY_PRIVATE }}
-          HOSTNAME: ${{secrets.HOST_IP}}
+          IMAGE_TAG: main
+          PRIVATE_KEY: ${{ secrets.AWS_SSH_KEY_PRIVATE_DEMO }}
+          HOSTNAME: ${{secrets.HOST_IP_DEMO }}
           USER_NAME: ec2-user
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
