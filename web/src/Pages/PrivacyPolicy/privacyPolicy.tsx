@@ -23,7 +23,7 @@ const PrivacyPolicy = () => {
   return (
     <div id="policy" className="privacy-container">
       <Row>
-        <Col md={24} lg={24}>
+        <Col span={24}>
           <div onClick={() => navigate('/')} className="privacy-header-container">
             <div className="logo">
               <img src={sliderLogo} alt="slider-logo" />
@@ -39,8 +39,8 @@ const PrivacyPolicy = () => {
         </Col>
       </Row>
       <div className="privacy-body-container">
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div className="privacytitle">SAMPLE PRIVACY NOTICE</div>
             <div className="privacy-sub">Last updated February 02, 2023</div>
             <div className="privacy-body">
@@ -67,8 +67,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div className="privacy-subtitle-summary">SUMMARY OF KEY POINTS</div>
             <div className="privacy-body">
               <p>
@@ -141,8 +141,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="toc" className="privacy-subtitle">
               TABLE OF CONTENTS
             </div>
@@ -212,8 +212,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="infocollect" className="privacy-subtitle">
               1. WHAT INFORMATION DO WE COLLECT?
             </div>
@@ -314,8 +314,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="infouse" className="privacy-subtitle">
               2. HOW DO WE PROCESS YOUR INFORMATION?
             </div>
@@ -382,8 +382,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="legalbases" className="privacy-subtitle">
               3. WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR INFORMATION?
             </div>
@@ -528,8 +528,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="whoshare" className="privacy-subtitle">
               4. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?
             </div>
@@ -551,8 +551,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="cookies" className="privacy-subtitle">
               5. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
             </div>
@@ -571,8 +571,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="inforetain" className="privacy-subtitle">
               6. HOW LONG DO WE KEEP YOUR INFORMATION?
             </div>
@@ -600,8 +600,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="infosafe" className="privacy-subtitle">
               7. HOW DO WE KEEP YOUR INFORMATION SAFE?
             </div>
@@ -627,8 +627,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="infominors" className="privacy-subtitle">
               8. DO WE COLLECT INFORMATION FROM MINORS?
             </div>
@@ -651,8 +651,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="privacyrights" className="privacy-subtitle">
               9. WHAT ARE YOUR PRIVACY RIGHTS?
             </div>
@@ -761,8 +761,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="DNT" className="privacy-subtitle">
               10. CONTROLS FOR DO-NOT-TRACK FEATURES
             </div>
@@ -781,8 +781,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="caresidents" className="privacy-subtitle">
               11. DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?
             </div>
@@ -1080,8 +1080,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="policyupdates" className="privacy-subtitle">
               12. DO WE MAKE UPDATES TO THIS NOTICE?
             </div>
@@ -1103,8 +1103,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="contact" className="privacy-subtitle">
               13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
             </div>
@@ -1132,8 +1132,8 @@ const PrivacyPolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div id="request" className="privacy-subtitle">
               14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
             </div>
