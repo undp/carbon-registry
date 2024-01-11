@@ -1627,7 +1627,8 @@ const ProgrammeView = () => {
       userInfoState.companyState !== CompanyState.SUSPENDED.valueOf() &&
       data.certifier &&
       userInfoState?.companyRole === CompanyRole.CERTIFIER &&
-      !data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId)
+      !data.certifier.map((e) => e.companyId).includes(userInfoState?.companyId) && 
+      data.currentStage.toString() !== ProgrammeStageR.Rejected
     ) {
       actionBtns.push(
         <Button
