@@ -1,7 +1,5 @@
-import { useConnection } from '../../Context/ConnectionContext/connectionContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useUserContext } from '../../Context/UserInformationContext/userInformationContext';
 import { AddNewCompanyComponent, CarbonSystemType } from '@undp/carbon-library';
 
 const AddNewCompany = () => {
@@ -21,9 +19,8 @@ const AddNewCompany = () => {
       t={t}
       onNavigateToCompanyManagement={onNavigateToCompanyManagement}
       maximumImageSize={maximumImageSize}
-      useConnection={useConnection}
-      useUserContext={useUserContext}
       useLocation={useLocation}
+      regionField
       systemType={CarbonSystemType.REGISTRY}
     ></AddNewCompanyComponent>
   );
