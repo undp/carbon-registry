@@ -2023,6 +2023,18 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@storybook/addon-styling-webpack@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-styling-webpack/-/addon-styling-webpack-0.0.5.tgz#714c713cf8c57ed1f674ebc80bc16cb41b9bdf1b"
+  integrity sha512-8XdE3w+W7qxMeqnK/FDFipFN9XaVKUJFcHyM2ZBlhAAxVWMbTcifqw5lzqeK8jSAA/TUtpUp37gT2Bw/3k6slQ==
+  dependencies:
+    "@storybook/node-logger" "^7.0.12"
+
+"@storybook/node-logger@^7.0.12":
+  version "7.6.9"
+  resolved "https://registry.yarnpkg.com/@storybook/node-logger/-/node-logger-7.6.9.tgz#86f7d223909a5254df8732585216d38f67388da2"
+  integrity sha512-JoK5mJkjjpFfbiXbCdCiQceIUzIfeHpYCDd6+Jpx9+Sk4osR3BgdW2qYBviosato9c9D3dvKyrfhzbSp5rX+bQ==
+
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-2.2.3.tgz#ee34985952ca21558ab0d952f00298ad2190c053"
@@ -2775,19 +2787,23 @@
     "@types/node" "^18.11.9"
     convert-units "^2.3.4"
 
-"@undp/carbon-library@1.0.285-CARBON-401.0":
-  version "1.0.285-CARBON-401.0"
-  resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.285-CARBON-401.0.tgz#130d384b33c76e3dec7bcb49dd81051d6cb0ba5a"
-  integrity sha512-66I/gyxnvbYn+QKrYEPN5KXlZlUj4j5wGv7ShaTbeYgQkf4PGi4l88y1VucSSbW0uNvlPpY28yHe3uJ9lKJzTg==
+"@undp/carbon-library@1.0.293-CARBON-401.0":
+  version "1.0.293-CARBON-401.0"
+  resolved "https://registry.yarnpkg.com/@undp/carbon-library/-/carbon-library-1.0.293-CARBON-401.0.tgz#ad095026834bbf345f59e4edd6ef6abcb0e6aaaa"
+  integrity sha512-BvYYojIFDF1PYAPWHBtPIkjfGUUNFPpze8zdw3pHtB2UcTkk2jhjAOr+AROFEoKDF2uaM0Cdg02eZeMw8/AWFQ==
   dependencies:
     "@rollup/plugin-commonjs" "^25.0.0"
     "@rollup/plugin-json" "^6.0.1"
     "@rollup/plugin-node-resolve" "^15.0.2"
     "@rollup/plugin-typescript" "^11.1.1"
+    "@storybook/addon-styling-webpack" "^0.0.5"
     "@undp/carbon-credit-calculator" "^1.1.1"
+    jwt-decode "^3.1.2"
     node-sass "^7.0.3"
     postcss "^8.4.23"
     react-circle-flags "^0.0.19"
+    react-i18next "^12.0.0"
+    react-router-dom "^6.4.3"
     rollup "^3.22.0"
     rollup-plugin-copy "^3.5.0"
     rollup-plugin-dts "^5.3.0"
