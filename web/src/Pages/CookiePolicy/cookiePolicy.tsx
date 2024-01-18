@@ -23,7 +23,7 @@ const CookiePolicy = () => {
   return (
     <div className="cookie-container">
       <Row>
-        <Col md={24} lg={24}>
+        <Col span={24}>
           <div onClick={() => navigate('/')} className="cookie-header-container">
             <div className="logo">
               <img src={sliderLogo} alt="slider-logo" />
@@ -39,8 +39,8 @@ const CookiePolicy = () => {
         </Col>
       </Row>
       <div className="cookie-body-container">
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookietitle">SAMPLE COOKIE POLICY</div>
             <div className="cookie-sub">Last updated February 02, 2023</div>
             <div className="cookie-body">
@@ -59,8 +59,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div className="cookie-subtitle">What are cookies?</div>
             <div className="cookie-body">
               Cookies are small data files that are placed on your computer or mobile device when
@@ -77,8 +77,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div className="cookie-subtitle">Why do we use cookies?</div>
             <div className="cookie-body">
               We use first and third party cookies for several reasons. Some cookies are required
@@ -94,8 +94,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div className="cookie-subtitle">How can I control cookies?</div>
             <div className="cookie-body">
               You have the right to decide whether to accept or reject cookies. You can exercise
@@ -128,8 +128,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-card-subtitle">Essential website cookies:</div>
             <div className="cookie-card-subtitle-text">
               These cookies are strictly necessary to provide you with services available through
@@ -260,8 +260,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-card-subtitle">Analytics and customization cookies:</div>
             <div className="cookie-card-subtitle-text">
               These cookies collect information that is used either in aggregate form to help us
@@ -385,8 +385,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-card-subtitle">Advertising cookies:</div>
             <div className="cookie-card-subtitle-text">
               These cookies are used to make advertising messages more relevant to you. They perform
@@ -480,8 +480,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-card-subtitle">Unclassified cookies:</div>
             <div className="cookie-card-subtitle-text">
               These are cookies that have not yet been categorized. We are in the process of
@@ -523,8 +523,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-subtitle">
               What about other tracking technologies, like web beacons?
             </div>
@@ -543,8 +543,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col span={20}>
             <div className="cookie-subtitle">Do you use Flash cookies or Local Shared Objects?</div>
             <div className="cookie-body">
               Websites may also use so-called "Flash Cookies" (also known as Local Shared Objects or
@@ -578,8 +578,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-subtitle">Do you serve targeted advertising?</div>
             <div className="cookie-body">
               Third parties may serve cookies on your computer or mobile device to serve advertising
@@ -595,8 +595,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-subtitle">How often will you update this Cookie Policy?</div>
             <div className="cookie-body">
               We may update this Cookie Policy from time to time in order to reflect, for example,
@@ -607,8 +607,8 @@ const CookiePolicy = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={24} lg={24}>
+        <Row justify="center">
+          <Col span={20} md={24} lg={24}>
             <div className="cookie-subtitle">Where can I get further information?</div>
             <div className="cookie-body-contact">
               If you have any questions about our use of cookies or other technologies, please email
