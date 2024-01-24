@@ -45,6 +45,9 @@ services:
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
+      SYNC_ENDPOINT: 'http://192.168.123.20:9000'
+      SYNC_API_TOKEN: ''
+      SYNC_ENABLE: true
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
