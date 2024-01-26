@@ -13,7 +13,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { ApiTags, ApiBearerAuth } from "@nestjs/swagger";
-import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto, DataExportQueryDto } from "@undp/carbon-services-lib";
+import { UserService, CaslAbilityFactory, HelperService, JwtAuthGuard, ApiKeyJwtAuthGuard, PoliciesGuard, CheckPolicies, Action, User, UserDto, Role, PoliciesGuardEx, UserUpdateDto, PasswordUpdateDto, QueryDto, DataExportQueryDto, AppAbility } from "@undp/carbon-services-lib";
 
 @ApiTags("User")
 @ApiBearerAuth()
@@ -47,6 +47,28 @@ export class UserController {
       );
     }
     global.baseUrl = `${req.protocol}://${req.get("Host")}`;
+    return this.userService.validateAndCreateUser(
+      user,
+      req.user.companyId,
+      req.user.companyRole
+    );
+  }
+
+  @ApiBearerAuth('api_key')
+  @ApiBearerAuth()
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability, body) =>
+    ability.can(Action.Create, Object.assign(new User(), body))
+  )
+  @Post("sync")
+  syncUser(@Body() user: UserDto, @Request() req) {
+    if (user.role == Role.Root) {
+      throw new HttpException(
+        this.helperService.formatReqMessagesString("user.rootCreatesRoot", []),
+        HttpStatus.FORBIDDEN
+      );
+    }
+    global.baseUrl = `${req.protocol}://${req.get("Host")}`;
     return this.userService.create(
       user,
       req.user.companyId,
@@ -63,7 +85,7 @@ export class UserController {
       );
     }
     global.baseUrl = `${req.protocol}://${req.get("Host")}`;
-    return this.userService.create(
+    return this.userService.validateAndCreateUser(
       user,
       null,
       user.company.companyRole,
@@ -121,5 +143,14 @@ export class UserController {
   @Delete("delete")
   deleteUser(@Query("userId") userId: number, @Request() req) {
     return this.userService.delete(userId, req.abilityCondition);
+  }
+
+  @ApiBearerAuth('api_key')
+  @ApiBearerAuth()
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, User))
+  @Post('exists')
+  async checkUserExist(@Body() body: any) {
+    return this.userService.checkUserExists(body.email);
   }
 }

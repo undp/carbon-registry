@@ -11,7 +11,7 @@ import {
   Body,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CompanyService, CountryService, ApiKeyJwtAuthGuard, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto, Investment,InvestmentSyncDto, DataExportQueryDto } from "@undp/carbon-services-lib";
+import { CompanyService, CountryService, ApiKeyJwtAuthGuard, CaslAbilityFactory, HelperService, JwtAuthGuard, PoliciesGuardEx, Action, Company, QueryDto, OrganisationSuspendDto, FindOrganisationQueryDto, OrganisationUpdateDto, DataExportQueryDto, OrganisationDuplicateCheckDto, Investment,InvestmentSyncDto } from "@undp/carbon-services-lib";
 
 
 @ApiTags("Organisation")
@@ -183,6 +183,14 @@ export class CompanyController {
   @Post("regions")
   async getRegionList(@Body() query: QueryDto, @Request() req) {
     return await this.countryService.getRegionList(query);
+  }
+  
+  @ApiBearerAuth('api_key')
+  @ApiBearerAuth()
+  @UseGuards(ApiKeyJwtAuthGuard, PoliciesGuardEx(true, Action.Read, Company))
+  @Post('exists')
+  async checkCompanyExist(@Body() organisationDuplicateCheckDto: OrganisationDuplicateCheckDto) {
+    return this.companyService.findCompanyByTaxIdPaymentIdOrEmail(organisationDuplicateCheckDto);
   }
 
 }
