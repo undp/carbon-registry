@@ -82,6 +82,20 @@ body {
   }
 }
 
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after, 
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background-color: $primary-color !important;
+  width: 1.7px !important;
+}
+
+.company-details-form {
+  .ant-btn-primary {
+    background-color: $primary-color !important;
+    color: $dark-text-color;
+    border: none;
+  }
+}
+
 .ant-upload-list-item-error .ant-upload-list-item-card-actions .anticon {
   color: #40a9ff;
 }

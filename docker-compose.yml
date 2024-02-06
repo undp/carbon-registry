@@ -47,6 +47,9 @@ services:
       SYSTEM_TYPE: CARBON_REGISTRY_SYSTEM
       SYSTEM_NAME: Carbon Registry
       BACKEND_HOST: http://192.168.1.73:9000
+      SYNC_ENDPOINT: 'http://192.168.123.20:9000'
+      SYNC_API_TOKEN: ''
+      SYNC_ENABLE: true
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv

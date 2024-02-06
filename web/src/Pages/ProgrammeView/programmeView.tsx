@@ -207,7 +207,7 @@ const ProgrammeView = () => {
     }
     const files = docList;
 
-    if (Array.isArray(files)) {
+    if (files && Array.isArray(files)) {
       const design = files.filter((filePath) => filePath.includes('DESIGN')).sort();
       const methodolgy = files.filter((filePath) => filePath.includes('METHODOLOGY')).sort();
       const envimpact = files
@@ -1334,7 +1334,7 @@ const ProgrammeView = () => {
                 : action === 'Issue'
                 ? 'Successfully issued'
                 : action === 'Certify'
-                ? 'Successfully certified'
+                ? 'The programme has been certified successfully '
                 : action === 'Revoke'
                 ? t('view:successRevokeCertifcate')
                 : t('view:successRetire'),
