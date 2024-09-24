@@ -8,8 +8,15 @@
 <a name="about"></a>
 
 # National Carbon Credit Registry
+
+# About
 The Carbon Registry is an open-source, modular toolbox designed to help countries securely issue, monitor, and trade carbon credits. Built on a secure ledger, the registry ensures data integrity and allows for customization to meet each country’s specific needs. It facilitates the tracking of mitigation projects, including the issuance, transfer, acquisition, and retirement of emission reduction credits. This data is publicly accessible to boost transparency and trust in the global emissions reduction effort. The National Carbon Registry serves as a digital implementation of the Paris Agreement, enabling carbon credit transactions from various mitigation activities.
 Any country can customize and deploy its local version of the registry, connecting it to other national and international registries, MRV systems, and more. By leveraging open-source code, countries can lower costs, avoid duplication, and ensure interoperability with existing systems—all while streamlining the development of their domestic carbon markets.
+
+The system has 3 key features:
+* **Analytics Dashboard:** Enabling governments, companies, and certification bodies to operate transparently and function on an immutable ledger.
+* **Carbon Credit Calculator:** Standardized system according to the UNFCCC - CDM (Clean Development Mechanism) methodologies, across defined sectors (optional for countries to switch on)
+* **Serial Number Generator:** Standardizing the technical format to allow for easy cross-border collaboration between carbon trading systems.
 
 # Value
 This open-source tool was developed in response to the challenges countries face when cooperating through bilateral or multilateral agreements to transfer carbon credits or Internationally Transferred Mitigation Outcomes (ITMOs) under Article 6 of the Paris Agreement. Many countries experience challenges with managing data for GHG inventories, NDC reporting, and climate finance opportunities. Additionally, ensuring quality in technology projects is difficult without specialized expertise in software, privacy, and security. Many countries, especially Least Developed Countries (LDCs) and Small Island Developing States (SIDS), need digital systems but risk duplicating efforts and increasing costs without coordination. Software developed without standard international schemas often requires costly rewrites to ensure interoperability.
@@ -19,11 +26,6 @@ This open-source solution is a certified Digital Public Good that:
 * Simplifies local processes and accelerates carbon market development, making it easy to meet international standards.
 * Offers shared best practices in security, data management, integration, and support, while still allowing country-specific customizations.
 * Connects countries to a global community of practice focused on digitalizing climate transparency.
-
-The system has 3 key features:
-* **Analytics Dashboard:** Enabling governments, companies, and certification bodies to operate transparently and function on an immutable ledger.
-* **Carbon Credit Calculator:** Standardized system according to the UNFCCC - CDM (Clean Development Mechanism) methodologies, across defined sectors (optional for countries to switch on)
-* **Serial Number Generator:** Standardizing the technical format to allow for easy cross-border collaboration between carbon trading systems.
 
 ## Index
 * [About](#about)
