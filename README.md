@@ -58,7 +58,9 @@ https://digitalprinciples.org/
 
 <a name="userflow"></a>
 ## User Flow 
-Each country has different policies and processes for carbon market governance and trading and will have to customise its own user groups, approval processes and user flows. The demo version provides an example user flow that can act as a starting point for customisation: 
+Carbon registries across different countries typically follow a common set of steps to ensure transparency and accountability in carbon markets. First, projects aiming to reduce or remove carbon emissions are registered, their baseline emissions and expected credits calculated, with ownership is determined. These projects are then validated by third-party entities, and once verified, carbon credits are issued based on the quantified emissions reductions. Finally, these credits can be traded, tracked, and retired, with registries ensuring proper ownership transfer and preventing double counting.
+
+However, every country has different Carbon Market policies, processes and governing bodies. Countries will also have different existing data and systems that the Registry might connect to. Therefore, the exact user group user groups, approval processes and user flows will be different for each country and needs to be customised to each country. The demo version provides an example user flow that can act as a starting point for customisation: 
 ![Example Carbon Registry Workflows](https://raw.githubusercontent.com/undp/carbon-registry/bfec4de960ba9faf1df08689049f148fc05ae9bc/documention/Example%20Carbon%20Registry%20Workflows.png)
 
 <a name="demo"></a>
