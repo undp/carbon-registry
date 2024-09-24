@@ -8,21 +8,28 @@
 <a name="about"></a>
 
 # National Carbon Credit Registry
-The National Carbon Registry enables carbon credit trading in order to reduce greenhouse gas emissions.
+The Carbon Registry is an open-source, modular toolbox designed to help countries securely issue, monitor, and trade carbon credits. Built on a secure ledger, the registry ensures data integrity and allows for customization to meet each country’s specific needs. It facilitates the tracking of mitigation projects, including the issuance, transfer, acquisition, and retirement of emission reduction credits. This data is publicly accessible to boost transparency and trust in the global emissions reduction effort. The National Carbon Registry serves as a digital implementation of the Paris Agreement, enabling carbon credit transactions from various mitigation activities.
+Any country can customize and deploy its local version of the registry, connecting it to other national and international registries, MRV systems, and more. By leveraging open-source code, countries can lower costs, avoid duplication, and ensure interoperability with existing systems—all while streamlining the development of their domestic carbon markets.
 
-As an online database, the National Carbon Registry uses national and international standards for quantifying and verifying greenhouse gas emissions reductions by projects, tracking issued carbon credits and enabling credit transfers in an efficient and transparent manner. The Registry functions by receiving, processing, recording and storing data on mitigations projects, the issuance, holding, transfer, acquisition, cancellation, and retirement of emission reduction credits. This information is publicly accessible to increase public confidence in the emissions reduction agenda.
+# Value
+This open-source tool was developed in response to the challenges countries face when cooperating through bilateral or multilateral agreements to transfer carbon credits or Internationally Transferred Mitigation Outcomes (ITMOs) under Article 6 of the Paris Agreement. Many countries experience challenges with managing data for GHG inventories, NDC reporting, and climate finance opportunities. Additionally, ensuring quality in technology projects is difficult without specialized expertise in software, privacy, and security. Many countries, especially Least Developed Countries (LDCs) and Small Island Developing States (SIDS), need digital systems but risk duplicating efforts and increasing costs without coordination. Software developed without standard international schemas often requires costly rewrites to ensure interoperability.
 
-The National Carbon Registry enables carbon credit tracking transactions from mitigation activities, as the digital implementation of the Paris Agreement. Any country can customize and deploy a local version of the registry then connect it to other national & international registries, MRV systems, and more. 
+This open-source solution is a certified Digital Public Good that:
+* Lowers costs and risks while shortening the timeline for adoption and implementation.
+* Simplifies local processes and accelerates carbon market development, making it easy to meet international standards.
+* Offers shared best practices in security, data management, integration, and support, while still allowing country-specific customizations.
+* Connects countries to a global community of practice focused on digitalizing climate transparency.
 
 The system has 3 key features:
-* **Analytics Dashboard:** Enabling governments, companies, and certification bodies to operate transparently and function on an immutable blockchain.
-* **Carbon Credit Calculator:** Standardized system According to the UNFCCC - CDM (Clean Development Mechanism) methodologies, across defined sectors. 
+* **Analytics Dashboard:** Enabling governments, companies, and certification bodies to operate transparently and function on an immutable ledger.
+* **Carbon Credit Calculator:** Standardized system according to the UNFCCC - CDM (Clean Development Mechanism) methodologies, across defined sectors (optional for countries to switch on)
 * **Serial Number Generator:** Standardizing the technical format to allow for easy cross-border collaboration between carbon trading systems.
 
 ## Index
 * [About](#about)
 * [Standards](#standards)
 * [Changelog](#changelog)
+* [User flow](#userflow)
 * [Architecture](#architecture)
 * [Project Structure](#structure)
 * [Run as Containers](#container)
@@ -42,11 +49,14 @@ https://digitalpublicgoods.net/standard/
 It is built according to the Principles for Digital Development:
 https://digitalprinciples.org/ 
 
-
 <a name="changelog"></a>
 ## Changelog
 [Learn about the latest improvements.](./CHANGES.md)
 
+<a name="userflow"></a>
+## User Flow 
+Each country has different policies and processes for carbon market governance and trading and will have to customise its own user groups, approval processes and user flows. The demo version provides an example user flow that can act as a starting point for customisation: 
+![alt text](./documention/Example%20Carbon%20Registry%20Workflows.png)
 
 <a name="architecture"></a>
 ## System Architecture
@@ -85,7 +95,6 @@ Replicator select based on the `LEDGER_TYPE` environment variable. Support types
 System services can deploy in 2 ways.
 - **As a Container** - Each service boundary containerized in to a docker container and can deploy on any container orchestration service. [Please refer Docker Compose file](./docker-compose.yml)
 - **As a Function** - Each service boundary packaged as a function (Serverless) and host on any Function As A Service (FaaS) stack. [Please refer Serverless configuration file](./backend/services/serverless.yml)
-
 
 ### **External Service Providers**
 All the external services access through a generic interface. It will decouple the system implementation from the external services and enable extendability to multiple services.
@@ -134,7 +143,6 @@ This enables the capability to add any blockchain or ledger database support to 
 
 
 Single database approach used for user and company management. 
-
 
 ### **Ledger Layout**
 Carbon Registry contains 3 ledger tables.
@@ -237,18 +245,11 @@ The below diagram demonstrates the the ledger behavior of project create, author
         response.json
     ```
 
-    
-### Carbon Credit Calculator
-Carbon credit calculation implemented in a separate node module. [Please refer this](./libs/carbon-credit-calculator/README.md) for more information.
-
-
-### Serial Number Generation
-Serial Number generation implemented in a separate node module. [Please refer this](./libs/serial-number-gen/README.md) for more information.
-
 <a name="external"></a>
 ## External Connectivity
 
-### ITMO Platform
+### UNDP'S ITMO Platform
+The Carbon Registry is designed to be linked to the ITMO Voluntary Bilateral Cooperation Platform, https://carboncooperation.undp.org/, managed by UNDP. This enables countries to automatically sync projects created/authorised and credits issued within its national registry to the international trading platform. The system does this by: 
 1. Carbon Registry make a daily to the retrieve ITMO platform projects.
 2. Projects create in the Carbon Registry when projects are authorized in the ITMO Platform 
 3. The Carbon Registry update when the projects are Issued with credits in the ITMO Platform 
@@ -273,7 +274,6 @@ Serial Number generation implemented in a separate node module. [Please refer th
     - Credit issuance in the ITMO Platform which should be reflected in the Carbon Registry. 
 - In the case of 2 above, 
     - Credit issuance identified by the event name: "Upload Final Monitoring Report" in the ITMO Platform. 
-
 
 #### <b>Field Mapping</b>
 
@@ -377,7 +377,6 @@ System pre-defined user roles are as follows,
 3. The Government Admin is responsible for creating the other companies and Admins of each company. 
 4. Admin of the company has the authority to add the remaining users (Admin, Managers, View Only Users) to the company. 
 5. When a user is added to the system, a confirmation email should be sent to users including the login password. 
-
 
 ### User Management 
 
