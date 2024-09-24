@@ -56,7 +56,7 @@ https://digitalprinciples.org/
 <a name="userflow"></a>
 ## User Flow 
 Each country has different policies and processes for carbon market governance and trading and will have to customise its own user groups, approval processes and user flows. The demo version provides an example user flow that can act as a starting point for customisation: 
-![alt text](./documention/Example%20Carbon%20Registry%20Workflows.png)
+![Example Carbon Registry Workflows](https://raw.githubusercontent.com/undp/carbon-registry/bfec4de960ba9faf1df08689049f148fc05ae9bc/documention/Example%20Carbon%20Registry%20Workflows.png)
 
 <a name="architecture"></a>
 ## System Architecture
