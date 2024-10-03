@@ -115,10 +115,10 @@ export const ProgrammeCreationComponent = (props: any) => {
   const [projectLocationMapOutlineLayer, setProjectLocationMapOutlineLayer] = useState<any>();
   const [projectLocationMapCenter, setProjectLocationMapCenter] = useState<number[]>([]);
 
-  const mapType = process.env.REACT_APP_MAP_TYPE ? process.env.REACT_APP_MAP_TYPE : 'None';
+  const mapType = process.env.REACT_APP_MAP_TYPE ? process.env.REACT_APP_MAP_TYPE : 'Mapbox';
   const accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
     ? process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN
-    : '';
+    : 'pk.eyJ1IjoicGFsaW5kYSIsImEiOiJjbGMyNTdqcWEwZHBoM3FxdHhlYTN4ZmF6In0.KBvFaMTjzzvoRCr1Z1dN_g';
   // const initialOrganisationOwnershipValues: any[] = [
   //   {
   //     organisation:
