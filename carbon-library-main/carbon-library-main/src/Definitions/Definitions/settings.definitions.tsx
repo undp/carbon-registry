@@ -1,0 +1,4 @@
+export enum ConfigurationSettingsType {
+    isTransferFrozen,
+  }
+  

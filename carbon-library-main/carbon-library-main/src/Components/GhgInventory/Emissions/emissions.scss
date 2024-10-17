@@ -1,0 +1,361 @@
+@import "../../../Styles/colors.addCompany.scss";
+@import "../../../Styles/colors.role.scss";
+@import "../../../Styles/variables.scss";
+
+.emission-tab-container {
+    .ant-tabs-tab-btn {
+        padding: 5px 30px;
+        text-align: center;
+        font-weight: 600;
+        color: rgba(58, 53, 65, 0.5);
+    }
+    .anticon-lock {
+        margin-right: 0 !important;
+    }
+}
+
+.empty-emission-container {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+
+.emission-tab-container .add-emission {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    margin: 1rem 0 1rem 0;
+    border-radius: 10px;
+    padding: 0 1.5rem 2.5rem 1.5rem;
+
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: $primary-color;
+    }
+
+    .ant-tabs-ink-bar {
+        position: absolute;
+        background: $primary-color !important;
+        pointer-events: none;
+     }
+
+    .add-new-year-picker-col {
+        padding-left: 5%;
+    }
+
+    .ant-picker {
+        border-radius: 4px !important;
+        height: 40px !important;
+        width: 80%;
+    }
+
+    .ant-input-suffix {
+        display: flex;
+        flex: none;
+        align-items: center;
+        height: 40px;
+    
+        button {
+            border: none;
+            color: #8C8C8C;
+        }
+    }
+    
+    .ant-input-affix-wrapper {
+        padding: 0 11px;
+        border-radius: 5px;
+    }
+
+    .add-new-upload-file-label {
+        color: rgba(58, 53, 65, 0.5);
+        padding: 0 0 8px;
+        line-height: 1.5715;
+        white-space: initial;
+        text-align: left;
+    }
+
+    .add-new-upload-file-name-input {
+        input {
+            height: 40px;
+            color: $primary-color;
+            border-radius: 4px !important;
+        }
+    }
+
+    .add-new-upload-file-inner-col {
+        button {
+            height: 40px;
+            font-size: 12px;
+            width: 120px;
+            color: #8C8C8C;
+            border-radius: 4px !important;
+        }
+    }
+
+    .view-download-file-name-input {
+        input {
+            height: 40px;
+            color: #8C8C8C;
+            border-radius: 4px !important;
+        }
+    }
+
+    .view-download-file-inner-col {
+        button {
+            height: 40px;
+            font-size: 12px;
+            font-weight: 400;
+            width: 135px;
+            margin-left: 5px;
+            color: #8C8C8C;
+            border-radius: 4px !important;
+        }
+    }
+
+    .table-heading-row {
+        padding-top: 20px;
+        padding-bottom: 25px;
+        margin-left: 10px !important;
+
+        .table-heading-col {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #28282899;
+        }
+    }
+
+    .total-emission-row {
+        padding: 12px 16px;
+        margin-left: 30px !important;
+
+        span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3A3541CC;
+        }
+        .total-emission-value-col {
+            border-bottom: 1px solid rgba(#D9D9D999, 0.6);
+            padding-bottom: 10px;
+        }
+    }
+
+    .panel-header-col {
+        font-size: 16px;
+        font-weight: 600;
+        color: #3A3541CC;
+    }
+    .panel-header-emission-value-col {
+        border-bottom: 1px solid rgba(#D9D9D999, 0.6);
+        padding-bottom: 10px;
+    }
+
+    .sub-panel {
+        .panel-header-emission-value-col {
+            border-bottom: none !important;
+            padding-bottom: 10px;
+        }
+    }
+
+    .sub-panel-heading {
+        border-bottom: 1px solid rgba(#D9D9D999, 0.6);
+        padding-bottom: 10px;
+        margin-top: 35px;
+
+        .panel-header-col {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3A3541CC;
+        }
+    }
+
+    .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+        padding-top: 0px;
+        padding-bottom: 12px;
+        margin-left: 32px;
+    }
+
+    .ant-collapse-expand-icon {
+        margin-top: 3px;
+        svg {
+            font-size: 16px;
+            color: $primary-color;
+        }
+        
+    }
+    
+    .ant-collapse {
+        margin-left: 10px;
+    }
+
+    .co2-total-pill {
+        border-radius: 20px;
+        background-color: rgba(#9155FD66, 0.4);
+        padding: 5px 15px;
+        height: 30px;
+        color: #5B5B5B;
+        font-size: 12px;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ch4-total-pill {
+        border-radius: 20px;
+        background-color: rgba(#D9D9D999, 0.6);
+        padding: 5px 15px;
+        height: 30px;
+        color: #5B5B5B;
+        font-size: 12px;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .n2o-total-pill {
+        border-radius: 20px;
+        background-color: rgba(#B9E2F466, 0.4);
+        padding: 5px 15px;
+        height: 30px;
+        color: #5B5B5B;
+        font-size: 12px;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .co2eq-total-pill {
+        border-radius: 20px;
+        background-color: rgba(#FFA6A699, 0.6);
+        padding: 5px 15px;
+        height: 30px;
+        color: #5B5B5B;
+        font-size: 12px;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .panel-content-row {
+        border-bottom: 1px solid rgba(217, 217, 217, 0.6);
+        padding-bottom: 10px;
+        height: 68px;
+        align-items: center;
+
+        .panel-content-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #3A3541CC;
+        }
+
+        
+    }
+    .panel-content-input-box-row {
+        margin-top: 14px;
+
+        .ant-input-number {
+            height: 40px;
+            margin-left: 17%;
+        }
+    }
+    .total-co2-land-input-box-row {
+        .ant-input-number {
+            margin-left: 14% !important;
+        }
+    }
+
+    .total-co2-without-land-row {
+        margin-left: 40px !important;
+        align-items: center;
+        margin-top: 10px;
+
+        .total-co2-without-land-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #3A3541CC;
+        }
+        .panel-content-input-box-row {
+            border-bottom: 1px solid rgba(217, 217, 217, 0.6);
+        }
+
+    }
+
+    .ant-input-number-input {
+        text-align: center;
+        height: 40px;
+    }
+
+    .view-data-panel {
+        .panel-content-input-box-row {
+            padding-bottom: 24px;
+        }
+    }
+
+    .total-co2-with-land-row {
+        margin-left: 40px !important;
+        align-items: center;
+
+        .total-co2-with-land-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #3A3541CC;
+        }
+        .panel-content-input-box-row {
+            border-bottom: 1px solid rgba(217, 217, 217, 0.6);
+        }
+
+    }
+
+    .steps-actions {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 1rem;
+        margin-top: 3rem;
+  
+        .action-btn {
+          border: 1px solid $primary-color;
+          color: $primary-color;
+          margin-right: 1rem;
+        }
+        .back-btn {
+          border: 1px solid $border-default-btn;
+          color: $border-default-btn;
+          margin-right: 1rem;
+        }
+        .submit-btn {
+            margin-right: 1rem;
+          }
+        .mg-left-1 {
+          margin-left: 1rem;
+        }
+      }
+
+      @media only screen and (max-width: 1600px) {
+        .panel-content-input-box-row {
+            .ant-input-number {
+                margin-left: 2%;
+            }
+        }
+        .total-co2-land-input-box-row {
+            .ant-input-number {
+                margin-left: 0% !important;
+            }
+        }
+      }
+    
+}

@@ -1,0 +1,1187 @@
+<style>
+    .s-area{
+        margin-bottom: 20px;
+    }
+    .sp-link.active{
+        border-color: #50cd89 !important;
+        border-top: 1px #50cd89 !important;
+        background: #50cd89!important;
+        color: white!important;
+        padding: 1Opx!important;
+        width: 200px;
+    }
+    .sp-link{
+        font-size: 24px!important;
+    }
+    .sp-link:hover{
+        border-color: #50cd89 !important;
+    }
+</style>
+<div class="container mt-10">
+    <div class="row">
+        
+        <div class="col-lg-12 card">
+            <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
+                <li class="nav-item text-center">
+                    <a class="nav-link sp-link active" data-bs-toggle="tab" href="#kt_tab_pane_4">Apercu </a>
+                </li>
+                <li class="nav-item text-center">
+                    <a class="nav-link sp-link" data-bs-toggle="tab" href="#kt_tab_pane_5">Avantages</a>
+                </li>
+                <!--
+                <li class="nav-item text-center">
+                    <a class="nav-link sp-link" data-bs-toggle="tab" href="#kt_tab_pane_6">Documents</a>
+                </li> -->
+                <li class="nav-item text-center">
+                    <a class="nav-link sp-link" data-bs-toggle="tab" href="#kt_tab_pane_7">Organisation(s)</a>
+                </li>
+            </ul>
+            
+           
+        </div>
+        <div class="col-lg-12">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="kt_tab_pane_4" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <!-- <div class="col-lg-8">
+                                    <span style="font-weight: 800; font-size: 20px;">Description du projet</span>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, tempore est laboriosam quis vitae, quo, dolore nulla tenetur ipsam quasi excepturi! Ab nam voluptatem sapiente corporis est, modi ut molestiae?</p>
+                                </div> -->
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-3 mt-2 mb-2 border p-4">
+                                            <div class="row">
+                                                <div class="col-4 text-center" >
+                                                    <svg viewBox="0 0 48 48" style="height: 50px;" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>power-solid</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"></rect> </g> <g id="icons_Q2" data-name="icons Q2"> <g> <path d="M39.7,8.6a2,2,0,1,0-2.8,2.8,18,18,0,1,1-25.8,0A2,2,0,0,0,8.3,8.6,21.6,21.6,0,0,0,2,24a22,22,0,0,0,44,0A21.6,21.6,0,0,0,39.7,8.6Z"></path> <path d="M24,29a2,2,0,0,0,2-2V4a2,2,0,0,0-4,0V27A2,2,0,0,0,24,29Z"></path> </g> </g> </g> </g></svg>
+                                                </div>
+                                                <div class="col-8">
+                                                    <span style="font-weight: 500; font-size: 15px;">Status</span>
+                                                    <p style="font-weight: 800; font-size: 15px;"><%=data.data[0].currentStage%></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mt-2 mb-2 border p-4">
+                                            <div class="row">
+                                                <div class="col-4 text-center" >
+                                                    <svg viewBox="0 0 24 24" style="height: 50px;" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.5 13.5H7.5M10.5 13.5V16.5M10.5 13.5L7 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 10.5H16.5M13.5 10.5V7.5M13.5 10.5L17 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5 10.5H7.5M10.5 10.5V7.5M10.5 10.5L7 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.5 13.5H16.5M13.5 13.5V16.5M13.5 13.5L17 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> </g></svg>
+                                                   
+                                                </div>
+                                                <div class="col-8">
+                                                    <span style="font-weight: 500; font-size: 15px;"> Type Carbone</span>
+                                                    <p style="font-weight: 800; font-size: 15px;"><%data.data[0].programmeProperties.greenHouseGasses.forEach(elt=>{%><%=elt+' '%><%})%></p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mt-2 mb-2 border p-4">
+                                            <div class="row">
+                                                <div class="col-4 text-center" >
+                                                    <svg viewBox="0 -6 1036 1036" style="height: 50px;" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M719.426083 455.245822h234.197458v73.724278H719.426083zM960.258726 580.454221v68.686453h-87.609017v-99.527776h-73.724279v100.387893a203.479008 203.479008 0 0 0-187.505414 202.618891h92.523969a110.586418 110.586418 0 0 1 110.586418-110.586417h145.482576v82.694065h73.724278V580.454221h-73.724278zM610.682773 973.527499a48.043655 48.043655 0 1 0 95.964435 0c0-26.54074-48.043655-104.934223-48.043654-104.934223s-47.920781 78.516356-47.920781 104.934223zM130.000478 762.92181h79.867968v45.094684h-79.867968zM130.000478 688.82891h79.867968v45.094684h-79.867968zM130.000478 837.137584h79.867968v45.094683h-79.867968zM902.016546 252.504056L679.123478 10.442675A35.633401 35.633401 0 0 0 650.985378 0.121276h-15.359224L138.724517 275.112835 45.340431 381.030048a28.629595 28.629595 0 0 0 0 40.548353 32.561556 32.561556 0 0 0 12.28738 7.74105V528.478605a81.711075 81.711075 0 1 0 112.429525 75.813133h-61.436899a20.274177 20.274177 0 1 1-20.274177-20.39705h30.71845V434.725898l98.299037 9.092661h140.936246v29.735459a53.204354 53.204354 0 0 0 50.501131 50.50113h57.873558v376.362441h-127.788749V491.616466h-147.448557v73.724278h73.724279v362.477702H73.724278V745.10511H0V1001.542725h578.735585a84.291425 84.291425 0 0 1-4.792078-27.892352c0-18.676817 11.304389-46.692043 24.57476-73.724279h-56.521947v-65.614607h33.298799a237.023555 237.023555 0 0 1 18.553943-75.567386h-51.852742V688.214541h71.266802v35.019033a243.412993 243.412993 0 0 1 69.177948-70.160939V417.892187h226.947904a33.544547 33.544547 0 0 0 2.58035-12.287379V280.273534a35.387654 35.387654 0 0 0-9.952778-27.769478zM190.085764 376.975213h-58.856548l58.856548-58.856549v58.856549z m129.631857 0h-71.143929v-58.856549h71.143929v58.856549z m-8.232545-128.034497L556.372554 116.851384l-78.270609 132.089332H311.485076z m77.533366 124.962652v-55.784704h64.508744z m224.24468 244.887478h-71.266802v-88.34626h71.266802v88.34626z m0-167.722733H446.400506v-40.056858l80.850958-73.724279h86.011658v113.412515z m0-202.250271h-49.149518l49.149518-78.516356v78.516356z m114.764127 128.034497h-39.196741v-58.856549h39.196741v58.856549z m-45.586179-128.034497V126.681288l112.675273 122.136554h-112.675273z m160.350306 128.034497h-45.217558v-58.856549h45.586179v58.856549z"></path></g></svg>
+                                                    
+                                                </div>
+                                                <div class="col-8">
+                                                    <span style="font-weight: 500; font-size: 15px;">Secteur</span>
+                                                    <p style="font-weight: 800; font-size: 15px;"><%=data.data[0].sector%></p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mt-2 mb-2  border p-4">
+                                            <div class="row">
+                                                <div class="col-4 text-center" >
+                                                    <svg viewBox="0 0 16 16" style="height: 50px;" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1.98 1.98V13H3V3h8v1H4.004v11H14V4h-2V3h.012V1.98h-8.53zM5.006 5H13v9H5.006zM6 6v1h6.02V6zm0 2v1h6.02V8zm-.008 2v1H9v-1z" fill="gray" overflow="visible" style="marker:none" color="#000000"></path> </g></svg>
+                                                </div>
+                                                <div class="col-8">
+                                                    <span style="font-weight: 500; font-size: 15px;">Projet de l'article 6</span>
+                                                    <p style="font-weight: 800; font-size: 15px;"><%if(data.data[0].article6trade){%>OUI<%}else{%>NON<%}%></p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="card shadow-sm mt-5 mb-5">
+                                <div class="card-body">
+                                    <div class="row">
+                                       <div class="col-lg-12 mt-2 mb-2">
+                                        <span style="font-weight: 800; font-size: 15px;">Crédits estimés</span>
+                                       </div>
+                                       <div class="col-lg-12 mt-2 mb-2">
+                                            <div class="row">
+                                                <div class="col-lg-3 ">
+                                                    <div class="border border-gray-300  border-dashed rounded text-center py-3 px-4 me-6 mb-3">
+                                                        <!--begin::Number-->
+                                                        <div class="d-flex align-items-center text-center">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                                            <div class="row  " style="width: 100%;">
+                                                                <div class="col-2">
+                                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.a,.b{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px;}.a{fill-rule:evenodd;}</style></defs><path class="a" d="M2,2V20a2,2,0,0,0,2,2H22"></path><rect class="b" height="6" rx="1.5" width="3" x="6" y="12"></rect><rect class="b" height="6" rx="1.5" width="3" x="12" y="7"></rect><rect class="b" height="6" rx="1.5" width="3" x="18" y="3"></rect></g></svg>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-10">
+                                                                    <div class="fs-6 fw-bold counted" ><%=data.data[0].emissionReductionAchieved%> C02t </div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <!--end::Svg Icon-->
+                                                            
+                                                        </div>
+                                                        <!--end::Number-->
+                                                        <!--begin::Label-->
+                                                        <div class="fw-semibold fs-6 text-gray-400">réduction  obtenue</div>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 ">
+                                                    <div class="border border-gray-300  border-dashed rounded text-center py-3 px-4 me-6 mb-3">
+                                                        <!--begin::Number-->
+                                                        <div class="d-flex align-items-center text-center">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                                            <div class="row  " style="width: 100%;">
+                                                                <div class="col-2">
+                                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.a{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px;fill-rule:evenodd;}</style></defs><path class="a" d="M12,2A10,10,0,1,0,22,12H12Z"></path><path class="a" d="M15,9h6.54077A10.02174,10.02174,0,0,0,15,2.45923Z"></path></g></svg>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-10">
+                                                                    <div class="fs-6 fw-bold counted" ><%=data.data[0].creditEst%> C02t </div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <!--end::Svg Icon-->
+                                                            
+                                                        </div>
+                                                        <!--end::Number-->
+                                                        <!--begin::Label-->
+                                                        <div class="fw-semibold fs-6 text-gray-400">Crédit estimé</div>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                </div>
+                                                <%
+                                                let startTimeStamp = data.data[0].startTime * 1000; // Convertir en millisecondes
+                                                let endTimeStamp = data.data[0].endTime * 1000; // Convertir en millisecondes
+                                                
+                                                // Créer des objets Date à partir des timestamps
+                                                let startDate = new Date(startTimeStamp);
+                                                let endDate = new Date(endTimeStamp);
+                                                
+                                                // Extraire la date de début et de fin
+                                                let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                                                let startDateString = startDate.toLocaleDateString('fr-FR', options);;
+                                                let endDateString = endDate.toDateString();
+                                                
+                                                // Calculer le nombre d'années entre les deux dates
+                                                let diffInMs = Math.abs(endDate - startDate);
+                                                let yearsDiff = diffInMs / (1000 * 60 * 60 * 24 * 365);%>
+                                                <div class="col-lg-3 ">
+                                                    <div class="border border-gray-300  border-dashed rounded text-center py-3 px-4 me-6 mb-3">
+                                                        <!--begin::Number-->
+                                                        <div class="d-flex align-items-center text-center">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                                            <div class="row  " style="width: 100%;">
+                                                                <div class="col-2">
+                                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#000000" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#000000"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#000000"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#000000"></rect> </g></svg>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-10">
+                                                                    <div class="fs-7 fw-bold counted" ><%=startDateString%></div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <!--end::Svg Icon-->
+                                                            
+                                                        </div>
+                                                        <!--end::Number-->
+                                                        <!--begin::Label-->
+                                                        <div class="fw-semibold fs-6 text-gray-400">Date de début du crédit</div>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 ">
+                                                    <div class="border border-gray-300  border-dashed rounded text-center py-3 px-4 me-6 mb-3">
+                                                        <!--begin::Number-->
+                                                        <div class="d-flex align-items-center text-center">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                                            <div class="row  " style="width: 100%;">
+                                                                <div class="col-2">
+                                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                                        <svg fill="#000000" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M23.707,16.325a1,1,0,0,0-1.414,0l-5.627,5.628L13.978,19.3A1,1,0,0,0,12.543,20.7L15.287,23.4a1.876,1.876,0,0,0,1.345.6h.033A1.873,1.873,0,0,0,18,23.447l5.707-5.708a1,1,0,0,0,0-1.414Z M11.09,21.959A10,10,0,1,1,22,12c0,.307-.015.611-.041.911A1,1,0,0,0,22.866,14a.989.989,0,0,0,1.085-.907C23.983,12.73,24,12.367,24,12A12,12,0,1,0,10.91,23.951c.031,0,.061,0,.091,0a1,1,0,0,0,.089-2Z M11,7v4.586L8.293,14.293a1,1,0,1,0,1.414,1.414l3-3A1,1,0,0,0,13,12V7a1,1,0,0,0-2,0Z"></path></g></svg>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-10">
+                                                                    <div class="fs-6 fw-bold counted" >
+                                                                        <%
+                                                                        let nyear = Math.trunc(yearsDiff)
+        
+                                                                        if(nyear< yearsDiff ){
+                                                                            nyear=nyear+1
+                                                                        }
+                                                                        %>
+                                                                        
+                                                                        
+                                                                        Environ <%=nyear%>  ans</div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <!--end::Svg Icon-->
+                                                            
+                                                        </div>
+                                                        <!--end::Number-->
+                                                        <!--begin::Label-->
+                                                        <div class="fw-semibold fs-6 text-gray-400">Période de crédit</div>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       </div>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card shadow-sm mt-5 mb-5">
+                                <div class="card-body">
+                                    
+                                   
+                                    <div class="row mt-4 mb-1">
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 500; font-size: 16px;">Identifiant du projet</span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 800; font-size: 20px;"><%= data.data[0].programmeId%></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4 mb-1">
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 500; font-size: 16px;">Numéro de série</span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 800; font-size: 20px;"><%= data.data[0].serialNo%></span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row mt-2 mb-2">
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 500; font-size: 16px;">Organisation(s)</span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <ul class="">
+                                                <%data_orga.forEach(elt=>{%>
+                                                <li class="list-group-item"> <a href="/org/<%=elt.companyId%>" target="_blank"><span style="font-weight: 800; font-size: 20px;"><%=elt.name%></span></a></li>
+                                                <%})%>
+                                                
+                                             
+                                              </ul>
+                                           
+                                            
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mt-5 mb-5">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 800; font-size: 20px;">Objectifs de développement durable</span>
+                                        </div>
+                                        <div class="col-lg-12 ">
+                                            <%data_ndc.forEach(elt=>{
+                                                switch (elt) {
+                                                    case 'No Poverty' : %>
+
+                                                    <img src="/ext/odd/odd1.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+
+                                                    case 'Zero Hunger' : %>
+
+                                                    <img src="/ext/odd/odd2.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Good Health and Well-being' : %>
+
+                                                    <img src="/ext/odd/odd3.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Quality Eductation' : %>
+
+                                                    <img src="/ext/odd/odd4.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Gender Equality' : %>
+
+                                                    <img src="/ext/odd/odd5.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Clean Water and Sanitation' : %>
+
+                                                    <img src="/ext/odd/odd6.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Affortable and Clean Energy' : %>
+
+                                                    <img src="/ext/odd/odd7.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Decent Work and Economic Growth' : %>
+
+                                                    <img src="/ext/odd/odd8.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Industry, Innovation and Infrastructure' : %>
+
+                                                    <img src="/ext/odd/odd9.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Reduced Inegalities' : %>
+
+                                                    <img src="/ext/odd/odd10.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Sustainable Cities and Communities' : %>
+
+                                                    <img src="/ext/odd/odd11.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Responsible Comsumption and Production' : %>
+
+                                                    <img src="/ext/odd/odd12.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Climate Action' : %>
+
+                                                    <img src="/ext/odd/odd13.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+
+                                                    case 'Life Below Water' : %>
+
+                                                    <img src="/ext/odd/odd14.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Life On Land' : %>
+
+                                                    <img src="/ext/odd/odd15.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                    
+                                                    <% break;
+                                                    case 'Peace, Justice and Strong Institutions' : %>
+
+                                                    <img src="/ext/odd/odd16.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                    case 'Partnerships For The Goals' : %>
+
+                                                    <img src="/ext/odd/odd17.png" class="m-1" alt="" style="height: 100px;">
+                                                   
+                                                   
+                                                    <% break;
+                                                }
+                                        })%>
+                                            <!-- <img src="/ext/odd/odd2.png" class="m-1" alt="" style="height: 100px;">
+                                            <img src="/ext/odd/odd3.png" class="m-1" alt="" style="height: 100px;">
+                                            <img src="/ext/odd/odd4.png" class="m-1" alt="" style="height: 100px;"> -->
+                                           
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mt-5 mb-5">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <span style="font-weight: 800; font-size: 20px;">Zone d'action du projet</span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <%
+                                            data.data[0].programmeProperties.geographicalLocation.forEach(elt=>{%>
+                                                
+                                                <span style="font-weight: 500; font-size: 18px;"><%= elt%></span> <br>
+                                                <%
+
+                                            })
+                                            %>
+                                            
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="card shadow-sm mt-5 mb-5">
+                                <div class="card-body">
+                                    <div class="row">
+                                        Dernières actions
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-rounded table-striped border gy-7 gs-7">
+                                                <thead>
+                                                    <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                                        <th style="width: 200px;">ID</th>
+                                                        <th style="width: 300px;">Methodologie</th>
+                                                        <th  style="width: 200px;">Crédit émis</th>
+                                                        <th style="width: 200px;">Crédit disponible</th>
+                                                        <th style="width: 200px;">Crédit estimé</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <%
+                                                    if(data.data[0].mitigationActions!=undefined){
+                                                        if(data.data[0].mitigationActions.length>0){
+                                                    data.data[0].mitigationActions.forEach(elt=>{%>
+                                                    <tr>
+                                                        <td style="width: 200px;"><%=elt.actionId%></td>
+                                                        <td style="width: 300px;"><%=elt.methodology%></td>
+                                                        <td style="width: 200px;"><%=elt.properties.issuedCredits%></td>
+                                                        <td style="width: 200px;"><%=elt.properties.availableCredits%></td>
+                                                        <td style="width: 200px;"><%=elt.userEstimatedCredits%></td>
+                                                     
+                                                        
+                                                    </tr>
+                                                    <%})
+                                                }}
+                                                    %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                   
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
+                  <!-- <div class="card shadow-sm mt-5 mb-5">
+                        <div class="card-body pt-5 pb-5">
+                            <span style="font-weight: 800; font-size: 36px;">Additionnalité dans ce projet</span>
+                            <p>L’additionnalité représente un avantage environnemental net et une véritable atténuation des émissions de GES au-delà du scénario de référence.</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-lg-12 mt-2 p-5 s-zone" >
+                                <div class="p-zone ">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <span >
+                                       
+                                                <span class="p-check" >
+                                                    <svg  xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24">
+                                                        <path d="M10.0813 3.7242C10.8849 2.16438 13.1151 2.16438 13.9187 3.7242V3.7242C14.4016 4.66147 15.4909 5.1127 16.4951 4.79139V4.79139C18.1663 4.25668 19.7433 5.83365 19.2086 7.50485V7.50485C18.8873 8.50905 19.3385 9.59842 20.2758 10.0813V10.0813C21.8356 10.8849 21.8356 13.1151 20.2758 13.9187V13.9187C19.3385 14.4016 18.8873 15.491 19.2086 16.4951V16.4951C19.7433 18.1663 18.1663 19.7433 16.4951 19.2086V19.2086C15.491 18.8873 14.4016 19.3385 13.9187 20.2758V20.2758C13.1151 21.8356 10.8849 21.8356 10.0813 20.2758V20.2758C9.59842 19.3385 8.50905 18.8873 7.50485 19.2086V19.2086C5.83365 19.7433 4.25668 18.1663 4.79139 16.4951V16.4951C5.1127 15.491 4.66147 14.4016 3.7242 13.9187V13.9187C2.16438 13.1151 2.16438 10.8849 3.7242 10.0813V10.0813C4.66147 9.59842 5.1127 8.50905 4.79139 7.50485V7.50485C4.25668 5.83365 5.83365 4.25668 7.50485 4.79139V4.79139C8.50905 5.1127 9.59842 4.66147 10.0813 3.7242V3.7242Z" fill="currentColor"></path>
+                                                        <path d="M14.8563 9.1903C15.0606 8.94984 15.3771 8.9385 15.6175 9.14289C15.858 9.34728 15.8229 9.66433 15.6185 9.9048L11.863 14.6558C11.6554 14.9001 11.2876 14.9258 11.048 14.7128L8.47656 12.4271C8.24068 12.2174 8.21944 11.8563 8.42911 11.6204C8.63877 11.3845 8.99996 11.3633 9.23583 11.5729L11.3706 13.4705L14.8563 9.1903Z" fill="white"></path>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-11">
+                                            <h1>Additionnalité de niveau 1</h1>
+                                            <span >
+                                                Additionnalité des émissions de GES selon la norme ISO 14064-2. Les mesures d’atténuation des émissions de GES s’ajoutent au scénario de référence.
+                                            </span>
+                                        </div>
+                                    </div>
+                                   
+                                   
+                                </div>
+                               
+                               
+                            </div>
+                        </div>
+                  </div> -->
+                  <div class="card shadow-sm mt-5 mb-5">
+                    <div class="card-body pt-5 pb-5">
+                        <span style="font-weight: 800; font-size: 36px;">Objectifs de développement durable</span>
+                        <p>Adopté par tous les États membres des Nations Unies en 2015, constitue un projet commun de paix et de prospérité pour les peuples et la planète, aujourd’hui et demain.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-lg-12 mt-2 p-5 " >
+                            <%data_ndc.forEach(elt=>{
+                                switch (elt) {
+                                    case 'No Poverty' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd1.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Pas de pauvreté</h1>
+                                                <h4>Eradiquer l’extrême pauvreté pour tous, partout dans le monde, actuellement mesurée par le nombre de personnes vivant avec moins de 1,25 dollar par jour.</h4>
+                                                
+                                                <a href="https://sdgs.un.org/goals/goal1">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+
+                                    case 'Zero Hunger' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd2.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Pas de faim</h1>
+                                                <h4>Éliminer la faim, parvenir à la sécurité alimentaire, améliorer la nutrition et promouvoir une agriculture durable.</h4>
+                                                
+                                                <a href="https://sdgs.un.org/goals/goal2">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Good Health and Well-being' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd3.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Bonne santé et bien-être</h1>
+                                                <h4>Garantir une vie saine et promouvoir le bien-être de tous à tout âge</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal3">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Quality Eductation' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd4.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Education de qualité</h1>
+                                                <h4>Assurer une éducation de qualité inclusive et équitable et promouvoir les opportunités d’apprentissage tout au long de la vie pour tous</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal4">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Gender Equality' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd5.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Egalité entre les sexes</h1>
+                                                <h4>Parvenir à l’égalité des sexes et autonomiser toutes les femmes et les filles
+                                                </h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal5">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Clean Water and Sanitation' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd6.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Eau propre et assainissement</h1>
+                                                <h4>Garantir l’accès de tous à des services d’alimentation en eau et d’assainissement gérés de façon durable</h4>
+                                                
+                                                <a href="https://sdgs.un.org/goals/goal6">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Affortable and Clean Energy' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd7.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Energie propre et d'un coût abordable</h1>
+                                                <h4>Garantir l’accès de tous à des services énergétiques fiables, durables et modernes, à un coût abordable</h4>
+                                                
+                                                <a href="https://sdgs.un.org/goals/goal7">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Decent Work and Economic Growth' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd8.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Travail décent et croissance économmique</h1>
+                                                <h4>Promouvoir une croissance économique soutenue, partagée et durable, le plein emploi productif et un travail décent pour tous</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal8">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Industry, Innovation and Infrastructure' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd9.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Industrie, infrastructure et innovation</h1>
+                                                <h4>Bâtir une infrastructure résiliente, promouvoir une industrialisation durable qui profite à tous et encourager l’innovation</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal9">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Reduced Inegalities' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd10.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Inégalié réduite</h1>
+                                                <h4>Réduire les inégalités dans les pays et d’un pays à l’autre</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal10">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Sustainable Cities and Communities' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd11.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Villes et communautés durables</h1>
+                                                <h4>Faire en sorte que les villes et les établissements humains soient ouverts à tous, sûrs, résilients et durables</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal11">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Responsible Comsumption and Production' : %>
+
+                                    
+                            <div class="s-area ">
+                              
+                                <div class="row">
+                                    <div class="col-lg-2 text-center">
+                                        <span >
+                                   
+                                            <span class="p-check" >
+                                                <img src="/ext/odd/odd12.png" alt="" style="height: 100px;">
+                                                
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-10 ">
+                                        <h1>Consommation et production responsable</h1>
+                                        <h4>Établir des modes de consommation et de production durables</h4>
+                                       
+                                        <a href="https://sdgs.un.org/goals/goal12">Voir plus</a>
+                                    </div>
+                                </div>
+                               
+                               
+                            </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Climate Action' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd13.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Mesures relatives à la lutte contre les changements climatiques </h1>
+                                                <h4>Prendre d’urgence des mesures pour lutter contre les changements climatiques et leurs répercussions</h4>
+                                                
+                                                <a href="https://sdgs.un.org/goals/goal13">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+
+                                    case 'Life Below Water' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd14.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Vie aquatique</h1>
+                                                <h4>Conserver et exploiter de manière durable les océans, les mers et les ressources marines aux fins du développement durable</h4>
+                                               
+                                                <a href="https://sdgs.un.org/goals/goal14">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Life On Land' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd15.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Vie terrestre</h1>
+                                                <h4>Préserver et restaurer les écosystèmes terrestres, en veillant à les exploiter de façon durable, gérer durablement les forêts, lutter contre la désertification, enrayer et inverser le processus de dégradation des terres et mettre fin à l’appauvrissement de la biodiversité</h4>
+                                  
+                                                <a href="https://sdgs.un.org/goals/goal15">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                    
+                                    <% break;
+                                    case 'Peace, Justice and Strong Institutions' : %>
+
+                                    
+                            <div class="s-area ">
+                              
+                                <div class="row">
+                                    <div class="col-lg-2 text-center">
+                                        <span >
+                                   
+                                            <span class="p-check" >
+                                                <img src="/ext/odd/odd16.png" alt="" style="height: 100px;">
+                                                
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-10 ">
+                                        <h1>Paix, justice et institutions efficaces</h1>
+                                        <h4>Promouvoir l’avènement de sociétés pacifiques et inclusives aux fins du développement durable, assurer l’accès de tous à la justice et mettre en place, à tous les niveaux, des institutions efficaces, responsables et ouvertes à tous</h4>
+                                        
+                                        <a href="https://sdgs.un.org/goals/goal16">Voir plus</a>
+                                    </div>
+                                </div>
+                               
+                               
+                            </div>
+                                   
+                                   
+                                    <% break;
+                                    case 'Partnerships For The Goals' : %>
+
+                                    <div class="s-area ">
+                              
+                                        <div class="row">
+                                            <div class="col-lg-2 text-center">
+                                                <span >
+                                           
+                                                    <span class="p-check" >
+                                                        <img src="/ext/odd/odd17.png" alt="" style="height: 100px;">
+                                                        
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-10 ">
+                                                <h1>Partenariat pour la réalisation des objectifs</h1>
+                                                <h4>Renforcer les moyens de mettre en œuvre le Partenariat mondial pour le développement durable et le revitaliser</h4>
+                                             
+                                                <a href="https://sdgs.un.org/goals/goal17">Voir plus</a>
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                   
+                                   
+                                    <% break;
+                                }
+                        })%>
+                           
+                            
+                          
+                           
+                           
+                           
+                           
+                         
+                           
+                          
+                           
+                          
+                         
+                         
+                           
+                        </div>
+                    </div>
+              </div>
+                </div>
+               <!-- <div class="tab-pane fade" id="kt_tab_pane_6" role="tabpanel">
+      
+                   <div class="d-flex flex-wrap flex-stack my-5">
+               
+                        <h3 class="fw-bold my-2">Fichiers du projets
+                    
+                        <div class="d-flex my-2">
+                         
+                            <div class="d-flex align-items-center position-relative me-4">
+                           
+                                <span class="svg-icon svg-icon-3 position-absolute translate-middle-y top-50 ms-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                               
+                                <input type="text" id="kt_filter_search" class="form-control form-control-sm form-control-solid bg-body fw-semibold fs-7 w-300px ps-11" placeholder="Rechercher un fichier">
+                            </div>
+                        
+                        
+                        </div>
+                 
+                    </div>
+                    <div class="row g-6 g-xl-9 mb-6 mb-xl-9">
+             
+                        <%if(data.data[0].mitigationActions){
+                            if(data.data[0].mitigationActions.length>0){
+                              
+                                data.data[0].mitigationActions.map(elt=>{
+                                 
+                                    if(elt.projectMaterial!=undefined){
+                                    elt.projectMaterial.map(elts=>{%>
+                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                      
+                                            <div class="card h-100">
+                                  
+                                                <div class="card-body d-flex justify-content-center text-center flex-column p-8">
+                                
+                                                    <a href="<%=elts.url%>" target="_blank" class="text-gray-800 text-hover-primary d-flex flex-column">
+                                     
+                                                        <div class="symbol symbol-60px mb-5">
+                                                            <%
+                                                            
+                                                            let urlParts = elts.url.split('/');
+                                                            let fileName = urlParts[urlParts.length - 1];%>
+                                                            <%
+                                                            const fileExtension = fileName.split('.').pop().toLowerCase();
+
+                                                                                // Vérifier le type de document
+                                                                                let documentType;
+
+                                                                                if (fileExtension === 'pdf') {
+                                                                                    documentType = '../../assets/media/svg/files/pdf.svg';
+                                                                                } else if(fileExtension === 'docx'){
+                                                                                    documentType = '../../assets/media/svg/files/doc.svg';
+                                                                                }else{
+                                                                                    documentType = '../../assets/media/svg/files/upload.svg';
+                                                                                }
+
+                                                            
+                                                            %>
+                                                            <img src="<%=documentType%>" class="theme-light-show" alt="">
+                                                            
+                                                        </div>
+                                                       
+                                                        <div class="fs-5 fw-bold mb-2">
+                                                            <%=fileName%>
+                                                        </div>
+                                                       
+                                                    </a>
+                                                  
+                                                    <div class="fs-7 fw-semibold text-gray-400">
+
+                                                        <%
+                                                        let timestamp = new Date(elts.timestamp);
+                                                        let formattedDate = `${timestamp.getDate()}/${timestamp.getMonth() + 1}/${timestamp.getFullYear()}`;
+                                                        %>
+                                                    <%=formattedDate%>
+                                                    </div>
+                                                  
+                                                </div>
+                                               
+                                            </div>
+                                           
+                                        </div>
+                                        <%
+                                    }) }
+                                })
+                            }
+                        }%>
+                       
+                       
+                        
+                      
+                        
+                    </div> 
+                </div> -->
+                <div class="tab-pane fade" id="kt_tab_pane_7" role="tabpanel">
+                    <div>
+                        <p>Un aperçu de toutes les parties prenantes associées à ce projet. Participants, validateurs, organismes de vérification et autres.</p>
+                    </div>
+                    <div class="d-flex flex-wrap flex-stack pb-7">
+                        <!--begin::Title-->
+                       
+                        <div class="d-flex flex-wrap align-items-center my-1">
+                               
+                            <h3 class="fw-bold me-5 my-1">Organisation(s) +<%=data_orga.length%></h3>
+                            <!--begin::Search-->
+                           
+                            <!--end::Search-->
+                        </div>
+                        <!--end::Title-->
+                        <!--begin::Controls-->
+                       
+                        <!--end::Controls-->
+                    </div>
+                    <div class="row g-6 g-xl-9">
+                        <!--begin::Col-->
+                        <%data_orga.forEach(elt=>{%>
+                        <div class="col-md-6 col-xxl-4">
+                            <!--begin::Card-->
+                            <a target="_blank" href="/org/<%=elt.companyId%>">
+                            <div class="card">
+                                <!--begin::Card body-->
+                                <div class="card-body d-flex flex-center flex-column pt-12 p-9">
+                                    <!--begin::Avatar-->
+                                    <div class="symbol symbol-65px symbol-circle mb-5">
+                                        <img src="<%if(elt.logo==undefined){%>/assets/media/svg/avatars/blank-dark.svg<%}else{%><%=elt.logo%><%}%>" alt="image">
+                                        
+                                    </div>
+                                    <!--end::Avatar-->
+                                    <!--begin::Name-->
+                                    <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0"><%=elt.name%></a>
+                                    <!--end::Name-->
+                                    <!--begin::Position-->
+                                    <!-- <div class="fw-semibold text-gray-400 mb-6">Art Director at Novica Co.</div> -->
+                                    <!--end::Position-->
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-center flex-wrap">
+                                        <!--begin::Stats-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
+                                            <div class="fw-semibold text-gray-400">Email</div>
+                                            <div class="fs-6 fw-bold text-gray-700"><%=elt.email%></div>
+                                            
+                                        </div>
+                                        <!--end::Stats-->
+                                        <!--begin::Stats-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
+                                            <div class="fw-semibold text-gray-400">Tel</div>
+                                            <div class="fs-6 fw-bold text-gray-700"><%=elt.phoneNo%></div>
+                                        
+                                        </div>
+                                        <!--end::Stats-->
+                                        <!--begin::Stats-->
+                                        
+                                        <!--end::Stats-->
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            </a>
+                            <!--end::Card-->
+                        </div>
+                        <%})%>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                      
+                        <!--end::Col-->
+                        
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>

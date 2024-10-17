@@ -1,0 +1,242 @@
+name: Publish to NPM
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+      - 'CARBON-Sprint-*'
+      - 'hotfix-*'
+    # paths:
+    #   - backend/carbon-services-lib/**
+jobs:
+  publish_carbon_libs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # - name: Cache modules
+      #   uses: actions/cache@v1
+      #   id: yarn-cache
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: ${{ runner.os }}-yarn-
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Determine changed libraries
+        id: changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+
+          if echo "$CHANGED_FILES" | grep -q "backend/carbon-services-lib/"; then
+            echo "Backend changes detected."
+            echo "backend-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No Backend changes detected."
+            echo "backend-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q "src/" || echo "$CHANGED_FILES" | grep -q "package.json"; then
+            echo "Frontend changes detected."
+            echo "frontend-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No Backend changes detected."
+            echo "frontend-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q "backend/serial-number-gen/"; then
+            echo "serial changes detected."
+            echo "serial-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No serial changes detected."
+            echo "serial-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q "backend/carbon-credit-calculator/"; then
+            echo "calculator changes detected."
+            echo "calculator-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No calculator changes detected."
+            echo "calculator-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q "backend/carbon-services-lib/src/shared/enum**" || echo "$CHANGED_FILES" | grep -q "backend/carbon-services-lib/src/shared/configuration.ts"; then
+            echo "Enum or Config changes detected."
+            echo "enum-config-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "No Enum or Config changes detected."
+            echo "enum-config-changes=false" >> $GITHUB_OUTPUT
+          fi             
+          
+      - run: yarn install --frozen-lockfile
+        name: Carbon Service Lib Install
+        if: steps.changes.outputs.backend-changes == 'true'
+        working-directory: backend/carbon-services-lib
+      - if: github.ref == 'refs/heads/main' && steps.changes.outputs.backend-changes == 'true'
+        name: Carbon Service Lib Versioning Main
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "palinda@xeptagon.com"
+          yarn version --patch
+          git push --follow-tags
+        env:
+          CI_COMMIT_MESSAGE: Carbon Service Lib Version Update
+          CI_COMMIT_AUTHOR: Continuous Integration
+        working-directory: backend/carbon-services-lib
+      - if: github.ref != 'refs/heads/main' && steps.changes.outputs.backend-changes == 'true'
+        name: Carbon Service Lib Versioning Test
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "palinda@xeptagon.com"
+          yarn version --prerelease --preid ${{ github.head_ref || github.ref_name }} 
+          git push --follow-tags
+        env:
+          CI_COMMIT_MESSAGE: Carbon Service Lib Version Update
+          CI_COMMIT_AUTHOR: Continuous Integration
+        working-directory: backend/carbon-services-lib
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - if: github.ref == 'refs/heads/main' && steps.changes.outputs.enum-config-changes == 'true'
+        name : Enum or Config Changes
+        id : enum_config_change
+        run: |
+              chmod +x workflow.sh
+              AWS_BUCKET=${{ secrets.AWS_BUCKET }} FROM_EMAIL=${{ secrets.FROM_EMAIL }}  TO_EMAILS=${{secrets.TO_EMAILS}} ./workflow.sh
+              
+      - run: yarn run build && cp package.json ./dist/
+        name: Carbon Service Lib Build
+        if: steps.changes.outputs.backend-changes == 'true'
+        working-directory: backend/carbon-services-lib
+      - run: npm publish --access public
+        name: Carbon Service Lib Publish
+        if: steps.changes.outputs.backend-changes == 'true'
+        working-directory: backend/carbon-services-lib/dist
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - if: github.ref == 'refs/heads/main' && steps.changes.outputs.backend-changes == 'true'
+        name: Carbon Service Lib Invoke Dependant CI/CD
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'xeptagondev',
+              repo: 'carbon-registry',
+              workflow_id: 'service-lib-update.yml',
+              ref: 'develop'
+            })
+#            await github.rest.actions.createWorkflowDispatch({
+#              owner: 'xeptagondev',
+#              repo: 'carbon-transparency',
+#              workflow_id: 'service-lib-update.yml',
+#              ref: 'develop'
+#            })
+      - run: yarn install --frozen-lockfile
+        name: Carbon UI Lib Install
+        if: steps.changes.outputs.frontend-changes == 'true'
+      - if: github.ref == 'refs/heads/main' && steps.changes.outputs.frontend-changes == 'true'
+        name: Carbon UI Lib Versioning Main
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "palinda@xeptagon.com"
+          yarn version --patch
+          git push --follow-tags
+        env:
+          CI_COMMIT_MESSAGE: Carbon UI Lib Version Update
+          CI_COMMIT_AUTHOR: Continuous Integration
+      - if: github.ref != 'refs/heads/main' && steps.changes.outputs.frontend-changes == 'true'
+        name: Carbon UI Lib Versioning Test
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "palinda@xeptagon.com"
+          yarn version --prerelease --preid ${{ github.head_ref || github.ref_name }} 
+          git push --follow-tags
+        env:
+          CI_COMMIT_MESSAGE: Carbon UI Lib Version Update
+          CI_COMMIT_AUTHOR: Continuous Integration
+      - run: yarn run build
+        name: Carbon UI Lib Build
+        if: steps.changes.outputs.frontend-changes == 'true'
+      - run: npm publish --access public
+        name: Carbon UI Lib Publish
+        if: steps.changes.outputs.frontend-changes == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - if: github.ref == 'refs/heads/main' && steps.changes.outputs.frontend-changes == 'true'
+        name: Carbon UI Lib Invoke Dependant CI/CD
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'xeptagondev',
+              repo: 'carbon-registry',
+              workflow_id: 'web-lib-update.yml',
+              ref: 'develop'
+            })
+       #     await github.rest.actions.createWorkflowDispatch({
+       #       owner: 'xeptagondev',
+       #       repo: 'carbon-transparency',
+       #       workflow_id: 'web-lib-update.yml',
+       #       ref: 'develop'
+       #     })
+      - run: yarn install --frozen-lockfile
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.calculator-changes == 'true'
+        working-directory: backend/carbon-credit-calculator
+        name: Credit Calc Lib Install
+      - name: Credit Calc Lib Versioning
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "palinda@xeptagon.com"
+          yarn version --patch
+          git push --follow-tags
+        env:
+          CI_COMMIT_MESSAGE: Credit Calculator Version Update
+          CI_COMMIT_AUTHOR: Continuous Integration
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.calculator-changes == 'true'
+        working-directory: backend/carbon-credit-calculator
+      - run: yarn run build
+        name: Credit Calc Lib Build
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.calculator-changes == 'true'
+        working-directory: backend/carbon-credit-calculator
+      - run: npm publish --access public
+        name: Credit Calc Lib Publish
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.calculator-changes == 'true'
+        working-directory: backend/carbon-credit-calculator
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: yarn install --frozen-lockfile
+        name: Serial Gen Lib Install
+        working-directory: backend/serial-number-gen
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.serial-changes == 'true'
+      - name: Serial Gen Lib Versioning
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "palinda@xeptagon.com"
+          yarn version --patch
+          git push --follow-tags
+        env:
+          CI_COMMIT_MESSAGE: Serial Number Gen Version Update
+          CI_COMMIT_AUTHOR: Continuous Integration
+        working-directory: backend/serial-number-gen
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.serial-changes == 'true'
+      - run: yarn run build
+        name: Serial Gen Lib Build
+        working-directory: backend/serial-number-gen
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.serial-changes == 'true'
+      - run: npm publish --access public
+        name: Serial Gen Lib Publish
+        working-directory: backend/serial-number-gen
+        if: github.ref == 'refs/heads/main' && steps.changes.outputs.serial-changes == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          

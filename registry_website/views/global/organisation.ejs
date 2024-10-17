@@ -1,0 +1,195 @@
+<style>
+         .font1{
+        font-family: Montserrat;
+font-size: 20px;
+font-weight: 600;
+line-height: 24.38px;
+color: #244035!important;
+
+
+    }
+    .sfont::placeholder{
+        color: #244035!important;
+    }
+    .page-link.active{
+        background-color: #244035;
+    }
+    .p-body{
+        background-color: #84c55cab;
+
+    }
+    #autocomplete-list {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            top: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        #autocomplete-list div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        #autocomplete-list div:hover {
+            background-color: #e9e9e9;
+        }
+</style>
+<div class="container mt-5 mb-5">
+    <div class="row">
+       
+      
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="d-flex flex-wrap flex-stack my-5">
+                    <!--begin::Heading-->
+                        <h3 class="fw-bold my-2">Organisations
+                        <span class="fs-6 text-gray-400 fw-semibold ms-1">+<%=data.total_pro%></span></h3>
+                        <!--end::Heading-->
+                        <!--begin::Controls-->
+                        <div class="d-flex my-2">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative me-4">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                <span class="svg-icon svg-icon-3 position-absolute translate-middle-y top-50 ms-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                                <input type="text" id="kt_filter_search" class="form-control form-control-sm form-control-solid bg-body fw-semibold fs-7 w-500px ps-11" placeholder="Rechercher une organisation">
+                                <div id="autocomplete-list"></div>
+                            </div>
+                          
+                            <!--end::Search-->
+                        
+                        </div>
+                        <!--end::Controls-->
+                    </div>
+            </div>
+           <% if(data.error==false){%>
+            <div class="row">
+                <% data.data.forEach(elt=>{%>
+                <div class="col-lg-4 mt-2 mb-2">
+                    <!--begin::Card-->
+                   
+                    <div class="card  overlay overflow-hidden" style="height: 350px;">
+                        <div class="card-body p-0 ">
+                            <div class="overlay-wrapper  d-flex justify-content-center align-items-center " style="height: 100%;">
+                                
+                                        <div class="row"  style="height: 100%;">
+                                            <div class="col-lg-12 mt-1 mb-1 text-center p-2" style="height: 60%;">
+                                                
+                                                <img src="<%if(elt.logo==undefined){%>assets/media/svg/avatars/blank-dark.svg<%}else{%><%=elt.logo%><%}%>" alt="" class="w-50 rounded"/>
+                                            </div>
+                                            <div class="col-lg-12 text-center"  style="height: 40%;">
+                                                <span style="font-weight: 800; font-size: 26px;"><%=elt.name%></span>
+                                            </div>
+                                        </div>
+                                        
+                                    
+                               
+                            </div>
+                            <div class="overlay-layer bg-dark bg-opacity-25">
+                                <a href="/org/<%=elt.companyId%>" class="btn btn-success btn-shadow">Détail</a>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Card-->
+                </div>
+                <%})%>
+            </div>
+            <div class="row mt-5 mb-5">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <%if(data.reference>1){%>
+                      <li class="page-item"><a class="page-link" href="?page=<%=data.reference-1%>">Précedent</a></li>
+                      <%}%>
+                      <%for (let i = 1; i <= data.page; i++) {
+                            if(i===data.reference){%>
+                                <li class="page-item"><a class="page-link active" href="#"><%=i%></a></li>
+                          <%  }else{%>
+                                <li class="page-item"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
+                          <%  }
+                        }
+                        %>
+                      
+                   
+                      <%if(data.reference< data.page ){%>
+                      <li class="page-item"><a class="page-link" href="?page=<%=data.reference+1%>">Suivant</a></li>
+                      <%}%>
+                    </ul>
+                  </nav>
+            </div>
+            <% }else{ %>
+                <div class="row mt-5 mb-5 text-center d-flex justify-content-center fs-2">
+                    Il semble avoir eu une erreur lors du chargement de donnée veuillez recommencer
+                </div>
+            <%}%>
+        </div>
+    </div>
+    
+</div>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+              
+                let project = []
+                        fetch(`/api/search_orga`,{method:"POST"})
+                        .then(response => response.json())
+                        .then(data => {
+                           
+                            if(!data.error){
+                                console.log(data)
+                                project = data.search
+                            }
+                         
+                            
+                        })
+                        .catch(error => console.error( error));
+                
+    
+                console.log(project)
+                const input = document.getElementById("kt_filter_search");
+                const list = document.getElementById("autocomplete-list");
+    
+                input.addEventListener("input", function() {
+                    const query = this.value.toLowerCase();
+                    list.innerHTML = "";
+                    
+                    if (!query) return;
+                    
+                    project.forEach(language => {
+                        if (language.label.toLowerCase().includes(query)) {
+                            const item = document.createElement("div");
+                            item.innerHTML = `<a href="${language.url}" target="_blank">${language.label}</a>`;
+                            item.addEventListener("click", function() {
+                                input.value = language.label;
+                                document.location=language.url
+                                list.innerHTML = "";
+                            });
+                            list.appendChild(item);
+                        }
+                    });
+                });
+              
+               
+    
+    
+    
+                document.addEventListener("click", function(e) {
+                    if (e.target !== input) {
+                        list.innerHTML = "";
+                    }
+                });
+    
+    
+            });
+    </script>

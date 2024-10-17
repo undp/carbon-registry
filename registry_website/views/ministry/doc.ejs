@@ -1,0 +1,153 @@
+<style>  #autocomplete-list {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+#autocomplete-list div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#autocomplete-list div:hover {
+    background-color: #e9e9e9;
+}</style>
+<div class="container mt-15 mb-15">
+    <div class="row">
+        <div class="col-lg-12 mt-5 mb-2">
+            <a href="/myregister/doc/biblio" class="btn btn-sm <%if(categorie==''){%>btn-success<%}else{%> btn-outline btn-outline-success <%}%> m-2">Tous</a>
+            <%
+            cat_data.forEach(elt=>{
+            %>
+            <a class="btn btn-sm <%if(elt.title!=categorie){%> btn-outline btn-outline-success<%}else{%>btn-success<%}%> m-2" href="?cat=<%=elt.title%>"><%=elt.title%></a>
+            <%})%>
+            
+        </div>
+        <div class="col-lg-12 mt-2 mb-2">
+            <div class="position-relative">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <input type="text" id="kt_filter_search" class="form-control form-control-sm form-control-solid bg-body fw-semibold fs-7 w-500px ps-11" placeholder="Rechercher une organisation">
+                <div id="autocomplete-list"></div>
+               
+            </div>
+
+        </div>
+        <div class="col-lg-12 mt-10 mb-2">
+            <div class="row">
+                <!-- element -->
+                    
+                    <!--begin::Col-->
+                    <%
+                    function formatDate(dateString) {
+                        let date = new Date(dateString);
+                        let jour = date.getDate();
+                        let mois = date.toLocaleString('fr-FR', { month: 'long' });
+                        let annee = date.getFullYear();
+                        return `${jour} ${mois} ${annee}`;
+                    }
+                    file_data.forEach(elt=>{%>
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <!--begin::Card-->
+                        <div class="card h-100" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=elt.title%>">
+                            <!--begin::Card body-->
+                            <div class="card-body d-flex justify-content-center text-center flex-column p-8">
+                                <!--begin::Name-->
+                                <a href="<%=elt.link%>" target="_blank" class="text-gray-800 text-hover-primary d-flex flex-column">
+                                    <!--begin::Image-->
+                                    <div class="symbol symbol-60px mb-5">
+                                        <img src="../../assets/media/svg/files/pdf.svg" class="theme-light-show" alt="">
+                                        
+                                        
+                                    </div>
+                                    <!--end::Image-->
+                                    <!--begin::Title-->
+                                    <div class="fs-5 fw-bold mb-2"><%=elt.title%></div>
+                                    <!--end::Title-->
+                                </a>
+                                <!--end::Name-->
+                                <!--begin::Description-->
+                                <div class="fs-7 fw-semibold text-gray-400"><%let dateFormatee = formatDate(elt.date);%><%=dateFormatee%></div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <%})%>
+                    <!--end::Col-->
+                <!-- element -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+              
+                let project = []
+                        fetch(`/api/search_file_private`,{method:"POST"})
+                        .then(response => response.json())
+                        .then(data => {
+                           
+                            if(!data.error){
+                                console.log(data)
+                                project = data.search
+                            }
+                         
+                            
+                        })
+                        .catch(error => console.error( error));
+                
+    
+                console.log(project)
+                const input = document.getElementById("kt_filter_search");
+                const list = document.getElementById("autocomplete-list");
+    
+                input.addEventListener("input", function() {
+                    const query = this.value.toLowerCase();
+                    list.innerHTML = "";
+                    
+                    if (!query) return;
+                    
+                    project.forEach(language => {
+                        if (language.label.toLowerCase().includes(query)) {
+                            const item = document.createElement("div");
+                            item.innerHTML = `<a href="${language.url}" target="_blank">${language.label}</a>`;
+                            item.addEventListener("click", function() {
+                                input.value = language.label;
+                                document.location=language.url
+                                list.innerHTML = "";
+                            });
+                            list.appendChild(item);
+                        }
+                    });
+                });
+              
+               
+    
+    
+    
+                document.addEventListener("click", function(e) {
+                    if (e.target !== input) {
+                        list.innerHTML = "";
+                    }
+                });
+    
+    
+            });
+    </script>

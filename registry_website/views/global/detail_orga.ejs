@@ -1,0 +1,166 @@
+<div class="container mt-5 mb-5">
+    <div class="row ">
+        <div class="col-lg-7 ">
+            <div class="row">
+                <div class="col-lg-6 mt-1 mb-1 text-center">
+                    <img src="<%if(data[0].logo==undefined){%>assets/media/svg/avatars/blank-dark.svg<%}else{%><%=data[0].logo%><%}%>" style="height: 150px;" alt="" class=" rounded"/>
+
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-lg-5 text-center d-flex justify-content-center item-content-center flex-column">
+            
+                <div class="fw-semibold fs-2 text-gray-400">Type : 
+
+                    <span class="badge badge-light-success" style="font-size: large;"><%=data[0].companyRole%></span>
+                </div>
+               
+                <!--end::Label-->
+            
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="card  mt-5 mb-5">
+            <div class="card-body shadow-sm">
+                <div class="row">
+                   <div class="col-lg-12 mt-2 mb-2">
+                    <span style="font-weight: 800; font-size: 15px;">Statistiques</span>
+                    <input type="hidden" id="orga_id" value="<%=data[0].companyId%>">
+                   </div>
+                   <div class="col-lg-12 mt-2 mb-2">
+                        <div class="row">
+                            <div class="col-lg-6 ">
+                                <div class="border border-gray-300  border-dashed rounded text-center py-3 px-4 me-6 mb-3">
+                                    <!--begin::Number-->
+                                    <div class="d-flex align-items-center text-center">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                        <div class="row  " style="width: 100%;">
+                                            <div class="col-2">
+                                                <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                    <svg fill="#000000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M2,9H9V2H2Zm9-7V9h7V2ZM2,18H9V11H2Zm9,0h7V11H11Z"></path> </g> </g></svg>
+               
+                                                </span>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="fs-6 fw-bold counted" id="orga_projet_length"><%if(data[0].programmeCount){%><%=data[0].programmeCount%><%}else{%>0<%}%></div>
+                                            </div>
+                                        </div>
+                                       
+                                        <!--end::Svg Icon-->
+                                        
+                                    </div>
+                                    <!--end::Number-->
+                                    <!--begin::Label-->
+                                    <div class="fw-semibold fs-6 text-gray-400">Projet</div>
+                                    <!--end::Label-->
+                                </div>
+                            </div>
+                            <div class="col-lg-6 ">
+                                <div class="border border-gray-300  border-dashed rounded text-center py-3 px-4 me-6 mb-3">
+                                    <!--begin::Number-->
+                                    <div class="d-flex align-items-center text-center">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                        <div class="row  " style="width: 100%;">
+                                            <div class="col-2">
+                                                <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.a{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px;fill-rule:evenodd;}</style></defs><path class="a" d="M12,2A10,10,0,1,0,22,12H12Z"></path><path class="a" d="M15,9h6.54077A10.02174,10.02174,0,0,0,15,2.45923Z"></path></g></svg>
+                                                </span>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="fs-6 fw-bold counted" ><%=data[0].creditBalance%></div>
+                                            </div>
+                                        </div>
+                                       
+                                        <!--end::Svg Icon-->
+                                        
+                                    </div>
+                                    <!--end::Number-->
+                                    <!--begin::Label-->
+                                    <div class="fw-semibold fs-6 text-gray-400">Solde</div>
+                                    <!--end::Label-->
+                                </div>
+                            </div>
+                           
+                        </div>
+                   </div>
+                </div>
+            </div>
+       </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row mt-2 mb-2">
+                        <div class="col-lg-12">
+                            <span style="font-weight: 500; font-size: 16px;">Addresse</span>
+                        </div>
+                        <div class="col-lg-12">
+                            <span style="font-weight: 800; font-size: 20px;"><%=data[0].address%></span>
+                        </div>
+                    </div>
+                   
+                    <div class="row mt-4 mb-1">
+                        <div class="col-lg-12">
+                            <span style="font-weight: 500; font-size: 16px;">Site web</span>
+                        </div>
+                        <div class="col-lg-12">
+                            <a href="<%=data[0].website%>"style="font-weight: 800; font-size: 16px;"><%=data[0].website%></a>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-1">
+                        <div class="col-lg-12">
+                            <span style="font-weight: 500; font-size: 16px;">Numero de télephone</span>
+                        </div>
+                        <div class="col-lg-12">
+                            <span style="font-weight: 800; font-size: 18px;"><%=data[0].phoneNo%></span>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-1">
+                        <div class="col-lg-12">
+                            <span style="font-weight: 500; font-size: 16px;">Email</span>
+                        </div>
+                        <div class="col-lg-12">
+                            <span style="font-weight: 800; font-size: 16px;"><%=data[0].email%></span>
+                        </div>
+                    </div>
+                    <!-- <div class="row mt-4 mb-1">
+                        <div class="col-lg-12">
+                            <span style="font-weight: 500; font-size: 16px;">Personne à contacter</span>
+                        </div>
+
+                        <div class="col-lg-12 mt-2 border">
+                            <span style="font-weight: 800; font-size: 20px;">Alok Panday</span> <br>
+                            <span style="font-weight: 500; font-size: 17px;">ceo@compliancekart.io</span> <br>
+                            <span style="font-weight: 500; font-size: 17px;">XXXXXXXXXX</span>
+                        </div>
+                       
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 mt-2 mb-2">
+                         <span style="font-weight: 800; font-size: 15px;">Projet(s)</span>
+                        </div>
+                    </div>
+                    <div class="row" id="area_project" style="width: 100%;">
+                        <div class="spinner-border text-success " role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                       
+                        
+                     
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

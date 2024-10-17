@@ -1,0 +1,131 @@
+version: "3.3"
+volumes:
+  data:
+    driver: local
+  filestore:
+    driver: local
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "Fornow@2020"
+      POSTGRES_USER: root
+      PSQL_USERNAME: root
+      # POSTGRES_HOST_AUTH_METHOD: trust
+      PGDATA: /data/postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - data:/data/postgres
+  national:
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:CARBON-392
+    # build:
+    # context: .
+    # dockerfile: ./backend/services/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: "Fornow@2020"
+      RUN_MODULE: national-api
+      rootEmail: roger.doffou@skyvisionafrica.com
+      systemCountryCode: "CI"
+      systemCountryName: "Cote d'Ivoire "
+      systemContinentName: "Africa"
+      name: "Region des lagunes"
+      logoBase64: "sss"
+      IS_EMAIL_DISABLED: "false"
+      SOURCE_EMAIL: roger.doffou@skyvisionafrica.com
+      SMTP_ENDPOINT: mail41.lwspanel.com
+      SMTP_USERNAME: roger.doffou@skyvisionafrica.com
+      SMTP_PASSWORD: "Foryou@2020"
+      Minister: ''
+      Department : ''
+      DISABLE_LOW_PRIORITY_EMAIL: "true"
+      EMAILPREFIX: "roger.doffou"
+      LOCATION_SERVICE: OPENSTREET
+      ASYNC_OPERATIONS_TYPE: Database
+      HOST: "https://ci.registrecarbone.skyvisionafrica.com"
+      DOMAIN_MAP: "true"
+      EXPIRES_IN: "7200"
+      BACKEND_HOST: "https://api.national.skyvisionafrica.com"
+      CONTACT_EMAIL: countryx@email.com
+      MINISTER_NAME_AND_DESIGNATION : "\nHonorable Minister X\nMinister\nMinistry of Environment, Forestry & Tourism"
+    volumes:
+      - filestore:/app/backend/services/public
+      - ./users.csv:/app/backend/services/users.csv
+      - ./organisations.csv:/app/backend/services/organisations.csv
+      - ./regions.csv:/app/backend/services/regions.csv
+  stats:
+    # build:
+    #   context: .
+    #   dockerfile: ./backend/services/Dockerfile
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:CARBON-392
+    ports:
+      - "3100:3100"
+    depends_on:
+      - db
+      - national
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: "Fornow@2020"
+      RUN_PORT: 3100
+      RUN_MODULE: analytics-api
+      DOMAIN_MAP: "true"
+  replicator:
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-services:CARBON-392
+    # build:
+    #   context: .
+    #   dockerfile: ./backend/services/Dockerfile
+    depends_on:
+      - db
+      - national
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: "Fornow@2020"
+      # ,data-importer
+      RUN_MODULE: replicator,async-operations-handler
+      LOCATION_SERVICE: OPENSTREET
+      SOURCE_EMAIL: roger.doffou@skyvisionafrica.com
+      SMTP_ENDPOINT: mail41.lwspanel.com
+      SMTP_USERNAME: roger.doffou@skyvisionafrica.com
+      SMTP_PASSWORD: "Foryou@2020"
+      IS_EMAIL_DISABLED: "false"
+      DISABLE_LOW_PRIORITY_EMAIL: "true"
+      EMAILPREFIX: ""
+      ASYNC_OPERATIONS_TYPE: Database
+      ITMO_API_KEY: ""
+      ITMO_EMAIL: ""
+      ITMO_PASSWORD: ""
+      MRV_ENDPOINT: 'https://api.national.skyvisionafrica.com'
+      SYNC_ENABLE: true
+      MRV_API_TOKEN: ''
+      BACKEND_HOST: "https://api.national.skyvisionafrica.com"
+    volumes:
+      - filestore:/app/backend/services/public
+  web:
+    image: 302213478610.dkr.ecr.us-east-1.amazonaws.com/carbon-web:CARBON-392
+    # build:
+    #   context: .
+    #   dockerfile: ./web/Dockerfile
+    #   args:
+    #     PORT: 3030
+    #     REACT_APP_BACKEND: https://api.national.skyvisionafrica.com
+    #     REACT_APP_GOVERNMENT_MINISTRY: "Ministry Of Environment",
+    #     REACT_APP_STAT_URL: https://api.statistique.skyvisionafrica.com
+    #     REACT_APP_COUNTRY_NAME: "CountryX"
+    #     REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"
+    #     REACT_APP_COUNTRY_CODE: "CI"
+    ports:
+      - "3030:3030"
+    depends_on:
+      - db
+      - national

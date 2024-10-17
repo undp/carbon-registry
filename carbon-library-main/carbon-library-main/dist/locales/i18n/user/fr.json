@@ -1,0 +1,16 @@
+{
+  "name": "NOM",
+  "email": "E-MAIL",
+  "phone": "TÉLÉPHONE",
+  "company": "ORGANISATION",
+  "companyRole": "TYPE D'ORGANISATION",
+  "role": "RÔLE",
+  "addUser": "Ajouter un Utilisateur",
+  "viewUsers": "Voir les Utilisateurs",
+  "viewDesc": "",
+  "deleteConfirmHeaderText": "Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?",
+  "deleteConfirmText": "Cette action ne peut pas être annulée",
+  "searchBy": "Rechercher par",
+  "filterByRole": "Filtrer par Rôle",
+  "filterByCompanyRole": "Filtrer par Type d'Organisation"
+}

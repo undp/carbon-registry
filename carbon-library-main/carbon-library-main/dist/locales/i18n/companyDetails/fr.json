@@ -1,0 +1,21 @@
+{
+  "organisationDetailsHeading": "Détails de l'organisation",
+  "name" : "Nom",
+  "taxId" : "Numéro d'identification fiscale (TVA)",
+  "paymentId" : "Identifiant de paiement d'enregistrement",
+  "companyRole": "Rôle",
+  "email" : "E-mail",
+  "phoneNo" : "Téléphone",
+  "website" : "Site Web",
+  "address" : "Adresse",
+  "creditBalance":"Solde de crédit",
+  "programmeCount":"Nombre de projets",
+  "remarks": "Remarques",
+  "region": "Région",
+  "ministerName": "Nom du Ministre",
+  "sectoralScope": "Portée sectorielle",
+  "nationalSopValue": "Part nationale des recettes",
+  "omgePercentage":"Compte de la Mitigation Globale des Émissions (CMGE)",
+  "govDep": "Département",
+  "ministry": "Ministère"
+}

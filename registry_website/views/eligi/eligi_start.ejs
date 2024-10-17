@@ -1,0 +1,413 @@
+<div class="container mt-10 mb-10">
+    <!--begin::Authentication - Multi-steps-->
+			<div class="d-flex flex-column flex-lg-row flex-column-fluid stepper stepper-pills stepper-column stepper-multistep" id="kt_create_account_stepper">
+				<!--begin::Aside justify-content-center-->
+				<div class="d-flex flex-column  w-lg-350px w-xl-500px">
+					<div class="d-flex flex-column w-lg-350px w-xl-500px  bgi-size-cover bgi-position-center" style="background-color:#F77F00">
+						<!--begin::Header-->
+						
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="d-flex flex-row-fluid justify-content-center p-10">
+							<!--begin::Nav-->
+							<div class="stepper-nav">
+								<!--begin::Step 1-->
+								<div class="stepper-item current" data-kt-stepper-element="nav">
+									<!--begin::Wrapper-->
+									<div class="stepper-wrapper">
+										<!--begin::Icon-->
+										<div class="stepper-icon rounded-3">
+											<i class="stepper-check fas fa-check"></i>
+											<span class="stepper-number">1</span>
+										</div>
+										<!--end::Icon-->
+										<!--begin::Label-->
+										<div class="stepper-label">
+											<h3 class="stepper-title fs-2">Votre organisation</h3>
+											<div class="stepper-desc fw-normal">Entrez vos informations</div>
+										</div>
+										<!--end::Label-->
+									</div>
+									<!--end::Wrapper-->
+									<!--begin::Line-->
+									<div class="stepper-line h-40px"></div>
+									<!--end::Line-->
+								</div>
+								<!--end::Step 1-->
+								<!--begin::Step 2-->
+								<div class="stepper-item" data-kt-stepper-element="nav">
+									<!--begin::Wrapper-->
+									<div class="stepper-wrapper">
+										<!--begin::Icon-->
+										<div class="stepper-icon rounded-3">
+											<i class="stepper-check fas fa-check"></i>
+											<span class="stepper-number">2</span>
+										</div>
+										<!--end::Icon-->
+										<!--begin::Label-->
+										<div class="stepper-label">
+											<h3 class="stepper-title fs-2">Note d'idée </h3>
+											<div class="stepper-desc fw-normal">Veuillez entrer le projet à soumettre</div>
+										</div>
+										<!--end::Label-->
+									</div>
+									<!--end::Wrapper-->
+									<!--begin::Line-->
+									<div class="stepper-line h-40px"></div>
+									<!--end::Line-->
+								</div>
+								<!--end::Step 2-->
+								<!--begin::Step 3-->
+								
+								<!--end::Step 4-->
+								<!--begin::Step 5-->
+								<div class="stepper-item" data-kt-stepper-element="nav">
+									<!--begin::Wrapper-->
+									<div class="stepper-wrapper">
+										<!--begin::Icon-->
+										<div class="stepper-icon">
+											<i class="stepper-check fas fa-check"></i>
+											<span class="stepper-number">3</span>
+										</div>
+										<!--end::Icon-->
+										<!--begin::Label-->
+										<div class="stepper-label">
+											<h3 class="stepper-title">Terminer</h3>
+											<div class="stepper-desc fw-normal">Votre compte a bien été crée</div>
+										</div>
+										<!--end::Label-->
+									</div>
+									<!--end::Wrapper-->
+								</div>
+								<!--end::Step 5-->
+							</div>
+							<!--end::Nav-->
+						</div>
+						<!--end::Body-->
+						<!--begin::Footer-->
+						
+						<!--end::Footer-->
+					</div>
+				</div>
+				<!--begin::Aside-->
+				<!--begin::Body-->
+				<div class="d-flex flex-column flex-lg-row-fluid ">
+					<!--begin::Content-->
+					<div class="d-flex flex-center flex-column flex-column-fluid">
+						<!--begin::Wrapper-->
+						<div class="w-lg-650px w-xl-700px p-10 p-lg-15 mx-auto">
+							<!--begin::Form-->
+							<form class="my-auto pb-5" novalidate="novalidate" id="kt_create_account_form">
+								<!--begin::Step 1-->
+								<div class="current" data-kt-stepper-element="content">
+									<!--begin::Wrapper-->
+									<div class="w-100">
+										<!--begin::Heading-->
+										<div class="pb-10 pb-lg-15 ">
+											<!--begin::Title-->
+											<h2 class="fw-bold text-dark">Détail de l'organisation</h2>
+											<!--end::Title-->
+											<!--begin::Notice-->
+											<div class="text-muted fw-semibold fs-6">Si vous avez besoin de plus d’informations, s’il vous plaît vérifier 
+                                                <a href="/faq" class="link-primary fw-bold">Page d'aide</a>.</div>
+                                                <!--end::Notice-->
+											<!--end::Notice-->
+										</div>
+										<!--end::Heading-->
+										<!--begin::Input group-->
+                                        <div class="mb-10">
+                                            <div class="row mb-6">
+                                                <!--begin::Label-->
+                                                <label class="col-lg-6 col-form-label fw-semibold fs-6">Logo de votre organisation</label>
+                                                <!--end::Label-->
+                                                <!--begin::Col-->
+                                                <div class="col-lg-6">
+                                                    <!--begin::Image input-->
+                                                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('../assets/media/svg/avatars/blank.svg')">
+                                                        <!--begin::Preview existing avatar-->
+                                                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url(../assets/media/svg/avatars/blank.svg)"></div>
+                                                        <!--end::Preview existing avatar-->
+                                                        <!--begin::Label-->
+                                                        <label class="fv-row btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                                            <i class="bi bi-pencil-fill fs-7"></i>
+                                                            <!--begin::Inputs-->
+                                                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                            <input type="hidden" name="avatar_remove" />
+                                                            <!--end::Inputs-->
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Cancel-->
+                                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                                            <i class="bi bi-x fs-2"></i>
+                                                        </span>
+                                                        <!--end::Cancel-->
+                                                        <!--begin::Remove-->
+                                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                                            <i class="bi bi-x fs-2"></i>
+                                                        </span>
+                                                        <!--end::Remove-->
+                                                    </div>
+                                                    <!--end::Image input-->
+                                                    <!--begin::Hint-->
+                                                    <div class="form-text">Fichier autoriser: png, jpg, jpeg.</div>
+                                                    <!--end::Hint-->
+                                                </div>
+                                                <!--end::Col-->
+                                            </div>
+                                        </div>
+                                        <!--begin::Input group-->
+										<div class="mb-10 fv-row">
+											<!--begin::Label-->
+											<label class="form-label mb-3">Dénomination de votre organisation</label>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier."></i></label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" class="form-control form-control-lg form-control-solid" name="struct_name" placeholder="" value="" />
+											<!--end::Input-->
+                                            
+										</div>
+										<!--end::Input group-->
+                                        <!--begin::Input group-->
+										<div class="mb-10">
+											<!--begin::Label-->
+                                            <div class="row">
+                                                <div class="col-lg-6 fv-row">
+                                                    <label class="form-label mb-3">Document de constitution officiel de l'organisation</label>
+                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit de tout document démontrant l'authenticité de l'organisation."></i></label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="struct_dfe" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="col-lg-6 fv-row">
+                                                    <label class="form-label mb-3">Document d'identification fiscale de l'organisation (facultatif)</label>
+                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit de tout document relatif à la fiscalité. Nb: Il est facultatif."></i></label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="struct_fiscal" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+											
+										</div>
+                                        <!--begin::Input group-->
+                                        <div class="mb-10 fv-row">
+											<!--begin::Label-->
+											<label class="form-label mb-3">Email votre organisation</label>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit de l'email qui sera utilisé pour correspondre avec vous."></i></label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" class="form-control form-control-lg form-control-solid" name="struct_email" placeholder="" value="" />
+											<!--end::Input-->
+										</div>
+										<!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="mb-10 fv-row">
+											<!--begin::Label-->
+											<label class="form-label mb-3">Numéro de téléphone de  votre organisation</label>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit du numéro de téléphone qui sera utilisé pour correspondre avec vous."></i></label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" class="form-control form-control-lg form-control-solid" name="struct_tel" placeholder="" value="" />
+											<!--end::Input-->
+										</div>
+										<!--end::Input group-->
+                                          <!--begin::Input group-->
+                                          <div class="mb-10 fv-row">
+											<!--begin::Label-->
+											<label class="form-label mb-3">Site web de votre organisation</label>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit du lien du site web de votre organisation. NB: il est facultatif"></i></label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" class="form-control form-control-lg form-control-solid" name="struct_site" placeholder="" value="" />
+											<!--end::Input-->
+										</div>
+										<!--end::Input group-->
+								
+									
+									</div>
+									<!--end::Wrapper-->
+								</div>
+								<!--end::Step 1-->
+								<!--begin::Step 2-->
+								
+								<div class="" data-kt-stepper-element="content">
+									<!--begin::Wrapper-->
+									<div class="w-100">
+										<!--begin::Heading-->
+										<div class="pb-10 pb-lg-12">
+											<!--begin::Title-->
+											<h2 class="fw-bold text-dark">Votre note d'idée</h2>
+											<!--end::Title-->
+											<!--begin::Notice-->
+											<div class="text-muted fw-semibold fs-6">Si vous avez besoin de plus d’informations, s’il vous plaît vérifier 
+											<a href="/faq" class="link-primary fw-bold">Page d'aide</a>.</div>
+											<!--end::Notice-->
+										</div>
+										<!--end::Heading-->
+                                        <!--begin::Input group-->
+										<div class="mb-10">
+											<!--begin::Label-->
+                                            <div class="row">
+                                                <div class="col-lg-6 fv-row">
+                                                    <label class="form-label mb-3 required">Votre note d'idée</label>
+                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit de votre note d'idée ou idée de projet. "></i></label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="note_idee" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="col-lg-6 fv-row">
+                                                    <label class="form-label mb-3 required">Document de conformité au critère</label>
+                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Il s'agit du document rempli par l'organisation , respectant les conformités en vigeur."></i></label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="doc_conformite" placeholder="" value="" />
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                           
+										</div>
+                                        <!--begin::Input group-->
+										<!--begin::Input group-->
+										
+										<!--
+										<div class="fv-row mb-10">
+									
+											<label class="form-label required"> Type paiement</label>
+											
+											<select name="note_type" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+												<option></option>
+												<option value="Tresor pay">Tresor pay</option>
+												<option value="Transfert Bancaire">Transfert Bancaire</option>
+												
+											</select>
+                                         
+										</div>
+										
+										<div class="fv-row mb-10">
+										
+											<label class="form-label required">Identifiant de transaction</label>
+											
+                                            <input name="note_transaction" class="form-control form-control-lg form-control-solid" value="" />
+                                           
+											
+										</div>
+										
+										<div class="fv-row mb-0">
+										
+											<label class="fs-6 fw-semibold form-label ">Document justiificatif de transaction (optionnel)</label>
+										
+											<input name="note_option" type="file" class="form-control form-control-lg form-control-solid"  />
+                                            
+										
+										</div>
+										-->
+									</div>
+									<!--end::Wrapper-->
+								</div>
+								<!--end::Step 2-->
+								<!--begin::Step 3-->
+                                <div class="" data-kt-stepper-element="content">
+									<!--begin::Wrapper-->
+									<div class="w-100">
+										<!--begin::Heading-->
+										<div class="pb-8 pb-lg-10">
+											<!--begin::Title-->
+											<h2 class="fw-bold text-dark">Bienvenue dans le système d'éligibilité du régistre!</h2>
+											<!--end::Title-->
+											<!--begin::Notice-->
+											
+											<!--end::Notice-->
+										</div>
+										<!--end::Heading-->
+										<!--begin::Body-->
+										<div class="mb-0">
+											<!--begin::Text-->
+											<div class="fs-6 text-gray-600 mb-5">A partir d'ici, vous aurez accès à une zone spéciale de suivi de votre note d'ideé et de vos activités.</div>
+											<!--end::Text-->
+											<!--begin::Alert-->
+											<!--begin::Notice-->
+											<div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+												<!--begin::Icon-->
+												<!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
+												<span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+														<rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
+														<rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
+													</svg>
+												</span>
+												<!--end::Svg Icon-->
+												<!--end::Icon-->
+												<!--begin::Wrapper-->
+												<div class="d-flex flex-stack flex-grow-1">
+													<!--begin::Content-->
+													<div class="fw-semibold">
+														<h4 class="text-gray-900 fw-bold">Nous avons besoin de votre attention!</h4>
+														<div class="fs-6 text-gray-700">Un email vous a été envoyé avec vos accès 
+														</div>
+													</div>
+													<!--end::Content-->
+												</div>
+												<!--end::Wrapper-->
+											</div>
+											<!--end::Notice-->
+											<!--end::Alert-->
+										</div>
+										<!--end::Body-->
+									</div>
+									<!--end::Wrapper-->
+								</div>
+								
+								<!--end::Step 3-->
+								<!--begin::Actions-->
+								<div class="d-flex flex-stack pt-15">
+									<div class="mr-2">
+										<button type="button" class="btn btn-lg btn-light-warning me-3" data-kt-stepper-action="previous">
+										<!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
+										<span class="svg-icon svg-icon-4 me-1">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor" />
+												<path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->Précédent</button>
+									</div>
+									<div>
+										<button type="button" class="btn btn-lg btn-success" data-kt-stepper-action="submit">
+											<span class="indicator-label">Soumettre 
+											<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+											<span class="svg-icon svg-icon-4 ms-2">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+													<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon--></span>
+											<span class="indicator-progress">Please wait... 
+											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+										</button>
+										<button type="button" class="btn btn-lg btn-success" data-kt-stepper-action="next">Suivant 
+										<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+										<span class="svg-icon svg-icon-4 ms-1">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+												<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
+											</svg>
+										</span>
+										<!--end::Svg Icon--></button>
+									</div>
+								</div>
+								<!--end::Actions-->
+							</form>
+							<!--end::Form-->
+						</div>
+						<!--end::Wrapper-->
+					</div>
+					<!--end::Content-->
+				</div>
+				<!--end::Body-->
+			</div>
+			<!--end::Authentication - Multi-steps-->
+</div>

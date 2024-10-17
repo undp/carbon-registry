@@ -1,0 +1,1 @@
+https://www.semicolonworld.com/question/46655/parse-array-of-json-objects-in-nodejs

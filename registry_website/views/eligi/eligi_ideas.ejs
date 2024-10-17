@@ -1,0 +1,100 @@
+<%- include('../partials/mini_header_account.ejs') %>
+<div class="container mt-10 mb-10">
+    <div class="row">
+        <%data.forEach(elt=>{%>
+        <div class="col-md-6 col-xl-4">
+            <!--begin::Card-->
+            <div class="card border-hover-primary">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-9">
+                    <!--begin::Card Title-->
+                    <div class="card-title m-0">
+                        <!--begin::Avatar-->
+                        <div class="symbol symbol-50px w-50px bg-light">
+                            <img src="../../assets/media/svg/files/folder-document.svg" alt="image" class="p-3">
+                        </div>
+                        <!--end::Avatar-->
+                    </div>
+                    <!--end::Car Title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <%if(elt.Statut=="valide"){%>
+                        <span class="badge badge-light-success fw-bold me-auto px-4 py-3">Valider</span>
+                        <%}%>
+                        <%if(elt.Statut=="refuse"){%>
+                        <span class="badge badge-light-danger fw-bold me-auto px-4 py-3">Rejeter</span>
+                        <%}%>
+                   
+                        <%if(elt.Statut=="recours"){%>
+                        <span class="badge badge-light-warning fw-bold me-auto px-4 py-3">Recours</span>
+                        <%}%>
+                        
+                        <%if(elt.Statut=="en_attente"){%>
+                            <span class="badge badge-light-primary fw-bold me-auto px-4 py-3">En attente</span>
+                            <%}%>
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end:: Card header-->
+                <!--begin:: Card body-->
+                <div class="card-body p-9">
+                    <!--begin::Name-->
+                    <div class="fs-3 fw-bold text-dark">Note d'idée</div>
+                    <!--end::Name-->
+                    <!--begin::Description-->
+                    <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7"><%=elt.Ref_note_idee%></p>
+                    <!--end::Description-->
+                    <!--begin::Info-->
+                    <div class="d-flex flex-wrap mb-5">
+                        <!--begin::Due-->
+                        <div class=" border-gray-300  rounded min-w-125px py-3 px-4 me-7 mb-3">
+                            <div class="fs-6 text-gray-800 fw-bold"><%let date = new Date(elt.Date_creation);
+                                let formattedDate = date.toLocaleString('fr-FR', { timeZoneName: 'short' });
+                                %>
+                                
+                                <%=formattedDate%></div>
+                            <div class="fw-semibold text-gray-400">Date de création</div>
+                        </div>
+                        <!--end::Due-->
+                        <!--begin::Budget-->
+                        <div class="border border-gray-300  rounded min-w-125px py-3 px-4 mb-3">
+                            <div class="fs-9 text-gray-800 fw-bold">Modifiable jusqu'au</div>
+                            <%const futureDate = new Date(elt.Date_creation);
+                            futureDate.setDate(futureDate.getDate() + 30)
+                            const formatDate = (date) => {
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                const year = date.getFullYear();
+                                return `${day}/${month}/${year}`;
+                              };
+                            
+                            %>
+                            <div class="fw-semibold text-gray-400"><%=formatDate(futureDate)%></div>
+                        </div>
+                        
+                        <div class="border border-gray-300  rounded min-w-125px py-3 px-4 mb-3">
+                            <a href="/eligi/note/<%=elt.Ref_note_idee%>" >
+                            <button type="button" class="btn btn-warning btn-sm  btn-active-light-primary ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                              Détail
+                                <!--end::Svg Icon-->
+                            </button> </a>
+                           
+                        </div>
+
+
+                        <!--end::Budget-->
+                    </div>
+                    <!--end::Info-->
+                    <!--begin::Progress-->
+                   
+                    <!--end::Users-->
+                </div>
+                <!--end:: Card body-->
+           </div>
+            <!--end::Card-->
+        </div>
+        <%})%>
+       
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<%- include('../partials/mini_header_account.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <!-- Table -->
+        <div class="col-lg-12 ">
+            <div class="table-responsive">
+                <table id="kt_datatable_dom_positioning" class="table table-row-bordered gy-5">
+                    <thead>
+                        <tr class="fw-semibold fs-6 text-muted">
+                            <th>Note d'idée</th>
+                            <th>Paiement</th>
+                            <th>Date</th>
+                            <th>Methode</th>
+                            <th>Statut</th>
+                            <th>Détail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <%tab_pay.forEach(elt=>{%>
+                        <tr>
+                            <%let date = new Date(elt.idea.Date_system);
+                                let formattedDate = date.toLocaleString('fr-FR', { timeZoneName: 'short' });
+                                %>
+                            <td><%=elt.idea.Ref_note_idee%></td> 
+                            <td><%=elt.pay.Ref_paiement%></td>  
+                            <td><%=formattedDate%></td>
+                            <td><%=elt.pay.Methode_paiement%></td>
+                            <td><%=elt.pay.Statut%></td>
+                            <td> <a href="/eligi/note/<%=elt.idea.Ref_note_idee%>" class="btn btn-sm btn-success">Détail</a></td>
+                        </tr>
+                        <%})%>
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+        
+        <!-- Table -->
+    </div>
+</div>

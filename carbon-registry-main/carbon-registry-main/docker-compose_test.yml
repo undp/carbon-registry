@@ -1,0 +1,144 @@
+version: "3.3"
+volumes:
+  data:
+    driver: local
+  filestore:
+    driver: local
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "Fornow@2020"
+      POSTGRES_USER: root
+      PSQL_USERNAME: root
+      # POSTGRES_HOST_AUTH_METHOD: trust
+      PGDATA: /data/postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - data:/data/postgres
+  national:
+    build:
+      context: .
+      dockerfile: ./backend/services/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: "Fornow@2020"
+      RUN_MODULE: national-api
+      rootEmail: roger.doffou@skyvisionafrica.com
+      Minister: ''
+      Department : ''
+      systemCountryCode: "CI"
+      systemCountryName: "Côte d'Ivoire"
+      systemContinentName: "AFRICA"
+      name: "Region des lagunes"
+      logoBase64: "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r5.png"
+      IS_EMAIL_DISABLED: "false"
+      SMTP_ENDPOINT: mail41.lwspanel.com
+      SMTP_USERNAME: roger.doffou@skyvisionafrica.com
+      SMTP_PASSWORD: 'Foryou@2020'
+      DISABLE_LOW_PRIORITY_EMAIL: "true"
+      CADTRUST_ENABLE: "true"
+      CADTRUST_ENDPOINT: "https://api.cadt.skyvisionafrica.com/"
+      EMAILPREFIX: "roger.doffou@africanewvision.online"
+      LOCATION_SERVICE: OPENSTREET
+      ASYNC_OPERATIONS_TYPE: Database
+      HOST: "https://ci.registrecarbone.skyvisionafrica.com"
+      DOMAIN_MAP: "true"
+      EXPIRES_IN: "7200"
+      BACKEND_HOST: "https://api.national.skyvisionafrica.com"
+      CONTACT_EMAIL: roger.doffou@skyvisionafrica.com
+      MINISTER_NAME_AND_DESIGNATION : "\nHonorable Minister X\nMinister\nMinistry of Environment"
+    volumes:
+      - filestore:/app/backend/services/public
+      - ./users.csv:/app/backend/services/users.csv
+      - ./organisations.csv:/app/backend/services/organisations.csv
+  stats:
+    build:
+      context: .
+      dockerfile: ./backend/services/Dockerfile
+    ports:
+      - "3100:3100"
+    depends_on:
+      - db
+      - national
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: "Fornow@2020"
+      RUN_PORT: 3100
+      RUN_MODULE: analytics-api
+      DOMAIN_MAP: "true"
+  replicator:
+    build:
+      context: .
+      dockerfile: ./backend/services/Dockerfile
+    depends_on:
+      - db
+      - national
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: "Fornow@2020"
+      # ,data-importer
+      RUN_MODULE: replicator,async-operations-handler
+      LOCATION_SERVICE: OPENSTREET
+      SMTP_ENDPOINT: mail41.lwspanel.com
+      SMTP_USERNAME: roger.doffou@skyvisionafrica.com
+      SMTP_PASSWORD: Foryou@2020
+      IS_EMAIL_DISABLED: "false"
+      DISABLE_LOW_PRIORITY_EMAIL: "true"
+      EMAILPREFIX: "roger.doffou"
+      ASYNC_OPERATIONS_TYPE: Database
+      ITMO_API_KEY: ""
+      ITMO_EMAIL: ""
+      ITMO_PASSWORD: ""
+      CADTRUST_ENABLE: "false"
+      CADTRUST_ENDPOINT: "https://api.cadt.skyvisionafrica.com/"
+      MRV_ENDPOINT: 'https://api.national.skyvisionafrica.com'
+      SYNC_ENABLE: "true"  # Corrected to be a string
+      MRV_API_TOKEN: ''
+      BACKEND_HOST: "https://api.national.skyvisionafrica.com"
+    volumes:
+      - filestore:/app/backend/services/public
+  # async-operations-handler:
+  #   build:
+  #     context: .
+  #     dockerfile: ./backend/services/Dockerfile
+  #   depends_on:
+  #     - db
+  #     - national
+  #   environment:
+  #     DB_HOST: db
+  #     DB_USER: root
+  #     DB_PASSWORD: "Fornow@2020"
+  #     RUN_MODULE: async-operations-handler
+  #     SMTP_ENDPOINT: mail.africanewvision.online
+  #     SMTP_PASSWORD: "Foryou@2020"
+  #     ASYNC_OPERATIONS_TYPE: Database
+  web:
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile
+      args:
+        PORT: 3030
+        REACT_APP_BACKEND: https://api.national.skyvisionafrica.com
+        REACT_APP_STAT_URL: https://api.statistique.skyvisionafrica.com
+        REACT_APP_COUNTRY_NAME: "Côte d'Ivoire"
+        REACT_APP_GOVERNMENT_MINISTRY: "Ministry Of Environment"
+        REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"
+        REACT_APP_COUNTRY_CODE: "CI"
+        REACT_APP_MAP_TYPE: "None"
+    ports:
+      - "3030:3030"
+    depends_on:
+      - db
+      - national

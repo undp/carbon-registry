@@ -1,0 +1,17 @@
+{
+  "dashboard": "Tableau de bord",
+  "ghgInventory": "Inventaire des GES",
+  "emissions" : "Émissions",
+  "projections" : "Projections",
+  "programmes": "Projets",
+  "transfers": "Transferts",
+  "companies": "Organisations",
+  "users": "Utilisateurs",
+  "viewAll": "Voir tout",
+  "addNew": "Ajouter Nouveau",
+  "investments": "Financement de projet",
+  "ndcActions": "Activités de projet",
+  "ndcDetails": "Détails activités",
+  "reports": "Rapports",
+  "support": "Financement"
+}

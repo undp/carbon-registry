@@ -1,0 +1,22 @@
+{
+  "submit": "Soumettre",
+  "name": "Nom",
+  "email": "E-mail",
+  "pwd": "Mot de passe",
+  "login": "Se connecter",
+  "signUp": "S'inscrire",
+  "language": "Langue",
+  "company": "Organisations",
+  "edit": "ÉDITER",
+  "isRequired": "est requis!",
+  "isInvalid": "est invalide!",
+  "sessionExpiredErrorMsg": "Votre session a expiré. Veuillez vous connecter à nouveau pour continuer à travailler.",
+  "backto": "Retour à",
+  "signIn": "Se connecter",
+  "loginFailed": "Échec de la connexion",
+  "networkError": "Erreur réseau. Veuillez vérifier votre connexion Internet et réessayer.",
+  "systemError": "Quelque chose s'est mal passé. Veuillez réessayer.",
+  "maxSizeVal": "La taille maximale de téléchargement de fichier est de 5 Mo",
+  "approve": "APPROUVER",
+  "reject": "REJETER"
+}

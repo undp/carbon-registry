@@ -1,0 +1,232 @@
+<style>
+    .p-form{
+        background: #84C55C33!important;
+    }
+    .p-button{
+        background-color: #009E60!important;
+        color: white;
+
+    }
+    .p-button:hover{
+        background: #84c55c56!important;
+        color: white;
+
+    }
+    .font1{
+        font-family: Montserrat;
+font-size: 20px;
+font-weight: 600;
+line-height: 24.38px;
+
+
+    }
+    .font2{
+        font-family: Montserrat;
+font-size: 20px;
+font-weight: 400;
+line-height: 24.38px;
+text-align: left;
+
+
+
+    }
+    .font3{
+        font-family: Montserrat;
+font-size: 20px;
+font-weight: 500;
+line-height: 24.38px;
+text-align: left;
+
+    }
+</style>
+<div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+        <!--begin::Contact-->
+        <div class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-17">
+                <!--begin::Row-->
+                <div class="row mb-3">
+                    <!--begin::Col-->
+                    <div class="col-md-6 pe-lg-10">
+                        <!--begin::Form-->
+                        <form action="#" class="form mb-15" method="post" id="kt_contact_form">
+                           
+                            <!--begin::Input group-->
+                            <div class="row mb-5">
+                                <!--begin::Col-->
+                                <div class="col-md-6 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="font3 mb-2">Nom et Prénoms</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid p-form" placeholder="" name="name" />
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-md-6 fv-row">
+                                    <!--end::Label-->
+                                    <label class="font3 mb-2">Email</label>
+                                    <!--end::Label-->
+                                    <!--end::Input-->
+                                    <input type="text" class="form-control form-control-solid p-form" placeholder="" name="email" />
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="font3 mb-2">Sujet</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid p-form" placeholder="" name="subject" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-column mb-10 fv-row">
+                                <label class="font3 mb-2">Message</label>
+                                <textarea class="form-control form-control-solid p-form" rows="6" name="message" placeholder=""></textarea>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Submit-->
+                            <button type="submit" class="btn p-button" style="width: 100%!important;" id="kt_contact_submit_button">
+                                <!--begin::Indicator label-->
+                                <span class="indicator-label">Soumettre</span>
+                                <!--end::Indicator label-->
+                                <!--begin::Indicator progress-->
+                                <span class="indicator-progress">Veillez patienter... 
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <!--end::Indicator progress-->
+                            </button>
+                            <!--end::Submit-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-6 ps-lg-10">
+                        <!--begin::Map-->
+                        <div id="kt_contact_map" class="w-100 rounded mb-2 mb-lg-0 mt-2" style="height: 440px"></div>
+                        <!--end::Map-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row g-5 mb-5 mb-lg-15">
+                   
+                    <!--begin::Col-->
+                    <div class="col-sm-4 ">
+                        <!--begin::Address-->
+                        <div class=" p-form card-rounded p-10 h-100">
+                            <!--begin::Icon-->
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+                            <div class="row ">
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <span class="svg-icon svg-icon-3tx " style="color: #009E60!important;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z" fill="currentColor" />
+                                            <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="currentColor" />
+                                        </svg>
+                                        
+                                    </span>
+                                </div>
+                                <div class="col-10" style="padding: 10px!important;">
+                                     <!--begin::Subtitle-->
+                                    <h1 class="font1 my-5">Localisation</h1>
+                                    <!--end::Subtitle-->
+                                    <!--begin::Description-->
+                                    <div class="font2"><%=data.title%></div>
+                                    <!--end::Description-->
+                                </div>
+                            </div>
+                           
+                            <!--end::Svg Icon-->
+                            <!--end::Icon-->
+                           
+                        </div>
+                        <!--end::Address-->
+                    </div>
+                    <!--end::Col-->
+                   <!--begin::Col-->
+                   <div class="col-sm-4 ps-lg-10">
+                    <!--begin::Address-->
+                    <div class=" p-form card-rounded  p-10 h-100">
+                        <!--begin::Icon-->
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+                        <div class="row ">
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <span class="svg-icon svg-icon-3tx ">
+                                    
+                                    <svg fill="#009E60"  height="24px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75.294 75.294" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M66.097,12.089h-56.9C4.126,12.089,0,16.215,0,21.286v32.722c0,5.071,4.126,9.197,9.197,9.197h56.9 c5.071,0,9.197-4.126,9.197-9.197V21.287C75.295,16.215,71.169,12.089,66.097,12.089z M61.603,18.089L37.647,33.523L13.691,18.089 H61.603z M66.097,57.206h-56.9C7.434,57.206,6,55.771,6,54.009V21.457l29.796,19.16c0.04,0.025,0.083,0.042,0.124,0.065 c0.043,0.024,0.087,0.047,0.131,0.069c0.231,0.119,0.469,0.215,0.712,0.278c0.025,0.007,0.05,0.01,0.075,0.016 c0.267,0.063,0.537,0.102,0.807,0.102c0.001,0,0.002,0,0.002,0c0.002,0,0.003,0,0.004,0c0.27,0,0.54-0.038,0.807-0.102 c0.025-0.006,0.05-0.009,0.075-0.016c0.243-0.063,0.48-0.159,0.712-0.278c0.044-0.022,0.088-0.045,0.131-0.069 c0.041-0.023,0.084-0.04,0.124-0.065l29.796-19.16v32.551C69.295,55.771,67.86,57.206,66.097,57.206z"></path> </g> </g></svg>
+                                </span>
+                            </div>
+                            <div class="col-10 " style="padding: 10px!important;">
+                                 <!--begin::Subtitle-->
+                                <h1 class="font1 my-5">Adresse Email</h1>
+                                <!--end::Subtitle-->
+                                <!--begin::Description-->
+                                <div class="font2"><%= data.email%></div>
+                                <!--end::Description-->
+                            </div>
+                        </div>
+                       
+                        <!--end::Svg Icon-->
+                        <!--end::Icon-->
+                       
+                    </div>
+                    <!--end::Address-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-sm-4 ps-lg-10">
+                    <!--begin::Address-->
+                    <div class="p-form card-rounded  p-10 h-100">
+                        <!--begin::Icon-->
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+                        <div class="row ">
+                            <div class="col-2 d-flex flex-column justify-content-center" >
+                                <span class="svg-icon svg-icon-3tx " style="color: #009E60!important;">
+                                    <svg viewBox="0 0 24 24" fill="#009E60" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 5.5C3 14.0604 9.93959 21 18.5 21C18.8862 21 19.2691 20.9859 19.6483 20.9581C20.0834 20.9262 20.3009 20.9103 20.499 20.7963C20.663 20.7019 20.8185 20.5345 20.9007 20.364C21 20.1582 21 19.9181 21 19.438V16.6207C21 16.2169 21 16.015 20.9335 15.842C20.8749 15.6891 20.7795 15.553 20.6559 15.4456C20.516 15.324 20.3262 15.255 19.9468 15.117L16.74 13.9509C16.2985 13.7904 16.0777 13.7101 15.8683 13.7237C15.6836 13.7357 15.5059 13.7988 15.3549 13.9058C15.1837 14.0271 15.0629 14.2285 14.8212 14.6314L14 16C11.3501 14.7999 9.2019 12.6489 8 10L9.36863 9.17882C9.77145 8.93713 9.97286 8.81628 10.0942 8.64506C10.2012 8.49408 10.2643 8.31637 10.2763 8.1317C10.2899 7.92227 10.2096 7.70153 10.0491 7.26005L8.88299 4.05321C8.745 3.67376 8.67601 3.48403 8.55442 3.3441C8.44701 3.22049 8.31089 3.12515 8.15802 3.06645C7.98496 3 7.78308 3 7.37932 3H4.56201C4.08188 3 3.84181 3 3.63598 3.09925C3.4655 3.18146 3.29814 3.33701 3.2037 3.50103C3.08968 3.69907 3.07375 3.91662 3.04189 4.35173C3.01413 4.73086 3 5.11378 3 5.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                    
+                                </span>
+                            </div>
+                            <div class="col-10" style="padding: 10px!important;">
+                                 <!--begin::Subtitle-->
+                                <h1 class="font1 my-5">Numéro de téléphone</h1>
+                                <!--end::Subtitle-->
+                                <!--begin::Description-->
+                                <div class="font2"><%=data.contact%></div>
+                                <!--end::Description-->
+                            </div>
+                        </div>
+                       
+                        <!--end::Svg Icon-->
+                        <!--end::Icon-->
+                       
+                    </div>
+                    <!--end::Address-->
+                </div>
+                <!--end::Col-->
+                </div>
+               
+                <!--end::Row-->
+              
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Contact-->
+    </div>
+    <!--end::Content container-->
+</div>
+
+<script>
+  
+    let bmc_localisation = JSON.parse('<%- data_s %>'); // Parse the JSON string on the client side
+    let req_ser = "<%= intern_server %>"
+</script>

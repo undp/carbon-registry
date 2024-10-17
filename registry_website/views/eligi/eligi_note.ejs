@@ -1,0 +1,406 @@
+<%- include('../partials/mini_header_account.ejs') %>
+
+<div class="container mt-10 mb-10">
+    <div class="row">
+        <!-- File -->
+        <div class="col-lg-6 offset-lg-3">
+            <!--begin::Card-->
+            <div class="card card-flush h-lg-100">
+                <!--begin::Card header-->
+                <div class="card-header mt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title flex-column">
+                        <h3 class="fw-bold mb-1">Fichier de la note</h3>
+                      <!-- :  <div class="fs-6 text-gray-400">Total 382</div> -->
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                   
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body p-9 pt-3">
+                    <!--begin::Files-->
+                    <div class="d-flex flex-column mb-9">
+                        <!--begin::File-->
+                        <div class="d-flex">
+                            <%if(idea[0].Statut=="refuse"){%>
+                            <button type="button" class="btn btn-clean btn-sm  btn-warning ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                                Faire recours
+                                <!--end::Svg Icon-->
+                            </button>
+                            <%}%>
+                            <!--begin::Menu 1-->
+                            <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_635b1e27e4796" style="">
+                                <!--begin::Header-->
+                               
+                                <div class="px-7 py-5">
+                                    <div class="fs-5 text-dark fw-bold">Faire recours</div>
+                                </div>
+                                
+                                <!--end::Header-->
+                                <!--begin::Menu separator-->
+                                <div class="separator border-gray-200"></div>
+                                <!--end::Menu separator-->
+                                <!--begin::Form-->
+                                <div class="px-7 py-5">
+                                    <!--begin::Input group-->
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fw-semibold">Ajouter votre commentaire</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div>
+                                            <!-- <select class="form-select form-select-solid select2-hidden-accessible" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#kt_menu_635b1e27e4796" data-allow-clear="true" data-select2-id="select2-data-16-1jdw" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                                <option data-select2-id="select2-data-18-dd11"></option>
+                                                <option value="1">Approved</option>
+                                                <option value="2">Pending</option>
+                                                <option value="2">In Process</option>
+                                                <option value="2">Rejected</option>
+                                            </select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-17-onfa" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select form-select-solid" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-y1y3-container" aria-controls="select2-y1y3-container"><span class="select2-selection__rendered" id="select2-y1y3-container" role="textbox" aria-readonly="true" title="Select option"><span class="select2-selection__placeholder">Select option</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> -->
+                                        <textarea name=""  class="form-control" id="commentaire_note"></textarea>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    
+                                    <!--end::Input group-->
+                                    <!--begin::Actions-->
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Annuler</button>
+                                        <button  class="btn btn-sm btn-primary" id="eligi_update_recours">Ajouter</button>
+                                    </div>
+                                    <!--end::Actions-->
+                                </div>
+                                <!--end::Form-->
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-5">
+                            <!--begin::Icon-->
+                            <div class="symbol symbol-30px me-5">
+                                <img alt="Icon" src="../../assets/media/svg/files/doc.svg">
+                            </div>
+                            <!--end::Icon-->
+                            <!--begin::Details-->
+                            <div class="fw-semibold">
+                                <input type="hidden" value="<%=idea[0]._id%>" id="id_note">
+                                <a class="fs-6 fw-bold text-dark text-hover-primary" href=" <%=url_file+'/'+idea[0].Note_idee[0].Note_idee.path%>">Note de projet</a>
+                                <div class="text-gray-400">
+                                    <%const futureDate = new Date(idea[0].Date_creation);
+                            futureDate.setDate(futureDate.getDate() + 30)
+                            const formatDate = (date) => {
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                const year = date.getFullYear();
+                                return `${day}/${month}/${year}`;
+                              };
+                              const isFutureDatePassed = futureDate <= new Date();
+                            %>
+                                <a href="#">Modifiable jusqu'au <%=formatDate(futureDate)%></a></div>
+                            </div>
+                            <!--end::Details-->
+                            <!--begin::Menu-->
+                            <%if(!isFutureDatePassed){%>
+                            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                                <span class="svg-icon svg-icon-3">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="89.723" y="10.199" style="fill:#FFE6B8;" width="332.555" height="491.602"></rect> <g> <path style="fill:#BCC987;" d="M253.42,322.613L303.1,351.3c8.532,4.926,8.532,17.241,0,22.167l-49.68,28.687 c-8.533,4.927-19.198-1.231-19.198-11.083v-57.375C234.222,323.844,244.888,317.686,253.42,322.613z"></path> <path style="fill:#BCC987;" d="M353.431,201.23l-49.68-28.687c-8.532-4.926-8.532-17.241,0-22.167l49.68-28.687 c8.533-4.927,19.198,1.231,19.198,11.083v57.375C372.629,199.999,361.963,206.157,353.431,201.23z"></path> </g> <g> <path style="fill:#4D3D36;" d="M434.546,151.26h-2.069V10.199C432.476,4.566,427.909,0,422.277,0H89.723 c-5.632,0-10.199,4.566-10.199,10.199v242.033h-2.069c-33.18,0-60.175,26.994-60.175,60.175s26.995,60.175,60.175,60.175h2.069 v129.218c0,5.633,4.567,10.199,10.199,10.199h332.554c5.632,0,10.199-4.566,10.199-10.199v-230.19h2.069 c33.18,0,60.175-26.994,60.175-60.175S467.726,151.26,434.546,151.26z M77.453,352.185c-21.933,0-39.777-17.843-39.777-39.777 c0-21.933,17.844-39.777,39.777-39.777h2.069v79.554H77.453z M99.922,491.602V372.583h124.101v18.488 c0,8.314,4.299,15.76,11.499,19.917c3.6,2.079,7.549,3.118,11.499,3.118c3.95,0,7.9-1.039,11.501-3.119l49.678-28.686 c7.201-4.157,11.498-11.603,11.498-19.916c0-8.313-4.298-15.759-11.497-19.916l-49.679-28.687h-0.001 c-7.202-4.158-15.8-4.158-22.999,0c-7.201,4.157-11.499,11.602-11.499,19.916v18.488h-124.1V20.398h312.156V151.26H382.83v-18.488 c0-8.314-4.299-15.76-11.499-19.916c-7.201-4.157-15.798-4.158-23,0.001l-49.678,28.686c-7.201,4.157-11.498,11.603-11.498,19.916 c0,8.313,4.298,15.759,11.497,19.915l49.679,28.687h0.001c3.6,2.08,7.549,3.118,11.5,3.118c3.949,0,7.898-1.039,11.499-3.118 c7.201-4.157,11.499-11.603,11.499-19.917v-18.488h29.248v319.945H99.922z M248.321,331.446l49.68,28.687 c1.074,0.62,1.298,1.567,1.298,2.251s-0.225,1.631-1.299,2.251l-49.678,28.686c-1.075,0.622-2.009,0.343-2.601,0 c-0.593-0.342-1.299-1.011-1.299-2.251v-57.375c0-1.24,0.707-1.908,1.299-2.251c0.337-0.195,0.783-0.368,1.302-0.368 C247.419,331.077,247.856,331.177,248.321,331.446z M362.431,132.772v57.375c0,1.24-0.707,1.909-1.299,2.251 c-0.593,0.342-1.527,0.62-2.6,0l-49.68-28.687c-1.074-0.62-1.298-1.567-1.298-2.251s0.225-1.631,1.299-2.252l49.678-28.686 c1.075-0.62,2.007-0.343,2.601,0C361.723,130.864,362.431,131.532,362.431,132.772z M434.546,251.212h-2.069v-79.554h2.069 c21.933,0,39.777,17.844,39.777,39.777S456.478,251.212,434.546,251.212z"></path> <path style="fill:#4D3D36;" d="M356.972,82.614h7.139c5.632,0,10.199-4.566,10.199-10.199s-4.567-10.199-10.199-10.199h-7.139 c-5.632,0-10.199,4.566-10.199,10.199S351.34,82.614,356.972,82.614z"></path> <path style="fill:#4D3D36;" d="M147.888,82.614h169.307c5.632,0,10.199-4.566,10.199-10.199s-4.567-10.199-10.199-10.199H147.888 c-5.632,0-10.199,4.566-10.199,10.199S142.256,82.614,147.888,82.614z"></path> <path style="fill:#4D3D36;" d="M285.577,239.681H147.888c-5.632,0-10.199,4.566-10.199,10.199c0,5.633,4.567,10.199,10.199,10.199 h137.689c5.632,0,10.199-4.566,10.199-10.199C295.776,244.247,291.209,239.681,285.577,239.681z"></path> <path style="fill:#4D3D36;" d="M147.888,143.809h91.793c5.632,0,10.199-4.566,10.199-10.199c0-5.633-4.567-10.199-10.199-10.199 h-91.793c-5.632,0-10.199,4.566-10.199,10.199C137.689,139.243,142.256,143.809,147.888,143.809z"></path> <path style="fill:#4D3D36;" d="M147.888,198.884h91.793c5.632,0,10.199-4.566,10.199-10.199c0-5.633-4.567-10.199-10.199-10.199 h-91.793c-5.632,0-10.199,4.566-10.199,10.199C137.689,194.318,142.256,198.884,147.888,198.884z"></path> </g> </g></svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </button>
+                            <%}%>
+                            <!--begin::Menu 1-->
+                            <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_635b1e27e4796" style="">
+                                <!--begin::Header-->
+                                <div class="px-7 py-5">
+                                    <div class="fs-5 text-dark fw-bold">Changer le fichier</div>
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Menu separator-->
+                                <div class="separator border-gray-200"></div>
+                                <!--end::Menu separator-->
+                                <!--begin::Form-->
+                                <div class="px-7 py-5">
+                                    <!--begin::Input group-->
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fw-semibold">Remplacer votre note d'idée:</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div>
+                                            <!-- <select class="form-select form-select-solid select2-hidden-accessible" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#kt_menu_635b1e27e4796" data-allow-clear="true" data-select2-id="select2-data-16-1jdw" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                                <option data-select2-id="select2-data-18-dd11"></option>
+                                                <option value="1">Approved</option>
+                                                <option value="2">Pending</option>
+                                                <option value="2">In Process</option>
+                                                <option value="2">Rejected</option>
+                                            </select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-17-onfa" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select form-select-solid" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-y1y3-container" aria-controls="select2-y1y3-container"><span class="select2-selection__rendered" id="select2-y1y3-container" role="textbox" aria-readonly="true" title="Select option"><span class="select2-selection__placeholder">Select option</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> -->
+                                        <input type="file" class="form-control form-control-lg form-control-solid" name="note_idee">
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    
+                                    <!--end::Input group-->
+                                    <!--begin::Actions-->
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Annuler</button>
+                                        <button  class="btn btn-sm btn-primary" id="eligi_update_note">Modifier</button>
+                                    </div>
+                                    <!--end::Actions-->
+                                </div>
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Menu 1-->
+                            <!--end::Menu-->
+                        </div>
+              
+                        <!--end::File-->
+                        <!--begin::File-->
+                        <div class="d-flex align-items-center mb-5">
+                            <!--begin::Icon-->
+                            <div class="symbol symbol-30px me-5">
+                                <img alt="Icon" src="../../assets/media/svg/files/doc.svg">
+                            </div>
+                            <!--end::Icon-->
+                            <!--begin::Details-->
+                            <div class="fw-semibold">
+                                <a class="fs-6 fw-bold text-dark text-hover-primary" href="<%=url_file+'/'+idea[0].Document_conformite[0].Document_conformite.path%>">Critère d'éligibilité</a>
+                               
+                            </div>
+                            <!--end::Details-->
+                           
+                            <!--end::Menu-->
+                        </div>
+                        <!--end::File-->
+                        <!--begin::File-->
+                       
+                        <!--end::File-->
+                    </div>
+                    <!--end::Files-->
+                    <!--begin::Notice-->
+                    
+                    <!--end::Notice-->
+                </div>
+                <!--end::Card body -->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!-- File -->
+        <!-- Transaction -->
+        
+            <!--end::Card-->
+        <%/*%>
+        <div class="col-lg-6 mt-4">
+            <div class="card card-flush h-lg-100">
+                <!--begin::Card header-->
+                <div class="card-header mt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title flex-column">
+                        <h3 class="fw-bold mb-1">Historique des actions</h3>
+                        
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body p-9 pt-3">
+                    <!--begin::Files-->
+                    <!--begin::Input group-->
+                    <div class="table-responsive">
+                        <table id="kt_datatable_zero_configuration" class="table table-row-bordered gy-5">
+                            <thead>
+                                <tr class="fw-semibold fs-6 text-muted">
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+					<!--end::Input group-->
+				</div>
+               
+                    
+                    <!--end::Notice-->
+            </div>
+        </div>
+        <div class="col-lg-6 mt-4">
+            <div class="card card-flush h-lg-100">
+                <!--begin::Card header-->
+                <div class="card-header mt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title flex-column">
+                        <h3 class="fw-bold mb-1">Action</h3>
+                        <div class="fs-6 text-gray-400">Action requis (2)</div>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <a href="#" class="btn btn-bg-light btn-light-success btn-sm">Déclencher une action</a>
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body p-9 pt-3">
+                    <!--begin::Files-->
+                    <!--begin::Input group-->
+                    <div class="mb-10">
+                        <!--begin::Label-->
+                        <div class="row">
+                            <div class="col-lg-6 fv-row">
+                                <label class="form-label mb-3 required">Votre MADD</label>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier."></i></label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" class="form-control form-control-lg form-control-solid" name="note_idee" placeholder="" value="" />
+                                <!--end::Input-->
+                            </div>
+                            <div class="col-lg-6 fv-row">
+                                <label class="form-label mb-3 required">Votre rapport de validation</label>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier."></i></label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" class="form-control form-control-lg form-control-solid" name="doc_conformite" placeholder="" value="" />
+                                <!--end::Input-->
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="mb-10" >
+                        <!--begin::Label-->
+                        <label class="form-label fw-semibold">Certificateur : </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        
+                        Champs de recherche
+                        <!--end::Input-->
+                    </div>	
+                    <div class="fv-row mb-10">
+                        <!--end::Label-->
+                        <label class="form-label required">Identifiant ducertificateur ou immatriculation</label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input name="note_certif_id" class="form-control form-control-lg form-control-solid" value="" />
+                       
+                        <!--end::Input-->
+                    </div>
+                    <div class="fv-row mb-10">
+                        <!--end::Label-->
+                        <label class="form-label required">Fichier de conception des activités</label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input name="note_file_conpect" type="file" class="form-control form-control-lg form-control-solid" value="" />
+                       
+                        <!--end::Input-->
+                    </div>
+                    <div class="mb-10 text-center">
+                        <button class="btn btn-success">Envoyer</button>
+                    </div>
+					<!--end::Input group-->
+				</div>
+                <div class="card-body p-9 pt-3">
+                    <div class="mb-10">
+                        <div class="fv-row mb-10">
+                            <!--end::Label-->
+                            <label class="form-label required">Fichier de demande d'aggrément d'activités</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input name="note_file_conpect" type="file" class="form-control form-control-lg form-control-solid" value="" />
+                           
+                            <!--end::Input-->
+                        </div>
+                    </div>
+                    <div class="mb-10 text-center">
+                        <button class="btn btn-success">Envoyer</button>
+                    </div>
+                </div>
+                    <!--end::Files-->
+                    <div class="card-body p-9 pt-3">
+                        <div class="mb-10">
+                            <div class="fv-row mb-10">
+                                <!--end::Label-->
+                                <label class="form-label required">Rapport de validation d'activité</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input name="note_file_conpect" type="file" class="form-control form-control-lg form-control-solid" value="" />
+                               
+                                <!--end::Input-->
+                            </div>
+                        </div>
+                        <div class="mb-10 text-center">
+                            <button class="btn btn-success">Envoyer</button>
+                        </div>
+                    </div>
+                    <div class="card-body p-9 pt-3">
+                        <div class="mb-10">
+                            <div class="fv-row mb-10">
+                                <!--end::Label-->
+                                <label class="form-label required">Rapport de vérification </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input name="note_file_conpect" type="file" class="form-control form-control-lg form-control-solid" value="" />
+                               
+                                <!--end::Input-->
+                            </div>
+                        </div>
+                        <div class="mb-10 text-center">
+                            <button class="btn btn-success">Envoyer</button>
+                        </div>
+                    </div>
+                    <!--begin::Notice-->
+                    
+                    <!--end::Notice-->
+            </div>
+        </div><%*/%>
+    </div>
+        <!-- Transaction -->
+        <!-- Action -->
+</div>

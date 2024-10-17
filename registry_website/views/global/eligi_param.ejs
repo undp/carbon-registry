@@ -1,0 +1,129 @@
+<%- include('../partials/mini_header_account.ejs') %>
+
+<div class="container mb-10 mt-10">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+
+            <div class="w-100 card shadow-sm p-10">
+                <!--begin::Heading-->
+               
+                <!--end::Heading-->
+                <!--begin::Input group-->
+                <div class="mb-10">
+                    <div class="row mb-6">
+                        <!--begin::Label-->
+                        <label class="col-lg-6 col-form-label fw-semibold fs-6">Logo de votre organisation</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-6">
+                            <!--begin::Image input-->
+                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('../assets/media/svg/avatars/blank.svg')">
+                                <!--begin::Preview existing avatar-->
+                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url(../assets/media/svg/avatars/blank.svg)"></div>
+                                <!--end::Preview existing avatar-->
+                                <!--begin::Label-->
+                                <label class="fv-row btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow fv-plugins-icon-container" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                    <!--begin::Inputs-->
+                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
+                                    <input type="hidden" name="avatar_remove">
+                                    <!--end::Inputs-->
+                                <div class="fv-plugins-message-container invalid-feedback"></div></label>
+                                <!--end::Label-->
+                                <!--begin::Cancel-->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+                                <!--end::Cancel-->
+                                <!--begin::Remove-->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+                                <!--end::Remove-->
+                            </div>
+                            <!--end::Image input-->
+                            <!--begin::Hint-->
+                            <div class="form-text">Fichier autoriser: png, jpg, jpeg.</div>
+                            <!--end::Hint-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                </div>
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="form-label mb-3">Dénomination de votre organisation</label>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" aria-label="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-bs-original-title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-kt-initialized="1"></i>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-lg form-control-solid" name="struct_name" placeholder="" value="">
+                    <!--end::Input-->
+                    
+                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="mb-10">
+                    <!--begin::Label-->
+                    <div class="row">
+                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                            <label class="form-label mb-3">Régistre de commerce</label>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" aria-label="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-bs-original-title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-kt-initialized="1"></i>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="file" class="form-control form-control-lg form-control-solid" name="struct_dfe" placeholder="" value="">
+                            <!--end::Input-->
+                        <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                            <label class="form-label mb-3">Document fiscale</label>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" aria-label="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-bs-original-title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-kt-initialized="1"></i>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="file" class="form-control form-control-lg form-control-solid" name="struct_fiscal" placeholder="" value="">
+                            <!--end::Input-->
+                        <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                    </div>
+                    
+                </div>
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="form-label mb-3">Email votre organisation</label>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" aria-label="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-bs-original-title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-kt-initialized="1"></i>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-lg form-control-solid" name="struct_email" placeholder="" value="">
+                    <!--end::Input-->
+                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="form-label mb-3">Numéro de téléphone de  votre organisation</label>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" aria-label="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-bs-original-title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-kt-initialized="1"></i>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-lg form-control-solid" name="struct_tel" placeholder="" value="">
+                    <!--end::Input-->
+                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                <!--end::Input group-->
+                  <!--begin::Input group-->
+                  <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="form-label mb-3">Site web de votre organisation</label>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" aria-label="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-bs-original-title="Le nom officiel ou légal d'une organisation, utilisé dans les documents juridiques et administratifs pour l'identifier." data-kt-initialized="1"></i>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" class="form-control form-control-lg form-control-solid" name="struct_site" placeholder="" value="">
+                    <!--end::Input-->
+                </div>
+
+                <div class="mb-10 text-center">
+                    <button class="btn btn-success"> Mettre à jour</button>
+                </div>
+                <!--end::Input group-->
+        
+            
+            </div>
+        </div>
+    </div>
+</div>
