@@ -6,8 +6,8 @@ var maps_projet = async (req, res) => {
   const auth = await axios.post(
     "https://api.national.skyvisionafrica.com/national/auth/login",
     {
-      username: "roger.doffou@skyvisionafrica.com",
-      password: "JRy4U39",
+      username: "",
+      password: "",
     }
   );
 
@@ -49,8 +49,8 @@ var list_projets = async (req, res) => {
   const auth = await axios.post(
     "https://api.national.skyvisionafrica.com/national/auth/login",
     {
-      username: "roger.doffou@skyvisionafrica.com",
-      password: "JRy4U39",
+      username: "",
+      password: "",
     }
   );
 
@@ -80,8 +80,8 @@ var search_projets = async (req, res) => {
   const auth = await axios.post(
     "https://api.national.skyvisionafrica.com/national/auth/login",
     {
-      username: "roger.doffou@skyvisionafrica.com",
-      password: "JRy4U39",
+      username: "",
+      password: "",
     }
   );
 
@@ -255,8 +255,8 @@ var getprojetIntersection = async (req, res) => {
   const auth = await axios.post(
     "https://api.national.skyvisionafrica.com/national/auth/login",
     {
-      username: "roger.doffou@skyvisionafrica.com",
-      password: "JRy4U39",
+      username: "",
+      password: "",
     }
   );
 

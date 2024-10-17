@@ -1,1 +1,0 @@
-# PGSQL data placeholder
