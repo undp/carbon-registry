@@ -1,0 +1,67 @@
+$primary-font-family: 'Inter';
+$secondary-font-family: 'Sohne-Breit';
+$common-form-input-border: #d9d9d9;
+$note-light-text: rgba(58, 53, 65, 0.5);
+$primary-purple: #9155fd;
+$primary-color: #00a54f ;
+$primary-color-light-bg: #00a54f ;
+
+$nav-color: #282828;
+$text-color: #3a3541;
+$dark-text-color: #ffffff;
+$common-filter-color: rgba(58, 53, 65, 0.8);
+
+$line-colors: #d9d9d9;
+$error-color: rgba(#ff4d4f, 0.8);
+$background-color: #f4f5fa;
+$background-color-dark: #232e3d;
+$outside-background-color: #ffffff;
+
+$gradient-background-start:#f7931d;
+$gradient-background-end: rgba(#00a54f, 0.94);
+
+$sep-line-color: #f0f0f0;
+
+$title-text-color: rgba($text-color, 0.8);
+$body-text-color: rgba($text-color, 0.6);
+$body-text-color-light: rgba($text-color, 0.5);
+$border-default-btn: rgba(140, 140, 140, 0.7);
+$light-text-color: rgba($text-color, 0.3);
+
+$success-color: #5dc380;
+
+$lg-size: 992px;
+
+$logo-text-color: #262626;
+
+$dev-bg-color: rgba(254, 241, 173, 0.5);
+$dev-color: #ffa070;
+$white: #ffffff;
+$primary-blue: #008F39;
+$card-title: rgba(58, 53, 65, 0.8);
+$card-labels: rgba(58, 53, 65, 0.5);
+
+
+// @screen-xs: 480px;
+// @screen-xs-min: @screen-xs;
+// // 👆 Extra small screen / phone
+
+// // 👇 Small screen / tablet
+// @screen-sm: 576px;
+// @screen-sm-min: @screen-sm;
+
+// // Medium screen / desktop
+// @screen-md: 768px;
+// @screen-md-min: @screen-md;
+
+// // Large screen / wide desktop
+// @screen-lg: 992px;
+// @screen-lg-min: @screen-lg;
+
+// // Extra large screen / full hd
+// @screen-xl: 1200px;
+// @screen-xl-min: @screen-xl;
+
+// // Extra extra large screen / large desktop
+// @screen-xxl: 1600px;
+// @screen-xxl-min: @screen-xxl;

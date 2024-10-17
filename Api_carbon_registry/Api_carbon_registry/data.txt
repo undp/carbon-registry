@@ -1,6 +1,0 @@
-NomUtilisateur
-PrenomUtilisateur
-PhotoUtilisateur
-RoleUtilisateur
-NumeroTelUtilisateur
-MotdePasseUtilisateurConf
