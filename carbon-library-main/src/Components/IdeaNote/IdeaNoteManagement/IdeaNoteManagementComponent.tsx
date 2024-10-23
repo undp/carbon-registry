@@ -51,7 +51,7 @@ import { CompanyState } from "../../../Definitions";
 import { IdeaNoteStatus } from "../../Common/IdeaNoteStatus/ideanoteStatus";
 import { useConnection } from "../../../Context";
 import * as Icon from "react-bootstrap-icons";
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 const { Search } = Input;
 
 export const IdeaNoteManagementComponent = (props: any) => {
@@ -98,7 +98,6 @@ export const IdeaNoteManagementComponent = (props: any) => {
   });
 
   const getCompanyBgColor = (item: string) => {
-   
     return DevBGColor;
   };
 
@@ -134,10 +133,7 @@ export const IdeaNoteManagementComponent = (props: any) => {
   const getIdeaNoteStateComponent = (item: string) => {
     return (
       <div style={{ display: "flex", alignItems: "left" }}>
-        <IdeaNoteStatus
-          t={t}
-          IdeaNoteStatus={item}
-        ></IdeaNoteStatus>
+        <IdeaNoteStatus t={t} IdeaNoteStatus={item}></IdeaNoteStatus>
       </div>
     );
   };
@@ -147,7 +143,7 @@ export const IdeaNoteManagementComponent = (props: any) => {
   };
 
   const actionMenu = (record: any) => {
-    return(
+    return (
       <List
         className="action-menu"
         size="small"
@@ -169,8 +165,8 @@ export const IdeaNoteManagementComponent = (props: any) => {
           </List.Item>
         )}
       />
-    )
-};
+    );
+  };
 
   const columns = [
     {
@@ -225,7 +221,7 @@ export const IdeaNoteManagementComponent = (props: any) => {
         return item ? item : "-";
       },
     },
-    
+
     {
       title: "DATE DE DEPOT",
       dataIndex: "date_soumission",
@@ -253,14 +249,16 @@ export const IdeaNoteManagementComponent = (props: any) => {
       key: IdeaNoteManagementColumns.action,
       render: (_: any, record: any) => {
         const menu = actionMenu(record);
-        return menu && (
-          <Popover placement="bottomRight" content={menu} trigger="click">
-            <EllipsisOutlined
-              rotate={90}
-              style={{ fontWeight: 600, fontSize: "1rem", cursor: "pointer" }}
-            />
-          </Popover>
-        ) 
+        return (
+          menu && (
+            <Popover placement="bottomRight" content={menu} trigger="click">
+              <EllipsisOutlined
+                rotate={90}
+                style={{ fontWeight: 600, fontSize: "1rem", cursor: "pointer" }}
+              />
+            </Popover>
+          )
+        );
       },
     },
   ].filter((column) => visibleColumns.includes(column.key));
@@ -338,33 +336,33 @@ export const IdeaNoteManagementComponent = (props: any) => {
   const getAllCompany = async () => {
     setLoading(true);
     try {
-      const headers: any = { 
-        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc` 
+      const headers: any = {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc`,
       };
-    
-      const method: string = 'post';
-    
-      const url: string = 'https://api.registrecarbone.skyvisionafrica.com/users/apiv1/liste_all_note_formated';
-    
+
+      const method: string = "post";
+
+      const url: string =
+        "http://localhost:3005/users/apiv1/liste_all_note_formated";
+
       const data: any = {
         page: currentPage,
         limit: pageSize,
       };
-    
+
       axios({
         method,
         url,
         data, // Correction ici
-        headers
-      })
-      .then((response: AxiosResponse) => {
+        headers,
+      }).then((response: AxiosResponse) => {
         if (response && response.data) {
           const availableIdeaNote = response.data;
           setTableData(availableIdeaNote);
           setTotalIdeaNote(response.data.total); // Correction de l'accès aux données
         }
-      })
-     
+      });
+
       setLoading(false);
     } catch (error: any) {
       message.open({
@@ -383,13 +381,14 @@ export const IdeaNoteManagementComponent = (props: any) => {
     try {
       const response: any = await post("national/organisation/download", {
         filterAnd: dataQuery.filterAnd,
-        filterOr: dataQuery.filterOr?.length > 0 ? dataQuery.filterOr : undefined,
+        filterOr:
+          dataQuery.filterOr?.length > 0 ? dataQuery.filterOr : undefined,
         sort: dataQuery.sort,
       });
 
       if (response && response.data) {
         const url = response.data.url;
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
         a.download = response.data.csvFile; // Specify the filename for the downloaded file
         document.body.appendChild(a);
@@ -488,7 +487,6 @@ export const IdeaNoteManagementComponent = (props: any) => {
         <div className="body-title">Voir les notes d'idées</div>
       </div>
       <div className="content-card">
-      
         <Row>
           <Col span={24}>
             <div className="userManagement-table-container">

@@ -3,20 +3,17 @@ const detectintersection = require("./Intersection_old")
   .detecterIntersectionsProjets;
 
 var maps_projet = async (req, res) => {
-  const auth = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/auth/login",
-    {
-      username: "",
-      password: "",
-    }
-  );
+  const auth = await axios.post("http://localhost:3000/national/auth/login", {
+    username: "",
+    password: "",
+  });
 
   var token = auth.data.access_token;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   const list_projet = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/programme/query",
+    "http://localhost:3000/national/programme/query",
     {
       page: 1,
       size: 108,
@@ -46,20 +43,17 @@ var maps_projet = async (req, res) => {
 
 var list_projets = async (req, res) => {
   console.log("J'arrive ici");
-  const auth = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/auth/login",
-    {
-      username: "",
-      password: "",
-    }
-  );
+  const auth = await axios.post("http://localhost:3000/national/auth/login", {
+    username: "",
+    password: "",
+  });
 
   var token = auth.data.access_token;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   const list_projet = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/programme/query",
+    "http://localhost:3000/national/programme/query",
     {
       page: 1,
       size: 800,
@@ -77,20 +71,17 @@ var list_projets = async (req, res) => {
 
 var search_projets = async (req, res) => {
   console.log("J'arrive ici");
-  const auth = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/auth/login",
-    {
-      username: "",
-      password: "",
-    }
-  );
+  const auth = await axios.post("http://localhost:3000/national/auth/login", {
+    username: "",
+    password: "",
+  });
 
   var token = auth.data.access_token;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   const list_projet = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/programme/query",
+    "http://localhost:3000/national/programme/query",
     {
       page: 1,
       size: 800,
@@ -252,20 +243,17 @@ let projetsAvecIntersections = detecterIntersectionsProjets(listeProjets);
 console.log("Projets avec intersections :", projetsAvecIntersections);
 
 var getprojetIntersection = async (req, res) => {
-  const auth = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/auth/login",
-    {
-      username: "",
-      password: "",
-    }
-  );
+  const auth = await axios.post("http://localhost:3000/national/auth/login", {
+    username: "",
+    password: "",
+  });
 
   var token = auth.data.access_token;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   const list_projet = await axios.post(
-    "https://api.national.skyvisionafrica.com/national/programme/query",
+    "http://localhost:3000/national/programme/query",
     {
       page: 1,
       size: 108,

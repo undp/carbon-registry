@@ -1,18 +1,13 @@
-const mailer = require("./mailer").mailer
+const mailer = require("./mailer").mailer;
 
-
-class email
-{
-    constructor(from,to){
-        this.from=from
-        this.to=to
-     
-      
-    }
-    async approbation_letter(from,to,link){
-        
-        let subject="Lettre d'Approbation au registre carbone national"
-        let html=`
+class email {
+  constructor(from, to) {
+    this.from = from;
+    this.to = to;
+  }
+  async approbation_letter(from, to, link) {
+    let subject = "Lettre d'Approbation au registre carbone national";
+    let html = `
         <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +40,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>FELICITATION</h2>
         <p>Votre projet a été approuvé avec succès.</p>
@@ -61,15 +56,14 @@ class email
 </body>
 </html>
 
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async autorisation_letter(from,to,link){
- 
-        let subject="Lettre d'autorisation au registre carbone national"
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async autorisation_letter(from, to, link) {
+    let subject = "Lettre d'autorisation au registre carbone national";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +96,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>FELICITATION</h2>
         <p>Votre lettre d'autorisation a bien été signée.</p>
@@ -117,15 +111,14 @@ class email
     </div>
 </body>
 </html>
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async objection_letter(from,to,link){
-        
-        let subject="Lettre de non objection au registre carbone national"
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async objection_letter(from, to, link) {
+    let subject = "Lettre de non objection au registre carbone national";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -158,7 +151,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>FELICITATION</h2>
         <p>Votre note d'idée a été jugée sans objection.</p>
@@ -182,15 +175,14 @@ class email
 </html>
         
         
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async eligibilite_letter(from,to,link){
-       
-        let subject="Lettre d'éligibilité au registre carbone national"
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async eligibilite_letter(from, to, link) {
+    let subject = "Lettre d'éligibilité au registre carbone national";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -223,7 +215,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>FELICITATION</h2>
         <p>Votre note d'idée a été jugée éligible.</p>
@@ -248,15 +240,15 @@ class email
         
         
         
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async ask_account_activation(from,to,link,pass){
-       
-        let subject="Activation de compte de signature de document électronique du registre carbone national"
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async ask_account_activation(from, to, link, pass) {
+    let subject =
+      "Activation de compte de signature de document électronique du registre carbone national";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -289,7 +281,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>FELICITATION</h2>
         <p>Votre compte de signature électronique a bien été crée.</p>
@@ -310,15 +302,15 @@ class email
         
         
         
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async account_actived(from,to,link){
-       
-        let subject="Votre compte de signature du registre carbone national a bien été activé "
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async account_actived(from, to, link) {
+    let subject =
+      "Votre compte de signature du registre carbone national a bien été activé ";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -351,7 +343,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>FELICITATION</h2>
         <p>Votre compte de signature électronique a bien été activé.</p>
@@ -369,15 +361,15 @@ class email
         
         
         
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async notif_sign(from,to,link){
-       
-        let subject="Nouvelle demande  de signature de document électronique du registre carbone national"
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async notif_sign(from, to, link) {
+    let subject =
+      "Nouvelle demande  de signature de document électronique du registre carbone national";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -410,7 +402,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>Régistre nationnal de la Côte d'IVoire</h2>
         <p>Vous avez une nouvelle demande  de singature de document en attente.</p>
@@ -427,15 +419,15 @@ class email
         
         
         
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async ask_auth(from,to,pass){
-
-        let subject="Code d'authentification de document électronique du registre carbone national"
-        let html=`
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async ask_auth(from, to, pass) {
+    let subject =
+      "Code d'authentification de document électronique du registre carbone national";
+    let html = `
          <!DOCTYPE html>
 <html>
 <head>
@@ -468,7 +460,7 @@ class email
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>CODE D'AUTHENTIIFICATON </h2>
         <p>Votre code de signature électronique a bien été crée.</p>
@@ -486,64 +478,60 @@ class email
         
         
         
-        `
-        let _mailer = new mailer(from,to,subject,"",html)
-        let info =_mailer.active_return()
-       return info
-    }
-    async forget_account(){
+        `;
+    let _mailer = new mailer(from, to, subject, "", html);
+    let info = _mailer.active_return();
+    return info;
+  }
+  async forget_account() {}
+  async new_pass_account() {}
+  async _main(Type, link, infos) {
+    let status = false;
+    let info = "Error Type";
+    switch (Type) {
+      case "approbation_letter":
+        info = await this.approbation_letter(this.from, this.to, link);
+        status = true;
+        break;
+      case "autorisation_letter":
+        info = await this.autorisation_letter(this.from, this.to, link);
+        status = true;
+        break;
+      case "objection_letter":
+        info = await this.objection_letter(this.from, this.to, link);
+        status = true;
+        break;
+      case "eligibilite_letter":
+        info = await this.eligibilite_letter(this.from, this.to, link);
+        status = true;
+        break;
+      case "ask_account":
+        info = await this.ask_account_activation(
+          this.from,
+          this.to,
+          link,
+          infos
+        );
+        status = true;
+        break;
+      case "active_account":
+        info = await this.account_actived(this.from, this.to, link);
+        status = true;
+        break;
+      case "ask_sign":
+        info = await this.notif_sign(this.from, this.to, link);
+        status = true;
 
+        break;
+      case "ask_auth":
+        info = await this.ask_auth(this.from, this.to, infos);
+        status = true;
+
+        break;
     }
-    async new_pass_account(){
-        
-    }
-    async _main(Type,link,infos){
-        let status=false
-        let info="Error Type"
-        switch (Type) {
-            case "approbation_letter":
-                
-                info =await this.approbation_letter(this.from,this.to,link)
-                status=true
-               break;
-            case "autorisation_letter":
-                
-               info =await this.autorisation_letter(this.from,this.to,link)
-               status=true
-               break;
-            case "objection_letter":
-                
-               info =await this.objection_letter(this.from,this.to,link)
-               status=true
-               break;
-            case "eligibilite_letter":
-                
-               info =await this.eligibilite_letter(this.from,this.to,link)
-               status=true
-               break;
-            case "ask_account":
-                info =await this.ask_account_activation(this.from,this.to,link,infos)
-                status=true
-               break;
-            case "active_account":
-                info =await this.account_actived(this.from,this.to,link)
-                status=true
-               break;
-            case "ask_sign":
-                info =await this.notif_sign(this.from,this.to,link)
-                status=true
-            
-               break;
-            case 'ask_auth':
-                    info =await this.ask_auth(this.from,this.to,infos)
-                    status=true
-                
-                break;
-           
-        }
-        return {status:status,message:info}
-    }
+    return { status: status, message: info };
+  }
 }
-module.exports={
-    email:email
-}
+module.exports = {
+  email: email,
+};

@@ -2398,8 +2398,8 @@ export const ProgrammeCreationComponent = (props: any) => {
                                 getValueFromEvent={normFile}
                                 required={false}
                               >
-                                 <a
-                                  href="https://api.registrecarbone.skyvisionafrica.com/assets/polygone.xlsx"
+                                <a
+                                  href="http://localhost:3005/assets/polygone.xlsx"
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   download

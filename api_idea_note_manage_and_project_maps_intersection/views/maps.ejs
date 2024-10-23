@@ -307,7 +307,10 @@
             class="list-group list-group-flush"
             style="background-color: #f4f5fa"
           >
-            <a href="https://ci.registrecarbone.skyvisionafrica.com/dashboard" class="list-group-item list-group-item-action">
+            <a
+              href="https://ci.registrecarbone.skyvisionafrica.com/dashboard"
+              class="list-group-item list-group-item-action"
+            >
               <i class="fas fa-tachometer-alt"></i> Tableau de bord
             </a>
             <a
@@ -336,7 +339,7 @@
             </a>
 
             <a
-              href="https://api.registrecarbone.skyvisionafrica.com/maps"
+              href="http://localhost:3005/maps"
               class="list-group-item list-group-item-action"
             >
               <i class="fas fa-map"></i> Cartographie des Projets
@@ -474,7 +477,7 @@
                       <img
                         alt="company logo"
                         style="width: 50%"
-                        src="https://api.national.skyvisionafrica.com/profile_images/740_1718342592240.png"
+                        src="http://localhost:3000/profile_images/740_1718342592240.png"
                         class="img-fluid"
                       />
                       <div class="programme-name">Green carbon</div>
@@ -802,7 +805,7 @@
                     <div class="cert-info text-center">
                       <img
                         alt="certifier logo"
-                        src="https://api.national.skyvisionafrica.com/profile_images/741_1718343380047.png"
+                        src="http://localhost:3000/profile_images/741_1718343380047.png"
                       />
                       <div class="cert-name">EBUGROUP CERTIFICATOR</div>
                     </div>
@@ -884,17 +887,14 @@
                       </td>
                       <td><%=elt1.projet2.title%>(<%=elt1.projet2.sector%>)</td>
                       <td style="width: 80px">
-                       <% 
-  let poly1 = [];
-  try {
-    let projetData = JSON.parse(elt1.projet2.polygoneProjet);
-    if (Array.isArray(projetData) && projetData.length > 0 && projetData[0].Polygone) {
-      poly1 = projetData[0].Polygone;
-    }
-  } catch (e) {
-    poly1 = []; // Si une erreur survient, on initialise simplement poly1 avec un tableau vide
-  }
-%>                        <a
+                        <% let poly1 = []; try { let projetData =
+                        JSON.parse(elt1.projet2.polygoneProjet); if
+                        (Array.isArray(projetData) && projetData.length > 0 &&
+                        projetData[0].Polygone) { poly1 =
+                        projetData[0].Polygone; } } catch (e) { poly1 = []; //
+                        Si une erreur survient, on initialise simplement poly1
+                        avec un tableau vide } %>
+                        <a
                           onclick="gotoprojectmaps2(<%= JSON.stringify(poly1) %>)"
                           ><center>
                             <i

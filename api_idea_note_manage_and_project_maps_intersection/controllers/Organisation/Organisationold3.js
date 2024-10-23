@@ -320,14 +320,14 @@ function send_email(email, mdps_temp) {
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://registrecarbone.ci.skyvisionafrica.com/ext/logo/logowhite.png" alt="Logo">
+            <img src="http://localhost:3030/ext/logo/logowhite.png" alt="Logo">
         </div>
         <h2>ACCUSÉ DE RÉCEPTION ET ACCÈS TEMPORAIRE DE CONNEXION</h2>
         <p>Nous accusons réception de votre note d'idée.</p>
         <p>Nous espérons que vous avez pris connaissance des critères d'éligibilité avant la soumission.</p>
         <p>Vous avez un délai de <span class="highlight">1 mois</span> pour faire toutes les modifications sur la note d'idée soumise.</p>
         <p>En cas de modification, veuillez vous connecter à la plateforme d'éligibilité au lien suivant : 
-            <a href="https://registrecarbone.ci.skyvisionafrica.com/eligibilite" style="color: #aad8d3;">https://registrecarbone.ci.skyvisionafrica.com/eligibilite</a>
+            <a href="http://localhost:3030/eligibilite" style="color: #aad8d3;">http://localhost:3030/eligibilite</a>
         </p>
         <p>avec votre email administrateur de soumission et votre mot de passe temporaire : <span class="highlight">${mdps_temp}</span></p>
         <p>Bonne réception,<br>Registre Carbone National<br>République de Côte d'Ivoire</p>

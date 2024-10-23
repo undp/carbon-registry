@@ -34,8 +34,8 @@ services:
       DB_PASSWORD: "Fornow@2020"
       RUN_MODULE: national-api
       rootEmail: roger.doffou@skyvisionafrica.com
-      Minister: ''
-      Department : ''
+      Minister: ""
+      Department: ""
       systemCountryCode: "CI"
       systemCountryName: "Côte d'Ivoire"
       systemContinentName: "AFRICA"
@@ -44,7 +44,7 @@ services:
       IS_EMAIL_DISABLED: "false"
       SMTP_ENDPOINT: mail41.lwspanel.com
       SMTP_USERNAME: roger.doffou@skyvisionafrica.com
-      SMTP_PASSWORD: 'Foryou@2020'
+      SMTP_PASSWORD: "Foryou@2020"
       DISABLE_LOW_PRIORITY_EMAIL: "true"
       CADTRUST_ENABLE: "true"
       CADTRUST_ENDPOINT: "https://api.cadt.skyvisionafrica.com/"
@@ -54,9 +54,9 @@ services:
       HOST: "https://ci.registrecarbone.skyvisionafrica.com"
       DOMAIN_MAP: "true"
       EXPIRES_IN: "7200"
-      BACKEND_HOST: "https://api.national.skyvisionafrica.com"
+      BACKEND_HOST: "http://localhost:3000"
       CONTACT_EMAIL: roger.doffou@skyvisionafrica.com
-      MINISTER_NAME_AND_DESIGNATION : "\nHonorable Minister X\nMinister\nMinistry of Environment"
+      MINISTER_NAME_AND_DESIGNATION: "\nHonorable Minister X\nMinister\nMinistry of Environment"
     volumes:
       - filestore:/app/backend/services/public
       - ./users.csv:/app/backend/services/users.csv
@@ -103,10 +103,10 @@ services:
       ITMO_PASSWORD: ""
       CADTRUST_ENABLE: "false"
       CADTRUST_ENDPOINT: "https://api.cadt.skyvisionafrica.com/"
-      MRV_ENDPOINT: 'https://api.national.skyvisionafrica.com'
-      SYNC_ENABLE: "true"  # Corrected to be a string
-      MRV_API_TOKEN: ''
-      BACKEND_HOST: "https://api.national.skyvisionafrica.com"
+      MRV_ENDPOINT: "http://localhost:3000"
+      SYNC_ENABLE: "true" # Corrected to be a string
+      MRV_API_TOKEN: ""
+      BACKEND_HOST: "http://localhost:3000"
     volumes:
       - filestore:/app/backend/services/public
   # async-operations-handler:
@@ -130,8 +130,8 @@ services:
       dockerfile: ./web/Dockerfile
       args:
         PORT: 3030
-        REACT_APP_BACKEND: https://api.national.skyvisionafrica.com
-        REACT_APP_STAT_URL: https://api.statistique.skyvisionafrica.com
+        REACT_APP_BACKEND: http://localhost:3000
+        REACT_APP_STAT_URL: http://localhost:3100
         REACT_APP_COUNTRY_NAME: "Côte d'Ivoire"
         REACT_APP_GOVERNMENT_MINISTRY: "Ministry Of Environment"
         REACT_APP_COUNTRY_FLAG_URL: "https://carbon-common-dev.s3.amazonaws.com/flag.png"

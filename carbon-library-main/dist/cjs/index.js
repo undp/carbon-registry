@@ -1416,7 +1416,7 @@ var IdeaNoteManagementComponent = function (props) {
                     authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc"
                 };
                 method = 'post';
-                url = 'https://api.registrecarbone.skyvisionafrica.com/users/apiv1/liste_all_note_formated';
+                url = 'http://localhost:3005/users/apiv1/liste_all_note_formated';
                 data = {
                     page: currentPage,
                     limit: pageSize,
@@ -6867,7 +6867,7 @@ var IdeaNoteDetailComponent = function (props) {
                     authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc",
                 };
                 method = "post";
-                url = "https://api.registrecarbone.skyvisionafrica.com/users/apiv1/listNote_idee_by_ref_formate";
+                url = "http://localhost:3005/users/apiv1/listNote_idee_by_ref_formate";
                 data = {
                     Ref_note_idee: ref_note_idee,
                 };
@@ -6904,7 +6904,7 @@ var IdeaNoteDetailComponent = function (props) {
     // Generer une lettre de non objection
     /*const generer_une_lettre_non_objection = async (note_idee_Id: string) => {
   
-          setlettre_non_objection('https://api.national.skyvisionafrica.com/documents/METHODOLOGY_DOCUMENT_020_V1.pdf');
+          setlettre_non_objection('http://localhost:3000/documents/METHODOLOGY_DOCUMENT_020_V1.pdf');
   
     }
   
@@ -7165,7 +7165,7 @@ var IdeaNoteDetailComponent = function (props) {
                     headers_1 = {
                         authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc",
                     };
-                    return [4 /*yield*/, axios.post("https://api.registrecarbone.skyvisionafrica.com/users/apiv1/editNote_idee", // Replace with the actual URL
+                    return [4 /*yield*/, axios.post("http://localhost:3005/users/apiv1/editNote_idee", // Replace with the actual URL
                         formData1, { headers: headers_1 })];
                 case 3:
                     response1 = _d.sent();
@@ -7226,7 +7226,7 @@ var IdeaNoteDetailComponent = function (props) {
                     headers = {
                         authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc",
                     };
-                    return [4 /*yield*/, axios.post("https://api.registrecarbone.skyvisionafrica.com/users/apiv1/editNote_idee", // Replace with the actual URL
+                    return [4 /*yield*/, axios.post("http://localhost:3005/users/apiv1/editNote_idee", // Replace with the actual URL
                         formData, { headers: headers })];
                 case 1:
                     response = _d.sent();
@@ -36118,7 +36118,7 @@ var ProgrammeCreationComponent = function (props) {
                                                         ] },
                                                         React.createElement(antd.Select, { mode: "multiple", size: "large", maxTagCount: 2, onChange: onChangeGeoLocation, loading: loadingList, className: "custom-select", allowClear: true }, regionsList.map(function (region) { return (React.createElement(antd.Select.Option, { value: region }, region)); }))),
                                                     React.createElement(antd.Form.Item, { label: "Zones et polygones du projet(T\u00E9lechager le template)", name: "", valuePropName: "fileList", getValueFromEvent: normFile, required: false },
-                                                        React.createElement("a", { href: "https://api.registrecarbone.skyvisionafrica.com/assets/polygone.xlsx", target: "_blank", rel: "noopener noreferrer", download: true }, "Fichier template"),
+                                                        React.createElement("a", { href: "http://localhost:3005/assets/polygone.xlsx", target: "_blank", rel: "noopener noreferrer", download: true }, "Fichier template"),
                                                         React.createElement(antd.Upload, { accept: ".xlsx", beforeUpload: handleFileUpload, className: "polygone-upload-section", name: "polygone", action: "/upload.do", multiple: false, maxCount: 1 },
                                                             React.createElement(antd.Button, { className: "upload-doc", size: "large", icon: React.createElement(icons.UploadOutlined, null) }, "Upload")),
                                                         React.createElement("pre", { style: {

@@ -76,7 +76,7 @@ export const IdeaNoteDetailComponent = (props: any) => {
       const method: string = "post";
 
       const url: string =
-        "https://api.registrecarbone.skyvisionafrica.com/users/apiv1/listNote_idee_by_ref_formate";
+        "http://localhost:3005/users/apiv1/listNote_idee_by_ref_formate";
 
       const data: any = {
         Ref_note_idee: ref_note_idee,
@@ -144,7 +144,7 @@ export const IdeaNoteDetailComponent = (props: any) => {
   // Generer une lettre d'eligibilité
   const generer_une_lettre_eligibilite = async (note_idee_Id: string) => {
     setlettre_eligibilite(
-      "https://api.national.skyvisionafrica.com/documents/METHODOLOGY_DOCUMENT_020_V1.pdf"
+      "http://localhost:3000/documents/METHODOLOGY_DOCUMENT_020_V1.pdf"
     );
   };
 
@@ -152,7 +152,7 @@ export const IdeaNoteDetailComponent = (props: any) => {
 
   /*const generer_une_lettre_non_objection = async (note_idee_Id: string) => {
 
-        setlettre_non_objection('https://api.national.skyvisionafrica.com/documents/METHODOLOGY_DOCUMENT_020_V1.pdf');
+        setlettre_non_objection('http://localhost:3000/documents/METHODOLOGY_DOCUMENT_020_V1.pdf');
 
   }
 
@@ -419,7 +419,7 @@ export const IdeaNoteDetailComponent = (props: any) => {
             authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc`,
           };
           const response1 = await axios.post(
-            "https://api.registrecarbone.skyvisionafrica.com/users/apiv1/editNote_idee", // Replace with the actual URL
+            "http://localhost:3005/users/apiv1/editNote_idee", // Replace with the actual URL
             formData1,
             { headers }
           );
@@ -478,7 +478,7 @@ export const IdeaNoteDetailComponent = (props: any) => {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnRpdHVsZSI6InN5c3RlbV9jYXJib25fcmVnaXN0cnkiLCJpYXQiOjE3MTYzMzkzODcsImV4cCI6NDg2OTkzOTM4N30.778fs30YX0hossKnCacm7bPYiJsYtWja7wL_NX_ttrc`,
       };
       const response = await axios.post(
-        "https://api.registrecarbone.skyvisionafrica.com/users/apiv1/editNote_idee", // Replace with the actual URL
+        "http://localhost:3005/users/apiv1/editNote_idee", // Replace with the actual URL
         formData,
         { headers }
       );

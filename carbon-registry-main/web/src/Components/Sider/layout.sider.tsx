@@ -59,12 +59,12 @@ const LayoutSider = (props: LayoutSiderProps) => {
        getItem(t('nav:programmes'), 'programmeManagement/viewAll', <AppstoreOutlined />),
        getItem(t('nav:ndcActions'), 'ndcManagement/viewAll', <Icon.Clipboard2Data />),
        getItem(t('nav:investments'), 'investmentManagement/viewAll', <Icon.Cash />),
-       getItem('Cartographie projets', 'https://api.registrecarbone.skyvisionafrica.com/maps', <EnvironmentOutlined />),
+       getItem('Cartographie projets', 'http://localhost:3005/maps', <EnvironmentOutlined />),
        getItem(t('nav:transfers'), 'creditTransfers/viewAll', <Icon.ArrowLeftRight />),
-       getItem('Signature Documents', 'https://registrecarbone.ci.skyvisionafrica.com/myregister', <EditOutlined/>),
+       getItem('Signature Documents', 'http://localhost:3030/myregister', <EditOutlined/>),
        getItem(t('nav:companies'), 'companyManagement/viewAll', <ShopOutlined />),
        getItem(t('nav:users'), 'userManagement/viewAll', <UserOutlined />),
-       getItem('Gestionnaire  Documents', 'https://registrecarbone.ci.skyvisionafrica.com/myregister', <FolderOpenOutlined />),
+       getItem('Gestionnaire  Documents', 'http://localhost:3030/myregister', <FolderOpenOutlined />),
        getItem("Support d'utilisation", 'userSupport/viewAll', <CustomerServiceOutlined/>),
     ]
     : [

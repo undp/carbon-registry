@@ -1,6 +1,6 @@
 const Note_idee = require("../../models/CARBON_REGISTRY").Note_idee;
-var apilink = "https://api.registrecarbone.skyvisionafrica.com";
-var apilink_local = "https://api.registrecarbone.skyvisionafrica.com";
+var apilink = "http://localhost:3005";
+var apilink_local = "http://localhost:3005";
 const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 var _creatNote_idee = (req, res) => {
@@ -277,20 +277,6 @@ var _listNote_idee_by_ref_formate = (req, res) => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Liste des notes idée par page avec filtre par date
 
 const _listNoteIdee_by_date_filter = async (req, res) => {
@@ -462,7 +448,6 @@ var _editNote_idee = (req, res) => {
       Note_idee.Statut = req.body.Statut;
     }
 
-   
     if (req.files["Note_idee"] != undefined && req.files != undefined) {
       for (let index = 0; index < req.files["Note_idee"].length; index++) {
         Note_idee.Note_idee = { Note_idee: req.files["Note_idee"][index] };
