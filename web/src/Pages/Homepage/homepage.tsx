@@ -331,7 +331,7 @@ const Homepage = () => {
                   European Bank for Reconstruction and Development (EBRD)
                 </a>
                 ,{' '}
-                <a href="https://www.ebrd.com/" target="_blank">
+                <a href="https://www.undp.org/" target="_blank">
                   United Nations Development Program (UNDP)
                 </a>
                 ,{' '}
@@ -519,7 +519,7 @@ const Homepage = () => {
                             can make key decisions and maintain pace.{' '}
                           </li>
                           <li>
-                            <strong>Maintenance budget and resources:</strong> The digital tool will
+                            <strong>Maintenance Budget and Resources:</strong> The digital tool will
                             need maintenance and improvement over time, and we recommend setting
                             aside a sufficient budget and IT resources to maintain and improve the
                             registry after installation.
