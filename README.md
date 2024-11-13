@@ -10,28 +10,23 @@
 # National Carbon Credit Registry
 
 # About
-The Carbon Registry is an open-source, modular toolbox designed to help countries securely issue, monitor, and trade carbon credits. Built on a secure ledger, the registry ensures data integrity and allows for customization to meet each country’s specific needs. It facilitates the tracking of mitigation projects, including the issuance, transfer, acquisition, and retirement of emission reduction credits. This data is publicly accessible to boost transparency and trust in the global emissions reduction effort. The National Carbon Registry serves as a digital implementation of the Paris Agreement, enabling carbon credit transactions from various mitigation activities.
-Any country can customize and deploy its local version of the registry, connecting it to other national and international registries, MRV systems, and more. By leveraging open-source code, countries can lower costs, avoid duplication, and ensure interoperability with existing systems—all while streamlining the development of their domestic carbon markets.
+The National Carbon Credit Registry is an open-source toolkit developed by UNDP to help countries develop a national registry to fulfil the requirements of Article 6 (Paris Agreement). 
 
-The system has 3 key features:
-* **Analytics Dashboard:** Enabling governments, companies, and certification bodies to operate transparently and function on an immutable ledger.
-* **Carbon Credit Calculator:** Standardized system according to the UNFCCC - CDM (Clean Development Mechanism) methodologies, across defined sectors (optional for countries to switch on)
-* **Serial Number Generator:** Standardizing the technical format to allow for easy cross-border collaboration between carbon trading systems.
+It allows countries to track, record, issue, monitor, and trade credits from various mitigation activities, all while ensuring data integrity through a secure ledger. The system tracks the entire process of carbon credits, from issuance to retirement, and makes the data publicly available to enhance transparency. 
 
-# Value
-This open-source tool was developed in response to the challenges countries face when cooperating through bilateral or multilateral agreements to transfer carbon credits or Internationally Transferred Mitigation Outcomes (ITMOs) under Article 6 of the Paris Agreement. Many countries experience challenges with managing data for GHG inventories, NDC reporting, and climate finance opportunities. Additionally, ensuring quality in technology projects is difficult without specialized expertise in software, privacy, and security. Many countries, especially Least Developed Countries (LDCs) and Small Island Developing States (SIDS), need digital systems but risk duplicating efforts and increasing costs without coordination. Software developed without standard international schemas often requires costly rewrites to ensure interoperability.
+The UNDP hosts and maintains a free standard code base on this Github, with basic feature functionality. Countries can customize and deploy their version of the registry, so that it meets national requirements, linking it to other national and international systems. Using open-source code helps reduce costs, avoid duplication, and ensure compatibility with existing systems, simplifying the creation of domestic carbon markets.  
 
-This open-source solution is a certified Digital Public Good that:
-* Lowers costs and risks while shortening the timeline for adoption and implementation.
-* Simplifies local processes and accelerates carbon market development, making it easy to meet international standards.
-* Offers shared best practices in security, data management, integration, and support, while still allowing country-specific customizations.
-* Connects countries to a global community of practice focused on digitalizing climate transparency.
+More information about the project’s background, vision, policy context, support provided can be found in the demo site https://www.demo.carbreg.org/. Please contact the UNDP DPG team digital4planet@undp.org to request a walkthrough demonstration and to discuss further support and collaboration. 
+
+**:red_circle: ANNOUNCEMENT**: Following recent announcements and outcomes of COP29, the open-source carbon registry will undergo updates to align with the latest requirements and guidelines under Article 6 of the Paris Agreement. These updates aim to enhance transparency, interoperability, and environmental integrity in international carbon transactions, as well as to support Parties in meeting their Nationally Determined Contributions (NDCs) more effectively.
+
+
 
 ## Index
 * [About](#about)
-* [Standards](#standards)
+* [Standards and License](#standards)
 * [Changelog](#changelog)
-* [User flow](#userflow)
+* [Features and User flow](#userflow)
 * [Demo](#demo)
 * [Architecture](#architecture)
 * [Project Structure](#structure)
@@ -46,22 +41,44 @@ This open-source solution is a certified Digital Public Good that:
 * [Governance & Support](#support)
 
 <a name="standards"></a>
-## Standards
-This codebase aims to fullfill the digital public goods standard:
-https://digitalpublicgoods.net/standard/
-It is built according to the Principles for Digital Development:
-https://digitalprinciples.org/ 
+## Standards and License
+This codebase follows the digital public goods standard: https://digitalpublicgoods.net/standard/ It is built according to the Principles for Digital Development: https://digitalprinciples.org/ 
+
+The tool is developed and maintained by UNDP and is licensed under the GNU Affero General Public License (AGPL-3.0), which permits free use, modification, and sharing of the software.  
+
+We kindly ask users to inform us of your usage by contacting digital4planet@undp.org, as this helps us track the tool’s impact and guide future improvements.  
+
+Under AGPL-3.0, any modifications to the code must be made publicly available by creating a new branch on GitHub. The software cannot be relicensed under more restrictive terms without adhering to the AGPL-3.0 guidelines. 
 
 <a name="changelog"></a>
 ## Changelog
 [Learn about the latest improvements.](./CHANGES.md)
 
 <a name="userflow"></a>
-## User Flow 
-Carbon registries across different countries typically follow a common set of steps to ensure transparency and accountability in carbon markets. First, projects aiming to reduce or remove carbon emissions are registered, their baseline emissions and expected credits calculated, with ownership is determined. These projects are then validated by third-party entities, and once verified, carbon credits are issued based on the quantified emissions reductions. Finally, these credits can be traded, tracked, and retired, with registries ensuring proper ownership transfer and preventing double counting.
+## Features and User Flow 
+Every country has distinct carbon market policies, processes, and governance structures and will need to customize the Carbon Registry to accommodate local needs.  
 
-However, every country has different Carbon Market policies, processes and governing bodies. Countries will also have different existing data and systems that the Registry might connect to. Therefore, the exact user group user groups, approval processes and user flows will be different for each country and needs to be customised to each country. The demo version provides an example user flow that can act as a starting point for customisation: 
+The open-source code (demo version) includes the following common set of steps (features) that will be needed in most countries.
+
+- **User registration**: Users (within government, certifiers, project developers, ministries) can register and be approved for the tool.
+
+- **Project registration**: Projects aimed at reducing or removing carbon emissions are registered. Baseline emissions and expected credits are calculated, and ownership is determined.
+
+- **Validation by Third Parties**: Independent entities validate and approve the projects, authorizing them for publication in the registry.
+
+- **Monitoring & Reporting**: Once projects are implemented, emissions reductions are monitored and reported. Verified carbon credits are issued based on these results.
+
+- **Trading & Tracking**: Issued credits can be traded, tracked, and retired within the registry, ensuring proper ownership transfer and preventing double counting.
+
+The demo version provides an example user flow that can act as a starting point for customization: 
 ![Example Carbon Registry Workflows](https://raw.githubusercontent.com/undp/carbon-registry/bfec4de960ba9faf1df08689049f148fc05ae9bc/documention/Example%20Carbon%20Registry%20Workflows.png)
+
+Key features of the software include:  
+- **Issuing Carbon Credits:** Each verified project credit is assigned a unique serial number, based on UNFCCC-CDM methodology. All transfers and retirements are immutably recorded, enhancing the efficiency and reliability of carbon credit transactions. This ensures transparency and accountability in the carbon market. 
+
+- **Dashboard and Insights:** Users can access an interactive dashboard with dynamic data visualizations, including graphs, maps, and regional statistics. This provides a clear overview of progress and trends, along with a visual timeline of activities for each project, showing a detailed history of actions and users involved. 
+
+- **Interoperable and Exportable data:** The Carbon Registry's data model is aligned with the CAD Trust Data Model, ensuring interoperability. It can also integrate with the ITMO Voluntary Bilateral Cooperation Platform, managed by UNDP. An open RESTful API allows for the development of innovative transparency tools and seamless integration with other external systems. 
 
 <a name="demo"></a>
 ## Demo Site 
